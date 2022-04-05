@@ -8,7 +8,7 @@
       </a>
       <div class="mt-8 bg-white overflow-hidden shadow sm:rounded-lg p-6">
         <h2 class="text-7xl leading-7 font-semibold m-4">
-         โอ็ตเป็นคนทำ
+         บอมเป็นคนทำ
         </h2>
       </div>
     </div>
