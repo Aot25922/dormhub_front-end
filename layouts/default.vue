@@ -1,15 +1,16 @@
 <template>
-  <div class="bg-dark-blue h-screen">
+  <div class="bg-dark-gray h-screen">
     <NavBar/>
+	<SearchBar class="my-3"/>
     <nuxt/>
   </div>
 </template>
 
 <script>
 import NavBar from '@/components/NavBar'
+import SearchBar from '@/components/SearchBar'
 
 export default {
-  component: NavBar
+  component: NavBar, SearchBar
 }
 </script>
-

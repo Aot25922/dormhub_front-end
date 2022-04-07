@@ -6,10 +6,7 @@
     "dev": "nuxt",
     "build": "nuxt generate",
     "start": "nuxt start",
-    "generate": "nuxt generate",
-    "lint:js": "eslint --ext \".js,.vue\" --ignore-path .gitignore .",
-    "lint": "npm run lint:js",
-    "lintfix": "npm run lint:js -- --fix"
+    "generate": "nuxt generate"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.13.6",
@@ -22,13 +19,7 @@
     "webpack": "^4.46.0"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.16.3",
-    "@nuxtjs/eslint-config": "^8.0.0",
-    "@nuxtjs/eslint-module": "^3.0.2",
     "@nuxtjs/tailwindcss": "^4.2.1",
-    "eslint": "^8.4.1",
-    "eslint-plugin-nuxt": "^3.1.0",
-    "eslint-plugin-vue": "^8.2.0",
     "postcss": "^8.4.4",
     "tailwindcss": "^3.0.23"
   }
