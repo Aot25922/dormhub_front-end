@@ -1,5 +1,12 @@
 <template>
 	<div>
-		This is index
+		<CityList/>
 	</div>
 </template>
+
+<script>
+
+export default {
+	components: CityList
+}
+</script>

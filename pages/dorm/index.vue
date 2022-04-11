@@ -1,5 +1,5 @@
 <template>
 	<div>
-		This is index
+		This is index-dormId
 	</div>
 </template>

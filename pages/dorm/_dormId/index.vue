@@ -1,5 +1,6 @@
 <template>
 	<div>
-		This is index
+		<!-- information of dorm -->
+		This is index-dormId
 	</div>
 </template>

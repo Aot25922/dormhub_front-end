@@ -1,5 +1,5 @@
 <template>
 	<div>
-		This is index
+		<!-- ใส่จังหวัดทั้งหมด -->
 	</div>
 </template>
