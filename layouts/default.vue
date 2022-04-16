@@ -7,10 +7,7 @@
 </template>
 
 <script>
-import NavBar from '@/components/NavBar'
-import SearchBar from '@/components/SearchBar'
 
 export default {
-  component: NavBar, SearchBar
 }
 </script>
