@@ -1,5 +1,5 @@
 <template>
 	<div>
-		This is index-dormId
+		This is index-roomType
 	</div>
 </template>
