@@ -1,23 +1,25 @@
 <template>
-  <div class="card card-side bg-base-100 shadow-xl">
+  <div class="card card-side bg-dark-blue text-white p-3">
     <figure >
       <img
         src="https://api.lorem.space/image/album?w=400&h=400"
-        class=""
+        class="h-24 w-24 rounded-md"
         alt="Album"
       />
     </figure>
-    <div class="card-body">
+    <div class="px-2">
       <h2 class="card-title text-base">{{ Dorm.name }}</h2>
-      <div class="flex text-sm">
+	  <p class="text-sm py-1">Price: ไตข้างซ้าย <span class="text-gray-soil">/ เดือน</span></p>
+      <!-- <div class="flex text-sm">
         <h1>เวลาเปิด/ปิด :&nbsp;</h1>
         <h1 v-if="Dorm.openTime != null">{{ Dorm.openTime }} /</h1>
         <h1 v-else>- /</h1>
         <h1 v-if="Dorm.closeTime != null">{{ Dorm.closeTime }}</h1>
         <h1 v-else>-</h1>
-      </div>
-      <div class="flex space-x-0">
-        <p class=" text-sm">
+      </div> -->
+	  <!-- Address -->
+      <div class="flex space-x-0 text-gray-soil">
+        <p class="text-2xs">
           {{ Dorm.address.number }}
           {{ Dorm.address.street }}
           {{ Dorm.address.alley }}
@@ -28,8 +30,13 @@
           {{ Dorm.address.subDistrict.district.province.region.name }}
         </p>
       </div>
-      <div class="card-actions absolute top-5 right-8">
-        <p class=" bg-dark-blue text-white px-1">{{Dorm.rating}}</p>
+      <div class="card-actions absolute top-4 right-2 text-2xs">
+        <div class="bg-dark-gray rounded text-white p-1">
+			{{Dorm.rating}}
+			<div class="rating rating-xs">
+				<input type="radio" name="rating-2" class="mask mask-star-2 bg-cheese">
+			</div>
+		</div>
       </div>
     </div>
   </div>

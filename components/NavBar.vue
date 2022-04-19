@@ -7,7 +7,7 @@
 					<div tabindex="0" class="btn btn-ghost btn-xs">
 						Username
 					</div>
-				<ul tabindex="0" class="p-2 shadow menu dropdown-content rounded-box w-52 text-gray-soil bg-dark-gray">
+				<ul tabindex="0" class="p-2 shadow menu dropdown-content rounded-box w-52 text-gray-soil bg-dark-blue">
 					<li>
 						<nuxt-link to="">Login</nuxt-link>
 					</li>
