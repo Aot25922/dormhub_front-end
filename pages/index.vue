@@ -38,16 +38,11 @@ export default {
     var dormList = await $axios.$get(`${store.state.DBUrl}/Dorm`);
     return { dormList };
   },
-
-  //   async getProvince({ $axios, store }) {
-  // 	  var provinceList = await $axios.$get(`${store.state.DBUrl}/Province`);
-  // 	  return { provinceList };
-  //   },
   data() {
     return {
       seeAll: false,
     };
-  },
+  }
 };
 </script>
 
