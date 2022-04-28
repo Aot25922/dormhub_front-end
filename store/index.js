@@ -1,9 +1,7 @@
 export const state = () => ({
-    DBUrl:'http://localhost:8080',
-    // DBUrl:'',
-    dorm:null
+    Backend_URL: process.env.Backend_URL || 'http://localhost:3001'
   });
-  
+
   export const mutations = {
     DORM_SELECTED(state,dorm) {
       state.dorm = dorm;
