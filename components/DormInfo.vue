@@ -1,5 +1,6 @@
 <template>
   <div class="card card-side bg-dark-blue text-white p-3">
+	  <nuxt-link :to="{ name: 'Dorm', params: { id: Dorm.id } }" />
     <figure >
       <img
         src="https://api.lorem.space/image/album?w=400&h=400"
@@ -27,7 +28,7 @@
           {{ Dorm.address.subDistrict.zipCodeId }}
           {{ Dorm.address.subDistrict.district.name }}
           {{ Dorm.address.subDistrict.district.province.name }}
-          {{ Dorm.address.subDistrict.district.province.region.name }}
+          <!-- {{ Dorm.address.subDistrict.district.province.region.name }} -->
         </p>
       </div>
       <div class="card-actions absolute top-4 right-2 text-2xs">

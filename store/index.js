@@ -1,5 +1,5 @@
 export const state = () => ({
-    DBUrl:'http://localhost:3002',
+    DBUrl:'http://localhost:8080',
     // DBUrl:'',
   });
   
