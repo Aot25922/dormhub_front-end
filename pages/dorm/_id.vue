@@ -1,7 +1,7 @@
 <template>
   <div class="text-white">
     <div v-if="dorm != null">
-      <img src="https://via.placeholder.com/150" />
+      <img :src="this.$store.state.Backend_URL+'/dorm/image/'+dorm.dormId" />
       <h1>{{ dorm.name }}</h1>
       <div>
         <p>
@@ -12,7 +12,6 @@
           {{ dorm.address.subDistrict.district.province.name }}
           {{ dorm.address.subDistrict.district.province.region.name }}
         </p>
-        <p></p>
         <p>ช่องทางการติดต่อ: Email {{ owner.email }}, Tel. {{ owner.phone }}</p>
         <p>ราคา : {{ lowPrice }} - {{ highPrice }}</p>
         <p>Rating : {{ dorm.rating }}</p>

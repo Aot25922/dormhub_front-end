@@ -1,5 +1,6 @@
 export const state = () => ({
-    Backend_URL: process.env.Backend_URL || 'http://localhost:3001'
+    Backend_URL: process.env.Backend_URL || 'http://localhost:3001',
+    dorm :null
   });
 
   export const mutations = {
@@ -13,7 +14,7 @@ export const state = () => ({
       let dorm;
         if(dormInfo.dorm == null && dormInfo.id != ''){
           try{
-          dorm = await this.$axios.$get(`${state.DBUrl}/dorm/${dormInfo.id}`)
+          dorm = await this.$axios.$get(`${state.Backend_URL}/dorm/${dormInfo.id}`)
          }catch (err) {
             console.log(err)
           }
