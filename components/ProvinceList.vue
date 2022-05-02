@@ -1,5 +1,5 @@
 <template>
-  <div class="py-5 relative carousel carousel-center">  
+  <div class="py-5 relative carousel carousel-center cursor-pointer">  
 	  <img
       src="https://api.lorem.space/image/album?w=400&h=400"
       class="h-36 w-28 rounded-xl mx-2 filter brightness-50 carousel-item"

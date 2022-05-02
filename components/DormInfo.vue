@@ -1,9 +1,8 @@
 <template>
-  <div class="card card-side bg-dark-blue text-white p-3">
-	  <nuxt-link :to="{ name: 'Dorm', params: { id: Dorm.id } }" />
+  <div class="card card-side bg-dark-blue text-white p-3 cursor-pointer" @click="dormInfo()">
     <figure >
       <img
-        src="https://api.lorem.space/image/album?w=400&h=400"
+        src="https://via.placeholder.com/150"
         class="h-24 w-24 rounded-md"
         alt="Album"
       />
@@ -11,13 +10,13 @@
     <div class="px-2">
       <h2 class="card-title text-base">{{ Dorm.name }}</h2>
 	  <p class="text-sm py-1">Price: ไตข้างซ้าย <span class="text-gray-soil">/ เดือน</span></p>
-      <!-- <div class="flex text-sm">
+      <div class="flex text-sm">
         <h1>เวลาเปิด/ปิด :&nbsp;</h1>
         <h1 v-if="Dorm.openTime != null">{{ Dorm.openTime }} /</h1>
         <h1 v-else>- /</h1>
         <h1 v-if="Dorm.closeTime != null">{{ Dorm.closeTime }}</h1>
         <h1 v-else>-</h1>
-      </div> -->
+      </div>
 	  <!-- Address -->
       <div class="flex space-x-0 text-gray-soil">
         <p class="text-2xs">
@@ -46,5 +45,17 @@
 export default {
   name: "DormInfo",
   props: ["Dorm"],
+  data() {
+    return {
+      dorm : this.$props.Dorm
+    }
+  },
+  methods : {
+     dormInfo(){
+       let dormInfo = {dorm:this.dorm}
+       this.$store.dispatch('dormSelected',dormInfo)
+       this.$router.push({path:`/dorm/${this.dorm.dormId}`})
+    }
+  }
 };
 </script>

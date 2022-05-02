@@ -18,8 +18,8 @@
 			</div>
 		</div>
 	</div>
-    <div class="font-bold text-white ml-auto">
-      Dorm<span class="m-1 py-2 px-3 bg-cheese text-black w-1/2 rounded-lg text-xl">hub</span>
+    <div class="font-bold text-white ml-auto cursor-pointer">
+	<NuxtLink to="/">Dorm<span class="m-1 py-2 px-3 bg-cheese text-black w-1/2 rounded-lg text-xl">hub</span></NuxtLink>
     </div>
   </div>
 </template>
