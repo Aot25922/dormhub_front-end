@@ -6,7 +6,7 @@
       alt="Album"
     />
     <div class="absolute bottom-6 pl-3 text-white text-2xs">
-      {{ Province.address.subDistrict.district.province.name }}
+      {{ Province }}
       <p class="text-light-blue">Thailand</p>
     </div>
   </div>
@@ -16,5 +16,15 @@
 export default {
   name: "ProvinceList",
   props: ["Province"],
+  data() {
+	  return {
+	  	provinceList: []
+	  }
+  },
+  mount() {
+	  if(!(provinceList.includes(province))) {
+		  provinceList.push(province)
+	  }
+  }
 };
 </script>

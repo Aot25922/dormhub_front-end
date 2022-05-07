@@ -14,6 +14,9 @@
 					<li>
 						<nuxt-link to="">Register</nuxt-link>
 					</li>
+					<li>
+						<nuxt-link to="/dormForm">Add Dorm</nuxt-link>
+					</li>
 				</ul>
 			</div>
 		</div>

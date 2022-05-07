@@ -1,29 +1,42 @@
 <template>
-  <div class="text-white">
+  <div class="text-white my-5">
     <div v-if="dorm != null">
-      <img :src="this.$store.state.Backend_URL+'/dorm/image/'+dorm.dormId" />
-      <h1>{{ dorm.name }}</h1>
-      <div>
-        <p>
-          ที่อยู่: {{ dorm.address.number }} {{ dorm.address.street }}
-          {{ dorm.address.alley }} {{ dorm.address.subDistrict.name }}
-          {{ dorm.address.subDistrict.zipCodeId }}
-          {{ dorm.address.subDistrict.district.name }}
-          {{ dorm.address.subDistrict.district.province.name }}
-          {{ dorm.address.subDistrict.district.province.region.name }}
-        </p>
-        <p>ช่องทางการติดต่อ: Email {{ owner.email }}, Tel. {{ owner.phone }}</p>
-        <p>ราคา : {{ lowPrice }} - {{ highPrice }}</p>
-        <p>Rating : {{ dorm.rating }}</p>
+      <img class="h-52 w-full object-cover" :src="this.$store.state.Backend_URL+'/dorm/image/'+dorm.dormId" />
+      <div class="card-actions absolute top-80 right-2 text-2xs">
+        <div class="bg-dark-gray rounded text-white p-1">
+			{{ dorm.rating }}
+			<div class="rating rating-xs">
+				<input type="radio" name="rating-2" class="mask mask-star-2 bg-cheese">
+			</div>
+		</div>
       </div>
-      <div class="dropdown">
-        <label tabindex="0" class="btn m-1">Roomtype<span class="material-icons">expand_more</span></label>
+	  <div class="py-2 px-5">
+		<h1 class="py-1">{{ dorm.name }}</h1>
+        <div class="rounded-md text-sm">
+			<p>
+			ที่อยู่: <span class="text-light-blue">{{ dorm.address.number }} {{ dorm.address.street }}
+			{{ dorm.address.alley }} {{ dorm.address.subDistrict.name }}
+			{{ dorm.address.subDistrict.zipCodeId }}
+			{{ dorm.address.subDistrict.district.name }}
+			{{ dorm.address.subDistrict.district.province.name }}
+			{{ dorm.address.subDistrict.district.province.region.name }}
+			</span></p>
+			<p class="pt-2">ราคา : <span class="text-light-blue">{{ lowPrice }} - {{ highPrice }}</span></p>
+			<p class="pt-2">ช่องทางการติดต่อ:</p>
+			<ul class="list-none">
+				<li class="pl-3">อีเมล: <span class="text-light-blue">{{ owner.email }}</span></li>
+				<li class="pl-3">เบอร์โทรศัพท์:  <span class="text-light-blue">{{ owner.phone }}</span></li>
+			</ul>
+		</div>
+      </div>
+      <div class="dropdown px-4">
+        <label tabindex="0" class="btn btn-sm m-1">Roomtype<span class="material-icons">expand_more</span></label>
         <ul
           tabindex="0"
-          class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
+          class="dropdown-content menu p-2 shadow rounded-box w-52 bg-dark-blue border-dark-gray border-2"
         >
           <li v-for="type in dorm.roomTypes" :key="type.dormId">
-            <p class=" text-black" @click="selectRoomtype(type)">{{type.type}}</p>
+            <p class="text-gray-soil" @click="selectRoomtype(type)">{{type.type}}</p>
           </li>
         </ul>
       </div>
@@ -32,15 +45,16 @@
       </div>
     </div>
     <div v-else>
-      <p>Error</p>
+      <errorPage />
     </div>
   </div>
 </template>
 
 <script>
 import roomType from '~/components/roomType.vue';
+import errorPage from '@/layouts/error.vue';
 export default {
-  components: { roomType },
+  components: { roomType, errorPage },
   async fetch() {
     if (this.$store.state.dorm != null) {
       this.dorm = this.$store.state.dorm;
