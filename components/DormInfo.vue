@@ -13,7 +13,7 @@
       <div class="flex text-sm">
         <h1>เวลาเปิด/ปิด :&nbsp;</h1>
         <h1 v-if="Dorm.openTime != null">{{ Dorm.openTime }} /</h1>
-        <h1 v-else>- /</h1>
+        <h1 v-else>- / </h1>
         <h1 v-if="Dorm.closeTime != null">{{ Dorm.closeTime }}</h1>
         <h1 v-else>-</h1>
       </div>

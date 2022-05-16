@@ -4,7 +4,7 @@
 		<div>
 			<p class="text-xs text-gray-soil px-2">Welcome back</p>
 				<div class="dropdown">
-					<div tabindex="0" class="btn btn-ghost btn-xs">
+					<div tabindex="0" class="btn btn-secondary btn-sm">
 						Username<span class="material-icons">arrow_drop_down</span>
 					</div>
 				<ul tabindex="0" class="p-2 shadow menu dropdown-content rounded-box w-52 text-gray-soil bg-dark-blue border-dark-gray border-2">

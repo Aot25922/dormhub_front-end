@@ -1,5 +1,5 @@
 <template>
-  <div class="p-5">
+  <div class="p-3">
     <div class="text-white flex flex-wrap">
       <h1 class="w-1/2">จังหวัดแนะนำ</h1>
       <span class="w-1/2 text-xs text-right text-light-blue">ดูเพิ่มเติม ></span>
@@ -8,7 +8,7 @@
 		<ProvinceList v-for="province in provinceList" :Province="province" :key="province" />
     </div>
 	<!-- DormList -->
-    <div class="text-white flex flex-wrap my-5">
+    <div class="text-white flex flex-wrap py-3">
       <h1 class="w-1/2">หอพัก</h1>
       <div class="w-1/2 text-xs text-right text-light-blue">
         <button @click="seeAll = !seeAll">
