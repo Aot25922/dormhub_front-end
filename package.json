@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "nuxt",
-    "build": "nuxt generate --fail-on-error",
+    "build": "nuxt generate",
     "start": "nuxt start",
-    "generate": "nuxt generate --fail-on-error"
+    "generate": "nuxt generate"
   },
   "engines": {
     "node": "16.x"
