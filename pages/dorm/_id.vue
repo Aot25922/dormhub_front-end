@@ -1,7 +1,15 @@
 <template>
   <div class="text-white my-5">
     <div v-if="dorm != null">
-      <img class="h-52 w-full object-cover" :src="this.$store.state.Backend_URL+'/dorm/image/'+dorm.dormId" />
+      <client-only>
+      <agile>
+        <div class="slide text-white block" v-for="i in dorm.media.filter(x => x.roomTypeId == null)" :key="i.mediaId">
+          <img :src="$store.state.Backend_URL+'/dorm/image/'+dorm.dormId+'/'+i.mediaId"/>
+        </div>
+        <template slot="prevButton"><span class="material-icons">chevron_left</span></template>
+        <template slot="nextButton"><span class="material-icons">chevron_right</span></template>
+      </agile>
+      </client-only>
       <div class="card-actions absolute top-80 right-2 text-2xs">
         <div class="bg-dark-gray rounded text-white p-1">
 			{{ dorm.rating }}
@@ -23,10 +31,10 @@
 			</span></p>
 			<p class="pt-2">ราคา : <span class="text-light-blue">{{ lowPrice }} - {{ highPrice }}</span></p>
 			<p class="pt-2">ช่องทางการติดต่อ:</p>
-			<ul class="list-none">
+			<!-- <ul class="list-none">
 				<li class="pl-3">อีเมล: <span class="text-light-blue">{{ owner.email }}</span></li>
 				<li class="pl-3">เบอร์โทรศัพท์:  <span class="text-light-blue">{{ owner.phone }}</span></li>
-			</ul>
+			</ul> -->
 		</div>
       </div>
       <div class="dropdown px-4">
@@ -35,13 +43,13 @@
           tabindex="0"
           class="dropdown-content menu p-2 shadow rounded-box w-52 bg-dark-blue border-dark-gray border-2"
         >
-          <li v-for="type in dorm.roomTypes" :key="type.dormId">
-            <p class="text-gray-soil" @click="selectRoomtype(type)">{{type.type}}</p>
+          <li v-for="type in dorm.roomTypes" :key="type.roomTypeId">
+            <p class="text-gray-soil" @click="selectRoomtype(type)">{{ type.type }}</p>
           </li>
         </ul>
       </div>
       <div>
-       <room-type :roomType="roomType" :elecPerUnit="dorm.elecPerUnit" :waterPerUnit="dorm.waterPerUnit" v-if="roomType"/>
+       <room-type v-if="roomType" :roomType="roomType" :elecPerUnit="dorm.elecPerUnit" :waterPerUnit="dorm.waterPerUnit" :media="roomTypeMedia" :key="roomType.roomTypeId"/>
       </div>
     </div>
     <div v-else>
@@ -54,7 +62,7 @@
 import roomType from '~/components/roomType.vue';
 import errorPage from '@/layouts/error.vue';
 export default {
-  components: { roomType, errorPage },
+  components: { roomType, errorPage},
   async fetch() {
     if (this.$store.state.dorm != null) {
       this.dorm = this.$store.state.dorm;
@@ -92,12 +100,14 @@ export default {
       owner: null,
       lowPrice: 0,
       highPrice: 0,
-      roomType : null
+      roomType : null,
+      roomTypeMedia:null
     };
   },
   methods: {
     selectRoomtype(data){
       this.roomType = data
+      this.roomTypeMedia = this.dorm.media.filter(i => i.roomTypeId == this.roomType.roomTypeId)
     }
   },
 };

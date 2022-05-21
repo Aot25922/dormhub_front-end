@@ -1,9 +1,9 @@
 <template>
   <div>
     <client-only>
-    <agile>
-    <div class="slide text-white block" v-for="i in roomType" :key="i.roomTypeId">
-      <img :src="$store.state.Backend_URL+'/dorm/image/roomType/'+i.roomTypeId"/>
+    <agile style="touch-action: none">
+    <div class="slide text-white block" v-for="i in media" :key="i.mediaId">
+      <img :src="$store.state.Backend_URL+'/dorm/image/'+i.dormId+'/'+i.mediaId+'/'+roomType.roomTypeId" class="w-64 h-64"/>
     </div>
     <template slot="prevButton"><span class="material-icons">chevron_left</span></template>
     <template slot="nextButton"><span class="material-icons">chevron_right</span></template>
@@ -40,7 +40,7 @@
 <script>
 export default {
   name: "roomType",
-  props: ["roomType","elecPerUnit","waterPerUnit"],
+  props: ["roomType","elecPerUnit","waterPerUnit","media"],
   data() {
     return {
 

@@ -8,7 +8,9 @@ module.exports = {
 			'gray-soil': '#545762',
 			'light-blue': '#B9C1D9',
 			'white': '#ffffff',
-			'black': '#000000'
+			'black': '#000000',
+			'confirmButton' : 'rgb(16 185 129)',
+			'cancelButton':'rgb(190 18 60)'
 		},
 		extend: {},
 	},
