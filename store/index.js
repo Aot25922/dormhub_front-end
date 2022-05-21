@@ -1,5 +1,5 @@
 export const state = () => ({
-    Backend_URL: process.env.Backend_URL || 'http://localhost:3001',
+    Backend_URL: process.env.Backend_URL || 'https://dev-node.dormhub.works',
     dorm :null
   });
 
