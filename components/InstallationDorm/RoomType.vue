@@ -2,39 +2,47 @@
 	<div>
 		<div  class="bg-dark-blue p-3 rounded-lg mb-3">
 			<h1 class="text-white text-lg ml-2 mb-2 font-bold">ประเภทห้อง</h1>
-			<input type="text" class="py-4 mb-3 px-2 w-full input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue"
-			placeholder="ห้องนี้สีเขียว" v-model="roomType.type" :disabled="confirmAllRoomTypes" />
-            <h1 class="text-white text-lg ml-2 mb-2 font-bold">ราคาห้องพัก</h1>
-			<input type="number" class="py-4 mb-3 px-2 w-full input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue"
-			placeholder="ห้องนี้สีเขียว" v-model="roomType.price" :disabled="confirmAllRoomTypes"/>
-			<h1 class="text-white text-lg ml-2 mb-2 font-bold">ราคาค่าเช่าห้องพัก</h1>
-			<input type="number" class="py-4 mb-3 px-2 w-full input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue"
-			placeholder="ห้องนี้สีเขียว" v-model="roomType.deposit" :disabled="confirmAllRoomTypes"/>
-			<h1 class="text-white text-lg ml-2 mb-2 font-bold">ขนาดพื้นที่</h1>
-			<input type="number" class="py-4 mb-3 px-2 w-full input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue"
-			placeholder="ห้องนี้สีเขียว" v-model="roomType.area" :disabled="confirmAllRoomTypes"/>
-			<h1 class="text-white text-lg ml-2 mb-2 font-bold">สิ่งอำนวยความสะดวก/บริการเสริม</h1>
-			<div v-for="(item,index) in roomType.facility" :key="index">
-				<h2 class="text-white text-lg ml-2 mb-2 font-bold">ชื่อ</h2>
-				<input type="text" class="py-4 mb-3 px-2 w-full input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue"
-			placeholder="ห้องนี้สีเขียว" v-model="roomType.facility[index].name" :disabled="confirmAllRoomTypes"/>
-			    <h2 class="text-white text-lg ml-2 mb-2 font-bold">รายละเอียด</h2>
-				<input type="text" class="py-4 mb-3 px-2 w-full input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue"
-			placeholder="text" v-model="roomType.facility[index].description" :disabled="confirmAllRoomTypes"/>
-				<button class="btn btn-neutral mt-3 ml-auto block" @click="roomType.facility.splice(index,1)" v-if="roomType.facility.length>1">ลด</button>
-			</div>
-			<button class="btn btn-neutral mt-3 ml-auto block" @click="roomType.facility.push({name:'',description:''})" :disabled="confirmAllRoomTypes">เพิ่ม</button>
-			 <h1 class="text-white text-lg ml-2 mb-2 font-bold">ภาพประเภทห้อง</h1>
-					<div class="flex justify-center">
-						<div class="mb-3 w-96">
+			<label class="label-text text-light-blue tracking-wide font-bold my-2">ประเภทห้อง</label>
+			<input type="text" class="p-2 mb-5 rounded text-light-blue bg-dark-gray border-none focus:outline-none focus:bg-gray- input input-sm w-full"
+			placeholder="ห้องนี้สีเขียว" v-model="roomType.type" :disabled="confirmAllRoomTypes" @blur="validateForm" />
+			<span class=" text-cancelButton" v-if="validateType">Input roomType Name</span>
+            <label class="label-text text-light-blue tracking-wide font-bold my-2">ราคาห้องพัก</label>
+			<input type="number" class="p-2 mb-5 rounded text-light-blue bg-dark-gray border-none focus:outline-none focus:bg-gray- input input-sm w-full"
+			placeholder="200" v-model="roomType.price" :disabled="confirmAllRoomTypes" min="1" max="100000" @blur="validateForm" />
+			<span class=" text-cancelButton" v-if="validatePrice">Input price between 1-100000</span>
+			<label class="label-text text-light-blue tracking-wide font-bold my-2">ราคาค่าเช่าห้องพัก</label>
+			<input type="number" class="p-2 mb-5 rounded text-light-blue bg-dark-gray border-none focus:outline-none focus:bg-gray- input input-sm w-full"
+			placeholder="200" v-model="roomType.deposit" :disabled="confirmAllRoomTypes" min="1" max="100000" @blur="validateForm"/>
+			<span class=" text-cancelButton" v-if="validateDeposit">Input deposit between 1-100000</span>
+			<label class="label-text text-light-blue tracking-wide font-bold my-2">ขนาดพื้นที่ (ตารางเมตร)</label>
+			<input type="number" class="p-2 mb-5 rounded text-light-blue bg-dark-gray border-none focus:outline-none focus:bg-gray- input input-sm w-full"
+			placeholder="999.99" min="1" max="999.99" v-model="roomType.area" :disabled="confirmAllRoomTypes" @blur="validateForm" />
+			<span class=" text-cancelButton" v-if="validateArea">Input area between 1-999.99</span>
+			<h1 class="text-white text-lg ml-2 mb-2 font-bold">ภาพประเภทห้อง</h1>
+					<div class="">
+						<div class="mb-3 w-full">
 							<label for="formFileMultiple" class="label-text text-light-blue tracking-wide font-bold my-2">เลือกได้มากกว่า1รูป</label>
-							<input class="mb-5 focus:outline-none form-control block w-full bg-dark-gray text-gray-soil rounded transition ease-in-out border-none" type="file" id="formFileMultiple" @change="onFileChange" multiple :disabled="confirmAllRoomTypes">
+							<input class="mb-5 focus:outline-none form-control block w-full bg-dark-gray text-gray-soil input input-sm rounded transition ease-in-out border-none" type="file" id="formFileMultiple" @change="onFileChange" multiple :disabled="confirmAllRoomTypes" >
 						</div>
-						<img v-for="image in roomTypeImageUrl" :key="image" :src="image"/>
+						<span class=" text-cancelButton" v-if="validateFile">Input any picture</span>
+						<img v-for="image in roomTypeImageUrl" :key="image" :src="image" class="py-2" />
 					</div>
-			<!-- <button class="btn btn-neutral mt-3 ml-auto block" @click="addRoomTypes">ยืนยันข้อมูลประเภทห้องพัก</button> -->
-            <button class="btn btn-neutral mt-3 ml-auto block" @click="removeRoomTypes" v-if="confirmAllRoomTypes == false">ยกเลิกข้อมูลประเภทห้องพัก</button>
-
+			<h1 class="text-white text-lg ml-2 mb-2 font-bold">สิ่งอำนวยความสะดวก/บริการเสริม</h1>
+			<div v-for="(item,index) in roomType.facility" :key="index" class="relative">
+				<h2 class="label-text text-light-blue tracking-wide font-bold my-2">ชื่อ</h2>
+				<input type="text" class="p-2 mb-5 rounded text-light-blue bg-dark-gray border-none focus:outline-none focus:bg-gray- input input-sm w-full"
+			placeholder="ห้องนี้สีเขียว" v-model="roomType.facility[index].name" :disabled="confirmAllRoomTypes" @blur="validateForm" />
+			    <h2 class="label-text text-light-blue tracking-wide font-bold my-2">รายละเอียด</h2>
+				<input type="text" class="p-2 mb-5 rounded text-light-blue bg-dark-gray border-none focus:outline-none focus:bg-gray- input input-sm w-full"
+			placeholder="คำอธิบายเพิ่มเติม" v-model="roomType.facility[index].description" :disabled="confirmAllRoomTypes" />
+				<button class="btn btn-ghost text-cancelButton absolute -top-4 -right-5" @click="roomType.facility.splice(index,1)" v-if="roomType.facility.length>1 && confirmAllRoomTypes == false"><span class="material-icons" :disabled="confirmAllRoomTypes" >remove_circle</span></button>
+				<hr class="py-2 text-gray-soil" />
+				<span class=" text-cancelButton" v-if="validateFacility">Input Facility name</span>
+			</div>
+			<div class="grid grid-cols-2">
+				<button class="btn btn-neutral mr-auto block" @click="roomType.facility.push({name:'',description:''})" v-if="confirmAllRoomTypes == false">เพิ่มสิ่งอำนวยความสะดวก</button> 
+				<button class="btn btn-neutral mt-3 ml-auto block" @click="removeRoomTypes" v-if="confirmAllRoomTypes == false && index!=0">ยกเลิกข้อมูลประเภทห้องพัก</button>
+			</div>
 		</div>
 	</div>
 </template>
@@ -66,6 +74,13 @@ export default {
         area: 0,
         facility: [{ name: "", description: "" }],
       },
+	  confirmThisroomType:false,
+	  validateType:false,
+	  validatePrice:false,
+	  validateDeposit:false,
+      validateArea:false,
+	  validateFacility:false,
+	  validateFile:false,
       roomTypeInputImage: [],
       roomTypeImageUrl: [],
     };
@@ -75,16 +90,20 @@ export default {
 		if(this.roomType.type == ''){
 			return
 		}
+		this.validateForm()
+		if(this.validateType == false && this.validatePrice == false && this.validateDeposit == false && this.validateArea == false && this.validateFacility == false){
       this.$emit("addRoomType", {
         roomType: this.roomType,
         roomTypeImage: this.roomTypeInputImage,
 		index : this.index
       });
+		}
     },
 	removeRoomTypes(){
 		if(this.index == 0){
 			return
 		}
+		this.$emit('validateroomTypeForm',true)
 		this.$emit("removeRoomTypes",this.index)
 	},
     onFileChange(e) {
@@ -95,7 +114,21 @@ export default {
           this.roomTypeImageUrl.push(URL.createObjectURL(files[i]));
         }
       }
+	  this.validateForm()
     },
+	validateForm(){
+       this.validateType = this.roomType.type == '' ? true : false
+	   this.validatePrice = this.roomType.price <=0 ? true : false
+	   this.validateDeposit = this.roomType.deposit <= 0 ? true : false
+	   this.validateArea = this.roomType.area <= 0 ? true : false
+	   this.validateFacility = this.roomType.facility[0].name == '' ? true : false
+	   this.validateFile = this.roomTypeInputImage.length == 0 ? true : false
+	   if(this.validateType == false && this.validatePrice == false && this.validateDeposit == false && this.validateArea == false && this.validateFacility == false){
+	   this.$emit('validateroomTypeForm',true)
+	   }else{
+		this.$emit('validateroomTypeForm',false)
+	   }
+	}
   },
 };
 </script>

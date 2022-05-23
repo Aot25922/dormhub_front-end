@@ -8,12 +8,12 @@
 						Username<span class="material-icons">arrow_drop_down</span>
 					</div>
 				<ul tabindex="0" class="p-2 shadow menu dropdown-content rounded-box w-52 text-gray-soil bg-dark-blue border-dark-gray border-2">
-					<li>
+					<!-- <li>
 						<nuxt-link to="">Login</nuxt-link>
 					</li>
 					<li>
 						<nuxt-link to="">Register</nuxt-link>
-					</li>
+					</li> -->
 					<li>
 						<nuxt-link to="/dormForm">Add Dorm</nuxt-link>
 					</li>

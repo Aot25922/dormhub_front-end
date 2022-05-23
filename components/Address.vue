@@ -14,14 +14,14 @@
 			placeholder="69"/>
 
 			<label for="" class="label-text text-light-blue tracking-wide font-bold my-2">ภูมิภาค</label>
-			<select v-model="selectedRegion" class="select select-sm w-full mb-5 text-light-blue bg-dark-gray border-0">
+			<select v-model="selectedRegion" class="select w-full mb-5 text-light-blue bg-dark-gray border-0">
 				<option	option disabled selected>กรุณาเลือกภูมิภาค</option>
 				<option v-for="option in this.addressOption" :value="option" :key="option.regions">{{option.regions}}</option>
 			</select>
 
             <div v-if="selectedRegion">
 				<label for="" class="label-text text-light-blue tracking-wide font-bold my-2">จังหวัด</label>
-				<select v-model="selectedProvince" class="select select-sm mb-5 w-full text-light-blue bg-dark-gray border-0">
+				<select v-model="selectedProvince" class="select mb-5 w-full text-light-blue bg-dark-gray border-0">
 					<option	option disabled selected>กรุณาเลือกจังหวัด</option>
 					<option v-for="option in selectedRegion.provinces" :value="option" :key="option">
                        {{option}}
@@ -31,7 +31,7 @@
 
 			<div v-if="selectedProvince">
 				<label for="" class="label-text text-light-blue tracking-wide font-bold my-2">เขต/อำเภอ</label>
-				<select v-model="selectedDistrict" class="select select-sm mb-5 w-full text-light-blue bg-dark-gray border-0">
+				<select v-model="selectedDistrict" class="select mb-5 w-full text-light-blue bg-dark-gray border-0">
 					<option	option disabled selected>กรุณาเลือกเขต/อำเภอ</option>
 					<option v-for="option in selectedRegion.districts" :value="option" :key="option">{{option}}</option>
 				</select>
@@ -39,7 +39,7 @@
 
 			<div v-if="selectedDistrict">
 				<label for="" class="label-text text-light-blue tracking-wide font-bold my-2">แขวง/ตำบล</label>
-				<select v-model="selectedSubdistrict" class="select select-sm mb-5 w-full text-light-blue bg-dark-gray border-0">
+				<select v-model="selectedSubdistrict" class="select mb-5 w-full text-light-blue bg-dark-gray border-0">
 					<option	option disabled selected>กรุณาเลือกแขวง/ตำบล</option>
 					<option v-for="option in selectedRegion.subDistricts" :value="option.subDistrict" :key="option.subDistrict">{{option.subDistrict}}</option>
 				</select>
@@ -47,7 +47,7 @@
 
 			<div v-if="selectedDistrict">
 				<label for="" class="label-text text-light-blue tracking-wide font-bold my-2">รหัสไปรษณีย์</label>
-				<select v-model="zipCode" class="select select-sm mb-5 w-full text-light-blue bg-dark-gray border-0">
+				<select v-model="zipCode" class="select mb-5 w-full text-light-blue bg-dark-gray border-0">
 					<option	option disabled selected>กรุณาเลือกรหัสไปรษณีย์</option>
 					<option v-for="option in selectedRegion.subDistricts" :value="option.zipCodeId" :key="option.zipCodeId">{{option.zipCodeId}}</option>
 				</select>
