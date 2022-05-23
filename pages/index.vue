@@ -38,7 +38,7 @@
 <script>
 export default {
   async asyncData({ $axios, store }) {
-    var dormList = await $axios.$get(`${store.state.Backend_URL}/Dorm`);
+    var dormList = await $axios.$get(`${store.state.Backend_URL}/dorm`);
 	var provinceList = [];
 	for(let i in dormList){
 		if(!(provinceList.includes(dormList[i].address.subDistrict.district.province.name))) {
