@@ -5,32 +5,46 @@
 			<form action="" class="px-3">
 				<div class="bg-dark-blue p-3 rounded-lg my-3">
 					<h1 class="text-white text-lg ml-2 mb-2 font-bold">เกี่ยวกับหอพัก</h1>
-					<label for="" class="label-text text-light-blue tracking-wide font-bold my-2">ชื่อหอพัก</label>
-					<input type="text" autofocus class="py-4 px-2 mb-5 w-full input input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue border-none"
-					placeholder="แฮปปี้ดอร์ม" v-model="dorm.name" />
-				
-					<label for="" class="label-text text-light-blue tracking-wide font-bold">เวลาเปิด</label>
-					<input v-model="dorm.openTime" type="time" class="p-2 mb-5 rounded text-light-blue bg-dark-gray border-none focus:outline-none focus:bg-gray-soil w-full" />
-					
-					<label for="" class="label-text text-light-blue tracking-wide font-bold my-2">เวลาปิด</label>
-					<input v-model="dorm.closeTime" type="time" class="p-2 mb-5 rounded text-light-blue bg-dark-gray border-none focus:outline-none focus:bg-gray-soil w-full" />
-					
-					<label for="" class="label-text text-light-blue tracking-wide font-bold my-2">ค่าน้ำต่อหน่วย</label>
-					<input v-model="dorm.waterPerUnit" class="py-4 px-2 mb-5 w-full input input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue border-none" 
-					placeholder="0.01 - 9.99" />
-
-					<label for="" class="label-text text-light-blue tracking-wide font-bold my-2">ค่าไฟต่อหน่วย</label>
-					<input v-model="dorm.elecPerUnit" class="py-4 px-2 mb-5 w-full input input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue border-none" 
-					placeholder="0.01 - 9.99" />
-
-					<label for="" class="label-text text-light-blue tracking-wide font-bold my-2">ข้อมูลเพิ่มเติม</label>
-					<input v-model="dorm.description" class="py-4 px-2 mb-5 w-full input input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue border-none"
-					placeholder="คำอธิบายเพิ่มเติม"/>
-
-					<label for="" class="label-text text-light-blue tracking-wide font-bold my-2">เลือกภาพปกที่ใช้แสดงบนหน้าเว็ป</label>
-					<input type="file" class="mb-5 focus:outline-none form-control block w-full bg-dark-gray text-gray-soil rounded transition ease-in-out border-none" @change="onFileChange" multiple/>
-					<div v-if="dormImgUrl">
-					<img v-for='i in dormImgUrl' :key="i" :src='i' class="py-2" />
+					<div class="mb-2">
+						<label class="label-text text-light-blue tracking-wide font-bold my-2">ชื่อหอพัก <span class="text-cancelButton">*</span></label>
+						<input type="text" autofocus class="py-4 px-2 w-full input input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue border-none"
+						placeholder="แฮปปี้ดอร์ม" v-model="dorm.name" />
+						<p v-if="!validateName" class="text-error text-right mt-2">กรุณาใส่ชื่อหอพัก</p>
+					</div>
+					<div class="mb-5">
+						<label class="label-text text-light-blue tracking-wide font-bold">เวลาเปิด</label>
+						<input type="text" class="py-4 px-2 w-full input input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue border-none"
+						placeholder="06.00" v-model="dorm.openTime" />
+					</div>
+					<div class="mb-5">
+						<label class="label-text text-light-blue tracking-wide font-bold my-2">เวลาปิด</label>
+						<input  type="text" class="py-4 px-2 w-full input input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue border-none"
+						placeholder="22.00" v-model="dorm.closeTime" />
+					</div>
+					<div class="mb-2">
+						<label class="label-text text-light-blue tracking-wide font-bold my-2">ค่าน้ำต่อหน่วย <span class="text-cancelButton">*</span></label>
+						<input type="number" step="0.01" v-model="dorm.waterPerUnit" class="py-4 px-2 w-full input input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue border-none" 
+						placeholder="0.01 - 9.99" />
+						<p v-if="!validateWater" class="text-error text-right mt-2">กรุณาใส่ค่าน้ำต่อหน่วย หรือ ใส่ค่าไม่ถูกต้อง</p>
+					</div>
+					<div class="mb-2">
+						<label class="label-text text-light-blue tracking-wide font-bold my-2">ค่าไฟต่อหน่วย <span class="text-cancelButton">*</span></label>
+						<input type="number" step="0.01" v-model="dorm.elecPerUnit" class="py-4 px-2 w-full input input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue border-none" 
+						placeholder="0.01 - 9.99" />
+						<p v-if="!validateElec" class="text-error text-right mt-2">กรุณาใส่ค่าไฟต่อหน่วย หรือ ใส่ค่าไม่ถูกต้อง</p>
+					</div>
+					<div class="mb-5">
+						<label class="label-text text-light-blue tracking-wide font-bold my-2">ข้อมูลเพิ่มเติม</label>
+						<textarea v-model="dorm.description" class="h-[80px] py-4 px-2 w-full input input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue border-none"
+						placeholder="คำอธิบายเพิ่มเติม"/>
+					</div>
+					<div class="mb-5">
+						<label class="label-text text-light-blue tracking-wide font-bold my-2">เลือกภาพปกที่ใช้แสดงบนหน้าเว็ป <span class="text-cancelButton">*</span></label>
+						<input type="file" class="focus:outline-none form-control block w-full bg-dark-gray text-gray-soil rounded transition ease-in-out border-none" @change="onFileChange" multiple/>
+						<div v-if="dormImgUrl">
+						<img v-for='i in dormImgUrl' :key="i" :src='i' class="py-2" />
+						</div>
+						<p v-if="!validateDormImg" class="text-error text-right mt-2">ต้องมีอย่างน้อย 1 ภาพ</p>
 					</div>
 				</div>
 				<Address msg="ที่ตั้งหอพัก" @enterAddressData='addAddress'/>
@@ -69,8 +83,8 @@ data() {
       return {
 		banking: false,
 		form: true,
-		dormImgUrl:[],
-		dorm:{
+		dormImgUrl: [],
+		dorm: {
 			name : '',
 			openTime: null,
 			closeTime: null,
@@ -87,11 +101,15 @@ data() {
 		roomTypeCount: 1,
 		roomCount: 1,
 		confirmAllRoom: false,
-		room: [{roomNum:1,status:'',floors:'',description:'',roomType:''}]
+		room: [{roomNum:1, status:'', floors:'', description:'', roomType:''}],
+		validateName: true,
+		validateElec: true,
+		validateWater: true,
+		validateDormImg: true
       }
 	},
 	methods: {
-		nextPage(){
+		nextPage() {
 			this.banking = true
 			this.form = false
 		},
@@ -104,78 +122,90 @@ data() {
 				this.dormImgUrl.push(URL.createObjectURL(files[i]))
 				}
 			}
-    },
-	async submit(){
-		let formData = new FormData()
-		let data={};
-		if(this.dorm != null){
-		data.dorm = this.dorm
-		}
-		if(this.address != null){
-		data.address = this.address
-		}
-		if(this.roomType.length != 0 || this.roomType != null){
-			data.roomType = this.roomType
-			if(this.roomTypeImage.length != 0){
-				for(let i in this.roomTypeImage){
-				for (const [key, value] of Object.entries(this.roomTypeImage[i])) {
-  					 for(let j in value){
-						   formData.append(`dorm_roomType_${key}`, value[j], 'test.jpg')
-					   }
+    	},
+		async submit(){
+			this.checkDormForm();
+			let formData = new FormData()
+			let data={};
+			if(this.dorm != null){
+			data.dorm = this.dorm
+			}
+			if(this.address != null){
+			data.address = this.address
+			}
+			if(this.roomType.length != 0 || this.roomType != null){
+				data.roomType = this.roomType
+				if(this.roomTypeImage.length != 0){
+					for(let i in this.roomTypeImage){
+					for (const [key, value] of Object.entries(this.roomTypeImage[i])) {
+						for(let j in value){
+							formData.append(`dorm_roomType_${key}`, value[j], 'test.jpg')
+						}
+						}
 					}
 				}
 			}
-		}
-		if(this.room.length != 0 || this.room != null){
-			data.room = this.room
-		}
-		if(this.dormInputImage.length != 0 ){
-            for(let i in this.dormInputImage){
-			formData.append(`dorm_${this.dorm.name}`, this.dormInputImage[i], 'test.jpg')
+			if(this.room.length != 0 || this.room != null){
+				data.room = this.room
 			}
-		}
-		formData.append('data',JSON.stringify(data))
-		for(var pair of formData.entries()) {
-   			console.log(pair[0]+ ': '+ pair[1]);
-		}
-
-		try{
-          postData = await this.$axios.$post(`${this.$store.state.Backend_URL}/dorm/register`,formData)
-         }catch (err) {
-            console.log(err)
-          }
-
-	},
-	addAddress(value){
-      this.address = value
-	  console.log(this.address)
-	},
-	addRoomType({roomType,roomTypeImage}){
-		console.log( roomType.type)
-		for(let i in this.roomType){
-			if(this.roomType[i].type == roomType.type){
-				return
+			if(this.dormInputImage.length != 0 ){
+				for(let i in this.dormInputImage){
+				formData.append(`dorm_${this.dorm.name}`, this.dormInputImage[i], 'test.jpg')
+				}
 			}
+			formData.append('data',JSON.stringify(data))
+			for(var pair of formData.entries()) {
+				console.log(pair[0]+ ': '+ pair[1]);
+			}
+
+			try{
+			postData = await this.$axios.$post(`${this.$store.state.Backend_URL}/dorm/register`,formData)
+			}catch (err) {
+				console.log(err)
+			}
+
+		},
+		checkDormForm(){
+			this.validateName = (this.dorm.name != "") ? true : false
+			this.validateElec = this.dorm.elecPerUnit != null && 0 < this.dorm.elecPerUnit < 10 ? true : false
+			this.validateWater = this.dorm.waterPerUnit != null && 0 < this.dorm.waterPerUnit < 10 ? true : false
+			this.validateDormImg = (this.dormImgUrl.length != 0) ? true : false
+		},
+
+		addAddress(value){
+		this.address = value
+		console.log(this.address)
+		},
+
+		addRoomType({roomType,roomTypeImage}){
+			console.log( roomType.type)
+			for(let i in this.roomType){
+				if(this.roomType[i].type == roomType.type){
+					return
+				}
+			}
+			this.roomType.push(roomType)
+			let imageRoomTypeformDataName = roomType.type
+			this.roomTypeImage.push({[imageRoomTypeformDataName] : roomTypeImage})
+			console.log(this.roomType)
+			console.log(this.roomTypeImage)
+		},
+
+		addRoom(value){
+		this.room[value.index] = value.room
+		console.log(this.room)
+		},
+
+		cancelThisRoom(index){
+		this.room.splice(index,1)
+		},
+
+		validateDorm(){
+		return this.dorm.name != '' && this.dorm.openTime != null && this.dorm.closeTime && this.dorm.elecPerUnit > 0 && this.dorm.waterPerUnit > 0 && this.dormImgUrl.length>0 ? true : false
 		}
-		this.roomType.push(roomType)
-		let imageRoomTypeformDataName = roomType.type
-		this.roomTypeImage.push({[imageRoomTypeformDataName] : roomTypeImage})
-		console.log(this.roomType)
-		console.log(this.roomTypeImage)
 	},
-	addRoom(value){
-	  this.room[value.index] = value.room
-	  console.log(this.room)
-	},
-	cancelThisRoom(index){
-      this.room.splice(index,1)
-	},
-	validateDorm(){
-	  return this.dorm.name != '' && this.dorm.openTime != null && this.dorm.closeTime && this.dorm.elecPerUnit > 0 && this.dorm.waterPerUnit > 0 && this.dormImgUrl.length>0 ? true : false
-	}
-	},
-	computed :{
-		allowToSubmit(){	
+	computed: {
+		allowToSubmit() {	
 			return this.validateDorm() ? true : false
 		}
 	}

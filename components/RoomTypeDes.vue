@@ -39,7 +39,7 @@
 </template>
 <script>
 export default {
-  name: "roomType",
+  name: "RoomTypeDes",
   props: ["roomType","elecPerUnit","waterPerUnit","media"],
   data() {
     return {

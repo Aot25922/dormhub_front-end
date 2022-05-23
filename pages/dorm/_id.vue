@@ -59,7 +59,7 @@
 </template>
 
 <script>
-import roomType from '~/components/roomType.vue';
+import roomType from '~/components/RoomTypeDes.vue';
 import errorPage from '@/layouts/error.vue';
 export default {
   components: { roomType, errorPage},
