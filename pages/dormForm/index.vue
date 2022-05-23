@@ -16,21 +16,21 @@
 					<input v-model="dorm.closeTime" type="time" class="p-2 mb-5 rounded text-light-blue bg-dark-gray border-none focus:outline-none focus:bg-gray-soil w-full" />
 					
 					<label for="" class="label-text text-light-blue tracking-wide font-bold my-2">ค่าน้ำต่อหน่วย</label>
-					<input v-model="dorm.waterPerUnit" class="py-4 px-2 mb-5 w-full input input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue border-none"
-					placeholder="0.01"/>
+					<input v-model="dorm.waterPerUnit" class="py-4 px-2 mb-5 w-full input input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue border-none" 
+					placeholder="0.01 - 9.99" />
 
 					<label for="" class="label-text text-light-blue tracking-wide font-bold my-2">ค่าไฟต่อหน่วย</label>
-					<input v-model="dorm.elecPerUnit" class="py-4 px-2 mb-5 w-full input input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue border-none"
-					placeholder="0.01"/>
+					<input v-model="dorm.elecPerUnit" class="py-4 px-2 mb-5 w-full input input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue border-none" 
+					placeholder="0.01 - 9.99" />
 
 					<label for="" class="label-text text-light-blue tracking-wide font-bold my-2">ข้อมูลเพิ่มเติม</label>
 					<input v-model="dorm.description" class="py-4 px-2 mb-5 w-full input input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue border-none"
-					placeholder="0.01"/>
+					placeholder="คำอธิบายเพิ่มเติม"/>
 
 					<label for="" class="label-text text-light-blue tracking-wide font-bold my-2">เลือกภาพปกที่ใช้แสดงบนหน้าเว็ป</label>
 					<input type="file" class="mb-5 focus:outline-none form-control block w-full bg-dark-gray text-gray-soil rounded transition ease-in-out border-none" @change="onFileChange" multiple/>
 					<div v-if="dormImgUrl">
-					<img v-for='i in dormImgUrl' :key="i" :src='i' />
+					<img v-for='i in dormImgUrl' :key="i" :src='i' class="py-2" />
 					</div>
 				</div>
 				<Address msg="ที่ตั้งหอพัก" @enterAddressData='addAddress'/>
@@ -39,15 +39,17 @@
 		<div v-if="address">
 		<!-- <button @click="nextPage" v-if="!banking" class="btn btn-neutral mr-3 ml-auto block">ต่อไป</button> -->
 		<div v-for="i in roomTypeCount" :key="i"  >
-		<room-type @addRoomType = 'addRoomType'/>
+		<room-type class="px-3" @addRoomType = 'addRoomType'/>
 		</div>
-		<button @click="roomTypeCount++" class="btn btn-neutral mr-3 ml-auto block">เพิ่มประเภทห้องพัก</button>
-		<div v-if="roomType.length>0">
+		<div class="px-3">
+		 <button @click="roomTypeCount++" class="btn btn-neutral w-full mb-3">เพิ่มประเภทห้องพัก</button>
+		</div>
+		<div v-if="roomType.length > 0">
 			<room :roomType="roomType" :index='index' :confirmRoom="confirmAllRoom" v-for="(i,index) in room" :key="i.roomNum" @addNewRoom='addRoom' @cancelThisRoom ='cancelThisRoom(index)' />
 		</div>
-		<button @click="roomCount++;room.push({roomNum:roomCount,status:'',floors:'',description:'',roomType:''})" class="btn btn-neutral mr-3 ml-auto block">เพิ่มห้องพัก</button>
-		<button @click="confirmAllRoom = true" v-if="confirmAllRoom == false" class="btn btn-neutral mr-3 ml-auto block bg-confirmButton">ยืนยันห้องพัก</button>
-		<button  @click="confirmAllRoom = false;room=[{roomNum:1,status:'',floors:'',description:'',roomType:''}],roomCount=1" v-else class="btn btn-neutral mr-3 ml-auto block bg-cancelButton">ยกเลิกห้องพักทั้งหมด</button>
+		<button @click="roomCount++; room.push({roomNum:roomCount,status: '',floors: '',description: '',roomType: ''})" class="btn btn-neutral mr-3 ml-auto block mb-3">เพิ่มห้องพัก</button>
+		<button @click="confirmAllRoom = true" v-if="confirmAllRoom == false" class="btn btn-neutral mr-3 mb-3 ml-auto block bg-confirmButton">ยืนยันห้องพัก</button>
+		<button  @click="confirmAllRoom = false; room=[{roomNum: 1, status: '', floors: '',description: '',roomType: ''}],roomCount= 1" v-else class="btn btn-neutral mr-3 ml-auto block bg-cancelButton">ยกเลิกห้องพักทั้งหมด</button>
 		</div>
 		<button @click="submit" class="btn btn-neutral mr-3 ml-auto block" >Submit</button>
 		<!-- <BankAccount v-if="banking"/> -->
@@ -70,22 +72,22 @@ data() {
 		dormImgUrl:[],
 		dorm:{
 			name : '',
-			openTime:null,
-			closeTime:null,
-			description:'',
-			rating:0,
-			acceptPercent:0,
-			elecPerUnit: 0,
-     		waterPerUnit: 0
+			openTime: null,
+			closeTime: null,
+			description: '',
+			rating: 0,
+			acceptPercent: 0,
+			elecPerUnit: null,
+     		waterPerUnit: null
 		},
-		dormInputImage:[],
-		address:null,
-		roomType:[],
-		roomTypeImage:[],
-		roomTypeCount:1,
-		roomCount:1,
-		confirmAllRoom:false,
-		room:[{roomNum:1,status:'',floors:'',description:'',roomType:''}]
+		dormInputImage: [],
+		address: null,
+		roomType: [],
+		roomTypeImage: [],
+		roomTypeCount: 1,
+		roomCount: 1,
+		confirmAllRoom: false,
+		room: [{roomNum:1,status:'',floors:'',description:'',roomType:''}]
       }
 	},
 	methods: {
@@ -118,7 +120,7 @@ data() {
 				for(let i in this.roomTypeImage){
 				for (const [key, value] of Object.entries(this.roomTypeImage[i])) {
   					 for(let j in value){
-						   formData.append(`dorm_roomType_${key}`,value[j],'test.jpg')
+						   formData.append(`dorm_roomType_${key}`, value[j], 'test.jpg')
 					   }
 					}
 				}
@@ -129,7 +131,7 @@ data() {
 		}
 		if(this.dormInputImage.length != 0 ){
             for(let i in this.dormInputImage){
-			formData.append(`dorm_${this.dorm.name}`,this.dormInputImage[i],'test.jpg')
+			formData.append(`dorm_${this.dorm.name}`, this.dormInputImage[i], 'test.jpg')
 			}
 		}
 		formData.append('data',JSON.stringify(data))
@@ -174,7 +176,7 @@ data() {
 	},
 	computed :{
 		allowToSubmit(){	
-			return this.validateDorm()  ? true : false
+			return this.validateDorm() ? true : false
 		}
 	}
 }
