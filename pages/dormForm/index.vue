@@ -30,6 +30,7 @@
 					<label for="" class="label-text text-light-blue tracking-wide font-bold my-2">เลือกภาพปกที่ใช้แสดงบนหน้าเว็ป</label>
 					<input type="file" class="mb-5 focus:outline-none form-control block w-full bg-dark-gray text-gray-soil rounded transition ease-in-out border-none" @change="onFileChange" multiple/>
 					<div v-if="dormImgUrl">
+					<!--เเก้ขนาดกับการวางรูป-->
 					<img v-for='i in dormImgUrl' :key="i" :src='i' />
 					</div>
 				</div>
@@ -38,16 +39,18 @@
 		</div>
 		<div v-if="address">
 		<!-- <button @click="nextPage" v-if="!banking" class="btn btn-neutral mr-3 ml-auto block">ต่อไป</button> -->
-		<div v-for="i in roomTypeCount" :key="i"  >
-		<room-type @addRoomType = 'addRoomType'/>
+		<div v-for="(i,index) in roomType" :key="i.type" >
+			<room-type  @addRoomType = 'addRoomType' @removeRoomTypes="removeRoomTypes" :index="index" :confirmAllRoomTypes="confirmAllRoomType"/>
 		</div>
-		<button @click="roomTypeCount++" class="btn btn-neutral mr-3 ml-auto block">เพิ่มประเภทห้องพัก</button>
-		<div v-if="roomType.length>0">
+		<button v-if='confirmAllRoomType == false' @click='roomTypeCount++;roomType.push({type: roomTypeCount,price: 0,deposit: 0,area: 0,facility: [{ name: "", description: "" }]})' class="btn btn-neutral mr-3 ml-auto block">เพิ่มประเภทห้องพัก</button>
+		<button @click='confirmAllRoomType = true' v-if='confirmAllRoomType == false'  class="btn btn-neutral mr-3 ml-auto block">ยืนยันประเภทห้องพัก</button>
+		<div v-if="confirmAllRoomType">
 			<room :roomType="roomType" :index='index' :confirmRoom="confirmAllRoom" v-for="(i,index) in room" :key="i.roomNum" @addNewRoom='addRoom' @cancelThisRoom ='cancelThisRoom(index)' />
+			<button v-if="confirmAllRoom == false" @click="roomCount++;room.push({roomNum:roomCount,status:'',floors:'',description:'',roomType:''})" class="btn btn-neutral mr-3 ml-auto block">เพิ่มห้องพัก</button>
+			<button @click="confirmAllRoom = true" v-if="confirmAllRoom == false" class="btn btn-neutral mr-3 ml-auto block bg-confirmButton">ยืนยันห้องพัก</button>
+			<button  @click="confirmAllRoom = false;room=[{roomNum:1,status:'',floors:'',description:'',roomType:''}],roomCount=1" v-else class="btn btn-neutral mr-3 ml-auto block bg-cancelButton">ยกเลิกห้องพักทั้งหมด</button>
 		</div>
-		<button @click="roomCount++;room.push({roomNum:roomCount,status:'',floors:'',description:'',roomType:''})" class="btn btn-neutral mr-3 ml-auto block">เพิ่มห้องพัก</button>
-		<button @click="confirmAllRoom = true" v-if="confirmAllRoom == false" class="btn btn-neutral mr-3 ml-auto block bg-confirmButton">ยืนยันห้องพัก</button>
-		<button  @click="confirmAllRoom = false;room=[{roomNum:1,status:'',floors:'',description:'',roomType:''}],roomCount=1" v-else class="btn btn-neutral mr-3 ml-auto block bg-cancelButton">ยกเลิกห้องพักทั้งหมด</button>
+
 		</div>
 		<button @click="submit" class="btn btn-neutral mr-3 ml-auto block" >Submit</button>
 		<!-- <BankAccount v-if="banking"/> -->
@@ -80,11 +83,12 @@ data() {
 		},
 		dormInputImage:[],
 		address:null,
-		roomType:[],
+		roomType:[ {type: 1,price: 0,deposit: 0,area: 0,facility: [{ name: "", description: "" }],}],
 		roomTypeImage:[],
 		roomTypeCount:1,
 		roomCount:1,
 		confirmAllRoom:false,
+		confirmAllRoomType:false,
 		room:[{roomNum:1,status:'',floors:'',description:'',roomType:''}]
       }
 	},
@@ -148,24 +152,30 @@ data() {
       this.address = value
 	  console.log(this.address)
 	},
-	addRoomType({roomType,roomTypeImage}){
+	addRoomType({roomType,roomTypeImage,index}){
 		console.log( roomType.type)
 		for(let i in this.roomType){
 			if(this.roomType[i].type == roomType.type){
 				return
 			}
 		}
-		this.roomType.push(roomType)
+		this.roomType[index] = roomType
 		let imageRoomTypeformDataName = roomType.type
 		this.roomTypeImage.push({[imageRoomTypeformDataName] : roomTypeImage})
 		console.log(this.roomType)
 		console.log(this.roomTypeImage)
+	},
+	removeRoomTypes(value){
+      this.roomType.splice(value,1)
 	},
 	addRoom(value){
 	  this.room[value.index] = value.room
 	  console.log(this.room)
 	},
 	cancelThisRoom(index){
+		if(index == 0){
+			return
+		}
       this.room.splice(index,1)
 	},
 	validateDorm(){

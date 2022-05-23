@@ -32,6 +32,14 @@
         <td class="text-center">ค่าไฟ</td>
         <td>{{elecPerUnit}}</td>
       </tr>
+      <tr>
+        <td class="text-center">สิ่งอำนวยความสะดวก/บริการเสริม</td>
+        <td>
+          <span v-for="facility in roomType.facilities" :key="facility.facilityId">
+             {{facility.name}} : {{facility.description}} <br>
+          </span>
+        </td>
+      </tr>
     </tbody>
   </table>
 </div>

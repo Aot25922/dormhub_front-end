@@ -27,7 +27,6 @@
           {{ Dorm.address.subDistrict.zipCodeId }}
           {{ Dorm.address.subDistrict.district.name }}
           {{ Dorm.address.subDistrict.district.province.name }}
-          <!-- {{ Dorm.address.subDistrict.district.province.region.name }} -->
         </p>
       </div>
       <div class="card-actions absolute top-4 right-2 text-2xs">

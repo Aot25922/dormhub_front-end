@@ -8,7 +8,7 @@
 			<input type="text" class="py-4 mb-3 px-2 w-full input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue"
 			placeholder="ห้องนี้สีเขียว" v-model="room.status" :disabled="dataIsFill" />
             <h1 class="text-white text-lg ml-2 mb-2 font-bold">ชั้น</h1>
-			<input type="text" class="py-4 mb-3 px-2 w-full input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue"
+			<input type="number" class="py-4 mb-3 px-2 w-full input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue"
 			placeholder="ห้องนี้สีเขียว" v-model="room.floors" :disabled="dataIsFill" />
             <h1 class="text-white text-lg ml-2 mb-2 font-bold">รายละเอียดเพิ่มเติม</h1>
 			<input type="text" class="py-4 mb-3 px-2 w-full input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue"
@@ -18,7 +18,7 @@
 				<option	option disabled selected>กรุณาเลือกประเภทห้อง</option>
 				<option v-for="option in roomType" :value="option.type" :key="option.type" >{{option.type}}</option>
 			</select>
-            <button @click="$emit('cancelThisRoom')" class=" text-white">ยกเลิกห้องนี้</button>
+            <button @click="$emit('cancelThisRoom')" class=" text-white" v-if="confirmRoom==false">ยกเลิกห้องนี้</button>
 		</div>
 	</div>
 </template>
