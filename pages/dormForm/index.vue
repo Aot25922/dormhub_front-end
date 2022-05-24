@@ -25,17 +25,17 @@
 						<label class="label-text text-light-blue tracking-wide font-bold my-2">ค่าน้ำต่อหน่วย <span class="text-cancelButton">*</span></label>
 						<input type="number" step="0.01" v-model="dorm.waterPerUnit" class="py-4 px-2 w-full input input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue border-none" 
 						placeholder="0.01 - 9.99" />
-						<p v-if="!validateWater" class="text-error text-right mt-2">กรุณาใส่ค่าน้ำต่อหน่วย หรือ ใส่ค่าไม่ถูกต้อง</p>
+						<p v-if="!validateWater" class="text-error text-right mt-2">ใส่ค่าได้ตั้งแต่ 0.01 - 9.99</p>
 					</div>
 					<div class="mb-2">
 						<label class="label-text text-light-blue tracking-wide font-bold my-2">ค่าไฟต่อหน่วย <span class="text-cancelButton">*</span></label>
 						<input type="number" step="0.01" v-model="dorm.elecPerUnit" class="py-4 px-2 w-full input input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue border-none" 
 						placeholder="0.01 - 9.99" />
-						<p v-if="!validateElec" class="text-error text-right mt-2">กรุณาใส่ค่าไฟต่อหน่วย หรือ ใส่ค่าไม่ถูกต้อง</p>
+						<p v-if="!validateElec" class="text-error text-right mt-2">ใส่ค่าได้ตั้งแต่ 0.01 - 9.99</p>
 					</div>
 					<div class="mb-5">
 						<label class="label-text text-light-blue tracking-wide font-bold my-2">ข้อมูลเพิ่มเติม</label>
-						<textarea v-model="dorm.description" class="h-[80px] py-4 px-2 w-full input input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue border-none"
+						<textarea v-model="dorm.description" class="h-[80px] p-2 w-full input input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue border-none"
 						placeholder="คำอธิบายเพิ่มเติม"/>
 					</div>
 					<div class="mb-5">
@@ -52,18 +52,17 @@
 		</div>
 		<div v-if="address">
 		<!-- <button @click="nextPage" v-if="!banking" class="btn btn-neutral mr-3 ml-auto block">ต่อไป</button> -->
-		<div v-for="i in roomTypeCount" :key="i"  >
-		<room-type class="px-3" @addRoomType = 'addRoomType'/>
+		<div v-for="(i,index) in roomType" :key="i.type" >
+			<room-type  @addRoomType = 'addRoomType' @removeRoomTypes="removeRoomTypes" :index="index" :confirmAllRoomTypes="confirmAllRoomType" @validateroomTypeForm="validateroomType"/>
 		</div>
-		<div class="px-3">
-		 <button @click="roomTypeCount++" class="btn btn-neutral w-full mb-3">เพิ่มประเภทห้องพัก</button>
+		<button v-if='confirmAllRoomType == false' @click='roomTypeCount++;roomType.push({type: roomTypeCount,price: 0,deposit: 0,area: 0,facility: [{ name: "", description: "" }]})' class="btn btn-neutral mr-3 ml-auto block">เพิ่มประเภทห้องพัก</button>
+		<button @click='confirmAllRoomType = true' v-if='confirmAllRoomType == false && checkforroomType '  class="btn btn-neutral mr-3 ml-auto block" >ยืนยันประเภทห้องพัก</button>
+		<div v-if="confirmAllRoomType">
+			<room :roomType="roomType" :index='index' :confirmRoom="confirmAllRoom" v-for="(i,index) in room" :key="i.roomNum" @addNewRoom='addRoom' @cancelThisRoom ='cancelThisRoom(index)' @validateRoom='validateRoom' />
+			<button v-if="confirmAllRoom == false" @click="roomCount++;room.push({roomNum:roomCount,status:'',floors:'',description:'',roomType:''})" class="btn btn-neutral mr-3 ml-auto block">เพิ่มห้องพัก</button>
+			<button @click="confirmAllRoom = true" v-if="confirmAllRoom == false && checkforRoom" class="btn btn-neutral mr-3 ml-auto block bg-confirmButton">ยืนยันห้องพัก</button>
+			<button  @click="confirmAllRoom = false;room=[{roomNum:1,status:'',floors:'',description:'',roomType:''}],roomCount=1" v-else class="btn btn-neutral mr-3 ml-auto block bg-cancelButton">ยกเลิกห้องพักทั้งหมด</button>
 		</div>
-		<div v-if="roomType.length > 0">
-			<room :roomType="roomType" :index='index' :confirmRoom="confirmAllRoom" v-for="(i,index) in room" :key="i.roomNum" @addNewRoom='addRoom' @cancelThisRoom ='cancelThisRoom(index)' />
-		</div>
-		<button @click="roomCount++; room.push({roomNum:roomCount,status: '',floors: '',description: '',roomType: ''})" class="btn btn-neutral mr-3 ml-auto block mb-3">เพิ่มห้องพัก</button>
-		<button @click="confirmAllRoom = true" v-if="confirmAllRoom == false" class="btn btn-neutral mr-3 mb-3 ml-auto block bg-confirmButton">ยืนยันห้องพัก</button>
-		<button  @click="confirmAllRoom = false; room=[{roomNum: 1, status: '', floors: '',description: '',roomType: ''}],roomCount= 1" v-else class="btn btn-neutral mr-3 ml-auto block bg-cancelButton">ยกเลิกห้องพักทั้งหมด</button>
 		</div>
 		<button @click="submit" class="btn btn-neutral mr-3 ml-auto block" >Submit</button>
 		<!-- <BankAccount v-if="banking"/> -->
@@ -94,14 +93,17 @@ data() {
 			elecPerUnit: null,
      		waterPerUnit: null
 		},
-		dormInputImage: [],
-		address: null,
-		roomType: [],
-		roomTypeImage: [],
-		roomTypeCount: 1,
-		roomCount: 1,
-		confirmAllRoom: false,
-		room: [{roomNum:1, status:'', floors:'', description:'', roomType:''}],
+		dormInputImage:[],
+		address:null,
+		roomType:[ {type: '', price: null, deposit: null, area: null, facility: [{ name: "", description: "" }],}],
+		roomTypeImage:[],
+		roomTypeCount:1,
+		roomCount:1,
+		confirmAllRoom:false,
+		confirmAllRoomType:false,
+		room:[{roomNum:1,status:'',floors:'',description:'',roomType:''}],
+		checkforroomType : false,
+		checkforRoom : false,
 		validateName: true,
 		validateElec: true,
 		validateWater: true,
@@ -109,7 +111,14 @@ data() {
       }
 	},
 	methods: {
-		nextPage() {
+		validateRoom(value){
+           this.checkforRoom = value
+		},
+		validateroomType(value){
+          this.checkforroomType = value
+		  console.log(this.checkforroomType)
+		},
+		nextPage(){
 			this.banking = true
 			this.form = false
 		},
@@ -122,92 +131,101 @@ data() {
 				this.dormImgUrl.push(URL.createObjectURL(files[i]))
 				}
 			}
-    	},
-		async submit(){
-			this.checkDormForm();
-			let formData = new FormData()
-			let data={};
-			if(this.dorm != null){
-			data.dorm = this.dorm
-			}
-			if(this.address != null){
-			data.address = this.address
-			}
-			if(this.roomType.length != 0 || this.roomType != null){
-				data.roomType = this.roomType
-				if(this.roomTypeImage.length != 0){
-					for(let i in this.roomTypeImage){
-					for (const [key, value] of Object.entries(this.roomTypeImage[i])) {
-						for(let j in value){
-							formData.append(`dorm_roomType_${key}`, value[j], 'test.jpg')
-						}
-						}
+    },
+	async submit(){
+		this.checkDormForm()
+		let formData = new FormData()
+		let data={};
+		if(this.dorm != null){
+		data.dorm = this.dorm
+		}
+		if(this.address != null){
+		data.address = this.address
+		}
+		if(this.roomType.length != 0 || this.roomType != null){
+			data.roomType = this.roomType
+			if(this.roomTypeImage.length != 0){
+				for(let i in this.roomTypeImage){
+				for (const [key, value] of Object.entries(this.roomTypeImage[i])) {
+  					 for(let j in value){
+						   formData.append(`dorm_roomType_${key}`, value[j], 'test.jpg')
+					   }
 					}
 				}
 			}
-			if(this.room.length != 0 || this.room != null){
-				data.room = this.room
-			}
-			if(this.dormInputImage.length != 0 ){
-				for(let i in this.dormInputImage){
-				formData.append(`dorm_${this.dorm.name}`, this.dormInputImage[i], 'test.jpg')
-				}
-			}
-			formData.append('data',JSON.stringify(data))
-			for(var pair of formData.entries()) {
-				console.log(pair[0]+ ': '+ pair[1]);
-			}
-
-			try{
-			postData = await this.$axios.$post(`${this.$store.state.Backend_URL}/dorm/register`,formData)
-			}catch (err) {
-				console.log(err)
-			}
-
-		},
-		checkDormForm(){
-			this.validateName = (this.dorm.name != "") ? true : false
-			this.validateElec = this.dorm.elecPerUnit != null && 0 < this.dorm.elecPerUnit < 10 ? true : false
-			this.validateWater = this.dorm.waterPerUnit != null && 0 < this.dorm.waterPerUnit < 10 ? true : false
-			this.validateDormImg = (this.dormImgUrl.length != 0) ? true : false
-		},
-
-		addAddress(value){
-		this.address = value
-		console.log(this.address)
-		},
-
-		addRoomType({roomType,roomTypeImage}){
-			console.log( roomType.type)
-			for(let i in this.roomType){
-				if(this.roomType[i].type == roomType.type){
-					return
-				}
-			}
-			this.roomType.push(roomType)
-			let imageRoomTypeformDataName = roomType.type
-			this.roomTypeImage.push({[imageRoomTypeformDataName] : roomTypeImage})
-			console.log(this.roomType)
-			console.log(this.roomTypeImage)
-		},
-
-		addRoom(value){
-		this.room[value.index] = value.room
-		console.log(this.room)
-		},
-
-		cancelThisRoom(index){
-		this.room.splice(index,1)
-		},
-
-		validateDorm(){
-		return this.dorm.name != '' && this.dorm.openTime != null && this.dorm.closeTime && this.dorm.elecPerUnit > 0 && this.dorm.waterPerUnit > 0 && this.dormImgUrl.length>0 ? true : false
 		}
+		if(this.room.length != 0 || this.room != null){
+			data.room = this.room
+		}
+		if(this.dormInputImage.length != 0 ){
+            for(let i in this.dormInputImage){
+			formData.append(`dorm_${this.dorm.name}`, this.dormInputImage[i], 'test.jpg')
+			}
+		}
+		formData.append('data',JSON.stringify(data))
+		for(var pair of formData.entries()) {
+   			console.log(pair[0]+ ': '+ pair[1]);
+		}
+          let postData = await this.$axios.$post(`${this.$store.state.Backend_URL}/dorm/register`,formData).then(res => {
+			const noti = this.$vs.notification({
+		    progress: 'auto',
+		    icon:`<i class='bx bx-folder-open' ></i>`,
+			color:'success',
+            position:'top-right',
+            title: `Upload data complete`,
+            text: `You dorm have been upload, Check it out!`
+		  })}).catch(err => {
+			  const noti = this.$vs.notification({
+		    progress: 'auto',
+		    icon:`<i class='bx bx-error' ></i>`,
+			color:'warn',
+            position:'top-right',
+            title: `Error : ${err.response.status}`,
+            text: `${err.response.data.error.message}, Please try to input data again`
+          })
+		  })
+
 	},
-	computed: {
-		allowToSubmit() {	
-			return this.validateDorm() ? true : false
+	checkDormForm(){
+		this.validateName = (this.dorm.name != "") ? true : false
+		this.validateElec = (this.dorm.elecPerUnit != null && 0 < this.dorm.elecPerUnit < 10) ? true : false
+		this.validateWater = (this.dorm.waterPerUnit != null && 0 < this.dorm.waterPerUnit < 10) ? true : false
+		this.validateDormImg = (this.dormImgUrl.length != 0) ? true : false
+		},
+	addAddress(value){
+      this.address = value
+	  console.log(this.address)
+	},
+	addRoomType({roomType,roomTypeImage,index}){
+		console.log( roomType.type)
+		for(let i in this.roomType){
+			if(this.roomType[i].type == roomType.type){
+				return
+			}
 		}
+		this.roomType[index] = roomType
+		let imageRoomTypeformDataName = roomType.type
+		this.roomTypeImage.push({[imageRoomTypeformDataName] : roomTypeImage})
+		console.log(this.roomType)
+		console.log(this.roomTypeImage)
+	},
+	removeRoomTypes(value){
+      this.roomType.splice(value,1)
+	},
+	addRoom(value){
+	  this.room[value.index] = value.room
+	  console.log(this.room)
+	},
+	cancelThisRoom(index){
+		if(index == 0){
+			return
+		}
+	this.checkforRoom = true
+      this.room.splice(index,1)
+	},
+	validateDorm(){
+	  return this.dorm.name != '' && this.dorm.openTime != null && this.dorm.closeTime && this.dorm.elecPerUnit > 0 && this.dorm.waterPerUnit > 0 && this.dormImgUrl.length>0 ? true : false
 	}
+	},
 }
 </script>

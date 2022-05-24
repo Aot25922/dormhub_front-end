@@ -1,11 +1,11 @@
 <template>
   <div div class="bg-dark-blue p-3 rounded-lg my-3">
     <h1 class="text-white text-lg ml-2 mb-2 font-bold">{{ msg }}</h1>
-			<label for="" class="label-text text-light-blue tracking-wide font-bold my-2">เลขที่/เลขห้อง</label>
+			<label for="" class="label-text text-light-blue tracking-wide font-bold my-2">เลขที่/เลขห้อง <span class="text-cancelButton">*</span></label>
 			<input v-model="address.number" class="py-4 px-2 mb-5 w-full input input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue"
 			placeholder="999/999"/>
 
-			<label for="" class="label-text text-light-blue tracking-wide font-bold my-2">ถนน</label>
+			<label for="" class="label-text text-light-blue tracking-wide font-bold my-2">ถนน <span class="text-cancelButton">*</span></label>
 			<input v-model="address.street" class="py-4 px-2 mb-5 w-full input input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue"
 			placeholder="ถนนของเรา"/>
 
@@ -13,14 +13,14 @@
 			<input v-model="address.alley" class="py-4 px-2 mb-5 w-full input input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue"
 			placeholder="69"/>
 
-			<label for="" class="label-text text-light-blue tracking-wide font-bold my-2">ภูมิภาค</label>
+			<label for="" class="label-text text-light-blue tracking-wide font-bold my-2">ภูมิภาค <span class="text-cancelButton">*</span></label>
 			<select v-model="selectedRegion" class="select w-full mb-5 text-light-blue bg-dark-gray border-0">
 				<option	option disabled selected>กรุณาเลือกภูมิภาค</option>
 				<option v-for="option in this.addressOption" :value="option" :key="option.regions">{{option.regions}}</option>
 			</select>
 
             <div v-if="selectedRegion">
-				<label for="" class="label-text text-light-blue tracking-wide font-bold my-2">จังหวัด</label>
+				<label for="" class="label-text text-light-blue tracking-wide font-bold my-2">จังหวัด <span class="text-cancelButton">*</span></label>
 				<select v-model="selectedProvince" class="select mb-5 w-full text-light-blue bg-dark-gray border-0">
 					<option	option disabled selected>กรุณาเลือกจังหวัด</option>
 					<option v-for="option in selectedRegion.provinces" :value="option" :key="option">
@@ -30,7 +30,7 @@
 			</div>
 
 			<div v-if="selectedProvince">
-				<label for="" class="label-text text-light-blue tracking-wide font-bold my-2">เขต/อำเภอ</label>
+				<label for="" class="label-text text-light-blue tracking-wide font-bold my-2">เขต/อำเภอ <span class="text-cancelButton">*</span></label>
 				<select v-model="selectedDistrict" class="select mb-5 w-full text-light-blue bg-dark-gray border-0">
 					<option	option disabled selected>กรุณาเลือกเขต/อำเภอ</option>
 					<option v-for="option in selectedRegion.districts" :value="option" :key="option">{{option}}</option>
@@ -38,7 +38,7 @@
 			</div>
 
 			<div v-if="selectedDistrict">
-				<label for="" class="label-text text-light-blue tracking-wide font-bold my-2">แขวง/ตำบล</label>
+				<label for="" class="label-text text-light-blue tracking-wide font-bold my-2">แขวง/ตำบล <span class="text-cancelButton">*</span></label>
 				<select v-model="selectedSubdistrict" class="select mb-5 w-full text-light-blue bg-dark-gray border-0">
 					<option	option disabled selected>กรุณาเลือกแขวง/ตำบล</option>
 					<option v-for="option in selectedRegion.subDistricts" :value="option.subDistrict" :key="option.subDistrict">{{option.subDistrict}}</option>
@@ -46,19 +46,13 @@
 			</div>
 
 			<div v-if="selectedDistrict">
-				<label for="" class="label-text text-light-blue tracking-wide font-bold my-2">รหัสไปรษณีย์</label>
+				<label for="" class="label-text text-light-blue tracking-wide font-bold my-2">รหัสไปรษณีย์ <span class="text-cancelButton">*</span></label>
 				<select v-model="zipCode" class="select mb-5 w-full text-light-blue bg-dark-gray border-0">
 					<option	option disabled selected>กรุณาเลือกรหัสไปรษณีย์</option>
 					<option v-for="option in selectedRegion.subDistricts" :value="option.zipCodeId" :key="option.zipCodeId">{{option.zipCodeId}}</option>
 				</select>
 			</div>
-    <button
-      class="btn btn-neutral mt-3 ml-auto block"
-      @click="addressData"
-      type="button" v-if="confirmAddress"
-    >
-      ยืนยันข้อมูล
-    </button>
+    <button class="btn btn-neutral mt-3 ml-auto block" @click="addressData" type="button" v-if="confirmAddress">ยืนยันข้อมูล</button>
   </div>
 </template>
 

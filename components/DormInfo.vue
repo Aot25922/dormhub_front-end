@@ -1,6 +1,6 @@
 <template>
   <div class="card card-side bg-dark-blue text-white p-3 cursor-pointer" @click="dormInfo()">
-    <figure >
+    <figure>
       <img
         src="https://via.placeholder.com/150"
         class="h-24 w-24 rounded-md"
@@ -27,7 +27,6 @@
           {{ Dorm.address.subDistrict.zipCodeId }}
           {{ Dorm.address.subDistrict.district.name }}
           {{ Dorm.address.subDistrict.district.province.name }}
-          <!-- {{ Dorm.address.subDistrict.district.province.region.name }} -->
         </p>
       </div>
       <div class="card-actions absolute top-4 right-2 text-2xs">
