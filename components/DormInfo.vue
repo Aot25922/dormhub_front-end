@@ -2,7 +2,7 @@
   <div class="card card-side bg-dark-blue text-white p-3 cursor-pointer" @click="dormInfo()">
     <figure>
       <img
-        src="https://via.placeholder.com/150"
+        :src="$store.state.Backend_URL+'/dorm/image/'+Dorm.dormId+'/'+Dorm.media.filter(x=>x.roomTypeId == null)[0].mediaId"
         class="h-24 w-24 rounded-md"
         alt="Album"
       />

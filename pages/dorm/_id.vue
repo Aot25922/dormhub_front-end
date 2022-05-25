@@ -3,8 +3,8 @@
     <div v-if="dorm != null">
       <client-only>
       <agile>
-        <div class="slide text-white block relative h-60 md:h-[480px] lg:h-[760px]" v-for="i in dorm.media.filter(x => x.roomTypeId == null)" :key="i.mediaId">
-          <img :src="$store.state.Backend_URL+'/dorm/image/'+dorm.dormId+'/'+i.mediaId" class="object-cover object-center w-full"/>
+        <div class="slide text-white block relative h-60 md:h-[480px] lg:h-[550px]" v-for="i in dorm.media.filter(x => x.roomTypeId == null)" :key="i.mediaId">
+          <img :src="$store.state.Backend_URL+'/dorm/image/'+dorm.dormId+'/'+i.mediaId" class="object-cover object-center w-full h-full"/>
         </div>
         <template slot="prevButton"><span class="material-icons">chevron_left</span></template>
         <template slot="nextButton"><span class="material-icons">chevron_right</span></template>
@@ -31,10 +31,10 @@
 			</span></p>
 			<p class="pt-2">ราคา : <span class="text-light-blue">{{ lowPrice }} - {{ highPrice }}</span></p>
 			<p class="pt-2">ช่องทางการติดต่อ:</p>
-			<ul class="list-none">
+			<!-- <ul class="list-none">
 				<li class="pl-3">อีเมล: <span class="text-light-blue">{{ owner.email }}</span></li>
 				<li class="pl-3">เบอร์โทรศัพท์:  <span class="text-light-blue">{{ owner.phone }}</span></li>
-			</ul>
+			</ul> -->
 		</div>
       </div>
       <div class="dropdown px-4">

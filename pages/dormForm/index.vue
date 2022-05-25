@@ -13,13 +13,13 @@
 					</div>
 					<div class="mb-5">
 						<label class="label-text text-light-blue tracking-wide font-bold">เวลาเปิด</label>
-						<input type="text" class="py-4 px-2 w-full input input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue border-none"
+						<input type="time" class="py-4 px-2 w-full input input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue border-none"
 						placeholder="06.00" v-model="dorm.openTime" />
 						<p v-if="!validateOpenTime" @blur="checkDormForm" class="text-error text-right mt-2">ระบุเวลาเปิดหอพัก</p>
 					</div>
 					<div class="mb-5">
 						<label class="label-text text-light-blue tracking-wide font-bold my-2">เวลาปิด</label>
-						<input  type="text" class="py-4 px-2 w-full input input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue border-none"
+						<input  type="time" class="py-4 px-2 w-full input input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue border-none"
 						placeholder="22.00" v-model="dorm.closeTime" />
 						<p v-if="!validateCloseTime" @blur="checkDormForm" class="text-error text-right mt-2">ระบุเวลาปิดหอพัก</p>
 					</div>

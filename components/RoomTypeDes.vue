@@ -2,8 +2,8 @@
   <div>
     <client-only>
     <agile style="touch-action: none">
-    <div class="slide text-white block relative h-60 md:h-[480px] lg:h-[760px]" v-for="i in media" :key="i.mediaId">
-      <img :src="$store.state.Backend_URL+'/dorm/image/'+i.dormId+'/'+i.mediaId+'/'+roomType.roomTypeId" class="object-cover object-center w-full"/>
+    <div class="slide text-white block relative h-60 md:h-[480px] lg:h-[550px]" v-for="i in media" :key="i.mediaId">
+      <img :src="$store.state.Backend_URL+'/dorm/image/'+i.dormId+'/'+i.mediaId+'/'+roomType.roomTypeId" class="object-cover object-center w-full h-full"/>
     </div>
     <template slot="prevButton"><span class="material-icons">chevron_left</span></template>
     <template slot="nextButton"><span class="material-icons">chevron_right</span></template>
