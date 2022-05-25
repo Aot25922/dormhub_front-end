@@ -115,7 +115,7 @@ export default {
     confirmAddress(){
             return this.zipCode!=null && this.selectedDistrict != null && this.selectedSubdistrict != null 
       && this.selectedRegion != null && this.selectedProvince != null && this.address.number != ""
-      && this.address.street != "" && this.address.alley != "" ? true : false
+      && this.address.street != "" ? true : false
     }
   }
 };

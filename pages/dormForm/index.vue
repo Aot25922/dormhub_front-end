@@ -55,16 +55,18 @@
 		<div v-for="(i,index) in roomType" :key="i.type" >
 			<room-type  @addRoomType = 'addRoomType' @removeRoomTypes="removeRoomTypes" :index="index" :confirmAllRoomTypes="confirmAllRoomType" @validateroomTypeForm="validateroomType"/>
 		</div>
-		<button v-if='confirmAllRoomType == false' @click='roomTypeCount++;roomType.push({type: roomTypeCount,price: 0,deposit: 0,area: 0,facility: [{ name: "", description: "" }]})' class="btn btn-neutral mr-3 ml-auto block">เพิ่มประเภทห้องพัก</button>
-		<button @click='confirmAllRoomType = true' v-if='confirmAllRoomType == false && checkforroomType '  class="btn btn-neutral mr-3 ml-auto block" >ยืนยันประเภทห้องพัก</button>
+		<button v-if='confirmAllRoomType == false' @click='roomTypeCount++;roomType.push({type: `dummy${roomTypeCount}`,price: 0,deposit: 0,area: 0,facility: [{ name: "", description: "" }]})' class="btn btn-neutral mr-3 ml-auto block">เพิ่มประเภทห้องพัก</button>
+		<button @click='confirmAllRoomType = true;validateroomTypeSubmit=true' v-if='confirmAllRoomType == false && checkforroomType '  class="btn btn-neutral mr-3 ml-auto block" >ยืนยันประเภทห้องพัก</button>
 		<div v-if="confirmAllRoomType">
-			<room :roomType="roomType" :index='index' :confirmRoom="confirmAllRoom" v-for="(i,index) in room" :key="i.roomNum" @addNewRoom='addRoom' @cancelThisRoom ='cancelThisRoom(index)' @validateRoom='validateRoom' />
-			<button v-if="confirmAllRoom == false" @click="roomCount++;room.push({roomNum:roomCount,status:'',floors:'',description:'',roomType:''})" class="btn btn-neutral mr-3 ml-auto block">เพิ่มห้องพัก</button>
-			<button @click="confirmAllRoom = true" v-if="confirmAllRoom == false && checkforRoom" class="btn btn-neutral mr-3 ml-auto block bg-confirmButton">ยืนยันห้องพัก</button>
-			<button  @click="confirmAllRoom = false;room=[{roomNum:1,status:'',floors:'',description:'',roomType:''}],roomCount=1" v-else class="btn btn-neutral mr-3 ml-auto block bg-cancelButton">ยกเลิกห้องพักทั้งหมด</button>
+			<div v-for="(i,index) in room" :key="i.roomNum">
+				<room :roomType="roomType" :index='index' :confirmRoom="confirmAllRoom"  @addNewRoom='addRoom' @cancelThisRoom ='cancelThisRoom(index)' @validateRoom='validateRoom' />
+			</div>
+			<button v-if="confirmAllRoom == false" @click="roomCount++;room.push({roomNum:`dummy${roomCount}`,status:'',floors:'',description:'',roomType:''})" class="btn btn-neutral mr-3 ml-auto block">เพิ่มห้องพัก</button>
+			<button @click="confirmAllRoom = true;validateRoomSubmit = true" v-if="confirmAllRoom == false && checkforRoom" class="btn btn-neutral mr-3 ml-auto block bg-confirmButton">ยืนยันห้องพัก</button>
+			<button  @click="confirmAllRoom = false;room=[{roomNum:'dummy1',status:'',floors:'',description:'',roomType:''}];roomCount=1;validateRoomSubmit = false" v-else class="btn btn-neutral mr-3 ml-auto block bg-cancelButton">ยกเลิกห้องพักทั้งหมด</button>
 		</div>
 		</div>
-		<button @click="submit" class="btn btn-neutral mr-3 ml-auto block" >Submit</button>
+		<button @click="submit" class="btn btn-neutral mr-3 ml-auto block" v-if="allowToSubmit" >Submit</button>
 		<!-- <BankAccount v-if="banking"/> -->
 		
 	</div>
@@ -95,19 +97,21 @@ data() {
 		},
 		dormInputImage:[],
 		address:null,
-		roomType:[ {type: '', price: null, deposit: null, area: null, facility: [{ name: "", description: "" }],}],
+		roomType:[ {type: `dummy1`,price: 0,deposit: 0,area: 0,facility: [{ name: "", description: "" }],}],
 		roomTypeImage:[],
 		roomTypeCount:1,
 		roomCount:1,
 		confirmAllRoom:false,
 		confirmAllRoomType:false,
-		room:[{roomNum:1,status:'',floors:'',description:'',roomType:''}],
+		room:[{roomNum:'dummy1',status:'',floors:'',description:'',roomType:''}],
 		checkforroomType : false,
 		checkforRoom : false,
 		validateName: true,
 		validateElec: true,
 		validateWater: true,
-		validateDormImg: true
+		validateDormImg: true,
+		validateroomTypeSubmit:false,
+		validateRoomSubmit : false
       }
 	},
 	methods: {
@@ -194,10 +198,8 @@ data() {
 		},
 	addAddress(value){
       this.address = value
-	  console.log(this.address)
 	},
 	addRoomType({roomType,roomTypeImage,index}){
-		console.log( roomType.type)
 		for(let i in this.roomType){
 			if(this.roomType[i].type == roomType.type){
 				return
@@ -212,9 +214,13 @@ data() {
 	removeRoomTypes(value){
       this.roomType.splice(value,1)
 	},
-	addRoom(value){
-	  this.room[value.index] = value.room
-	  console.log(this.room)
+	addRoom({index,room}){
+		for(let i in this.room){
+			if(this.room[i].roomNum == room.roomNum){
+				return
+			}
+		}
+	  this.room[index] = room
 	},
 	cancelThisRoom(index){
 		if(index == 0){
@@ -223,9 +229,12 @@ data() {
 	this.checkforRoom = true
       this.room.splice(index,1)
 	},
-	validateDorm(){
-	  return this.dorm.name != '' && this.dorm.openTime != null && this.dorm.closeTime && this.dorm.elecPerUnit > 0 && this.dorm.waterPerUnit > 0 && this.dormImgUrl.length>0 ? true : false
-	}
 	},
+	computed :{
+		allowToSubmit(){	
+			return this.dorm.name != '' && this.dorm.openTime != null && this.dorm.closeTime !=null && this.dorm.elecPerUnit > 0 && this.dorm.waterPerUnit > 0 && this.dormImgUrl.length>0 && this.address != null
+			&& this.validateroomTypeSubmit && this.validateRoomSubmit && this.roomTypeImage.length>0  ? true : false
+		}
+	}
 }
 </script>
