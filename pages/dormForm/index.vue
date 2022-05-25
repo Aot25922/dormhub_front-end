@@ -1,37 +1,39 @@
 <template>
-	<div class="py-3">
+	<div class="py-3 md:py-5">
 		<div v-if="!banking">
 		<h1 class="text-cheese font-bold text-center text-xl">เพิ่มหอพัก</h1>
-			<form action="" class="px-3">
+			<form class="px-3 md:px-20 lg:px-[335px]">
 				<div class="bg-dark-blue p-3 rounded-lg my-3">
 					<h1 class="text-white text-lg ml-2 mb-2 font-bold">เกี่ยวกับหอพัก</h1>
 					<div class="mb-2">
 						<label class="label-text text-light-blue tracking-wide font-bold my-2">ชื่อหอพัก <span class="text-cancelButton">*</span></label>
 						<input type="text" autofocus class="py-4 px-2 w-full input input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue border-none"
 						placeholder="แฮปปี้ดอร์ม" v-model="dorm.name" />
-						<p v-if="!validateName" class="text-error text-right mt-2">กรุณาใส่ชื่อหอพัก</p>
+						<p v-if="!validateName" @blur="checkDormForm" class="text-error text-right mt-2">กรุณาใส่ชื่อหอพัก</p>
 					</div>
 					<div class="mb-5">
 						<label class="label-text text-light-blue tracking-wide font-bold">เวลาเปิด</label>
 						<input type="text" class="py-4 px-2 w-full input input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue border-none"
 						placeholder="06.00" v-model="dorm.openTime" />
+						<p v-if="!validateOpenTime" @blur="checkDormForm" class="text-error text-right mt-2">ระบุเวลาเปิดหอพัก</p>
 					</div>
 					<div class="mb-5">
 						<label class="label-text text-light-blue tracking-wide font-bold my-2">เวลาปิด</label>
 						<input  type="text" class="py-4 px-2 w-full input input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue border-none"
 						placeholder="22.00" v-model="dorm.closeTime" />
+						<p v-if="!validateCloseTime" @blur="checkDormForm" class="text-error text-right mt-2">ระบุเวลาปิดหอพัก</p>
 					</div>
 					<div class="mb-2">
 						<label class="label-text text-light-blue tracking-wide font-bold my-2">ค่าน้ำต่อหน่วย <span class="text-cancelButton">*</span></label>
 						<input type="number" step="0.01" v-model="dorm.waterPerUnit" class="py-4 px-2 w-full input input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue border-none" 
 						placeholder="0.01 - 9.99" />
-						<p v-if="!validateWater" class="text-error text-right mt-2">ใส่ค่าได้ตั้งแต่ 0.01 - 9.99</p>
+						<p v-if="!validateWater" @blur="checkDormForm" class="text-error text-right mt-2">ใส่ค่าได้ตั้งแต่ 0.01 - 9.99</p>
 					</div>
 					<div class="mb-2">
 						<label class="label-text text-light-blue tracking-wide font-bold my-2">ค่าไฟต่อหน่วย <span class="text-cancelButton">*</span></label>
 						<input type="number" step="0.01" v-model="dorm.elecPerUnit" class="py-4 px-2 w-full input input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue border-none" 
 						placeholder="0.01 - 9.99" />
-						<p v-if="!validateElec" class="text-error text-right mt-2">ใส่ค่าได้ตั้งแต่ 0.01 - 9.99</p>
+						<p v-if="!validateElec" @blur="checkDormForm" class="text-error text-right mt-2">ใส่ค่าได้ตั้งแต่ 0.01 - 9.99</p>
 					</div>
 					<div class="mb-5">
 						<label class="label-text text-light-blue tracking-wide font-bold my-2">ข้อมูลเพิ่มเติม</label>
@@ -42,9 +44,11 @@
 						<label class="label-text text-light-blue tracking-wide font-bold my-2">เลือกภาพปกที่ใช้แสดงบนหน้าเว็ป <span class="text-cancelButton">*</span></label>
 						<input type="file" class="focus:outline-none form-control block w-full bg-dark-gray text-gray-soil rounded transition ease-in-out border-none" @change="onFileChange" multiple/>
 						<div v-if="dormImgUrl">
-						<img v-for='i in dormImgUrl' :key="i" :src='i' class="py-2" />
+						<div class="md:grid md:grid-cols-2 lg:grid lg:grid-cols-4">
+							<img v-for='i in dormImgUrl' :key="i" :src='i' class="py-2 md:p-2" />
+						</div>	
 						</div>
-						<p v-if="!validateDormImg" class="text-error text-right mt-2">ต้องมีอย่างน้อย 1 ภาพ</p>
+						<p v-if="!validateDormImg" @blur="checkDormForm" class="text-error text-right mt-2">ต้องมีอย่างน้อย 1 ภาพ</p>
 					</div>
 				</div>
 				<Address msg="ที่ตั้งหอพัก" @enterAddressData='addAddress'/>
@@ -97,7 +101,7 @@ data() {
 		},
 		dormInputImage:[],
 		address:null,
-		roomType:[ {type: `dummy1`,price: 0,deposit: 0,area: 0,facility: [{ name: "", description: "" }],}],
+		roomType:[ {type: `dummy1`, price: 0, deposit: 0, area: 0, facility: [{ name: "", description: "" }],}],
 		roomTypeImage:[],
 		roomTypeCount:1,
 		roomCount:1,
@@ -107,6 +111,8 @@ data() {
 		checkforroomType : false,
 		checkforRoom : false,
 		validateName: true,
+		validateOpenTime: true,
+		validateCloseTime: true,
 		validateElec: true,
 		validateWater: true,
 		validateDormImg: true,
@@ -137,7 +143,6 @@ data() {
 			}
     },
 	async submit(){
-		this.checkDormForm()
 		let formData = new FormData()
 		let data={};
 		if(this.dorm != null){
@@ -192,6 +197,8 @@ data() {
 	},
 	checkDormForm(){
 		this.validateName = (this.dorm.name != "") ? true : false
+		this.validateOpenTime = (this.dorm.openTime != "") ? true : false
+		this.validateCloseTime = (this.dorm.closeTime != "") ? true : false
 		this.validateElec = (this.dorm.elecPerUnit != null && 0 < this.dorm.elecPerUnit < 10) ? true : false
 		this.validateWater = (this.dorm.waterPerUnit != null && 0 < this.dorm.waterPerUnit < 10) ? true : false
 		this.validateDormImg = (this.dormImgUrl.length != 0) ? true : false

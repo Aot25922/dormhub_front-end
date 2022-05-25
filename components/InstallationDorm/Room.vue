@@ -1,5 +1,5 @@
 <template>
-	<div class="px-3">
+	<div class="px-3 md:px-20 lg:px-[335px]">
 		<div  class="bg-dark-blue p-3 rounded-lg mb-3" >
 			<h1 class="text-white text-lg ml-2 mb-2 font-bold">จำนวนห้องพัก</h1>
 			<div class="flex flex-wrap">
@@ -8,28 +8,28 @@
 						<label for="" class="label-text text-light-blue tracking-wide font-bold my-2">เลขห้อง</label>
 						<input type="text" class="py-4 mb-3 px-2 w-full input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue"
 						placeholder="101" v-model="room.roomNum" :disabled="dataIsFill" @blur="checkRoomForm" />
-                        <span class=" text-cancelButton" v-if="!validateRoomNum">Input roomNum</span>
+                        <p class="text-error text-right mt-2" v-if="!validateRoomNum">กรุณาใส่เลขห้อง</p>
 						
 						<label for="" class="label-text text-light-blue tracking-wide font-bold my-2">สถานะ</label>
 						<input type="text" class="py-4 mb-3 px-2 w-full input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue"
 						placeholder="ว่าง/ไม่ว่าง" v-model="room.status" :disabled="dataIsFill" @blur="checkRoomForm"  />
-                        <span class=" text-cancelButton" v-if="!validateStatus">Input status</span>
+                        <p class="text-error text-right mt-2" v-if="!validateStatus">กรูณาใส่สถานะห้อง</p>
 
 						<label for="" class="label-text text-light-blue tracking-wide font-bold my-2">ชั้น</label>
 						<input type="text" class="py-4 mb-3 px-2 w-full input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue"
 						placeholder="1-100" v-model="room.floors" :disabled="dataIsFill" @blur="checkRoomForm"  />
-                        <span class=" text-cancelButton" v-if="!validateFloors">Input floors</span>
+                        <p class="text-error text-right mt-2" v-if="!validateFloors">ระบุชั้นของห้องพัก</p>
 
 						<label for="" class="label-text text-light-blue tracking-wide font-bold my-2">รายละเอียดเพิ่มเติม</label>
 						<input type="text" class="py-4 mb-3 px-2 w-full input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue"
-						placeholder="ห้องนี้สีเขียว" v-model="room.description" :disabled="dataIsFill"  />
+						placeholder="หอมชื่นใจ" v-model="room.description" :disabled="dataIsFill"  />
 
 						<label for="" class="label-text text-light-blue tracking-wide font-bold my-2">ประเภทห้อง</label>
 						<select class="select mb-5 w-full text-light-blue bg-dark-gray border-2 border-gray-soil" v-model="room.roomType" :disabled="dataIsFill" @blur="checkRoomForm" >
 							<option	option disabled selected>กรุณาเลือกประเภทห้อง</option>
 							<option v-for="option in roomType" :value="option.type" :key="option.type" >{{option.type}}</option>
 						</select>
-                        <span class=" text-cancelButton" v-if="!validateRoomType">Input roomType</span>
+                        <p class="text-error text-right mt-2" v-if="!validateRoomType">กรูณาระบุประเภทห้อง</p>
 						<button @click="$emit('cancelThisRoom')" class="btn btn-neutral btn-sm w-full mb-2" v-if="confirmRoom == false&&index!=0">ยกเลิกห้องนี้</button>
 					</div>
 				</div>

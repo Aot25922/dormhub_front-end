@@ -1,7 +1,7 @@
 <template>
   <div class="bg-dark-gray min-h-screen">
-    <NavBar/>
-	<SearchBar class="my-3"/>
+    <NavBar class="md:p-3 lg:p-5"/>
+	<SearchBar class="my-3 md:my-5"/>
     <nuxt/>
 	<Footer />
   </div>
