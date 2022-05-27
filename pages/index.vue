@@ -44,8 +44,7 @@ export default {
   },
   methods: {
   },
-  async beforeMount() {
-    // console.log(this.$store.state.Backend_URL);
+  async beforeCreate() {
     await this.$store.dispatch('fetchDormList');
     await this.$store.dispatch('fetchProvinceList');
   },
