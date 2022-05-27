@@ -1,31 +1,31 @@
 <template>
-	<div class="px-3 md:px-20 lg:px-[335px]">
+	<div class="px-3 md:p-0">
 		<div  class="bg-dark-blue p-3 rounded-lg mb-3" >
 			<h1 class="text-white text-lg ml-2 mb-2 font-bold">จำนวนห้องพัก</h1>
 			<div class="flex flex-wrap">
-				<div class="w-full px-1">
+				<div class="w-full p-1">
 					<div class="w-full bg-dark-gray rounded-md p-3">	
 						<label for="" class="label-text text-light-blue tracking-wide font-bold my-2">เลขห้อง</label>
-						<input type="text" class="py-4 mb-3 px-2 w-full input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue"
+						<input type="text" class="py-4 mb-3 px-2 w-full input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue disabled:bg-light-blue disabled:text-dark-blue"
 						placeholder="101" v-model="room.roomNum" :disabled="dataIsFill" @blur="checkRoomForm" />
                         <p class="text-error text-right mt-2" v-if="!validateRoomNum">กรุณาใส่เลขห้อง</p>
 						
 						<label for="" class="label-text text-light-blue tracking-wide font-bold my-2">สถานะ</label>
-						<input type="text" class="py-4 mb-3 px-2 w-full input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue"
+						<input type="text" class="py-4 mb-3 px-2 w-full input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue disabled:bg-light-blue disabled:text-dark-blue"
 						placeholder="ว่าง/ไม่ว่าง" v-model="room.status" :disabled="dataIsFill" @blur="checkRoomForm"  />
                         <p class="text-error text-right mt-2" v-if="!validateStatus">กรูณาใส่สถานะห้อง</p>
 
 						<label for="" class="label-text text-light-blue tracking-wide font-bold my-2">ชั้น</label>
-						<input type="text" class="py-4 mb-3 px-2 w-full input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue"
+						<input type="text" class="py-4 mb-3 px-2 w-full input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue disabled:bg-light-blue disabled:text-dark-blue"
 						placeholder="1-100" v-model="room.floors" :disabled="dataIsFill" @blur="checkRoomForm"  />
                         <p class="text-error text-right mt-2" v-if="!validateFloors">ระบุชั้นของห้องพัก</p>
 
 						<label for="" class="label-text text-light-blue tracking-wide font-bold my-2">รายละเอียดเพิ่มเติม</label>
-						<input type="text" class="py-4 mb-3 px-2 w-full input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue"
+						<input type="text" class="py-4 mb-3 px-2 w-full input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue disabled:bg-light-blue disabled:text-dark-blue"
 						placeholder="หอมชื่นใจ" v-model="room.description" :disabled="dataIsFill"  />
 
 						<label for="" class="label-text text-light-blue tracking-wide font-bold my-2">ประเภทห้อง</label>
-						<select class="select mb-5 w-full text-light-blue bg-dark-gray border-2 border-gray-soil" v-model="room.roomType" :disabled="dataIsFill" @blur="checkRoomForm" >
+						<select class="select mb-5 w-full text-light-blue bg-dark-gray border-2 border-gray-soil disabled:bg-light-blue disabled:text-dark-blue" v-model="room.roomType" :disabled="dataIsFill" @blur="checkRoomForm" >
 							<option	option disabled selected>กรุณาเลือกประเภทห้อง</option>
 							<option v-for="option in roomType" :value="option.type" :key="option.type" >{{option.type}}</option>
 						</select>

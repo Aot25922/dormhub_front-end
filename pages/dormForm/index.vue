@@ -59,18 +59,22 @@
 		<div v-for="(i,index) in roomType" :key="i.type" >
 			<room-type  @addRoomType = 'addRoomType' @removeRoomTypes="removeRoomTypes" :index="index" :confirmAllRoomTypes="confirmAllRoomType" @validateroomTypeForm="validateroomType"/>
 		</div>
-		<button v-if='confirmAllRoomType == false' @click='roomTypeCount++;roomType.push({type: `dummy${roomTypeCount}`,price: 0,deposit: 0,area: 0,facility: [{ name: "", description: "" }]})' class="btn btn-neutral mr-3 ml-auto block">เพิ่มประเภทห้องพัก</button>
-		<button @click='confirmAllRoomType = true;validateroomTypeSubmit=true' v-if='confirmAllRoomType == false && checkforroomType '  class="btn btn-neutral mr-3 ml-auto block" >ยืนยันประเภทห้องพัก</button>
-		<div v-if="confirmAllRoomType">
+		<div class="md:px-20 lg:px-[335px]">
+			<button v-if='confirmAllRoomType == false' @click='roomTypeCount++;roomType.push({type: `dummy${roomTypeCount}`,price: 0,deposit: 0,area: 0,facility: [{ name: "", description: "" }]})' class="btn btn-neutral mr-3 ml-auto block my-3">เพิ่มประเภทห้องพัก</button>
+			<button @click='confirmAllRoomType = true;validateroomTypeSubmit=true' v-if='confirmAllRoomType == false && checkforroomType '  class="btn btn-neutral mr-3 ml-auto block" >ยืนยันประเภทห้องพัก</button>
+		</div>
+		<div v-if="confirmAllRoomType" class="md:px-20 lg:px-[335px]">
 			<div v-for="(i,index) in room" :key="i.roomNum">
 				<room :roomType="roomType" :index='index' :confirmRoom="confirmAllRoom"  @addNewRoom='addRoom' @cancelThisRoom ='cancelThisRoom(index)' @validateRoom='validateRoom' />
 			</div>
 			<button v-if="confirmAllRoom == false" @click="roomCount++;room.push({roomNum:`dummy${roomCount}`,status:'',floors:'',description:'',roomType:''})" class="btn btn-neutral mr-3 ml-auto block">เพิ่มห้องพัก</button>
-			<button @click="confirmAllRoom = true;validateRoomSubmit = true" v-if="confirmAllRoom == false && checkforRoom" class="btn btn-neutral mr-3 ml-auto block bg-confirmButton">ยืนยันห้องพัก</button>
-			<button  @click="confirmAllRoom = false;room=[{roomNum:'dummy1',status:'',floors:'',description:'',roomType:''}];roomCount=1;validateRoomSubmit = false" v-else class="btn btn-neutral mr-3 ml-auto block bg-cancelButton">ยกเลิกห้องพักทั้งหมด</button>
+			<button @click="confirmAllRoom = true;validateRoomSubmit = true" v-if="confirmAllRoom == false && checkforRoom" class="btn btn-neutral mr-3 ml-auto block bg-confirmButton my-3">ยืนยันห้องพัก</button>
+			<button  @click="confirmAllRoom = false;room=[{roomNum:'dummy1',status:'',floors:'',description:'',roomType:''}];roomCount=1;validateRoomSubmit = false" v-else class="btn btn-neutral mr-3 ml-auto block bg-cancelButton my-3">ยกเลิกห้องพักทั้งหมด</button>
 		</div>
 		</div>
-		<button @click="submit" class="btn btn-neutral mr-3 ml-auto block" v-if="allowToSubmit" >Submit</button>
+		<div class="md:px-20 lg:px-[335px]">
+			<button @click="submit" class="btn btn-neutral mr-3 ml-auto block" v-if="allowToSubmit" >Submit</button>
+		</div>
 		<!-- <BankAccount v-if="banking"/> -->
 		
 	</div>
@@ -240,7 +244,7 @@ data() {
 	},
 	computed :{
 		allowToSubmit(){	
-			return this.dorm.name != '' && this.dorm.openTime != null && this.dorm.closeTime !=null && this.dorm.elecPerUnit > 0 && this.dorm.waterPerUnit > 0 && this.dormImgUrl.length>0 && this.address != null
+			return this.dorm.name != '' && this.dorm.elecPerUnit > 0 && this.dorm.waterPerUnit > 0 && this.dormImgUrl.length>0 && this.address != null
 			&& this.validateroomTypeSubmit && this.validateRoomSubmit && this.roomTypeImage.length>0  ? true : false
 		}
 	}
