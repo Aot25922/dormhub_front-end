@@ -39,22 +39,24 @@
 export default {
   data() {
     return {
-      dormList: [],
-      provinceList: [],
       seeAll: false
     };
   },
-  async fetch() {
-    fetchOnServer: false, //Set fetch() run client-side
-
-    this.dormList = await this.$axios.$get(`${this.$store.state.Backend_URL}/dorm`);
-    console.log("Fetch DormList")
-    for(let i in this.dormList){
-      if(!(this.provinceList.includes(this.dormList[i].address.subDistrict.district.province.name))) {
-        this.provinceList.push(this.dormList[i].address.subDistrict.district.province.name);
-      }
+  methods: {
+  },
+  async beforeMount() {
+    // console.log(this.$store.state.Backend_URL);
+    await this.$store.dispatch('fetchDormList');
+    await this.$store.dispatch('fetchProvinceList');
+  },
+  computed : {
+    dormList() {
+      return this.$store.state.dormList;
+    },
+    provinceList() {
+      return this.$store.state.provinceList;
     }
-  }
+  },
 };
 </script>
 
