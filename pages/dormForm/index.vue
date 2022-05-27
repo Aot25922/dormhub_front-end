@@ -151,9 +151,14 @@ data() {
 		if(this.address != null){
 		data.address = this.address
 		}
+		if(this.room.length != 0 || this.room != null){
+			data.room = this.room
+		}
 		if(this.roomType.length != 0 || this.roomType != null){
 			data.roomType = this.roomType
-			if(this.roomTypeImage.length != 0){
+		}
+		formData.append('data',JSON.stringify(data))
+		if(this.roomTypeImage.length != 0){
 				for(let i in this.roomTypeImage){
 				for (const [key, value] of Object.entries(this.roomTypeImage[i])) {
   					 for(let j in value){
@@ -162,16 +167,12 @@ data() {
 					}
 				}
 			}
-		}
-		if(this.room.length != 0 || this.room != null){
-			data.room = this.room
-		}
+		
 		if(this.dormInputImage.length != 0 ){
             for(let i in this.dormInputImage){
 			formData.append(`dorm_${this.dorm.name}`, this.dormInputImage[i], 'test.jpg')
 			}
 		}
-		formData.append('data',JSON.stringify(data))
 		for(var pair of formData.entries()) {
    			console.log(pair[0]+ ': '+ pair[1]);
 		}
