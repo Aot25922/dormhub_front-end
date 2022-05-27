@@ -37,20 +37,23 @@
 </template>
 <script>
 export default {
-  async asyncData({ $axios, store }) {
-    var dormList = await $axios.$get(`${store.state.Backend_URL}/dorm`);
-	var provinceList = [];
-	for(let i in dormList){
-		if(!(provinceList.includes(dormList[i].address.subDistrict.district.province.name))) {
-		provinceList.push(dormList[i].address.subDistrict.district.province.name)
-	}
-	}
-	return { dormList, provinceList };
-  },
   data() {
     return {
-      seeAll: false,
+      dormList: [],
+      provinceList: [],
+      seeAll: false
     };
+  },
+  async fetch() {
+    fetchOnServer: false, //Set fetch() run client-side
+
+    this.dormList = await this.$axios.$get(`${this.$store.state.Backend_URL}/dorm`);
+    console.log("Fetch DormList")
+    for(let i in this.dormList){
+      if(!(this.provinceList.includes(this.dormList[i].address.subDistrict.district.province.name))) {
+        this.provinceList.push(this.dormList[i].address.subDistrict.district.province.name);
+      }
+    }
   }
 };
 </script>
