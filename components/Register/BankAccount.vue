@@ -47,11 +47,9 @@
 </template>
 
 <script>
-import RoomFloor from '@/components/InstallationDorm/RoomFloor.vue'
 
 export default {
 	name: 'BankAccount',
-	components: { RoomFloor },
 	data() {
 		return {
 			roomFloor: false,

@@ -16,7 +16,7 @@
 					<span>ห้อง</span>
 				</label>
 			</div>
-			<RoomType />
+			<!-- <RoomType /> -->
 		</div>
 		<div class="grid grid-cols-2 py-3">
 			<button @click="previousPage" v-if="!layout" class="btn btn-neutral ml-3 mr-auto">ย้อนกลับ</button>
@@ -27,12 +27,9 @@
 </template>
 
 <script>
-import RoomType from '@/components/InstallationDorm/RoomType.vue'
-import RoomLayout from  '@/components/InstallationDorm/RoomLayout.vue'
-
 export default {
 	name: 'RoomFloor',
-	components: { RoomType, RoomLayout },
+	// components: { RoomType, RoomLayout },
 	data() {
 		return {
 			layout: false,

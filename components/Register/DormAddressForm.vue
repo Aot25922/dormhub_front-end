@@ -1,4 +1,5 @@
 <template>
+ <form class="px-3 md:px-20 lg:px-[335px]" @submit.prevent="submit">
   <div div class="bg-dark-blue p-3 rounded-lg my-3">
     <h1 class="text-white text-lg ml-2 mb-2 font-bold">{{ msg }}</h1>
 			<label for="" class="label-text text-light-blue tracking-wide font-bold my-2">เลขที่/เลขห้อง <span class="text-cancelButton">*</span></label>
@@ -14,14 +15,16 @@
 			placeholder="69"/>
 
 			<label for="" class="label-text text-light-blue tracking-wide font-bold my-2">ภูมิภาค <span class="text-cancelButton">*</span></label>
-			<select v-model="selectedRegion" class="select w-full mb-5 text-light-blue bg-dark-gray border-0">
+			<select v-model="selectedRegion" class="select w-full mb-5 text-light-blue bg-dark-gray border-0"
+      @change="slectedProvince=null;selectedDistrict = null;selectedsubDistrict = null; zipCode = null">
 				<option	option disabled selected>กรุณาเลือกภูมิภาค</option>
 				<option v-for="option in this.addressOption" :value="option" :key="option.regions">{{option.regions}}</option>
 			</select>
 
             <div v-if="selectedRegion">
 				<label for="" class="label-text text-light-blue tracking-wide font-bold my-2">จังหวัด <span class="text-cancelButton">*</span></label>
-				<select v-model="selectedProvince" class="select mb-5 w-full text-light-blue bg-dark-gray border-0">
+				<select v-model="selectedProvince" class="select mb-5 w-full text-light-blue bg-dark-gray border-0"
+        @change="selectedDistrict = null;selectedsubDistrict = null; zipCode = null">
 					<option	option disabled selected>กรุณาเลือกจังหวัด</option>
 					<option v-for="option in selectedRegion.provinces" :value="option" :key="option">
                        {{option}}
@@ -31,7 +34,8 @@
 
 			<div v-if="selectedProvince">
 				<label for="" class="label-text text-light-blue tracking-wide font-bold my-2">เขต/อำเภอ <span class="text-cancelButton">*</span></label>
-				<select v-model="selectedDistrict" class="select mb-5 w-full text-light-blue bg-dark-gray border-0">
+				<select v-model="selectedDistrict" class="select mb-5 w-full text-light-blue bg-dark-gray border-0"
+        @change="selectedsubDistrict = null; zipCode = null">
 					<option	option disabled selected>กรุณาเลือกเขต/อำเภอ</option>
 					<option v-for="option in selectedRegion.districts" :value="option" :key="option">{{option}}</option>
 				</select>
@@ -39,7 +43,8 @@
 
 			<div v-if="selectedDistrict">
 				<label for="" class="label-text text-light-blue tracking-wide font-bold my-2">แขวง/ตำบล <span class="text-cancelButton">*</span></label>
-				<select v-model="selectedSubdistrict" class="select mb-5 w-full text-light-blue bg-dark-gray border-0">
+				<select v-model="selectedSubdistrict" class="select mb-5 w-full text-light-blue bg-dark-gray border-0"
+        @change="zipCode = null">
 					<option	option disabled selected>กรุณาเลือกแขวง/ตำบล</option>
 					<option v-for="option in selectedRegion.subDistricts" :value="option.subDistrict" :key="option.subDistrict">{{option.subDistrict}}</option>
 				</select>
@@ -52,8 +57,9 @@
 					<option v-for="option in selectedRegion.subDistricts" :value="option.zipCodeId" :key="option.zipCodeId">{{option.zipCodeId}}</option>
 				</select>
 			</div>
-    <button class="btn btn-neutral mt-3 ml-auto block" @click="addressData" type="button" v-if="confirmAddress">ยืนยันข้อมูล</button>
+    <button class="btn btn-neutral mt-3 ml-auto block"  type="submit" v-if="confirmAddress">ยืนยันข้อมูล</button>
   </div>
+ </form>
 </template>
 
 <script>
@@ -84,7 +90,6 @@ export default {
         subDistricts: subDistrictList,
       });
     }
-	console.log(this.addressOption)
   },
   data() {
     return {
@@ -102,13 +107,32 @@ export default {
     };
   },
   methods: {
-    addressData() {
+    submit() {
+      if(this.confirmAddress){
       this.address.zipCodeId = this.zipCode;
       this.address.district = this.selectedDistrict;
       this.address.region = this.selectedRegion.regions;
       this.address.province = this.selectedProvince;
       this.address.subDistrict = this.selectedSubdistrict;
-       this.$emit("enterAddressData", this.address);
+      this.$store.commit("SET_DORMADDRESS",this.address)
+      const noti = this.$vs.notification({
+    	    progress: 'auto',
+    	    icon:`<i class='bx bx-folder-open' ></i>`,
+    		color:'success',
+            position:'top-right',
+            title: `Data Update`,
+            text: `Add you dorm address data complete!`
+    	  })
+      }else{
+        const noti = this.$vs.notification({
+    	    progress: 'auto',
+    	    icon:`<i class='bx bx-error' ></i>`,
+    		color:'warn',
+            position:'top-right',
+            title: "Form data not complete",
+            text: "Please, input all data in field"
+          })
+      }
     },
   },
   computed : {
