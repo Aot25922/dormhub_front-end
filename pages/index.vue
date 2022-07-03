@@ -12,7 +12,7 @@
       <h1 class="w-1/2">หอพัก</h1>
       <div class="w-1/2 text-xs text-right text-light-blue">
         <button @click="seeAll = !seeAll">
-			<div v-if="!seeAll">ดูทั้งหมด ></div>
+			<div v-if="!seeAll">ดูหมด ></div>
 			<div v-else>ย่อ ></div>
 		</button>
       </div>
