@@ -11,10 +11,21 @@
           <input
             type="text"
             autofocus
-            class="py-4 px-2 w-full input input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue border-none"
+            class="
+              py-4
+              px-2
+              w-full
+              input input-sm
+              rounded
+              text-light-blue
+              bg-dark-gray
+              focus:outline-none focus:bg-gray-soil focus:text-light-blue
+              border-none
+            "
             placeholder="แฮปปี้ดอร์ม"
             @blur="checkForm"
             v-model="dorm.name"
+            :disabled = "disableForm"
           />
           <p v-if="!validateName" class="text-error text-right mt-2">
             กรุณาใส่ชื่อหอพัก
@@ -26,10 +37,21 @@
           >
           <input
             type="time"
-            class="py-4 px-2 w-full input input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue border-none"
+            class="
+              py-4
+              px-2
+              w-full
+              input input-sm
+              rounded
+              text-light-blue
+              bg-dark-gray
+              focus:outline-none focus:bg-gray-soil focus:text-light-blue
+              border-none
+            "
             placeholder="06.00"
             @blur="checkForm"
             v-model="dorm.openTime"
+            :disabled = "disableForm"
           />
           <p v-if="!validateOpenTime" class="text-error text-right mt-2">
             ระบุเวลาเปิดหอพัก
@@ -41,10 +63,21 @@
           >
           <input
             type="time"
-            class="py-4 px-2 w-full input input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue border-none"
+            class="
+              py-4
+              px-2
+              w-full
+              input input-sm
+              rounded
+              text-light-blue
+              bg-dark-gray
+              focus:outline-none focus:bg-gray-soil focus:text-light-blue
+              border-none
+            "
             placeholder="22.00"
             @blur="checkForm"
             v-model="dorm.closeTime"
+            :disabled = "disableForm"
           />
           <p v-if="!validateCloseTime" class="text-error text-right mt-2">
             ระบุเวลาปิดหอพัก
@@ -59,8 +92,19 @@
             step="0.01"
             @blur="checkForm"
             v-model="dorm.waterPerUnit"
-            class="py-4 px-2 w-full input input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue border-none"
+            class="
+              py-4
+              px-2
+              w-full
+              input input-sm
+              rounded
+              text-light-blue
+              bg-dark-gray
+              focus:outline-none focus:bg-gray-soil focus:text-light-blue
+              border-none
+            "
             placeholder="0.01 - 9.99"
+            :disabled = "disableForm"
           />
           <p v-if="!validateWater" class="text-error text-right mt-2">
             ใส่ค่าได้ตั้งแต่ 0.01 - 9.99
@@ -75,8 +119,19 @@
             step="0.01"
             @blur="checkForm"
             v-model="dorm.elecPerUnit"
-            class="py-4 px-2 w-full input input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue border-none"
+            class="
+              py-4
+              px-2
+              w-full
+              input input-sm
+              rounded
+              text-light-blue
+              bg-dark-gray
+              focus:outline-none focus:bg-gray-soil focus:text-light-blue
+              border-none
+            "
             placeholder="0.01 - 9.99"
+            :disabled = "disableForm"
           />
           <p
             v-if="!validateElec"
@@ -92,8 +147,19 @@
           >
           <textarea
             v-model="dorm.description"
-            class="h-[80px] p-2 w-full input input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue border-none"
+            class="
+              h-[80px]
+              p-2
+              w-full
+              input input-sm
+              rounded
+              text-light-blue
+              bg-dark-gray
+              focus:outline-none focus:bg-gray-soil focus:text-light-blue
+              border-none
+            "
             placeholder="คำอธิบายเพิ่มเติม"
+            :disabled = "disableForm"
           />
         </div>
         <div class="mb-5">
@@ -103,12 +169,24 @@
           >
           <input
             type="file"
-            class="focus:outline-none form-control block w-full bg-dark-gray text-gray-soil rounded transition ease-in-out border-none"
+            class="
+              focus:outline-none
+              form-control
+              block
+              w-full
+              bg-dark-gray
+              text-gray-soil
+              rounded
+              transition
+              ease-in-out
+              border-none
+            "
             @change="
               onFileChange($event);
               checkForm();
             "
             multiple
+            :disabled = "disableForm"
           />
           <div v-if="dormImgUrl">
             <div class="md:grid md:grid-cols-2 lg:grid lg:grid-cols-4">
@@ -124,7 +202,18 @@
             ต้องมีอย่างน้อย 1 ภาพ
           </p>
         </div>
-        <button class="btn btn-neutral mt-3 ml-auto block"  type="submit" >ยืนยันข้อมูล</button>
+
+        <button
+          v-if="Object.keys(this.$store.state.newDorm.dorm).length != 0"
+          class="btn btn-neutral mt-3 ml-auto block"
+          type="button"
+          @click="disableForm = false"
+        >
+          เเก้ไขข้อมูล
+        </button>
+        <button class="btn btn-neutral mt-3 ml-auto block" type="submit">
+          ยืนยันข้อมูล
+        </button>
       </div>
     </form>
   </div>
@@ -141,16 +230,17 @@ export default {
         description: "",
         rating: 0,
         acceptPercent: 0,
-        elecPerUnit: null,
-        waterPerUnit: null,
+        elecPerUnit: 0,
+        waterPerUnit: 0,
       },
+      disableForm: false,
       dormInputImage: [],
-      validateName: true,
-      validateOpenTime: true,
-      validateCloseTime: true,
-      validateElec: true,
-      validateWater: true,
-      validateDormImg: true,
+      validateName: false,
+      validateOpenTime: false,
+      validateCloseTime: false,
+      validateElec: false,
+      validateWater: false,
+      validateDormImg: false,
     };
   },
   methods: {
@@ -159,11 +249,9 @@ export default {
       this.validateOpenTime = this.dorm.openTime != "" ? true : false;
       this.validateCloseTime = this.dorm.closeTime != "" ? true : false;
       this.validateElec =
-        this.dorm.elecPerUnit != null && 0 < this.dorm.elecPerUnit < 10
-          ? true
-          : false;
+        0 < this.dorm.elecPerUnit && this.dorm.elecPerUnit < 10 ? true : false;
       this.validateWater =
-        this.dorm.waterPerUnit != null && 0 < this.dorm.waterPerUnit < 10
+        0 < this.dorm.waterPerUnit && this.dorm.waterPerUnit < 10
           ? true
           : false;
       this.validateDormImg = this.dormImgUrl.length != 0 ? true : false;
@@ -187,25 +275,28 @@ export default {
         this.validateElec &&
         this.validateDormImg
       ) {
-        this.$store.commit("SET_DORMINFO", this.dorm);
-        this.$store.commit("SET_DORMIMG", this.dormInputImage);
+        const dormCopy = { ...this.dorm };
+        const dormImgCopy = { ...this.dormInputImage };
+        this.$store.commit("SET_DORMINFO", dormCopy);
+        this.$store.commit("SET_DORMIMG", dormImgCopy);
+        this.disableForm = true
         const noti = this.$vs.notification({
-    	    progress: 'auto',
-    	    icon:`<i class='bx bx-folder-open' ></i>`,
-    		color:'success',
-            position:'top-right',
-            title: `Data Update`,
-            text: `Add you dorm detail data complete!`
-    	  })
-      }else{
-         const noti = this.$vs.notification({
-    	    progress: 'auto',
-    	    icon:`<i class='bx bx-error' ></i>`,
-    		color:'warn',
-            position:'top-right',
-            title: "Form data not complete",
-            text: "Please, input all data in field"
-          })
+          progress: "auto",
+          icon: `<i class='bx bx-folder-open' ></i>`,
+          color: "success",
+          position: "top-right",
+          title: `Data Update`,
+          text: `Add you dorm detail data complete!`,
+        });
+      } else {
+        const noti = this.$vs.notification({
+          progress: "auto",
+          icon: `<i class='bx bx-error' ></i>`,
+          color: "warn",
+          position: "top-right",
+          title: "Form data not complete",
+          text: "Please, input all data in field",
+        });
       }
     },
   },

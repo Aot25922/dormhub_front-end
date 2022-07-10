@@ -1,65 +1,239 @@
 <template>
- <form class="px-3 md:px-20 lg:px-[335px]" @submit.prevent="submit">
-  <div div class="bg-dark-blue p-3 rounded-lg my-3">
-    <h1 class="text-white text-lg ml-2 mb-2 font-bold">{{ msg }}</h1>
-			<label for="" class="label-text text-light-blue tracking-wide font-bold my-2">เลขที่/เลขห้อง <span class="text-cancelButton">*</span></label>
-			<input v-model="address.number" class="py-4 px-2 mb-5 w-full input input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue"
-			placeholder="999/999"/>
+  <form class="px-3 md:px-20 lg:px-[335px]" @submit.prevent="submit">
+    <div div class="bg-dark-blue p-3 rounded-lg my-3">
+      <h1 class="text-white text-lg ml-2 mb-2 font-bold">{{ msg }}</h1>
+      <label
+        for=""
+        class="label-text text-light-blue tracking-wide font-bold my-2"
+        >เลขที่/เลขห้อง
+        <span class="text-cancelButton" v-if="!validateNumber"
+          >*กรุณาใส่เลขที่/เลขห้อง</span
+        ></label
+      >
+      <input
+        v-model="address.number"
+        class="
+          py-4
+          px-2
+          mb-5
+          w-full
+          input input-sm
+          rounded
+          text-light-blue
+          bg-dark-gray
+          focus:outline-none focus:bg-gray-soil focus:text-light-blue
+        "
+        placeholder="999/999"
+        @blur="checkForm"
+        :disabled = "disableForm"
+      />
 
-			<label for="" class="label-text text-light-blue tracking-wide font-bold my-2">ถนน <span class="text-cancelButton">*</span></label>
-			<input v-model="address.street" class="py-4 px-2 mb-5 w-full input input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue"
-			placeholder="ถนนของเรา"/>
+      <label
+        for=""
+        class="label-text text-light-blue tracking-wide font-bold my-2"
+        >ถนน
+        <span class="text-cancelButton" v-if="!validateStreet" 
+          >*กรุณาใส่ถนน</span
+        ></label
+      >
+      <input
+        v-model="address.street"
+        class="
+          py-4
+          px-2
+          mb-5
+          w-full
+          input input-sm
+          rounded
+          text-light-blue
+          bg-dark-gray
+          focus:outline-none focus:bg-gray-soil focus:text-light-blue
+        "
+        placeholder="ถนนของเรา"
+        @blur="checkForm"
+        :disabled = "disableForm"
+      />
 
-			<label for="" class="label-text text-light-blue tracking-wide font-bold my-2">ซอย</label>
-			<input v-model="address.alley" class="py-4 px-2 mb-5 w-full input input-sm rounded text-light-blue bg-dark-gray focus:outline-none focus:bg-gray-soil focus:text-light-blue"
-			placeholder="69"/>
+      <label
+        for=""
+        class="label-text text-light-blue tracking-wide font-bold my-2"
+        >ซอย</label
+      >
+      <input
+        v-model="address.alley"
+        class="
+          py-4
+          px-2
+          mb-5
+          w-full
+          input input-sm
+          rounded
+          text-light-blue
+          bg-dark-gray
+          focus:outline-none focus:bg-gray-soil focus:text-light-blue
+        "
+        placeholder="69"
+        :disabled = "disableForm"
+      />
 
-			<label for="" class="label-text text-light-blue tracking-wide font-bold my-2">ภูมิภาค <span class="text-cancelButton">*</span></label>
-			<select v-model="selectedRegion" class="select w-full mb-5 text-light-blue bg-dark-gray border-0"
-      @change="slectedProvince=null;selectedDistrict = null;selectedsubDistrict = null; zipCode = null">
-				<option	option disabled selected>กรุณาเลือกภูมิภาค</option>
-				<option v-for="option in this.addressOption" :value="option" :key="option.regions">{{option.regions}}</option>
-			</select>
+      <label
+        for=""
+        class="label-text text-light-blue tracking-wide font-bold my-2"
+        >ภูมิภาค <span class="text-cancelButton">*</span></label
+      >
+      <span class="text-cancelButton" v-if="!validateRegion" 
+          >*กรุณาเลือกภูมิภาค</span
+        >
+      <select
+        v-model="selectedRegion"
+        class="select w-full mb-5 text-light-blue bg-dark-gray border-0"
+        @change="
+          selectedProvince = null;
+          selectedDistrict = null;
+          selectedsubDistrict = null;
+          zipCode = null;
+          checkForm()
+        "
+        :disabled = "disableForm"
+      >
+        <option option disabled selected>กรุณาเลือกภูมิภาค</option>
+        <option
+          v-for="option in this.addressOption"
+          :value="option"
+          :key="option.regions"
+        >
+          {{ option.regions }}
+        </option>
+      </select>
 
-            <div v-if="selectedRegion">
-				<label for="" class="label-text text-light-blue tracking-wide font-bold my-2">จังหวัด <span class="text-cancelButton">*</span></label>
-				<select v-model="selectedProvince" class="select mb-5 w-full text-light-blue bg-dark-gray border-0"
-        @change="selectedDistrict = null;selectedsubDistrict = null; zipCode = null">
-					<option	option disabled selected>กรุณาเลือกจังหวัด</option>
-					<option v-for="option in selectedRegion.provinces" :value="option" :key="option">
-                       {{option}}
-					</option>
-				</select>
-			</div>
+      <div v-if="selectedRegion">
+        <label
+          for=""
+          class="label-text text-light-blue tracking-wide font-bold my-2"
+          >จังหวัด <span class="text-cancelButton">*</span></label
+        >
+        <span class="text-cancelButton" v-if="!validateProvince" 
+          >*กรุณาเลือกจังหวัด</span
+        >
+        <select
+          v-model="selectedProvince"
+          class="select mb-5 w-full text-light-blue bg-dark-gray border-0"
+          @change="
+            selectedDistrict = null;
+            selectedsubDistrict = null;
+            zipCode = null;
+            checkForm();
+          "
+          :disabled = "disableForm"
+        >
+          <option option disabled selected>กรุณาเลือกจังหวัด</option>
+          <option
+            v-for="option in selectedRegion.provinces"
+            :value="option"
+            :key="option"
+          >
+            {{ option }}
+          </option>
+        </select>
+      </div>
 
-			<div v-if="selectedProvince">
-				<label for="" class="label-text text-light-blue tracking-wide font-bold my-2">เขต/อำเภอ <span class="text-cancelButton">*</span></label>
-				<select v-model="selectedDistrict" class="select mb-5 w-full text-light-blue bg-dark-gray border-0"
-        @change="selectedsubDistrict = null; zipCode = null">
-					<option	option disabled selected>กรุณาเลือกเขต/อำเภอ</option>
-					<option v-for="option in selectedRegion.districts" :value="option" :key="option">{{option}}</option>
-				</select>
-			</div>
+      <div v-if="selectedProvince">
+        <label
+          for=""
+          class="label-text text-light-blue tracking-wide font-bold my-2"
+          >เขต/อำเภอ <span class="text-cancelButton">*</span></label
+        >
+        <span class="text-cancelButton" v-if="!validateDistrict" 
+          >*กรุณาเลือกเขต/อำเภอ</span
+        >
+        <select
+          v-model="selectedDistrict"
+          class="select mb-5 w-full text-light-blue bg-dark-gray border-0"
+          @change="
+            selectedSubdistrict = null;
+            zipCode = null;
+            checkForm();
+          "
+          :disabled = "disableForm"
+        >
+          <option option disabled selected>กรุณาเลือกเขต/อำเภอ</option>
+          <option
+            v-for="option in selectedRegion.districts"
+            :value="option"
+            :key="option"
+          >
+            {{ option }}
+          </option>
+        </select>
+      </div>
 
-			<div v-if="selectedDistrict">
-				<label for="" class="label-text text-light-blue tracking-wide font-bold my-2">แขวง/ตำบล <span class="text-cancelButton">*</span></label>
-				<select v-model="selectedSubdistrict" class="select mb-5 w-full text-light-blue bg-dark-gray border-0"
-        @change="zipCode = null">
-					<option	option disabled selected>กรุณาเลือกแขวง/ตำบล</option>
-					<option v-for="option in selectedRegion.subDistricts" :value="option.subDistrict" :key="option.subDistrict">{{option.subDistrict}}</option>
-				</select>
-			</div>
+      <div v-if="selectedDistrict">
+        <label
+          for=""
+          class="label-text text-light-blue tracking-wide font-bold my-2"
+          >แขวง/ตำบล <span class="text-cancelButton">*</span></label
+        >
+        <span class="text-cancelButton" v-if="!validateSubdistrict"
+          >*กรุณาเลือกเเขวง/ตำบล</span
+        >
+        <select
+          v-model="selectedSubdistrict"
+          class="select mb-5 w-full text-light-blue bg-dark-gray border-0"
+          @change="
+            zipCode = null;
+            checkForm();
+          "
+          :disabled = "disableForm"
+        >
+          <option option disabled selected>กรุณาเลือกแขวง/ตำบล</option>
+          <option
+            v-for="option in selectedRegion.subDistricts"
+            :value="option.subDistrict"
+            :key="option.subDistrict"
+          >
+            {{ option.subDistrict }}
+          </option>
+        </select>
+      </div>
 
-			<div v-if="selectedDistrict">
-				<label for="" class="label-text text-light-blue tracking-wide font-bold my-2">รหัสไปรษณีย์ <span class="text-cancelButton">*</span></label>
-				<select v-model="zipCode" class="select mb-5 w-full text-light-blue bg-dark-gray border-0">
-					<option	option disabled selected>กรุณาเลือกรหัสไปรษณีย์</option>
-					<option v-for="option in selectedRegion.subDistricts" :value="option.zipCodeId" :key="option.zipCodeId">{{option.zipCodeId}}</option>
-				</select>
-			</div>
-    <button class="btn btn-neutral mt-3 ml-auto block"  type="submit" v-if="confirmAddress">ยืนยันข้อมูล</button>
-  </div>
- </form>
+      <div v-if="selectedDistrict">
+        <label
+          for=""
+          class="label-text text-light-blue tracking-wide font-bold my-2"
+          >รหัสไปรษณีย์ <span class="text-cancelButton">*</span></label
+        >
+        <span class="text-cancelButton" v-if="!validatezipCode" 
+          >*กรุณาเลือกรหัสไปรษณีย์</span
+        >
+        <select
+          v-model="zipCode"
+          class="select mb-5 w-full text-light-blue bg-dark-gray border-0"
+          @change="checkForm"
+          :disabled = "disableForm"
+        >
+          <option option disabled selected>กรุณาเลือกรหัสไปรษณีย์</option>
+          <option
+            v-for="option in selectedRegion.subDistricts"
+            :value="option.zipCodeId"
+            :key="option.zipCodeId"
+          >
+            {{ option.zipCodeId }}
+          </option>
+        </select>
+      </div>
+      <button
+          v-if="Object.keys(this.$store.state.newDorm.address).length != 0"
+          class="btn btn-neutral mt-3 ml-auto block"
+          type="button"
+          @click="disableForm = false"
+        >
+          เเก้ไขข้อมูล
+        </button>
+      <button class="btn btn-neutral mt-3 ml-auto block" type="submit">
+        ยืนยันข้อมูล
+      </button>
+    </div>
+  </form>
 </template>
 
 <script>
@@ -79,7 +253,13 @@ export default {
         for (let k in addressInfo[i].provinces[j].districts) {
           districtList.push(addressInfo[i].provinces[j].districts[k].name);
           for (let l in addressInfo[i].provinces[j].districts[k].subDistricts) {
-            subDistrictList.push({subDistrict:addressInfo[i].provinces[j].districts[k].subDistricts[l].name,zipCodeId:addressInfo[i].provinces[j].districts[k].subDistricts[l].zipCodeId});
+            subDistrictList.push({
+              subDistrict:
+                addressInfo[i].provinces[j].districts[k].subDistricts[l].name,
+              zipCodeId:
+                addressInfo[i].provinces[j].districts[k].subDistricts[l]
+                  .zipCodeId,
+            });
           }
         }
       }
@@ -103,44 +283,64 @@ export default {
         street: "",
         alley: "",
       },
-	  zipCode:null
+      zipCode: null,
+      validateNumber: false,
+      validateStreet: false,
+      validateDistrict: false,
+      validateSubdistrict: false,
+      validateRegion: false,
+      validateProvince: false,
+      validatezipCode: false,
+      disableForm: false
     };
   },
   methods: {
     submit() {
-      if(this.confirmAddress){
-      this.address.zipCodeId = this.zipCode;
-      this.address.district = this.selectedDistrict;
-      this.address.region = this.selectedRegion.regions;
-      this.address.province = this.selectedProvince;
-      this.address.subDistrict = this.selectedSubdistrict;
-      this.$store.commit("SET_DORMADDRESS",this.address)
-      const noti = this.$vs.notification({
-    	    progress: 'auto',
-    	    icon:`<i class='bx bx-folder-open' ></i>`,
-    		color:'success',
-            position:'top-right',
-            title: `Data Update`,
-            text: `Add you dorm address data complete!`
-    	  })
-      }else{
+      if (
+        this.validateNumber &&
+        this.validateStreet &&
+        this.validateDistrict &&
+        this.validateSubdistrict &&
+        this.validateRegion &&
+        this.validateProvince &&
+        this.validatezipCode
+      ) {
+        this.address.zipCodeId = this.zipCode;
+        this.address.district = this.selectedDistrict;
+        this.address.region = this.selectedRegion.regions;
+        this.address.province = this.selectedProvince;
+        this.address.subDistrict = this.selectedSubdistrict;
+        this.$store.commit("SET_DORMADDRESS", this.address);
+        this.disableForm = true
         const noti = this.$vs.notification({
-    	    progress: 'auto',
-    	    icon:`<i class='bx bx-error' ></i>`,
-    		color:'warn',
-            position:'top-right',
-            title: "Form data not complete",
-            text: "Please, input all data in field"
-          })
+          progress: "auto",
+          icon: `<i class='bx bx-folder-open' ></i>`,
+          color: "success",
+          position: "top-right",
+          title: `Data Update`,
+          text: `Add you dorm address data complete!`,
+        });
+      } else {
+        const noti = this.$vs.notification({
+          progress: "auto",
+          icon: `<i class='bx bx-error' ></i>`,
+          color: "warn",
+          position: "top-right",
+          title: "Form data not complete",
+          text: "Please, input all data in field",
+        });
       }
     },
+    checkForm() {
+      this.validateNumber = this.address.number != "" ? true : false;
+      this.validateStreet = this.address.street != "" ? true : false;
+      this.validateDistrict = this.selectedDistrict != null ? true : false;
+      this.validateSubdistrict =
+        this.selectedSubdistrict != null ? true : false;
+      this.validateRegion = this.selectedRegion != null ? true : false;
+      this.validateProvince = this.selectedProvince != null ? true : false;
+      this.validatezipCode = this.zipCode != null ? true : false;
+    },
   },
-  computed : {
-    confirmAddress(){
-            return this.zipCode!=null && this.selectedDistrict != null && this.selectedSubdistrict != null 
-      && this.selectedRegion != null && this.selectedProvince != null && this.address.number != ""
-      && this.address.street != "" ? true : false
-    }
-  }
 };
 </script>
