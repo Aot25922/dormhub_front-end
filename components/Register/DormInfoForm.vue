@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1 class="text-cheese font-bold text-center text-xl">เพิ่มหอพัก</h1>
     <form class="px-3 md:px-20 lg:px-[335px]" @submit.prevent="submit">
       <div class="bg-dark-blue p-3 rounded-lg my-3">
         <h1 class="text-white text-lg ml-2 mb-2 font-bold">เกี่ยวกับหอพัก</h1>

@@ -3,7 +3,7 @@ export const state = () => ({
   dormList: [],
   provinceList: [],
   selectedDorm: null,
-  newDorm: {dorm:{}, address:{}, roomType:[], room:[], dormImg:[]}
+  newDorm: {dorm:{}, address:{}, roomType:[], room:[], dormImg:[],roomTypeImg:[]}
 });
 
 export const mutations = {
@@ -24,7 +24,14 @@ export const mutations = {
   },
   SET_DORMADDRESS(state, data){
     state.newDorm.address = data
-    console.log(state.newDorm)
+  },
+  SET_ROOMTYPEIMG(state, data){
+    for(let i in data){
+      state.newDorm.roomTypeImg.push(data[i])
+    }
+  },
+  SET_ROOMTYPE(state, data){
+      state.newDorm.roomType.push(data)
   }
 };
 
