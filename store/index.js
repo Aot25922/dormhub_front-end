@@ -1,3 +1,5 @@
+var _ = require('lodash');
+
 export const state = () => ({
   Backend_URL: process.env.Backend_URL || 'http://localhost:3001',
   dormList: [],
@@ -31,7 +33,24 @@ export const mutations = {
     }
   },
   SET_ROOMTYPE(state, data){
+    for(let i in state.newDorm.roomType){
+      if(_.isMatch(data,state.newDorm.roomType[i])){
+        return
+      }
+    }
       state.newDorm.roomType.push(data)
+  },
+  REMOVE_ROOMTYPE(state, data){
+    console.log("TESTer")
+    for(let i in state.newDorm.roomType){
+      if(data,state.newDorm.roomType[i].type == data.type){
+        console.log("TEST")
+        state.newDorm.roomType.splice(i,1)
+      }
+    }
+  },
+  SET_ROOM(state, data){
+    state.newDorm.room = data
   }
 };
 

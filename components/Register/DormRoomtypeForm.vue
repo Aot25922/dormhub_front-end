@@ -1,5 +1,11 @@
 <template>
-  <div class="bg-dark-blue p-3 rounded-lg mb-3">
+  <div class="bg-dark-blue p-3 rounded-lg mb-3 relative">
+    <button
+      @click="removeRoomType"
+      class="absolute top-0 right-0"
+    >
+      <span class="material-icons text-white">close</span>
+    </button>
     <h1 class="text-white text-lg ml-2 mb-2 font-bold">ประเภทห้อง</h1>
     <label class="label-text text-light-blue tracking-wide font-bold my-2"
       >ชื่อประเภทห้อง <span class="text-cancelButton">*</span></label
@@ -216,7 +222,7 @@
       >
         เพิ่มสิ่งอำนวยความสะดวก
       </button>
-      <button class="btn btn-neutral mx-auto block">
+      <button class="btn btn-neutral mx-auto block" @click="addRoomTypes">
         ยืนยันข้อมูลประเภทห้องพัก
       </button>
     </div>
@@ -224,6 +230,7 @@
 </template>
 <script>
 export default {
+  props: ["index"],
   data() {
     return {
       roomType: {
@@ -270,6 +277,9 @@ export default {
         }
       }
       this.validateForm();
+    },
+    removeRoomType() {
+      this.$emit('removeRoomType',this.roomType)
     },
     validateForm() {
       this.validateType = this.roomType.type == "" ? true : false;
