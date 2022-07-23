@@ -1,15 +1,12 @@
 <template>
   <form class="px-3 md:px-20 lg:px-[335px]" @submit.prevent="submit">
-    <div div class="bg-dark-blue p-3 rounded-lg my-3">
-      <h1 class="text-white text-lg ml-2 mb-2 font-bold">{{ msg }}</h1>
+    <div div class="bg-cream p-3 rounded-lg my-3">
+      <h1 class="text-black text-lg ml-2 mb-2 font-bold">{{ msg }}</h1>
       <label
         for=""
-        class="label-text text-light-blue tracking-wide font-bold my-2"
+        class="label-text text-gray-soil tracking-wide font-bold my-2"
         >เลขที่/เลขห้อง
-        <span class="text-cancelButton" v-if="!validateNumber"
-          >*กรุณาใส่เลขที่/เลขห้อง</span
-        ></label
-      >
+      </label>
       <input
         v-model="address.number"
         class="
@@ -19,23 +16,24 @@
           w-full
           input input-sm
           rounded
-          text-light-blue
-          bg-dark-gray
-          focus:outline-none focus:bg-gray-soil focus:text-light-blue
+          text-gray-soil
+          bg-cream-light
+          focus:outline-none focus:bg-cream-lightest focus:text-gray-soil
+          border-none
         "
         placeholder="999/999"
         @blur="checkForm"
-        :disabled = "disableForm"
+        :disabled="disableForm"
       />
+      <p class="text-cancelButton text-right" v-if="!validateNumber">
+        กรุณาใส่เลขที่/เลขห้อง
+      </p>
 
       <label
         for=""
-        class="label-text text-light-blue tracking-wide font-bold my-2"
+        class="label-text text-gray-soil tracking-wide font-bold my-2"
         >ถนน
-        <span class="text-cancelButton" v-if="!validateStreet" 
-          >*กรุณาใส่ถนน</span
-        ></label
-      >
+      </label>
       <input
         v-model="address.street"
         class="
@@ -45,18 +43,22 @@
           w-full
           input input-sm
           rounded
-          text-light-blue
-          bg-dark-gray
-          focus:outline-none focus:bg-gray-soil focus:text-light-blue
+          text-gray-soil
+          bg-cream-light
+          focus:outline-none focus:bg-cream-lightest focus:text-gray-soil
+          border-none
         "
         placeholder="ถนนของเรา"
         @blur="checkForm"
-        :disabled = "disableForm"
+        :disabled="disableForm"
       />
+      <p class="text-cancelButton text-right" v-if="!validateStreet">
+        กรุณาใส่ถนน
+      </p>
 
       <label
         for=""
-        class="label-text text-light-blue tracking-wide font-bold my-2"
+        class="label-text text-gray-soil tracking-wide font-bold my-2"
         >ซอย</label
       >
       <input
@@ -68,33 +70,31 @@
           w-full
           input input-sm
           rounded
-          text-light-blue
-          bg-dark-gray
-          focus:outline-none focus:bg-gray-soil focus:text-light-blue
+          text-gray-soil
+          bg-cream-light
+          focus:outline-none focus:bg-cream-lightest focus:text-gray-soil
+          border-none
         "
         placeholder="69"
-        :disabled = "disableForm"
+        :disabled="disableForm"
       />
 
       <label
         for=""
-        class="label-text text-light-blue tracking-wide font-bold my-2"
+        class="label-text text-gray-soil tracking-wide font-bold my-2"
         >ภูมิภาค <span class="text-cancelButton">*</span></label
       >
-      <span class="text-cancelButton" v-if="!validateRegion" 
-          >*กรุณาเลือกภูมิภาค</span
-        >
       <select
         v-model="selectedRegion"
-        class="select w-full mb-5 text-light-blue bg-dark-gray border-0"
+        class="select w-full mb-5 text-gray-soil bg-cream-light border-0"
         @change="
           selectedProvince = null;
           selectedDistrict = null;
           selectedsubDistrict = null;
           zipCode = null;
-          checkForm()
+          checkForm();
         "
-        :disabled = "disableForm"
+        :disabled="disableForm"
       >
         <option option disabled selected>กรุณาเลือกภูมิภาค</option>
         <option
@@ -105,26 +105,26 @@
           {{ option.regions }}
         </option>
       </select>
+      <p class="text-cancelButton text-right" v-if="!validateRegion">
+        กรุณาเลือกภูมิภาค
+      </p>
 
       <div v-if="selectedRegion">
         <label
           for=""
-          class="label-text text-light-blue tracking-wide font-bold my-2"
+          class="label-text text-gray-soil tracking-wide font-bold my-2"
           >จังหวัด <span class="text-cancelButton">*</span></label
-        >
-        <span class="text-cancelButton" v-if="!validateProvince" 
-          >*กรุณาเลือกจังหวัด</span
         >
         <select
           v-model="selectedProvince"
-          class="select mb-5 w-full text-light-blue bg-dark-gray border-0"
+          class="select mb-5 w-full text-gray-soil bg-cream-light border-0"
           @change="
             selectedDistrict = null;
             selectedsubDistrict = null;
             zipCode = null;
             checkForm();
           "
-          :disabled = "disableForm"
+          :disabled="disableForm"
         >
           <option option disabled selected>กรุณาเลือกจังหวัด</option>
           <option
@@ -135,26 +135,26 @@
             {{ option }}
           </option>
         </select>
+        <p class="text-cancelButton text-right" v-if="!validateProvince">
+          กรุณาเลือกจังหวัด
+        </p>
       </div>
 
       <div v-if="selectedProvince">
         <label
           for=""
-          class="label-text text-light-blue tracking-wide font-bold my-2"
+          class="label-text text-gray-soil tracking-wide font-bold my-2"
           >เขต/อำเภอ <span class="text-cancelButton">*</span></label
-        >
-        <span class="text-cancelButton" v-if="!validateDistrict" 
-          >*กรุณาเลือกเขต/อำเภอ</span
         >
         <select
           v-model="selectedDistrict"
-          class="select mb-5 w-full text-light-blue bg-dark-gray border-0"
+          class="select mb-5 w-full text-gray-soil bg-cream-light border-0"
           @change="
             selectedSubdistrict = null;
             zipCode = null;
             checkForm();
           "
-          :disabled = "disableForm"
+          :disabled="disableForm"
         >
           <option option disabled selected>กรุณาเลือกเขต/อำเภอ</option>
           <option
@@ -165,25 +165,25 @@
             {{ option }}
           </option>
         </select>
+        <p class="text-cancelButton text-right" v-if="!validateDistrict">
+          กรุณาเลือกเขต/อำเภอ
+        </p>
       </div>
 
       <div v-if="selectedDistrict">
         <label
           for=""
-          class="label-text text-light-blue tracking-wide font-bold my-2"
+          class="label-text text-gray-soil tracking-wide font-bold my-2"
           >แขวง/ตำบล <span class="text-cancelButton">*</span></label
-        >
-        <span class="text-cancelButton" v-if="!validateSubdistrict"
-          >*กรุณาเลือกเเขวง/ตำบล</span
         >
         <select
           v-model="selectedSubdistrict"
-          class="select mb-5 w-full text-light-blue bg-dark-gray border-0"
+          class="select mb-5 w-full text-gray-soil bg-cream-light border-0"
           @change="
             zipCode = null;
             checkForm();
           "
-          :disabled = "disableForm"
+          :disabled="disableForm"
         >
           <option option disabled selected>กรุณาเลือกแขวง/ตำบล</option>
           <option
@@ -194,22 +194,22 @@
             {{ option.subDistrict }}
           </option>
         </select>
+        <p class="text-cancelButton text-right" v-if="!validateSubdistrict">
+          กรุณาเลือกเเขวง/ตำบล
+        </p>
       </div>
 
       <div v-if="selectedDistrict">
         <label
           for=""
-          class="label-text text-light-blue tracking-wide font-bold my-2"
+          class="label-text text-gray-soil tracking-wide font-bold my-2"
           >รหัสไปรษณีย์ <span class="text-cancelButton">*</span></label
-        >
-        <span class="text-cancelButton" v-if="!validatezipCode" 
-          >*กรุณาเลือกรหัสไปรษณีย์</span
         >
         <select
           v-model="zipCode"
-          class="select mb-5 w-full text-light-blue bg-dark-gray border-0"
+          class="select mb-5 w-full text-gray-soil bg-cream-light border-0"
           @change="checkForm"
-          :disabled = "disableForm"
+          :disabled="disableForm"
         >
           <option option disabled selected>กรุณาเลือกรหัสไปรษณีย์</option>
           <option
@@ -220,15 +220,18 @@
             {{ option.zipCodeId }}
           </option>
         </select>
+		 <p class="text-cancelButton text-right" v-if="!validatezipCode">
+          กรุณาเลือกรหัสไปรษณีย์
+        </p>
       </div>
       <button
-          v-if="Object.keys(this.$store.state.newDorm.address).length != 0"
-          class="btn btn-neutral mt-3 ml-auto block"
-          type="button"
-          @click="disableForm = false"
-        >
-          เเก้ไขข้อมูล
-        </button>
+        v-if="Object.keys(this.$store.state.newDorm.address).length != 0"
+        class="btn btn-neutral mt-3 ml-auto block"
+        type="button"
+        @click="disableForm = false"
+      >
+        เเก้ไขข้อมูล
+      </button>
       <button class="btn btn-neutral mt-3 ml-auto block" type="submit">
         ยืนยันข้อมูล
       </button>
@@ -291,7 +294,7 @@ export default {
       validateRegion: false,
       validateProvince: false,
       validatezipCode: false,
-      disableForm: false
+      disableForm: false,
     };
   },
   methods: {
@@ -311,7 +314,7 @@ export default {
         this.address.province = this.selectedProvince;
         this.address.subDistrict = this.selectedSubdistrict;
         this.$store.commit("SET_DORMADDRESS", this.address);
-        this.disableForm = true
+        this.disableForm = true;
         const noti = this.$vs.notification({
           progress: "auto",
           icon: `<i class='bx bx-folder-open' ></i>`,

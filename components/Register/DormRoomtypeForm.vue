@@ -1,7 +1,7 @@
 <template>
-  <div class="bg-dark-blue p-3 rounded-lg mb-3">
-    <h1 class="text-white text-lg ml-2 mb-2 font-bold">ประเภทห้อง</h1>
-    <label class="label-text text-light-blue tracking-wide font-bold my-2"
+  <div class="bg-cream p-3 rounded-lg mb-3">
+    <h1 class="text-black text-lg ml-2 mb-2 font-bold">ประเภทห้อง</h1>
+    <label class="label-text text-gray-soil tracking-wide font-bold my-2"
       >ชื่อประเภทห้อง <span class="text-cancelButton">*</span></label
     >
     <input
@@ -10,23 +10,23 @@
         p-2
         mb-5
         rounded
-        text-light-blue
-        bg-dark-gray
+        text-gray-soil
+        bg-cream-light
         border-none
-        focus:outline-none focus:bg-gray-
+        focus:bg-cream-lightest focus:text-gray-soil
         input input-sm
         w-full
-        disabled:bg-light-blue disabled:text-dark-blue
+        disabled:bg-green-darker disabled:text-dark-gray
       "
       placeholder="ห้องนี้สีเขียว"
       v-model="roomType.type"
       @blur="validateForm"
     />
-    <p class="text-error text-right mt-2" v-if="validateType">
+    <p class="text-cancelButton text-right" v-if="validateType">
       กรุณาใส่ชื่อประเภทห้อง
     </p>
 
-    <label class="label-text text-light-blue tracking-wide font-bold my-2"
+    <label class="label-text text-gray-soil tracking-wide font-bold my-2"
       >ราคาห้องพัก <span class="text-cancelButton">*</span></label
     >
     <input
@@ -35,13 +35,13 @@
         p-2
         mb-5
         rounded
-        text-light-blue
-        bg-dark-gray
+        text-gray-soil
+        bg-cream-light
         border-none
-        focus:outline-none focus:bg-gray-
+        focus:bg-cream-lightest focus:text-gray-soil
         input input-sm
         w-full
-        disabled:bg-light-blue disabled:text-dark-blue
+        disabled:bg-green-darker disabled:text-dark-gray
       "
       placeholder="200"
       v-model="roomType.price"
@@ -49,11 +49,11 @@
       max="100000"
       @blur="validateForm"
     />
-    <p class="text-error text-right mt-2" v-if="validatePrice">
+    <p class="text-cancelButton text-right" v-if="validatePrice">
       ราคาได้ตั้งแต่ 1-100000
     </p>
 
-    <label class="label-text text-light-blue tracking-wide font-bold my-2"
+    <label class="label-text text-gray-soil tracking-wide font-bold my-2"
       >ราคาค่าเช่าห้องพัก <span class="text-cancelButton">*</span></label
     >
     <input
@@ -62,13 +62,13 @@
         p-2
         mb-5
         rounded
-        text-light-blue
-        bg-dark-gray
+        text-gray-soil
+        bg-cream-light
         border-none
-        focus:outline-none focus:bg-gray-
+        focus:bg-cream-lightest focus:text-gray-soil
         input input-sm
         w-full
-        disabled:bg-light-blue disabled:text-dark-blue
+        disabled:bg-green-darker disabled:text-dark-gray
       "
       placeholder="200"
       v-model="roomType.deposit"
@@ -76,11 +76,11 @@
       max="100000"
       @blur="validateForm"
     />
-    <p class="text-error text-right mt-2" v-if="validateDeposit">
+    <p class="text-cancelButton text-right" v-if="validateDeposit">
       ราคาได้ตั้งแต่ 1-100000
     </p>
 
-    <label class="label-text text-light-blue tracking-wide font-bold my-2"
+    <label class="label-text text-gray-soil tracking-wide font-bold my-2"
       >ขนาดพื้นที่ (ตารางเมตร) <span class="text-cancelButton">*</span></label
     >
     <input
@@ -89,13 +89,13 @@
         p-2
         mb-5
         rounded
-        text-light-blue
-        bg-dark-gray
+        text-gray-soil
+        bg-cream-light
         border-none
-        focus:outline-none focus:bg-gray-
+        focus:bg-cream-lightest focus:text-gray-soil
         input input-sm
         w-full
-        disabled:bg-light-blue disabled:text-dark-blue
+        disabled:bg-green-darker disabled:text-dark-gray
       "
       placeholder="999.99"
       min="1"
@@ -103,15 +103,15 @@
       v-model="roomType.area"
       @blur="validateForm"
     />
-    <p class="text-error text-right mt-2" v-if="validateArea">
+    <p class="text-cancelButton text-right" v-if="validateArea">
       พื้นที่ได้ตั้งแต่ 1-999.99
     </p>
-    <h1 class="text-white text-lg ml-2 mb-2 font-bold">ภาพประเภทห้อง</h1>
+    <h1 class="text-black text-lg ml-2 mb-2 font-bold">ภาพประเภทห้อง</h1>
     <div class="">
       <div class="mb-3 w-full">
         <label
           for="formFileMultiple"
-          class="label-text text-light-blue tracking-wide font-bold my-2"
+          class="label-text text-gray-soil tracking-wide font-bold my-2"
           >เลือกได้มากกว่า1รูป <span class="text-cancelButton">*</span></label
         >
         <input
@@ -121,14 +121,14 @@
             form-control
             block
             w-full
-            bg-dark-gray
+            bg-cream-light
             text-gray-soil
             input input-sm
             rounded
             transition
             ease-in-out
             border-none
-            disabled:bg-light-blue disabled:text-dark-blue
+            disabled:bg-green-darker disabled:text-dark-gray
           "
           type="file"
           id="formFileMultiple"
@@ -136,7 +136,7 @@
           multiple
         />
       </div>
-      <p class="text-error text-right mt-2" v-if="validateFile">
+      <p class="text-cancelButton text-right" v-if="validateFile">
         ต้องมีอย่างน้อย1ภาพ
       </p>
       <div class="md:grid md:grid-cols-2 lg:grid lg:grid-cols-4">
@@ -148,7 +148,7 @@
         />
       </div>
     </div>
-    <h1 class="text-white text-lg ml-2 mb-2 font-bold">
+    <h1 class="text-black text-lg ml-2 mb-2 font-bold">
       สิ่งอำนวยความสะดวก/บริการเสริม
     </h1>
     <div
@@ -156,7 +156,7 @@
       :key="index"
       class="relative"
     >
-      <h2 class="label-text text-light-blue tracking-wide font-bold my-2">
+      <h2 class="label-text text-gray-soil tracking-wide font-bold my-2">
         ชื่อ <span class="text-cancelButton">*</span>
       </h2>
       <input
@@ -165,22 +165,22 @@
           p-2
           mb-5
           rounded
-          text-light-blue
-          bg-dark-gray
+          text-gray-soil
+          bg-cream-light
           border-none
-          focus:outline-none focus:bg-gray-
+          focus:bg-cream-lightest focus:text-gray-soil
           input input-sm
           w-full
-          disabled:bg-light-blue disabled:text-dark-blue
+          disabled:bg-green-darker disabled:text-dark-gray
         "
         placeholder="ห้องนี้สีเขียว"
         v-model="roomType.facility[index].name"
         @blur="validateForm"
       />
-      <p class="text-error text-right mt-2" v-if="validateFacility">
+      <p class="text-cancelButton text-right" v-if="validateFacility">
         กรุณาใส่ชื่อสิ่งอำนวยความสะดวก
       </p>
-      <h2 class="label-text text-light-blue tracking-wide font-bold my-2">
+      <h2 class="label-text text-gray-soil tracking-wide font-bold my-2">
         รายละเอียด
       </h2>
       <input
@@ -189,13 +189,13 @@
           p-2
           mb-5
           rounded
-          text-light-blue
-          bg-dark-gray
+          text-gray-soil
+          bg-cream-light
           border-none
-          focus:outline-none focus:bg-gray-
+          focus:bg-cream-lightest focus:text-gray-soil
           input input-sm
           w-full
-          disabled:bg-light-blue disabled:text-dark-blue
+          disabled:bg-green-darker disabled:text-dark-gray
         "
         placeholder="คำอธิบายเพิ่มเติม"
         v-model="roomType.facility[index].description"
@@ -209,16 +209,20 @@
       </button>
       <hr class="py-2 text-gray-soil" />
     </div>
-    <div class="grid grid-cols-2">
-      <button
-        class="btn btn-neutral mx-auto block"
-        @click="roomType.facility.push({ name: '', description: '' })"
-      >
-        เพิ่มสิ่งอำนวยความสะดวก
-      </button>
-      <button class="btn btn-neutral mx-auto block">
-        ยืนยันข้อมูลประเภทห้องพัก
-      </button>
+    <div class="flex flex-wraps">
+      <div class="px-1">
+        <button
+          class="btn btn-neutral mx-auto block"
+          @click="roomType.facility.push({ name: '', description: '' })"
+        >
+          เพิ่มสิ่งอำนวยความสะดวก
+        </button>
+      </div>
+      <div class="px-1">
+        <button class="btn btn-neutral mx-auto block">
+          ยืนยันข้อมูลประเภทห้องพัก
+        </button>
+      </div>
     </div>
   </div>
 </template>

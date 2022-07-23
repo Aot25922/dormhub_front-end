@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-dark-gray min-h-screen">
+  <div class="bg-cream-lighter min-h-screen">
     <NavBar class="md:p-3 lg:p-5"/>
 	<SearchBar class="my-3 md:my-5"/>
     <nuxt/>

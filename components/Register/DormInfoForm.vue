@@ -1,10 +1,10 @@
 <template>
   <div>
     <form class="px-3 md:px-20 lg:px-[335px]" @submit.prevent="submit">
-      <div class="bg-dark-blue p-3 rounded-lg my-3">
-        <h1 class="text-white text-lg ml-2 mb-2 font-bold">เกี่ยวกับหอพัก</h1>
+      <div class="bg-cream p-3 rounded-lg my-3">
+        <h1 class="text-black text-lg ml-2 mb-2 font-bold">เกี่ยวกับหอพัก</h1>
         <div class="mb-2">
-          <label class="label-text text-light-blue tracking-wide font-bold my-2"
+          <label class="label-text text-gray-soil tracking-wide font-bold my-2"
             >ชื่อหอพัก <span class="text-cancelButton">*</span></label
           >
           <input
@@ -16,9 +16,9 @@
               w-full
               input input-sm
               rounded
-              text-light-blue
-              bg-dark-gray
-              focus:outline-none focus:bg-gray-soil focus:text-light-blue
+              text-gray-soil
+              bg-cream-light
+              focus:outline-none focus:bg-cream-lightest focus:text-gray-soil
               border-none
             "
             placeholder="แฮปปี้ดอร์ม"
@@ -26,12 +26,12 @@
             v-model="dorm.name"
             :disabled = "disableForm"
           />
-          <p v-if="!validateName" class="text-error text-right mt-2">
+          <p v-if="!validateName" class="text-cancelButton text-right mt-2">
             กรุณาใส่ชื่อหอพัก
           </p>
         </div>
         <div class="mb-5">
-          <label class="label-text text-light-blue tracking-wide font-bold"
+          <label class="label-text text-gray-soil tracking-wide font-bold"
             >เวลาเปิด</label
           >
           <input
@@ -42,9 +42,9 @@
               w-full
               input input-sm
               rounded
-              text-light-blue
-              bg-dark-gray
-              focus:outline-none focus:bg-gray-soil focus:text-light-blue
+              text-gray-soil
+              bg-cream-light
+              focus:outline-none focus:bg-cream-lightest focus:text-gray-soil
               border-none
             "
             placeholder="06.00"
@@ -52,12 +52,12 @@
             v-model="dorm.openTime"
             :disabled = "disableForm"
           />
-          <p v-if="!validateOpenTime" class="text-error text-right mt-2">
+          <!-- <p v-if="!validateOpenTime" class="text-cancelButton text-right mt-2">
             ระบุเวลาเปิดหอพัก
-          </p>
+          </p> -->
         </div>
         <div class="mb-5">
-          <label class="label-text text-light-blue tracking-wide font-bold my-2"
+          <label class="label-text text-gray-soil tracking-wide font-bold my-2"
             >เวลาปิด</label
           >
           <input
@@ -68,9 +68,9 @@
               w-full
               input input-sm
               rounded
-              text-light-blue
-              bg-dark-gray
-              focus:outline-none focus:bg-gray-soil focus:text-light-blue
+              text-gray-soil
+              bg-cream-light
+              focus:outline-none focus:bg-cream-lightest focus:text-gray-soil
               border-none
             "
             placeholder="22.00"
@@ -78,12 +78,12 @@
             v-model="dorm.closeTime"
             :disabled = "disableForm"
           />
-          <p v-if="!validateCloseTime" class="text-error text-right mt-2">
+          <!-- <p v-if="!validateCloseTime" class="text-cancelButton text-right mt-2">
             ระบุเวลาปิดหอพัก
-          </p>
+          </p> -->
         </div>
         <div class="mb-2">
-          <label class="label-text text-light-blue tracking-wide font-bold my-2"
+          <label class="label-text text-gray-soil tracking-wide font-bold my-2"
             >ค่าน้ำต่อหน่วย <span class="text-cancelButton">*</span></label
           >
           <input
@@ -97,20 +97,20 @@
               w-full
               input input-sm
               rounded
-              text-light-blue
-              bg-dark-gray
-              focus:outline-none focus:bg-gray-soil focus:text-light-blue
+              text-gray-soil
+              bg-cream-light
+              focus:outline-none focus:bg-cream-lightest focus:text-gray-soil
               border-none
             "
             placeholder="0.01 - 9.99"
             :disabled = "disableForm"
           />
-          <p v-if="!validateWater" class="text-error text-right mt-2">
+          <p v-if="!validateWater" class="text-cancelButton text-right mt-2">
             ใส่ค่าได้ตั้งแต่ 0.01 - 9.99
           </p>
         </div>
         <div class="mb-2">
-          <label class="label-text text-light-blue tracking-wide font-bold my-2"
+          <label class="label-text text-gray-soil tracking-wide font-bold my-2"
             >ค่าไฟต่อหน่วย <span class="text-cancelButton">*</span></label
           >
           <input
@@ -124,9 +124,9 @@
               w-full
               input input-sm
               rounded
-              text-light-blue
-              bg-dark-gray
-              focus:outline-none focus:bg-gray-soil focus:text-light-blue
+              text-gray-soil
+              bg-cream-light
+              focus:outline-none focus:bg-cream-lightest focus:text-gray-soil
               border-none
             "
             placeholder="0.01 - 9.99"
@@ -135,13 +135,13 @@
           <p
             v-if="!validateElec"
             @blur="checkForm"
-            class="text-error text-right mt-2"
+            class="text-cancelButton text-right mt-2"
           >
             ใส่ค่าได้ตั้งแต่ 0.01 - 9.99
           </p>
         </div>
         <div class="mb-5">
-          <label class="label-text text-light-blue tracking-wide font-bold my-2"
+          <label class="label-text text-gray-soil tracking-wide font-bold my-2"
             >ข้อมูลเพิ่มเติม</label
           >
           <textarea
@@ -152,9 +152,9 @@
               w-full
               input input-sm
               rounded
-              text-light-blue
-              bg-dark-gray
-              focus:outline-none focus:bg-gray-soil focus:text-light-blue
+              text-gray-soil
+              bg-cream-light
+              focus:outline-none focus:bg-cream-lightest focus:text-gray-soil
               border-none
             "
             placeholder="คำอธิบายเพิ่มเติม"
@@ -162,7 +162,7 @@
           />
         </div>
         <div class="mb-5">
-          <label class="label-text text-light-blue tracking-wide font-bold my-2"
+          <label class="label-text text-gray-soil tracking-wide font-bold my-2"
             >เลือกภาพปกที่ใช้แสดงบนหน้าเว็ป
             <span class="text-cancelButton">*</span></label
           >
@@ -173,7 +173,7 @@
               form-control
               block
               w-full
-              bg-dark-gray
+              bg-cream-light
               text-gray-soil
               rounded
               transition
@@ -197,7 +197,7 @@
               />
             </div>
           </div>
-          <p v-if="!validateDormImg" class="text-error text-right mt-2">
+          <p v-if="!validateDormImg" class="text-cancelButton text-right mt-2">
             ต้องมีอย่างน้อย 1 ภาพ
           </p>
         </div>

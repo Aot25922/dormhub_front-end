@@ -1,12 +1,12 @@
 <template>
   <div class="py-3 md:py-5">
     <div>
-    <h1 class="text-cheese font-bold text-center text-xl">เพิ่มหอพัก</h1>
+    <h1 class="text-cream-dark font-bold text-center text-xl">เพิ่มหอพัก</h1>
       <RegisterDormInfoForm />
-      <RegisterDormAddressForm />
+      <RegisterDormAddressForm msg="สถานที่ตั้งหอพัก"/>
     </div>
     <div>
-      <h1 class="text-cheese font-bold text-center text-xl">รายละเอียดห้องพัก</h1>
+      <h1 class="text-cream-dark font-bold text-center text-xl">รายละเอียดห้องพัก</h1>
       <RegisterDormRoomForm />
     </div>
   </div>
