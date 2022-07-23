@@ -2,34 +2,40 @@
   <div>
     <div class="px-3 md:px-20 lg:px-[335px]">
       <div class="relative" v-for="(i, index) in roomTypeCount" :key="i.id">
-      {{$store.state.newDorm.roomType}}
-        <RegisterDormRoomtypeForm @removeRoomType = "removeRoomType(index,...arguments)" />
-      </div>
-    </div>
-    <button>
+        {{ $store.state.newDorm.roomType }}
+        <RegisterDormRoomtypeForm
+          @removeRoomType="removeRoomType(index, ...arguments)"
+        />
+		<button class="text-black">
       <span
-        class="material-icons text-white"
+        class="material-icons"
         @click="
           roomTypeCount.push({
             id: roomTypeCount[roomTypeCount.length - 1].id + 1,
           })
         "
         >add_box</span
-      >
+      >เพิ่มประเภทห้อง
     </button>
-    <div v-for="(i, index) in room" :key="index" class="relative">
-      <div class="w-full bg-dark-gray rounded-md p-3">
-      <button
+      </div>
+    </div>
+    <div
+      v-for="(i, index) in room"
+      :key="index"
+      class="relative px-3 md:px-20 lg:px-[335px]"
+    >
+      <div class="w-full bg-cream rounded-md p-3">
+        <button
           @click="$delete(room, index)"
           class="absolute top-0 right-0"
           v-if="room.length > 1"
         >
           <h1>{{ i.id }}</h1>
-          <span class="material-icons text-white">close</span>
+          <span class="material-icons text-black">close</span>
         </button>
         <label
           for=""
-          class="label-text text-light-blue tracking-wide font-bold my-2"
+          class="label-text text-gray-soil tracking-wide font-bold my-2"
           >เลขห้อง</label
         >
         <input
@@ -41,10 +47,11 @@
             w-full
             input-sm
             rounded
-            text-light-blue
-            bg-dark-gray
-            focus:outline-none focus:bg-gray-soil focus:text-light-blue
-            disabled:bg-light-blue disabled:text-dark-blue
+            text-gray-soil
+            bg-cream-light
+            border-0
+            focus:outline-none focus:bg-cream-lightest focus:text-gray-soil
+            disabled:bg-green-darker disabled:text-dark-gray
           "
           placeholder="101"
           v-model="room[index].roomNum"
@@ -53,7 +60,7 @@
 
         <label
           for=""
-          class="label-text text-light-blue tracking-wide font-bold my-2"
+          class="label-text text-gray-soil tracking-wide font-bold my-2"
           >สถานะ</label
         >
         <input
@@ -65,10 +72,11 @@
             w-full
             input-sm
             rounded
-            text-light-blue
-            bg-dark-gray
-            focus:outline-none focus:bg-gray-soil focus:text-light-blue
-            disabled:bg-light-blue disabled:text-dark-blue
+            text-gray-soil
+            bg-cream-light
+            border-0
+            focus:outline-none focus:bg-cream-lightest focus:text-gray-soil
+            disabled:bg-green-darker disabled:text-dark-gray
           "
           placeholder="ว่าง/ไม่ว่าง"
           v-model="room[index].status"
@@ -77,7 +85,7 @@
 
         <label
           for=""
-          class="label-text text-light-blue tracking-wide font-bold my-2"
+          class="label-text text-gray-soil tracking-wide font-bold my-2"
           >ชั้น</label
         >
         <input
@@ -89,10 +97,11 @@
             w-full
             input-sm
             rounded
-            text-light-blue
-            bg-dark-gray
-            focus:outline-none focus:bg-gray-soil focus:text-light-blue
-            disabled:bg-light-blue disabled:text-dark-blue
+            text-gray-soil
+            bg-cream-light
+            border-0
+            focus:outline-none focus:bg-cream-lightest focus:text-gray-soil
+            disabled:bg-green-darker disabled:text-dark-gray
           "
           placeholder="1-100"
           v-model="room[index].floors"
@@ -101,7 +110,7 @@
 
         <label
           for=""
-          class="label-text text-light-blue tracking-wide font-bold my-2"
+          class="label-text text-gray-soil tracking-wide font-bold my-2"
           >รายละเอียดเพิ่มเติม</label
         >
         <input
@@ -113,10 +122,11 @@
             w-full
             input-sm
             rounded
-            text-light-blue
-            bg-dark-gray
-            focus:outline-none focus:bg-gray-soil focus:text-light-blue
-            disabled:bg-light-blue disabled:text-dark-blue
+            text-gray-soil
+            bg-cream-light
+            border-0
+            focus:outline-none focus:bg-cream-lightest focus:text-gray-soil
+            disabled:bg-green-darker disabled:text-dark-gray
           "
           placeholder="หอมชื่นใจ"
           v-model="room[index].description"
@@ -124,7 +134,7 @@
 
         <!-- <label
           for=""
-          class="label-text text-light-blue tracking-wide font-bold my-2"
+          class="label-text text-gray-soil tracking-wide font-bold my-2"
           >ประเภทห้อง</label
         >
         <select
@@ -132,10 +142,10 @@
             select
             mb-5
             w-full
-            text-light-blue
+            text-gray-soil
             bg-dark-gray
             border-2 border-gray-soil
-            disabled:bg-light-blue disabled:text-dark-blue
+            disabled:bg-gratext-gray-soil disabled:text-dark-blue
           "
           v-model="room[index].roomType"
         >
@@ -148,31 +158,36 @@
             {{ option.type }}
           </option>
         </select> -->
-      </div>    
+      </div>
+
+      <div class="py-3">
+        <button class="text-black">
+          <span
+            class="material-icons"
+            @click="
+              room.push({
+                roomNum: '',
+                status: '',
+                floors: 0,
+                description: '',
+                roomType: '',
+              })
+            "
+            >add_box</span
+          >เพิ่มห้อง
+        </button>
+        <button class="btn btn-primary" @click="submitRoom">
+          ยืนยันข้อมูลประเภทห้องพัก
+        </button>
+      </div>
     </div>
-    <button>
-      <span
-        class="material-icons text-white"
-        @click="
-          room.push({
-            roomNum: '',
-            status: '',
-            floors: 0,
-            description: '',
-            roomType: '',
-          })
-        "
-        >add_box</span
-      >
-    </button>
-    <button @click="submitRoom">ยืนยันข้อมูลประเภทห้องพัก</button>
   </div>
 </template>
 <script>
 export default {
   data() {
     return {
-      roomTypeCount: [{ id: 0 ,room:null}],
+      roomTypeCount: [{ id: 0, room: null }],
       room: [
         {
           roomNum: "",
@@ -185,13 +200,13 @@ export default {
     };
   },
   methods: {
-    submitRoom(){
+    submitRoom() {
       this.$store.commit("SET_ROOM", this.room);
     },
-    removeRoomType(index,roomType){
-      this.$store.commit("REMOVE_ROOMTYPE",roomType)
-      this.$delete(this.roomTypeCount,index)
-    }
-  }
+    removeRoomType(index, roomType) {
+      this.$store.commit("REMOVE_ROOMTYPE", roomType);
+      this.$delete(this.roomTypeCount, index);
+    },
+  },
 };
 </script>
