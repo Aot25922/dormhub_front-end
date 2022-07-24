@@ -3,6 +3,7 @@
 	<button
       @click="removeRoomType"
       class="absolute top-0 right-0"
+      v-if="index>0"
     >
 	<span class="material-icons text-white">close</span>
 	</button>

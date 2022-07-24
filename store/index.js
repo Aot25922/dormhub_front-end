@@ -51,6 +51,7 @@ export const mutations = {
   },
   SET_ROOM(state, data){
     state.newDorm.room = data
+    console.log(state.newDorm.room)
   }
 };
 

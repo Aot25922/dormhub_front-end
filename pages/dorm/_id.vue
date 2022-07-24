@@ -64,8 +64,8 @@ import errorPage from '@/layouts/error.vue';
 export default {
   components: { roomType, errorPage},
   async fetch() {
-    if (this.$store.state.dorm != null) {
-      this.dorm = this.$store.state.dorm;
+    if (this.$store.state.selectedDorm != null) {
+      this.dorm = this.$store.state.selectedDorm;
       for (let i in this.dorm.userAccounts) {
         if (this.dorm.userAccounts[i].role == "Dorm Manage") {
           this.owner = this.dorm.userAccounts[i];
@@ -80,7 +80,7 @@ export default {
     } else {
       let dormInfo = { dorm: null, id: this.$route.params.id };
       await this.$store.dispatch("dormSelected", dormInfo);
-      this.dorm = this.$store.state.dorm;
+      this.dorm = this.$store.state.selectedDorm;
       for (let i in this.dorm.userAccounts) {
         if (this.dorm.userAccounts[i].role == "Dorm Manage") {
           this.owner = this.dorm.userAccounts[i];
