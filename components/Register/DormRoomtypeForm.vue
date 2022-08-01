@@ -269,8 +269,10 @@ export default {
         this.validateArea == false &&
         this.validateFacility == false
       ) {
-        this.$store.commit("SET_ROOMTYPE", this.roomType);
-        this.$store.commit("SET_ROOMTYPEIMG", this.roomTypeInputImage);
+        let newRoomType = Object.assign({},this.roomType);
+        let newRoomTypeImg = Object.assign({},this.roomTypeInputImage);
+        this.$store.commit("SET_ROOMTYPE", newRoomType);
+        this.$store.dispatch("setNewRoomTypeImg",{image:newRoomTypeImg,roomType:newRoomType.type})
       }
     },
     onFileChange(e) {

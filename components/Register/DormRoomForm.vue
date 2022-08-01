@@ -179,10 +179,10 @@
           </button>
         </div>
       </div>
+      <button class="btn btn-primary" @click="submitRoom">
+        ยืนยันข้อมูลห้องพัก
+      </button>
     </div>
-    <button class="btn btn-primary" @click="submitRoom">
-      ยืนยันข้อมูลประเภทห้องพัก
-    </button>
   </div>
 </template>
 <script>

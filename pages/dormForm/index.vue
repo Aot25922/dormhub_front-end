@@ -1,18 +1,29 @@
 <template>
   <div class="py-3 md:py-5">
     <div>
-    <h1 class="text-cream-dark font-bold text-center text-xl">เพิ่มหอพัก</h1>
+      <h1 class="text-cream-dark font-bold text-center text-xl">เพิ่มหอพัก</h1>
       <RegisterDormInfoForm />
-      <RegisterDormAddressForm msg="สถานที่ตั้งหอพัก"/>
+      <RegisterDormAddressForm msg="สถานที่ตั้งหอพัก" />
     </div>
     <div>
-      <h1 class="text-cream-dark font-bold text-center text-xl">รายละเอียดห้องพัก</h1>
+      <h1 class="text-cream-dark font-bold text-center text-xl">
+        รายละเอียดห้องพัก
+      </h1>
       <RegisterDormRoomForm />
     </div>
+    <button class=" bg-confirmButton" @click="submitForm">SUBMIT</button>
   </div>
 </template>
 <script>
 export default {
+  data(){
+    return {}
+  },
+  methods: {
+    submitForm(){
+      this.$store.dispatch('addDorm')
+    }
+  }
   // data() {
   //   return {
   // form: true,
