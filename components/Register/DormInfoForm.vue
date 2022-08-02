@@ -203,14 +203,14 @@
         </div>
 
         <button
-          v-if="Object.keys(this.$store.state.newDorm.dorm).length != 0"
+          v-if="disableForm"
           class="btn btn-neutral mt-3 ml-auto block"
           type="button"
-          @click="disableForm = false"
+          @click.prevent="disableForm = false"
         >
           เเก้ไขข้อมูล
         </button>
-        <button class="btn btn-neutral mt-3 ml-auto block" type="submit">
+        <button class="btn btn-neutral mt-3 ml-auto block" type="submit" v-if="!disableForm">
           ยืนยันข้อมูล
         </button>
       </div>
