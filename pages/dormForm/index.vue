@@ -13,7 +13,7 @@
     </div>
     <button class=" bg-confirmButton" @click="submitForm">SUBMIT</button> -->
     <nuxt-link to="/dormForm/registerDormdetail" class="btn btn-neutral mx-auto block bg-cheese">เริ่มสร้างหอพักของคุณ</nuxt-link>
-    <NuxtChild  />
+    <nuxt/>
   </div>
 </template>
 <script>
