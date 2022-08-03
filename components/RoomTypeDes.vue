@@ -10,23 +10,23 @@
   </agile>
     </client-only>
    <div class="overflow-x-auto px-5 pt-5">
-  <div class="grid grid-cols-3 w-full rounded-md text-light-blue bg-dark-blue p-5 text-center">
-        <div>ประเภทห้อง</div>
+  <div class="grid grid-cols-3 w-full rounded-md text-black bg-cream-dark p-5 text-center">
+        <h1>ประเภทห้อง</h1>
         <div class="col-span-2">{{roomType.type}}</div>
     
-        <div>ราคา</div>
+        <h1>ราคา</h1>
         <div class="col-span-2">{{roomType.dormHasRoomType.price}}</div>
       
-        <div>มัดจำ</div>
+        <h1>มัดจำ</h1>
         <div class="col-span-2">{{roomType.dormHasRoomType.deposit}}</div>
       
-        <div>ค่าน้ำ</div>
+        <h1>ค่าน้ำ</h1>
         <div class="col-span-2">{{waterPerUnit}}</div>
       
-        <div>ค่าไฟ</div>
+        <h1>ค่าไฟ</h1>
         <div class="col-span-2">{{elecPerUnit}}</div>
       
-        <div>สิ่งอำนวยความสะดวก/บริการเสริม</div>
+        <h1>สิ่งอำนวยความสะดวก/บริการเสริม</h1>
         <div class="col-span-2">
           <span v-for="facility in roomType.facilities" :key="facility.facilityId" class="grid grid-cols-4">
 			<span class="col-span-3 mt-3 px-2">{{facility.name}}</span>
@@ -54,3 +54,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+h1 {
+	font-weight: bold;
+}
+</style>

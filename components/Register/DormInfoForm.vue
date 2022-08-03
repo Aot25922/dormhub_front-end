@@ -19,7 +19,7 @@
               text-gray-soil
               bg-cream-light
               focus:outline-none focus:bg-cream-lightest focus:text-gray-soil
-              border-none
+              border-none disabled:text-white disabled:bg-dark-gray
             "
             placeholder="แฮปปี้ดอร์ม"
             @blur="checkForm"
@@ -45,7 +45,7 @@
               text-gray-soil
               bg-cream-light
               focus:outline-none focus:bg-cream-lightest focus:text-gray-soil
-              border-none
+              border-none disabled:text-white disabled:bg-dark-gray
             "
             placeholder="06.00"
             @blur="checkForm"
@@ -71,7 +71,7 @@
               text-gray-soil
               bg-cream-light
               focus:outline-none focus:bg-cream-lightest focus:text-gray-soil
-              border-none
+              border-none disabled:text-white disabled:bg-dark-gray
             "
             placeholder="22.00"
             @blur="checkForm"
@@ -100,7 +100,7 @@
               text-gray-soil
               bg-cream-light
               focus:outline-none focus:bg-cream-lightest focus:text-gray-soil
-              border-none
+              border-none disabled:text-white disabled:bg-dark-gray
             "
             placeholder="0.01 - 9.99"
             :disabled = "disableForm"
@@ -127,7 +127,7 @@
               text-gray-soil
               bg-cream-light
               focus:outline-none focus:bg-cream-lightest focus:text-gray-soil
-              border-none
+              border-none disabled:text-white disabled:bg-dark-gray
             "
             placeholder="0.01 - 9.99"
             :disabled = "disableForm"
@@ -155,7 +155,7 @@
               text-gray-soil
               bg-cream-light
               focus:outline-none focus:bg-cream-lightest focus:text-gray-soil
-              border-none
+              border-none disabled:text-white disabled:bg-dark-gray
             "
             placeholder="คำอธิบายเพิ่มเติม"
             :disabled = "disableForm"
@@ -178,7 +178,7 @@
               rounded
               transition
               ease-in-out
-              border-none
+              border-none disabled:text-white disabled:bg-dark-gray
             "
             @change="
               onFileChange($event);
@@ -202,17 +202,23 @@
           </p>
         </div>
 
-        <button
-          v-if="Object.keys(this.$store.state.newDorm.dorm).length != 0"
-          class="btn btn-neutral mt-3 ml-auto block"
-          type="button"
-          @click="disableForm = false"
-        >
-          เเก้ไขข้อมูล
-        </button>
-        <button class="btn btn-neutral mt-3 ml-auto block" type="submit">
-          ยืนยันข้อมูล
-        </button>
+		<div class="grid grid-cols-2">
+			<div class="px-1">
+				<button
+				v-if="Object.keys(this.$store.state.newDorm.dorm).length != 0"
+				class="btn btn-neutral mt-3 mr-auto block"
+				type="button"
+				@click="disableForm = false"
+				>
+				เเก้ไขข้อมูล
+				</button>
+			</div>
+			<div class="px-1">
+				<button class="btn btn-neutral mt-3 ml-auto block" type="submit">
+				ยืนยันข้อมูล
+				</button>
+			</div>
+		</div>
       </div>
     </form>
   </div>

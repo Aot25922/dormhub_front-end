@@ -1,5 +1,5 @@
 <template>
-  <div class="text-white my-5 md:px-[68px] lg:px-[335px]">
+  <div class="text-black my-5 md:px-[68px] lg:px-[335px]">
     <div v-if="dorm != null">
       <client-only>
       <agile>
@@ -12,25 +12,25 @@
       </client-only>
 	  <div class="py-2 px-5">
 		<div class="flex flex-1">
-			<h1 class="py-1">{{ dorm.name }}</h1>
-			<div class="bg-dark-gray rounded text-white p-1 text-2xs mt-1 ml-2">
+			<h1 class="py-1 font-bold">{{ dorm.name }}</h1>
+			<div class="bg-green-darker rounded text-gray-soil p-1 text-2xs my-1 mx-2">
 				{{ dorm.rating }}
 				<div class="rating rating-xs">
-					<input type="radio" name="rating-2" class="mask mask-star-2 bg-cheese">
+					<input type="radio" name="rating-2" class="mask mask-star-2 bg-cream-light">
 				</div>
 			</div>
 		</div>
-        <div class="rounded-md text-sm">
+        <div class="rounded-md text-sm bg-cream-dark p-3">
 			<p>
-			ที่อยู่: <span class="text-light-blue">{{ dorm.address.number }} {{ dorm.address.street }}
+			<span class="font-bold">ที่อยู่:</span> {{ dorm.address.number }} {{ dorm.address.street }}
 			{{ dorm.address.alley }} {{ dorm.address.subDistrict.name }}
 			{{ dorm.address.subDistrict.zipCodeId }}
 			{{ dorm.address.subDistrict.district.name }}
 			{{ dorm.address.subDistrict.district.province.name }}
 			{{ dorm.address.subDistrict.district.province.region.name }}
-			</span></p>
-			<p class="pt-2">ราคา : <span class="text-light-blue">{{ lowPrice }} - {{ highPrice }}</span></p>
-			<p class="pt-2">ช่องทางการติดต่อ:</p>
+			</p>
+			<p class="pt-2"><span class="font-bold">ราคา:</span> {{ lowPrice }} - {{ highPrice }} บาท</p>
+			<p class="pt-2 font-bold">ช่องทางการติดต่อ:</p>
 			<!-- <ul class="list-none">
 				<li class="pl-3">อีเมล: <span class="text-light-blue">{{ owner.email }}</span></li>
 				<li class="pl-3">เบอร์โทรศัพท์:  <span class="text-light-blue">{{ owner.phone }}</span></li>
@@ -41,10 +41,10 @@
         <label tabindex="0" class="btn btn-sm m-1">Roomtype<span class="material-icons">expand_more</span></label>
         <ul
           tabindex="0"
-          class="dropdown-content menu p-2 shadow rounded-box w-52 bg-dark-blue border-dark-gray border-2"
+          class="dropdown-content menu p-2 shadow rounded-box w-52 bg-cream-dark border-dark-gray border-2"
         >
           <li v-for="type in dorm.roomTypes" :key="type.roomTypeId">
-            <p class="text-gray-soil" @click="selectRoomtype(type)">{{ type.type }}</p>
+            <p class="text-black" @click="selectRoomtype(type)">{{ type.type }}</p>
           </li>
         </ul>
       </div>

@@ -9,7 +9,7 @@
 						<div tabindex="0" class="btn btn-secondary btn-sm">
 							Username<span class="material-icons">arrow_drop_down</span>
 						</div>
-					<ul tabindex="0" class="p-2 shadow menu dropdown-content rounded-box w-52 text-cream-lightest bg-cream border-dark-gray border-2">
+					<ul tabindex="0" class="p-2 shadow menu dropdown-content rounded-box w-52 text-black bg-cream border-dark-gray border-2">
 						<!-- <li>
 							<nuxt-link to="">Login</nuxt-link>
 						</li>

@@ -20,6 +20,7 @@
           bg-cream-light
           focus:outline-none focus:bg-cream-lightest focus:text-gray-soil
           border-none
+          disabled:text-white disabled:bg-dark-gray
         "
         placeholder="999/999"
         @blur="checkForm"
@@ -47,6 +48,7 @@
           bg-cream-light
           focus:outline-none focus:bg-cream-lightest focus:text-gray-soil
           border-none
+          disabled:text-white disabled:bg-dark-gray
         "
         placeholder="ถนนของเรา"
         @blur="checkForm"
@@ -74,6 +76,7 @@
           bg-cream-light
           focus:outline-none focus:bg-cream-lightest focus:text-gray-soil
           border-none
+          disabled:text-white disabled:bg-dark-gray
         "
         placeholder="69"
         :disabled="disableForm"
@@ -86,7 +89,15 @@
       >
       <select
         v-model="selectedRegion"
-        class="select w-full mb-5 text-gray-soil bg-cream-light border-0"
+        class="
+          select
+          w-full
+          mb-5
+          text-gray-soil
+          bg-cream-light
+          border-0
+          disabled:text-white disabled:bg-dark-gray
+        "
         @change="
           selectedProvince = null;
           selectedDistrict = null;
@@ -117,7 +128,15 @@
         >
         <select
           v-model="selectedProvince"
-          class="select mb-5 w-full text-gray-soil bg-cream-light border-0"
+          class="
+            select
+            mb-5
+            w-full
+            text-gray-soil
+            bg-cream-light
+            border-0
+            disabled:text-white disabled:bg-dark-gray
+          "
           @change="
             selectedDistrict = null;
             selectedsubDistrict = null;
@@ -148,7 +167,15 @@
         >
         <select
           v-model="selectedDistrict"
-          class="select mb-5 w-full text-gray-soil bg-cream-light border-0"
+          class="
+            select
+            mb-5
+            w-full
+            text-gray-soil
+            bg-cream-light
+            border-0
+            disabled:text-white disabled:bg-dark-gray
+          "
           @change="
             selectedSubdistrict = null;
             zipCode = null;
@@ -178,7 +205,15 @@
         >
         <select
           v-model="selectedSubdistrict"
-          class="select mb-5 w-full text-gray-soil bg-cream-light border-0"
+          class="
+            select
+            mb-5
+            w-full
+            text-gray-soil
+            bg-cream-light
+            border-0
+            disabled:text-white disabled:bg-dark-gray
+          "
           @change="
             zipCode = null;
             checkForm();
@@ -202,7 +237,14 @@
       <div v-if="selectedDistrict">
         <label
           for=""
-          class="label-text text-gray-soil tracking-wide font-bold my-2"
+          class="
+            label-text
+            text-gray-soil
+            tracking-wide
+            font-bold
+            my-2
+            disabled:text-white disabled:bg-dark-gray
+          "
           >รหัสไปรษณีย์ <span class="text-cancelButton">*</span></label
         >
         <select
@@ -220,21 +262,27 @@
             {{ option.zipCodeId }}
           </option>
         </select>
-		 <p class="text-cancelButton text-right" v-if="!validatezipCode">
+        <p class="text-cancelButton text-right" v-if="!validatezipCode">
           กรุณาเลือกรหัสไปรษณีย์
         </p>
       </div>
-      <button
-        v-if="Object.keys(this.$store.state.newDorm.address).length != 0"
-        class="btn btn-neutral mt-3 ml-auto block"
-        type="button"
-        @click="disableForm = false"
-      >
-        เเก้ไขข้อมูล
-      </button>
-      <button class="btn btn-neutral mt-3 ml-auto block" type="submit">
-        ยืนยันข้อมูล
-      </button>
+      <div class="grid grid-cols-2">
+        <div class="px-1">
+          <button
+            v-if="Object.keys(this.$store.state.newDorm.address).length != 0"
+            class="btn btn-neutral mt-3 ml-auto block"
+            type="button"
+            @click="disableForm = false"
+          >
+            เเก้ไขข้อมูล
+          </button>
+        </div>
+        <div class="px-1">
+          <button class="btn btn-neutral mt-3 ml-auto block" type="submit">
+            ยืนยันข้อมูล
+          </button>
+        </div>
+      </div>
     </div>
   </form>
 </template>

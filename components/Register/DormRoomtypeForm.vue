@@ -23,7 +23,7 @@
         focus:bg-cream-lightest focus:text-gray-soil
         input input-sm
         w-full
-        disabled:bg-green-darker disabled:text-dark-gray
+        disabled:text-white disabled:bg-dark-gray
       "
       placeholder="ห้องนี้สีเขียว"
       v-model="roomType.type"
@@ -48,7 +48,7 @@
         focus:bg-cream-lightest focus:text-gray-soil
         input input-sm
         w-full
-        disabled:bg-green-darker disabled:text-dark-gray
+        disabled:text-white disabled:bg-dark-gray
       "
       placeholder="200"
       v-model="roomType.price"
@@ -75,7 +75,7 @@
         focus:bg-cream-lightest focus:text-gray-soil
         input input-sm
         w-full
-        disabled:bg-green-darker disabled:text-dark-gray
+        disabled:text-white disabled:bg-dark-gray
       "
       placeholder="200"
       v-model="roomType.deposit"
@@ -102,7 +102,7 @@
         focus:bg-cream-lightest focus:text-gray-soil
         input input-sm
         w-full
-        disabled:bg-green-darker disabled:text-dark-gray
+        disabled:text-white disabled:bg-dark-gray
       "
       placeholder="999.99"
       min="1"
@@ -135,7 +135,7 @@
             transition
             ease-in-out
             border-none
-            disabled:bg-green-darker disabled:text-dark-gray
+            disabled:text-white disabled:bg-dark-gray
           "
           type="file"
           id="formFileMultiple"
@@ -178,7 +178,7 @@
           focus:bg-cream-lightest focus:text-gray-soil
           input input-sm
           w-full
-          disabled:bg-green-darker disabled:text-dark-gray
+          disabled:text-white disabled:bg-dark-gray
         "
         placeholder="ห้องนี้สีเขียว"
         v-model="roomType.facility[index].name"
@@ -202,7 +202,7 @@
           focus:bg-cream-lightest focus:text-gray-soil
           input input-sm
           w-full
-          disabled:bg-green-darker disabled:text-dark-gray
+          disabled:text-white disabled:bg-dark-gray
         "
         placeholder="คำอธิบายเพิ่มเติม"
         v-model="roomType.facility[index].description"
