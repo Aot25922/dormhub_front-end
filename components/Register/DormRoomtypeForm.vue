@@ -35,7 +35,7 @@
     </p>
 
     <label class="label-text text-gray-soil tracking-wide font-bold my-2"
-      >ราคาห้องพัก <span class="text-cancelButton">*</span></label
+      >ราคาค่าเช่าห้องพัก <span class="text-cancelButton">*</span></label
     >
     <input
       type="number"
@@ -63,7 +63,7 @@
     </p>
 
     <label class="label-text text-gray-soil tracking-wide font-bold my-2"
-      >ราคาค่าเช่าห้องพัก <span class="text-cancelButton">*</span></label
+      >ราคาค่ามัดจำ <span class="text-cancelButton">*</span></label
     >
     <input
       type="number"
