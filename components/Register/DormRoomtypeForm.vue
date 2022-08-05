@@ -28,36 +28,10 @@
       placeholder="ห้องนี้สีเขียว"
       v-model="roomType.type"
       @blur="validateForm"
+      :disabled = "disableForm"
     />
     <p class="text-cancelButton text-right" v-if="validateType">
       กรุณาใส่ชื่อประเภทห้อง
-    </p>
-
-    <label class="label-text text-gray-soil tracking-wide font-bold my-2"
-      >ราคาห้องพัก <span class="text-cancelButton">*</span></label
-    >
-    <input
-      type="number"
-      class="
-        p-2
-        mb-5
-        rounded
-        text-gray-soil
-        bg-cream-light
-        border-none
-        focus:bg-cream-lightest focus:text-gray-soil
-        input input-sm
-        w-full
-        disabled:text-white disabled:bg-dark-gray
-      "
-      placeholder="200"
-      v-model="roomType.price"
-      min="1"
-      max="100000"
-      @blur="validateForm"
-    />
-    <p class="text-cancelButton text-right" v-if="validatePrice">
-      ราคาได้ตั้งแต่ 1-100000
     </p>
 
     <label class="label-text text-gray-soil tracking-wide font-bold my-2"
@@ -78,10 +52,39 @@
         disabled:text-white disabled:bg-dark-gray
       "
       placeholder="200"
+      v-model="roomType.price"
+      min="1"
+      max="100000"
+      @blur="validateForm"
+      :disabled = "disableForm"
+    />
+    <p class="text-cancelButton text-right" v-if="validatePrice">
+      ราคาได้ตั้งแต่ 1-100000
+    </p>
+
+    <label class="label-text text-gray-soil tracking-wide font-bold my-2"
+      >ราคาค่ามัดจำ <span class="text-cancelButton">*</span></label
+    >
+    <input
+      type="number"
+      class="
+        p-2
+        mb-5
+        rounded
+        text-gray-soil
+        bg-cream-light
+        border-none
+        focus:bg-cream-lightest focus:text-gray-soil
+        input input-sm
+        w-full
+        disabled:bg-green-darker disabled:text-dark-gray
+      "
+      placeholder="200"
       v-model="roomType.deposit"
       min="1"
       max="100000"
       @blur="validateForm"
+      :disabled = "disableForm"
     />
     <p class="text-cancelButton text-right" v-if="validateDeposit">
       ราคาได้ตั้งแต่ 1-100000
@@ -109,6 +112,7 @@
       max="999.99"
       v-model="roomType.area"
       @blur="validateForm"
+      :disabled = "disableForm"
     />
     <p class="text-cancelButton text-right" v-if="validateArea">
       พื้นที่ได้ตั้งแต่ 1-999.99
@@ -141,6 +145,7 @@
           id="formFileMultiple"
           @change="onFileChange"
           multiple
+          :disabled = "disableForm"
         />
       </div>
       <p class="text-cancelButton text-right" v-if="validateFile">
@@ -183,6 +188,7 @@
         placeholder="ห้องนี้สีเขียว"
         v-model="roomType.facility[index].name"
         @blur="validateForm"
+        :disabled = "disableForm"
       />
       <p class="text-cancelButton text-right" v-if="validateFacility">
         กรุณาใส่ชื่อสิ่งอำนวยความสะดวก
@@ -206,6 +212,7 @@
         "
         placeholder="คำอธิบายเพิ่มเติม"
         v-model="roomType.facility[index].description"
+        :disabled = "disableForm"
       />
       <button
         class="btn btn-ghost text-cancelButton absolute -top-4 -right-5"
@@ -217,7 +224,7 @@
       <hr class="py-2 text-gray-soil" />
     </div>
     <div class="flex flex-wraps">
-      <div class="px-1">
+      <div class="px-1" v-if="!disableForm">
         <button
           class="btn btn-neutral mx-auto block"
           @click="roomType.facility.push({ name: '', description: '' })"
@@ -225,9 +232,14 @@
           เพิ่มสิ่งอำนวยความสะดวก
         </button>
       </div>
-      <div class="px-1">
+      <div class="px-1" v-if="!disableForm">
         <button class="btn btn-neutral mx-auto block" @click="addRoomTypes">
           ยืนยันข้อมูลประเภทห้องพัก
+        </button>
+      </div>
+      <div class="px-1">
+        <button class="btn btn-neutral mx-auto block" @click="disableForm = false" v-if="disableForm">
+          เเก้ไขข้อมูลประเภทห้องพัก
         </button>
       </div>
     </div>
@@ -254,13 +266,12 @@ export default {
       validateFile: false,
       roomTypeInputImage: [],
       roomTypeImageUrl: [],
+      disableForm: false,
+      oldRoomType: ""
     };
   },
   methods: {
     addRoomTypes() {
-      if (this.roomType.type == "") {
-        return;
-      }
       this.validateForm();
       if (
         this.validateType == false &&
@@ -269,10 +280,30 @@ export default {
         this.validateArea == false &&
         this.validateFacility == false
       ) {
-        let newRoomType = Object.assign({},this.roomType);
+        let newRoomType = JSON.parse(JSON.stringify(this.roomType));
+        newRoomType.oldRoomType = this.oldRoomType
         let newRoomTypeImg = Object.assign({},this.roomTypeInputImage);
         this.$store.commit("SET_ROOMTYPE", newRoomType);
         this.$store.dispatch("setNewRoomTypeImg",{image:newRoomTypeImg,roomType:newRoomType.type})
+        this.oldRoomType = newRoomType.type
+        this.disableForm = true
+        const noti = this.$vs.notification({
+          progress: "auto",
+          icon: `<i class='bx bx-folder-open' ></i>`,
+          color: "success",
+          position: "top-right",
+          title: `Data Update`,
+          text: `Add you room type data complete!`,
+        });
+      }else {
+        const noti = this.$vs.notification({
+          progress: "auto",
+          icon: `<i class='bx bx-error' ></i>`,
+          color: "warn",
+          position: "top-right",
+          title: "Form data not complete",
+          text: "Please, input all data in field",
+        });
       }
     },
     onFileChange(e) {

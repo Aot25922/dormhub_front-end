@@ -202,23 +202,17 @@
           </p>
         </div>
 
-		<div class="grid grid-cols-2">
-			<div class="px-1">
-				<button
-				v-if="Object.keys(this.$store.state.newDorm.dorm).length != 0"
-				class="btn btn-neutral mt-3 mr-auto block"
-				type="button"
-				@click="disableForm = false"
-				>
-				เเก้ไขข้อมูล
-				</button>
-			</div>
-			<div class="px-1">
-				<button class="btn btn-neutral mt-3 ml-auto block" type="submit">
-				ยืนยันข้อมูล
-				</button>
-			</div>
-		</div>
+        <button
+          v-if="disableForm"
+          class="btn btn-neutral mt-3 ml-auto block"
+          type="button"
+          @click.prevent="disableForm = false"
+        >
+          เเก้ไขข้อมูล
+        </button>
+        <button class="btn btn-neutral mt-3 ml-auto block" type="submit" v-if="!disableForm">
+          ยืนยันข้อมูล
+        </button>
       </div>
     </form>
   </div>

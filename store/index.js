@@ -1,7 +1,7 @@
 var _ = require('lodash');
 
 export const state = () => ({
-  Backend_URL: process.env.Backend_URL || 'http://localhost:3001',
+  Backend_URL: process.env.Backend_URL || 'http://dormhub-dev.azurewebsites.net',
   dormList: [],
   provinceList: [],
   selectedDorm: null,
@@ -33,7 +33,9 @@ export const mutations = {
   },
   SET_ROOMTYPE(state, data) {
     for (let i in state.newDorm.roomType) {
-      if (_.isMatch(data, state.newDorm.roomType[i])) {
+      if ( state.newDorm.roomType[i].type == data.type || state.newDorm.roomType[i].type == data.oldRoomType) {
+        state.newDorm.roomType[i] = _.omitBy(data, (value, key) => key.includes("oldRoomType"));
+        console.log(state.newDorm.roomType)
         return
       }
     }

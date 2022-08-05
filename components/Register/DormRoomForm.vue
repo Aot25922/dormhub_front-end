@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="px-3 md:px-20 lg:px-[335px]">
-      <div class="relative" v-for="(i, index) in roomTypeCount" :key="i.id">
+      <div class="relative" v-for="(i, index) in roomTypeCount" :key="index">
         <RegisterDormRoomtypeForm
           :index="index"
           @removeRoomType="removeRoomType(index, ...arguments)"

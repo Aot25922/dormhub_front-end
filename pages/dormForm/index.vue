@@ -1,6 +1,6 @@
 <template>
-  <div class="py-3 md:py-5">
-    <div>
+  <div class="py-3 md:py-5 px-4 md:px-5 text-black">
+    <!-- <div>
       <h1 class="text-cream-dark font-bold text-center text-xl">เพิ่มหอพัก</h1>
       <RegisterDormInfoForm />
       <RegisterDormAddressForm msg="สถานที่ตั้งหอพัก" />
@@ -11,7 +11,13 @@
       </h1>
       <RegisterDormRoomForm />
     </div>
-    <button class=" bg-confirmButton" @click="submitForm">SUBMIT</button>
+    <button class=" bg-confirmButton" @click="submitForm">SUBMIT</button> -->
+    <div class="p-3 bg-green-darker rounded">
+		<h1 class="font-bold">ขั้นตอนการสร้างหอพัก</h1>
+		<p>จะมีการสร้างทั้งหมด n ขั้นตอนโดย</p>
+	</div>
+	<nuxt-link to="/dormForm/registerDormdetail" class="btn btn-accent w-full mt-3">เริ่มสร้างหอพักของคุณ</nuxt-link>
+    <NuxtChild  />
   </div>
 </template>
 <script>
