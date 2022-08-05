@@ -1,31 +1,26 @@
 <template>
   <div class="py-3 md:py-5">
-    <!-- <div>
-      <h1 class="text-cream-dark font-bold text-center text-xl">เพิ่มหอพัก</h1>
-      <RegisterDormInfoForm />
-      <RegisterDormAddressForm msg="สถานที่ตั้งหอพัก" />
-    </div>
+    <form-progress />
+    <nuxt-link v-if="!this.$route.path.includes('dormForm/')"
+      to="/dormForm/registerDormDetail"
+      class="btn btn-neutral mx-auto block bg-cheese"
+      >เริ่มสร้างหอพักของคุณ</nuxt-link
+    >
     <div>
-      <h1 class="text-cream-dark font-bold text-center text-xl">
-        รายละเอียดห้องพัก
-      </h1>
-      <RegisterDormRoomForm />
+      <nuxt-child />
     </div>
-    <button class=" bg-confirmButton" @click="submitForm">SUBMIT</button> -->
-    <nuxt-link to="/dormForm/registerDormdetail" class="btn btn-neutral mx-auto block bg-cheese">เริ่มสร้างหอพักของคุณ</nuxt-link>
-    <nuxt/>
   </div>
 </template>
 <script>
 export default {
-  data(){
-    return {}
+  data() {
+    return {};
   },
   methods: {
-    submitForm(){
-      this.$store.dispatch('addDorm')
-    }
-  }
+    submitForm() {
+      this.$store.dispatch("addDorm");
+    },
+  },
   // data() {
   //   return {
   // form: true,
