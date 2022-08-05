@@ -234,31 +234,6 @@
         </p>
       </div>
 
-      <div v-if="selectedDistrict">
-        <label
-          for=""
-          class="label-text text-gray-soil tracking-wide font-bold my-2"
-          >รหัสไปรษณีย์ <span class="text-cancelButton">*</span></label
-        >
-        <select
-          v-model="zipCode"
-          class="select mb-5 w-full text-gray-soil bg-cream-light border-0"
-          @change="checkForm"
-          :disabled="disableForm"
-        >
-          <option option disabled selected>กรุณาเลือกรหัสไปรษณีย์</option>
-          <option
-            v-for="option in selectedRegion.subDistricts"
-            :value="option.zipCodeId"
-            :key="option.zipCodeId"
-          >
-            {{ option.zipCodeId }}
-          </option>
-        </select>
-		 <p class="text-cancelButton text-right" v-if="!validatezipCode">
-          กรุณาเลือกรหัสไปรษณีย์
-        </p>
-      </div>
       <button
         v-if="disableForm"
         class="btn btn-neutral mt-3 ml-auto block"
