@@ -26,6 +26,7 @@ export const mutations = {
   },
   SET_DORMADDRESS(state, data) {
     state.newDorm.address = data
+    console.log(state.newDorm.address)
   },
   SET_ROOMTYPEIMG(state, data) {
     let key = data.key
@@ -33,7 +34,7 @@ export const mutations = {
   },
   SET_ROOMTYPE(state, data) {
     for (let i in state.newDorm.roomType) {
-      if ( state.newDorm.roomType[i].type == data.type || state.newDorm.roomType[i].type == data.oldRoomType) {
+      if (state.newDorm.roomType[i].type == data.type || state.newDorm.roomType[i].type == data.oldRoomType) {
         state.newDorm.roomType[i] = _.omitBy(data, (value, key) => key.includes("oldRoomType"));
         console.log(state.newDorm.roomType)
         return
@@ -97,6 +98,13 @@ export const actions = {
   async addDorm({ state }) {
     console.log("CHECK")
     let dorm = state.newDorm
+    console.log(_.isEmpty(dorm.dorm))
+    console.log(dorm.address)
+    console.log(_.isEmpty(dorm.address))
+    console.log(_.isEmpty(dorm.roomType))
+    console.log(_.isEmpty(dorm.room))
+    console.log(_.isEmpty(dorm.dormImg))
+    console.log(_.isEmpty(dorm.roomTypeImg))
     if (!(_.isEmpty(dorm.dorm)) && !(_.isEmpty(dorm.address)) && !(_.isEmpty(dorm.roomType)) && !(_.isEmpty(dorm.room)) && !(_.isEmpty(dorm.dormImg)) && !(_.isEmpty(dorm.roomTypeImg))) {
       let formData = new FormData()
       let data = {}
@@ -114,7 +122,7 @@ export const actions = {
       for (var pair of formData.entries()) {
         console.log(pair[0] + ': ' + pair[1]);
       }
-      let postData = await this.$axios.$post(`${state.Backend_URL}/dorm/register`,formData)
+      let postData = await this.$axios.$post(`${state.Backend_URL}/dorm/register`, formData)
     }
   }
 }

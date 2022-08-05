@@ -223,7 +223,7 @@
           <option option disabled selected>กรุณาเลือกแขวง/ตำบล</option>
           <option
             v-for="option in selectedRegion.subDistricts"
-            :value="option.subDistrict"
+            :value="option"
             :key="option.subDistrict"
           >
             {{ option.subDistrict }}
@@ -237,14 +237,7 @@
       <div v-if="selectedDistrict">
         <label
           for=""
-          class="
-            label-text
-            text-gray-soil
-            tracking-wide
-            font-bold
-            my-2
-            disabled:text-white disabled:bg-dark-gray
-          "
+          class="label-text text-gray-soil tracking-wide font-bold my-2"
           >รหัสไปรษณีย์ <span class="text-cancelButton">*</span></label
         >
         <select
@@ -262,7 +255,7 @@
             {{ option.zipCodeId }}
           </option>
         </select>
-        <p class="text-cancelButton text-right" v-if="!validatezipCode">
+		 <p class="text-cancelButton text-right" v-if="!validatezipCode">
           กรุณาเลือกรหัสไปรษณีย์
         </p>
       </div>
@@ -323,19 +316,18 @@ export default {
       selectedSubdistrict: null,
       selectedRegion: null,
       selectedProvince: null,
+      selectedZipCode: null,
       address: {
         number: "",
         street: "",
         alley: "",
       },
-      zipCode: null,
       validateNumber: false,
       validateStreet: false,
       validateDistrict: false,
       validateSubdistrict: false,
       validateRegion: false,
       validateProvince: false,
-      validatezipCode: false,
       disableForm: false,
     };
   },
@@ -347,15 +339,14 @@ export default {
         this.validateDistrict &&
         this.validateSubdistrict &&
         this.validateRegion &&
-        this.validateProvince &&
-        this.validatezipCode
+        this.validateProvince
       ) {
-        this.address.zipCodeId = this.zipCode;
+        this.address.zipCodeId = this.selectedSubdistrict.zipCodeId;
         this.address.district = this.selectedDistrict;
         this.address.region = this.selectedRegion.regions;
         this.address.province = this.selectedProvince;
-        this.address.subDistrict = this.selectedSubdistrict;
-        let newAddress = {...this.adsress}
+        this.address.subDistrict = this.selectedSubdistrict.subDistrict;
+        let newAddress = {...this.address}
         this.$store.commit("SET_DORMADDRESS", newAddress);
         this.disableForm = true;
         const noti = this.$vs.notification({
@@ -385,7 +376,6 @@ export default {
         this.selectedSubdistrict != null ? true : false;
       this.validateRegion = this.selectedRegion != null ? true : false;
       this.validateProvince = this.selectedProvince != null ? true : false;
-      this.validatezipCode = this.zipCode != null ? true : false;
     },
   },
 };
