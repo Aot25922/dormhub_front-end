@@ -3,12 +3,12 @@
     <ul class="steps">
       <li class="step step-primary">Start Here!</li>
       <li class="step" :class="{ 'step-primary': step1 }">Dorm Information</li>
-      <li class="step" :class="{ 'step-primary': step2 }">Room Information</li>
+      <li class="step" :class="{ 'step-primary': step2 }">RoomType Information</li>
       <li class="step" :class="{ 'step-primary': step3 }">
-        Purchase Information
+        Room Information
       </li>
       <li class="step" :class="{ 'step-primary': step4 }">
-        Confirm/Cancel Data
+        Payment Information
       </li>
     </ul>
   </div>
@@ -20,14 +20,15 @@ export default {
     step1() {
       return (
         this.$route.path == "/dormForm/registerDormDetail" ||
+        this.$route.path == "/dormForm/registerDormRoomTypeDetail" ||
         this.$route.path == "/dormForm/registerDormRoomDetail"
       );
     },
     step2() {
-      return this.$route.path == "/dormForm/registerDormRoomDetail";
+      return this.$route.path == "/dormForm/registerDormRoomTypeDetail" || this.$route.path == "/dormForm/registerDormRoomDetail";
     },
     step3() {
-      return false;
+      return this.$route.path == "/dormForm/registerDormRoomDetail";
     },
     step4() {
       return false;

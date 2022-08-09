@@ -10,7 +10,7 @@
       class="btn btn-accent w-full mt-3"
       >เริ่มสร้างหอพักของคุณ</nuxt-link
     >
-    <NuxtChild  />
+    <NuxtChild keep-alive />
   </div>
 </template>
 <script>

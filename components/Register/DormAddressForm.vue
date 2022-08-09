@@ -1,7 +1,7 @@
 <template>
   <form class="px-3 md:px-20 lg:px-[335px]" @submit.prevent="submit">
     <div div class="bg-cream p-3 rounded-lg my-3">
-      <h1 class="text-black text-lg ml-2 mb-2 font-bold">{{ msg }}</h1>
+      <h1 class="text-black text-lg ml-2 mb-2 font-bold">สถานที่ตั้งหอพัก</h1>
       <label
         for=""
         class="label-text text-gray-soil tracking-wide font-bold my-2"
@@ -252,7 +252,6 @@
 <script>
 export default {
   name: "Address",
-  props: { msg: String },
   async fetch() {
     let addressInfo = await this.$axios.$get(
       `${this.$store.state.Backend_URL}/dorm/address`
