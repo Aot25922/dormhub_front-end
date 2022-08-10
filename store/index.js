@@ -1,11 +1,12 @@
 var _ = require('lodash');
 
 export const state = () => ({
-  Backend_URL: process.env.Backend_URL || 'http://dormhub-dev.azurewebsites.net',
+  Backend_URL: 'http://dormhub-dev.azurewebsites.net',
+  // Backend_URL: 'http://localhost:3001',
   dormList: [],
   provinceList: [],
   selectedDorm: null,
-  newDorm: { dorm: {}, address: {}, roomType: [], room: [], dormImg: [], roomTypeImg: {} }
+  newDorm: { dorm: {}, address: {}, roomType: [], room: [], dormImg: [], roomTypeImg: {}, bankAccount:[] }
 });
 
 export const mutations = {
@@ -57,6 +58,10 @@ export const mutations = {
   SET_ROOM(state, data) {
     state.newDorm.room = data
     console.log(state.newDorm.room)
+  },
+  SET_BANKACCOUNT(state, data) {
+    state.newDorm.bankAccount = data
+    console.log(state.newDorm.bankAccount)
   }
 };
 
