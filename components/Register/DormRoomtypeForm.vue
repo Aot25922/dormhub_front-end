@@ -249,6 +249,7 @@ export default {
         });
         this.oldRoomType = newRoomType.type;
         this.disableForm = true;
+        this.$emit('validate',true)
         const noti = this.$vs.notification({
           progress: "auto",
           icon: `<i class='bx bx-folder-open' ></i>`,
@@ -258,6 +259,7 @@ export default {
           text: `Add you room type data complete!`,
         });
       } else {
+        this.$emit('validate',false)
         const noti = this.$vs.notification({
           progress: "auto",
           icon: `<i class='bx bx-error' ></i>`,

@@ -1,220 +1,206 @@
 <template>
   <div>
-    <form class="px-3 md:px-20 lg:px-[335px]" @submit.prevent="submit">
-      <div class="bg-cream p-3 rounded-lg my-3">
-        <h1 class="text-black text-lg ml-2 mb-2 font-bold">เกี่ยวกับหอพัก</h1>
-        <div class="mb-2">
-          <label class="label-text text-gray-soil tracking-wide font-bold my-2"
-            >ชื่อหอพัก <span class="text-cancelButton">*</span></label
-          >
-          <input
-            type="text"
-            autofocus
-            class="
-              py-4
-              px-2
-              w-full
-              input input-sm
-              rounded
-              text-gray-soil
-              bg-cream-light
-              focus:outline-none focus:bg-cream-lightest focus:text-gray-soil
-              border-none disabled:text-white disabled:bg-dark-gray
-            "
-            placeholder="แฮปปี้ดอร์ม"
-            @blur="checkForm"
-            v-model="dorm.name"
-            :disabled = "disableForm"
-          />
-          <p v-if="!validateName" class="text-cancelButton text-right mt-2">
-            กรุณาใส่ชื่อหอพัก
-          </p>
-        </div>
-        <div class="mb-5">
-          <label class="label-text text-gray-soil tracking-wide font-bold"
-            >เวลาเปิด</label
-          >
-          <input
-            type="time"
-            class="
-              py-4
-              px-2
-              w-full
-              input input-sm
-              rounded
-              text-gray-soil
-              bg-cream-light
-              focus:outline-none focus:bg-cream-lightest focus:text-gray-soil
-              border-none disabled:text-white disabled:bg-dark-gray
-            "
-            placeholder="06.00"
-            @blur="checkForm"
-            v-model="dorm.openTime"
-            :disabled = "disableForm"
-          />
-          <!-- <p v-if="!validateOpenTime" class="text-cancelButton text-right mt-2">
+    <div class="bg-cream p-3 rounded-lg my-3">
+      <h1 class="text-black text-lg ml-2 mb-2 font-bold">เกี่ยวกับหอพัก</h1>
+      <div class="mb-2">
+        <label class="label-text text-gray-soil tracking-wide font-bold my-2"
+          >ชื่อหอพัก <span class="text-cancelButton">*</span></label
+        >
+        <input
+          type="text"
+          autofocus
+          class="
+            py-4
+            px-2
+            w-full
+            input input-sm
+            rounded
+            text-gray-soil
+            bg-cream-light
+            focus:outline-none focus:bg-cream-lightest focus:text-gray-soil
+            border-none
+            disabled:text-white disabled:bg-dark-gray
+          "
+          placeholder="แฮปปี้ดอร์ม"
+          @blur="checkForm"
+          v-model="dorm.name"
+        />
+        <p v-if="!validateName" class="text-cancelButton text-right mt-2">
+          กรุณาใส่ชื่อหอพัก
+        </p>
+      </div>
+      <div class="mb-5">
+        <label class="label-text text-gray-soil tracking-wide font-bold"
+          >เวลาเปิด</label
+        >
+        <input
+          type="time"
+          class="
+            py-4
+            px-2
+            w-full
+            input input-sm
+            rounded
+            text-gray-soil
+            bg-cream-light
+            focus:outline-none focus:bg-cream-lightest focus:text-gray-soil
+            border-none
+            disabled:text-white disabled:bg-dark-gray
+          "
+          placeholder="06.00"
+          @blur="checkForm"
+          v-model="dorm.openTime"
+        />
+        <!-- <p v-if="!validateOpenTime" class="text-cancelButton text-right mt-2">
             ระบุเวลาเปิดหอพัก
           </p> -->
-        </div>
-        <div class="mb-5">
-          <label class="label-text text-gray-soil tracking-wide font-bold my-2"
-            >เวลาปิด</label
-          >
-          <input
-            type="time"
-            class="
-              py-4
-              px-2
-              w-full
-              input input-sm
-              rounded
-              text-gray-soil
-              bg-cream-light
-              focus:outline-none focus:bg-cream-lightest focus:text-gray-soil
-              border-none disabled:text-white disabled:bg-dark-gray
-            "
-            placeholder="22.00"
-            @blur="checkForm"
-            v-model="dorm.closeTime"
-            :disabled = "disableForm"
-          />
-          <!-- <p v-if="!validateCloseTime" class="text-cancelButton text-right mt-2">
+      </div>
+      <div class="mb-5">
+        <label class="label-text text-gray-soil tracking-wide font-bold my-2"
+          >เวลาปิด</label
+        >
+        <input
+          type="time"
+          class="
+            py-4
+            px-2
+            w-full
+            input input-sm
+            rounded
+            text-gray-soil
+            bg-cream-light
+            focus:outline-none focus:bg-cream-lightest focus:text-gray-soil
+            border-none
+            disabled:text-white disabled:bg-dark-gray
+          "
+          placeholder="22.00"
+          @blur="checkForm"
+          v-model="dorm.closeTime"
+        />
+        <!-- <p v-if="!validateCloseTime" class="text-cancelButton text-right mt-2">
             ระบุเวลาปิดหอพัก
           </p> -->
-        </div>
-        <div class="mb-2">
-          <label class="label-text text-gray-soil tracking-wide font-bold my-2"
-            >ค่าน้ำต่อหน่วย <span class="text-cancelButton">*</span></label
-          >
-          <input
-            type="number"
-            step="0.01"
-            @blur="checkForm"
-            v-model="dorm.waterPerUnit"
-            class="
-              py-4
-              px-2
-              w-full
-              input input-sm
-              rounded
-              text-gray-soil
-              bg-cream-light
-              focus:outline-none focus:bg-cream-lightest focus:text-gray-soil
-              border-none disabled:text-white disabled:bg-dark-gray
-            "
-            placeholder="0.01 - 9.99"
-            :disabled = "disableForm"
-          />
-          <p v-if="!validateWater" class="text-cancelButton text-right mt-2">
-            ใส่ค่าได้ตั้งแต่ 0.01 - 9.99
-          </p>
-        </div>
-        <div class="mb-2">
-          <label class="label-text text-gray-soil tracking-wide font-bold my-2"
-            >ค่าไฟต่อหน่วย <span class="text-cancelButton">*</span></label
-          >
-          <input
-            type="number"
-            step="0.01"
-            @blur="checkForm"
-            v-model="dorm.elecPerUnit"
-            class="
-              py-4
-              px-2
-              w-full
-              input input-sm
-              rounded
-              text-gray-soil
-              bg-cream-light
-              focus:outline-none focus:bg-cream-lightest focus:text-gray-soil
-              border-none disabled:text-white disabled:bg-dark-gray
-            "
-            placeholder="0.01 - 9.99"
-            :disabled = "disableForm"
-          />
-          <p
-            v-if="!validateElec"
-            @blur="checkForm"
-            class="text-cancelButton text-right mt-2"
-          >
-            ใส่ค่าได้ตั้งแต่ 0.01 - 9.99
-          </p>
-        </div>
-        <div class="mb-5">
-          <label class="label-text text-gray-soil tracking-wide font-bold my-2"
-            >ข้อมูลเพิ่มเติม</label
-          >
-          <textarea
-            v-model="dorm.description"
-            class="
-              h-[80px]
-              p-2
-              w-full
-              input input-sm
-              rounded
-              text-gray-soil
-              bg-cream-light
-              focus:outline-none focus:bg-cream-lightest focus:text-gray-soil
-              border-none disabled:text-white disabled:bg-dark-gray
-            "
-            placeholder="คำอธิบายเพิ่มเติม"
-            :disabled = "disableForm"
-          />
-        </div>
-        <div class="mb-5">
-          <label class="label-text text-gray-soil tracking-wide font-bold my-2"
-            >เลือกภาพปกที่ใช้แสดงบนหน้าเว็ป
-            <span class="text-cancelButton">*</span></label
-          >
-          <input
-            type="file"
-            class="
-              focus:outline-none
-              form-control
-              block
-              w-full
-              bg-cream-light
-              text-gray-soil
-              rounded
-              transition
-              ease-in-out
-              border-none disabled:text-white disabled:bg-dark-gray
-            "
-            @change="
-              onFileChange($event);
-              checkForm();
-            "
-            multiple
-            :disabled = "disableForm"
-          />
-          <div v-if="dormImgUrl">
-            <div class="md:grid md:grid-cols-2 lg:grid lg:grid-cols-4">
-              <img
-                v-for="i in dormImgUrl"
-                :key="i"
-                :src="i"
-                class="py-2 md:p-2"
-              />
-            </div>
-          </div>
-          <p v-if="!validateDormImg" class="text-cancelButton text-right mt-2">
-            ต้องมีอย่างน้อย 1 ภาพ
-          </p>
-        </div>
-
-        <button
-          v-if="disableForm"
-          class="btn btn-neutral mt-3 ml-auto block"
-          type="button"
-          @click.prevent="disableForm = false"
-        >
-          เเก้ไขข้อมูล
-        </button>
-        <button class="btn btn-neutral mt-3 ml-auto block" type="submit" v-if="!disableForm">
-          ยืนยันข้อมูล
-        </button>
       </div>
-    </form>
+      <div class="mb-2">
+        <label class="label-text text-gray-soil tracking-wide font-bold my-2"
+          >ค่าน้ำต่อหน่วย <span class="text-cancelButton">*</span></label
+        >
+        <input
+          type="number"
+          step="0.01"
+          @blur="checkForm"
+          v-model="dorm.waterPerUnit"
+          class="
+            py-4
+            px-2
+            w-full
+            input input-sm
+            rounded
+            text-gray-soil
+            bg-cream-light
+            focus:outline-none focus:bg-cream-lightest focus:text-gray-soil
+            border-none
+            disabled:text-white disabled:bg-dark-gray
+          "
+          placeholder="0.01 - 9.99"
+        />
+        <p v-if="!validateWater" class="text-cancelButton text-right mt-2">
+          ใส่ค่าได้ตั้งแต่ 0.01 - 9.99
+        </p>
+      </div>
+      <div class="mb-2">
+        <label class="label-text text-gray-soil tracking-wide font-bold my-2"
+          >ค่าไฟต่อหน่วย <span class="text-cancelButton">*</span></label
+        >
+        <input
+          type="number"
+          step="0.01"
+          @blur="checkForm"
+          v-model="dorm.elecPerUnit"
+          class="
+            py-4
+            px-2
+            w-full
+            input input-sm
+            rounded
+            text-gray-soil
+            bg-cream-light
+            focus:outline-none focus:bg-cream-lightest focus:text-gray-soil
+            border-none
+            disabled:text-white disabled:bg-dark-gray
+          "
+          placeholder="0.01 - 9.99"
+        />
+        <p
+          v-if="!validateElec"
+          @blur="checkForm"
+          class="text-cancelButton text-right mt-2"
+        >
+          ใส่ค่าได้ตั้งแต่ 0.01 - 9.99
+        </p>
+      </div>
+      <div class="mb-5">
+        <label class="label-text text-gray-soil tracking-wide font-bold my-2"
+          >ข้อมูลเพิ่มเติม</label
+        >
+        <textarea
+          v-model="dorm.description"
+          class="
+            h-[80px]
+            p-2
+            w-full
+            input input-sm
+            rounded
+            text-gray-soil
+            bg-cream-light
+            focus:outline-none focus:bg-cream-lightest focus:text-gray-soil
+            border-none
+            disabled:text-white disabled:bg-dark-gray
+          "
+          placeholder="คำอธิบายเพิ่มเติม"
+        />
+      </div>
+      <div class="mb-5">
+        <label class="label-text text-gray-soil tracking-wide font-bold my-2"
+          >เลือกภาพปกที่ใช้แสดงบนหน้าเว็ป
+          <span class="text-cancelButton">*</span></label
+        >
+        <input
+          type="file"
+          class="
+            focus:outline-none
+            form-control
+            block
+            w-full
+            bg-cream-light
+            text-gray-soil
+            rounded
+            transition
+            ease-in-out
+            border-none
+            disabled:text-white disabled:bg-dark-gray
+          "
+          @change="
+            onFileChange($event);
+            checkForm();
+          "
+          multiple
+        />
+        <div v-if="dormImgUrl">
+          <div class="md:grid md:grid-cols-2 lg:grid lg:grid-cols-4">
+            <img
+              v-for="i in dormImgUrl"
+              :key="i"
+              :src="i"
+              class="py-2 md:p-2"
+            />
+          </div>
+        </div>
+        <p v-if="!validateDormImg" class="text-cancelButton text-right mt-2">
+          ต้องมีอย่างน้อย 1 ภาพ
+        </p>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -278,7 +264,8 @@ export default {
         const dormImgCopy = { ...this.dormInputImage };
         this.$store.commit("SET_DORMINFO", dormCopy);
         this.$store.commit("SET_DORMIMG", dormImgCopy);
-        this.disableForm = true
+        this.disableForm = true;
+        this.$emit("validate", true);
         const noti = this.$vs.notification({
           progress: "auto",
           icon: `<i class='bx bx-folder-open' ></i>`,
@@ -288,6 +275,7 @@ export default {
           text: `Add you dorm detail data complete!`,
         });
       } else {
+        this.$emit("validate", false);
         const noti = this.$vs.notification({
           progress: "auto",
           icon: `<i class='bx bx-error' ></i>`,

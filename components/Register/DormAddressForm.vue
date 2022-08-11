@@ -1,5 +1,4 @@
 <template>
-  <form class="px-3 md:px-20 lg:px-[335px]" @submit.prevent="submit">
     <div div class="bg-cream p-3 rounded-lg my-3">
       <h1 class="text-black text-lg ml-2 mb-2 font-bold">สถานที่ตั้งหอพัก</h1>
       <label
@@ -24,7 +23,6 @@
         "
         placeholder="999/999"
         @blur="checkForm"
-        :disabled="disableForm"
       />
       <p class="text-cancelButton text-right" v-if="!validateNumber">
         กรุณาใส่เลขที่/เลขห้อง
@@ -52,7 +50,6 @@
         "
         placeholder="ถนนของเรา"
         @blur="checkForm"
-        :disabled="disableForm"
       />
       <p class="text-cancelButton text-right" v-if="!validateStreet">
         กรุณาใส่ถนน
@@ -79,7 +76,6 @@
           disabled:text-white disabled:bg-dark-gray
         "
         placeholder="69"
-        :disabled="disableForm"
       />
 
       <label
@@ -105,7 +101,6 @@
           zipCode = null;
           checkForm();
         "
-        :disabled="disableForm"
       >
         <option option disabled selected>กรุณาเลือกภูมิภาค</option>
         <option
@@ -143,7 +138,7 @@
             zipCode = null;
             checkForm();
           "
-          :disabled="disableForm"
+
         >
           <option option disabled selected>กรุณาเลือกจังหวัด</option>
           <option
@@ -181,7 +176,7 @@
             zipCode = null;
             checkForm();
           "
-          :disabled="disableForm"
+
         >
           <option option disabled selected>กรุณาเลือกเขต/อำเภอ</option>
           <option
@@ -218,7 +213,7 @@
             zipCode = null;
             checkForm();
           "
-          :disabled="disableForm"
+
         >
           <option option disabled selected>กรุณาเลือกแขวง/ตำบล</option>
           <option
@@ -233,20 +228,7 @@
           กรุณาเลือกเเขวง/ตำบล
         </p>
       </div>
-
-      <button
-        v-if="disableForm"
-        class="btn btn-neutral mt-3 ml-auto block"
-        type="button"
-        @click.prevent="disableForm = false"
-      >
-        เเก้ไขข้อมูล
-      </button>
-      <button class="btn btn-neutral mt-3 ml-auto block" type="submit" v-if="!disableForm">
-        ยืนยันข้อมูล
-      </button>
     </div>
-  </form>
 </template>
 
 <script>
@@ -323,6 +305,7 @@ export default {
         let newAddress = {...this.address}
         this.$store.commit("SET_DORMADDRESS", newAddress);
         this.disableForm = true;
+        this.$emit('validate',true)
         const noti = this.$vs.notification({
           progress: "auto",
           icon: `<i class='bx bx-folder-open' ></i>`,
@@ -332,6 +315,7 @@ export default {
           text: `Add you dorm address data complete!`,
         });
       } else {
+        this.$emit('validate',false)
         const noti = this.$vs.notification({
           progress: "auto",
           icon: `<i class='bx bx-error' ></i>`,
