@@ -1,12 +1,12 @@
 var _ = require('lodash');
 
 export const state = () => ({
-  Backend_URL: 'http://dormhub-dev.azurewebsites.net',
-  // Backend_URL: 'http://localhost:3001',
+  // Backend_URL: 'http://dormhub-dev.azurewebsites.net',
+  Backend_URL: 'http://localhost:3001',
   dormList: [],
   provinceList: [],
   selectedDorm: null,
-  newDorm: { dorm: {}, address: {}, roomType: [], room: [], dormImg: [], roomTypeImg: {}, bankAccount:[] }
+  newDorm: { dorm: {}, address: {}, roomType: [], room: [], dormImg: [], roomTypeImg: {}, bankAccount: [] }
 });
 
 export const mutations = {
@@ -97,19 +97,10 @@ export const actions = {
   },
   setNewRoomTypeImg({ commit }, { image, roomType }) {
     let newRoomTypeImgList = { roomTypeImg: image, key: roomType }
-    console.log(newRoomTypeImgList)
     commit('SET_ROOMTYPEIMG', newRoomTypeImgList)
   },
   async addDorm({ state }) {
-    console.log("CHECK")
     let dorm = state.newDorm
-    console.log(_.isEmpty(dorm.dorm))
-    console.log(dorm.address)
-    console.log(_.isEmpty(dorm.address))
-    console.log(_.isEmpty(dorm.roomType))
-    console.log(_.isEmpty(dorm.room))
-    console.log(_.isEmpty(dorm.dormImg))
-    console.log(_.isEmpty(dorm.roomTypeImg))
     if (!(_.isEmpty(dorm.dorm)) && !(_.isEmpty(dorm.address)) && !(_.isEmpty(dorm.roomType)) && !(_.isEmpty(dorm.room)) && !(_.isEmpty(dorm.dormImg)) && !(_.isEmpty(dorm.roomTypeImg))) {
       let formData = new FormData()
       let data = {}
@@ -127,7 +118,7 @@ export const actions = {
       for (var pair of formData.entries()) {
         console.log(pair[0] + ': ' + pair[1]);
       }
-      let postData = await this.$axios.$post(`${state.Backend_URL}/dorm/register`, formData)
+      await this.$axios.$post(`${state.Backend_URL}/dorm/register`, formData)
     }
-  }
+  },
 }
