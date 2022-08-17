@@ -213,19 +213,39 @@ export default {
       validateSex: false,
       validatePhone: false,
       validateRole: false,
+      res: "",
     };
   },
   methods: {
     async submit() {
       let formData = new FormData();
       formData.append("data", JSON.stringify(this.userAccount));
-      await this.$axios
-        .$post(`${this.$store.state.Backend_URL}/account/register`, formData)
-        .then(function (response) {
-        })
-        .catch(function (error) {
-          console.log(error.response.data.error.message)
+      try {
+        await this.$axios.$post(
+          `${this.$store.state.Backend_URL}/account/register`,
+          formData,
+          {
+            withCredentials: true,
+          }
+        );
+        const noti = this.$vs.notification({
+          progress: "auto",
+          icon: `<i class='bx bx-folder-open' ></i>`,
+          color: "success",
+          position: "top-right",
+          title: `Data Update`,
+          text: `Register account complete!`,
         });
+      } catch (error) {
+        const noti = this.$vs.notification({
+          progress: "auto",
+          icon: `<i class='bx bx-folder-open' ></i>`,
+          color: "warn",
+          position: "top-right",
+          title: `Data Update`,
+          text: error.response.data.error.message,
+        });
+      }
     },
     validateForm() {
       this.validateEmail = this.userAccount.email != "" ? true : false;
