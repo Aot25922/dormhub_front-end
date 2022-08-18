@@ -213,7 +213,6 @@ export default {
       validateSex: false,
       validatePhone: false,
       validateRole: false,
-      res: "",
     };
   },
   methods: {

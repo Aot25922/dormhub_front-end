@@ -3,6 +3,7 @@ var _ = require('lodash');
 export const state = () => ({
   // Backend_URL: 'http://dormhub-dev.azurewebsites.net',
   Backend_URL: 'http://localhost:3001',
+  userAccount:null,
   dormList: [],
   provinceList: [],
   selectedDorm: null,
@@ -10,6 +11,10 @@ export const state = () => ({
 });
 
 export const mutations = {
+  SET_USERACCOUNT(state, data){
+    state.userAccount = data
+    console.log(state.userAccount)
+  },
   SET_DORMLIST(state, data) {
     state.dormList = data;
   },
