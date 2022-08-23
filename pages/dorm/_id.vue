@@ -23,11 +23,11 @@
         <div class="rounded-md text-sm bg-cream-dark p-3">
 			<p>
 			<span class="font-bold">ที่อยู่:</span> {{ dorm.address.number }} {{ dorm.address.street }}
-			{{ dorm.address.alley }} {{ dorm.address.subDistrict.name }}
+			{{ dorm.address.alley }} {{ dorm.address.subDistrict.name_th }}
 			{{ dorm.address.subDistrict.zipCodeId }}
-			{{ dorm.address.subDistrict.district.name }}
-			{{ dorm.address.subDistrict.district.province.name }}
-			{{ dorm.address.subDistrict.district.province.region.name }}
+			{{ dorm.address.subDistrict.district.name_th }}
+			{{ dorm.address.subDistrict.district.province.name_th }}
+			{{ dorm.address.subDistrict.district.province.geography.name }}
 			</p>
 			<p class="pt-2"><span class="font-bold">ราคา:</span> {{ lowPrice }} - {{ highPrice }} บาท</p>
 			<p class="pt-2 font-bold">ช่องทางการติดต่อ:</p>
@@ -67,7 +67,7 @@ export default {
     if (this.$store.state.selectedDorm != null) {
       this.dorm = this.$store.state.selectedDorm;
       for (let i in this.dorm.userAccounts) {
-        if (this.dorm.userAccounts[i].role == "Dorm Manage") {
+        if (this.dorm.userAccounts[i].role == "Owner") {
           this.owner = this.dorm.userAccounts[i];
         }
       }
@@ -82,7 +82,7 @@ export default {
       await this.$store.dispatch("dormSelected", dormInfo);
       this.dorm = this.$store.state.selectedDorm;
       for (let i in this.dorm.userAccounts) {
-        if (this.dorm.userAccounts[i].role == "Dorm Manage") {
+        if (this.dorm.userAccounts[i].role == "Owner") {
           this.owner = this.dorm.userAccounts[i];
         }
       }

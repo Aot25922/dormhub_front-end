@@ -1,21 +1,23 @@
 <template>
   <div class="bg-cream-lighter min-h-screen">
-    <NavBar class="md:p-3 lg:p-5"/>
-	<SearchBar class="my-3 md:my-5"/>
-    <nuxt/>
-	<Footer />
+    <NavBar class="md:p-3 lg:p-5" />
+    <SearchBar class="my-3 md:my-5" />
+    <Nuxt />
+    <Footer />
   </div>
 </template>
 
 <script>
-
 export default {
-  head () {
+  head() {
     return {
       link: [
-        { rel: 'stylesheet', href: 'https://fonts.googleapis.com/icon?family=Material+Icons' },
+        {
+          rel: "stylesheet",
+          href: "https://fonts.googleapis.com/icon?family=Material+Icons",
+        },
       ],
-    }
-  }
-}
+    };
+  },
+};
 </script>

@@ -11,6 +11,7 @@
 </template>
 <script>
 export default {
+    middleware: 'permission',
   data(){
     return {
       validateDormInfo: false,

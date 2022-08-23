@@ -45,7 +45,7 @@ export default {
   methods: {
   },
   async beforeMount() {
-    await this.$store.dispatch('fetchDormList');
+    // await this.$store.dispatch('fetchDormList');
     await this.$store.dispatch('fetchProvinceList');
   },
   computed : {

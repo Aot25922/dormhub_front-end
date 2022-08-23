@@ -3,7 +3,7 @@ var _ = require('lodash');
 export const state = () => ({
   // Backend_URL: 'http://dormhub-dev.azurewebsites.net',
   Backend_URL: 'http://localhost:3001',
-  userAccount:null,
+  userAccount: { role: "Guest" },
   dormList: [],
   provinceList: [],
   selectedDorm: null,
@@ -11,8 +11,8 @@ export const state = () => ({
 });
 
 export const mutations = {
-  SET_USERACCOUNT(state, data){
-    state.userAccount = data
+  SET_USERACCOUNT(state, data) {
+    state.userAccount = data.data
     console.log(state.userAccount)
   },
   SET_DORMLIST(state, data) {
@@ -23,6 +23,7 @@ export const mutations = {
   },
   DORM_SELECTED(state, dorm) {
     state.selectedDorm = dorm;
+    console.log(state.selectedDorm)
   },
   SET_DORMINFO(state, data) {
     state.newDorm.dorm = data;
@@ -71,6 +72,24 @@ export const mutations = {
 };
 
 export const actions = {
+  async nuxtServerInit({ commit, state }) {
+    try {
+      let data = await this.$axios.$post(`${state.Backend_URL}/account/login`)
+      if (data != null) {
+        commit('SET_USERACCOUNT', data)
+      }
+    } catch (err) {
+      console.log(err)
+    }
+    try {
+      await this.$axios.get(`${this.state.Backend_URL}/dorm`)
+        .then(response => {
+          commit('SET_DORMLIST', response.data)
+        })
+    } catch (err) {
+      console.log(err)
+    }
+  },
   async fetchDormList({ commit }) {
     await this.$axios.get(`${this.state.Backend_URL}/dorm`)
       .then(response => {
@@ -87,6 +106,16 @@ export const actions = {
     console.log("Fetch ProvinceList");
 
   },
+  async logout({ state, commit }) {
+    try {
+      await this.$axios.$delete(`${state.Backend_URL}/account/logout`,{
+        withCredentials: true,
+      })
+      commit('SET_USERACCOUNT', { data: { role: "Guest" } })
+    } catch (err) {
+      console.log(err)
+    }
+  },
   async dormSelected({ commit, state }, dormInfo) {
     let dorm;
     if (dormInfo.dorm == null && dormInfo.id != '') {
@@ -95,6 +124,7 @@ export const actions = {
       } catch (err) {
         console.log(err)
       }
+      console.log(dorm)
       commit('DORM_SELECTED', dorm)
     } else {
       commit('DORM_SELECTED', dormInfo.dorm)
@@ -123,7 +153,7 @@ export const actions = {
       for (var pair of formData.entries()) {
         console.log(pair[0] + ': ' + pair[1]);
       }
-      await this.$axios.$post(`${state.Backend_URL}/dorm/register`, formData)
+      await this.$axios.$post(`${state.Backend_URL}/account/register`, formData)
     }
   },
 }
