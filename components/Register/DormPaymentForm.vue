@@ -144,6 +144,7 @@ export default {
           title: `Data Update`,
           text: `Add you payment data complete!`,
         });
+        this.$emit("validate", true);
       } else {
         const noti = this.$vs.notification({
           progress: "auto",
@@ -153,6 +154,7 @@ export default {
           title: "Form data not complete",
           text: "Please, input all data in field",
         });
+        this.$emit("validate", false);
       }
     },
     validate(input) {

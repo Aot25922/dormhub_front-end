@@ -187,11 +187,6 @@
     />
     </div>
     <div class="flex flex-wraps">
-      <div class="px-1" v-if="!disableForm">
-        <button class="btn btn-neutral mx-auto block" @click="addRoomTypes">
-          ยืนยันข้อมูลประเภทห้องพัก
-        </button>
-      </div>
       <div class="px-1">
         <button
           class="btn btn-neutral mx-auto block"

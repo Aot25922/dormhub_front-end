@@ -41,6 +41,7 @@
 
 <script>
 export default {
+  middleware: 'accountExist',
   data() {
     return {
       userAccount: {
@@ -70,6 +71,7 @@ export default {
           text: `Register account complete!`,
         });
 		this.$store.commit("SET_USERACCOUNT",data)
+    this.$router.push({path:"/"})
       } catch (error) {
         const noti = this.$vs.notification({
           progress: "auto",

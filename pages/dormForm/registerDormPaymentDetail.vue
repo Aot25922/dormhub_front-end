@@ -1,7 +1,8 @@
 <template>
   <div class="py-3 md:py-5">
     <div>
-      <RegisterDormPaymentForm/>
+      <RegisterDormPaymentForm ref="bank" @validate="checkForPaymentInfo"/>
+      <button class="btn btn-neutral mx-auto block bg-cheese">Next</button>
       <nuxt-link to="/dormForm/registerDormRoomDetail" class="btn btn-neutral mx-auto block bg-cheese">Back</nuxt-link>
     </div>
   </div>
@@ -10,9 +11,18 @@
 export default {
     middleware: 'permission',
   data(){
-    return {}
+    return {
+      validatePayment: false
+    }
   },
   methods: {
+    next(){
+      this.$refs.bank.submit()
+      if(this.validatePayment) this.$router.push({ path: "/dormForm/registerDormPaymentDetail" });
+    },
+    checkForPaymentInfo(data){
+      this.validatePayment = data
+    }
   }
 };
 </script>

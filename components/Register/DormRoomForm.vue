@@ -1,14 +1,14 @@
 <template>
   <div>
-    <div v-for="floor in floors" :key="floor">
-      <h1>ชั้น {{ floor }}</h1>
+    <div v-for="floor in floors" :key="floor.roomCount">
+      <h1>ชั้น {{ floor.floor }}</h1>
       <div
         v-if="$store.state.newDorm.roomType.length > 0"
         class="grid grid-cols-4 gap-4"
       >
         <div v-for="(i, index) in room[floor]" :key="index" class="relative">
           <div class="w-full bg-cream rounded-md p-3">
-          <span v-show="false">{{i.floors = floor}}</span>
+            <span v-show="false">{{ (i.floors = floor) }}</span>
             <button
               @click="$delete(room[floor], index)"
               class="absolute top-0 right-0"
@@ -119,30 +119,14 @@
         </div>
         <div class="py-3">
           <button class="text-black">
-            <span
-              class="material-icons"
-              @click="
-                room[floor].push({
-                  roomNum: '',
-                  status: '',
-                  floors: 0,
-                  description: '',
-                  roomType: '',
-                })
-              "
+            <span class="material-icons" @click="addNewRoom(floor.floor)"
               >add_box</span
             >เพิ่มห้อง
           </button>
         </div>
       </div>
-      <button class="btn btn-primary" @click="submitRoom">
-        ยืนยันข้อมูลห้องพัก
-      </button>
     </div>
-    <button
-      class="btn btn-primary"
-      @click="addNewRoom"
-    >
+    <button class="btn btn-primary" @click="addNewFloor">
       เพิ่มชั้นของหอพัก
     </button>
   </div>
@@ -162,22 +146,27 @@ export default {
           },
         ],
       },
-      floors: [1],
+      floors: [{floor:1, roomCount:0}],
     };
   },
   methods: {
-    submitRoom() {
+    submit() {
+      for (let i in this.room) {
+        this.room[i] = this.room[i].filter(
+          (x) => !(x.roomNum == "" || x.status == "" || x.roomType == "")
+        );
+      }
       let newRoom = JSON.parse(JSON.stringify(this.room));
-      console.log(newRoom);
       this.$store.commit("SET_ROOM", newRoom);
+      this.$emit("validate", true);
     },
     removeRoomType(index, roomType) {
       this.$store.commit("REMOVE_ROOMTYPE", roomType);
       this.$delete(this.roomTypeCount, index);
     },
-    addNewRoom() {
-      this.floors.push(this.floors.slice(-1)[0] + 1);
-      this.room[this.floors.slice(-1)[0]] = [
+    addNewFloor() {
+      this.floors.push({floor:this.floors[this.floors.length-1].floor + 1, roomCount:0});
+      this.room[this.floors[this.floors.length-1].floor + 1] = [
         {
           roomNum: "",
           status: "",
@@ -186,8 +175,24 @@ export default {
           roomType: "",
         },
       ];
-      console.log(this.room)
+      console.log(this.room);
+    },
+    addNewRoom(floor) {
+      console.log(this.floors[floor-1])
+      this.floors[floor-1].roomCount++
+      this.room[floor].push({
+        roomNum: "",
+        status: "",
+        floors: 0,
+        description: "",
+        roomType: "",
+      });
     },
   },
+  // computed: {
+  //   roomlist(){
+  //     return this.room
+  //   },
+  // }
 };
 </script>

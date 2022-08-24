@@ -195,6 +195,7 @@
 
 <script>
 export default {
+  middleware: 'accountExist',
   data() {
     return {
       userAccount: {

@@ -28,10 +28,5 @@ export default {
       this.$store.dispatch("addDorm");
     },
   },
-  // validate() {
-  //   if (this.$store.state.userAccount.role != "Owner") {
-  //     this.$nuxt.error({ statusCode: 403, message: "No permission" });
-  //   }
-  // },
 };
 </script>

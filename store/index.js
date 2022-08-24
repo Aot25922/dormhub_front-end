@@ -27,6 +27,7 @@ export const mutations = {
   },
   SET_DORMINFO(state, data) {
     state.newDorm.dorm = data;
+    console.log(state.newDorm.dorm)
   },
   SET_DORMIMG(state, data) {
     state.newDorm.dormImg = data
@@ -74,7 +75,9 @@ export const mutations = {
 export const actions = {
   async nuxtServerInit({ commit, state }) {
     try {
-      let data = await this.$axios.$post(`${state.Backend_URL}/account/login`)
+      let data = await this.$axios.$post(`${state.Backend_URL}/account/login`,{
+        withCredentials: true,
+      })
       if (data != null) {
         commit('SET_USERACCOUNT', data)
       }
