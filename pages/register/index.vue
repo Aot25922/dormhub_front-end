@@ -221,13 +221,15 @@ export default {
       let formData = new FormData();
       formData.append("data", JSON.stringify(this.userAccount));
       try {
-        await this.$axios.$post(
+        let data = await this.$axios.$post(
           `${this.$store.state.Backend_URL}/account/register`,
           formData,
           {
             withCredentials: true,
           }
         );
+        this.$store.commit("SET_USERACCOUNT", data)
+        this.$router.push({path:'/'})
         const noti = this.$vs.notification({
           progress: "auto",
           icon: `<i class='bx bx-folder-open' ></i>`,
