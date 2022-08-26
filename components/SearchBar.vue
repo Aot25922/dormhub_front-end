@@ -8,7 +8,7 @@
 
 	  <div class="py-2">
 		<p class="font-bold p-1">ภูมิภาค</p>
-		<select class="select border-x-0 border-t-0 border-b-gray-400 w-full max-w-xs">
+		<select class="select border-x-0 border-t-0 border-b-gray-400 w-full">
 			<option disabled selected>เลือกภูมิภาค</option>
 			<option>Han Solo</option>
 			<option>Greedo</option>
@@ -17,7 +17,7 @@
 
 	  <div class="py-2">
 		<p class="font-bold p-1">จังหวัด</p>
-		<select class="select border-x-0 border-t-0 border-b-gray-400 w-full max-w-xs">
+		<select class="select border-x-0 border-t-0 border-b-gray-400 w-full">
 			<option disabled selected>เลือกจังหวัด</option>
 			<option>Han Solo</option>
 			<option>Greedo</option>
@@ -26,7 +26,7 @@
 
 	  <div class="py-2">
 		<p class="font-bold p-1">เขต/อำเภอ</p>
-		<select class="select border-x-0 border-t-0 border-b-gray-400 w-full max-w-xs">
+		<select class="select border-x-0 border-t-0 border-b-gray-400 w-full">
 			<option disabled selected>เลือกเขต/อำเภอ</option>
 			<option>Han Solo</option>
 			<option>Greedo</option>
@@ -35,7 +35,7 @@
 
 	  <div class="py-2">
 		<p class="font-bold p-1">แขวง/ตำบล</p>
-		<select class="select border-x-0 border-t-0 border-b-gray-400 w-full max-w-xs">
+		<select class="select border-x-0 border-t-0 border-b-gray-400 w-full">
 			<option disabled selected>เลือกแขวง/อำเภอ</option>
 			<option>Han Solo</option>
 			<option>Greedo</option>

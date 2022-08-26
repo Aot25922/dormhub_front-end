@@ -1,7 +1,6 @@
 <template>
   <div class="bg-white text-black min-h-screen">
     <NavBar class="md:p-3 lg:p-5" />
-    <ContentIntroduction />
     <Nuxt />
     <Footer />
   </div>

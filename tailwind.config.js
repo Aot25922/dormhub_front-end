@@ -57,9 +57,9 @@ module.exports = {
 					'primary-focus': '#457B9D',
 					'primary-content': '#FFFFFF',
 
-					'secondary': '#A8DADC',
-					'secondary-focus': '#D3EDEE',
-					'secondary-content': '#FFFFFF',
+					'secondary': '#D3EDEE',
+					'secondary-focus': '#98D5D7',
+					'secondary-content': '#1D3557',
 
           'accent': '#E63946',            /* Accent color */
           'accent-focus': '#C81927',      /* Accent color - focused */
