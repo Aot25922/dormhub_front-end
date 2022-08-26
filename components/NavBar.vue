@@ -1,13 +1,15 @@
 <template>
-  <div class="navbar flex flex-row">
-    <div class="text-white w-1/2">
+  <div class="navbar flex flex-row text-white">
       <div class="flex flex-wrap">
-        <span class="material-icons text-black mr-2">person</span>
+<!--        <span class="material-icons text-black mr-2">person</span>-->
+        <div class="">
+          <img src="@/assets/logo.png" class="w-10 h-10"/>
+      </div>
         <div>
-          <p class="text-xs text-black px-2">Welcome back</p>
+          <p class="text-xs text-black px-2">ยินดีต้อนรับสู่ DormHub</p>
           <div class="dropdown">
             <div tabindex="0" class="btn btn-secondary btn-sm">
-              Username<span class="material-icons">arrow_drop_down</span>
+              ผู้ใช้<span class="material-icons">arrow_drop_down</span>
             </div>
             <ul
               tabindex="0"
@@ -24,22 +26,22 @@
               "
             >
               <li v-if="$store.state.userAccount.role == 'Guest'">
-                <nuxt-link to="/login">Login</nuxt-link>
+                <nuxt-link to="/login">เข้าสู่ระบบ</nuxt-link>
               </li>
               <li v-if="$store.state.userAccount.role == 'Guest'">
-                <nuxt-link to="/register">Register</nuxt-link>
+                <nuxt-link to="/register">สมัครสมาชิก</nuxt-link>
               </li>
               <li v-if="$store.state.userAccount.role == 'Owner'">
-                <nuxt-link to="/dormForm">Add Dorm</nuxt-link>
+                <nuxt-link to="/dormForm">เพิ่มหอพัก</nuxt-link>
               </li>
               <li v-if="$store.state.userAccount.role != 'Guest'">
-                <p @click="logout">Logout</p>
+                <p @click="logout">ออกระบบ</p>
               </li>
             </ul>
           </div>
         </div>
       </div>
-    </div>
+
     <div class="font-bold text-black ml-auto cursor-pointer">
       <NuxtLink to="/"
         >Dorm<span
