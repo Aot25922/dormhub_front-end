@@ -22,7 +22,7 @@
         placeholder="อีเมล"
         v-model="userAccount.email"
         @blur="validateForm"
-        keypress.enter="submit"
+        @keypress.enter="submit"
       />
       <span class="text-cancelButton" v-if="!validateEmail"
         >กรุณากรอกอีเมล</span
@@ -41,7 +41,7 @@
         placeholder="รหัสผ่าน"
         v-model="userAccount.password"
         @blur="validateForm"
-        keypress.enter="submit"
+        @keypress.enter="submit"
       />
       <span class="text-cancelButton" v-if="!validatePassword"
         >กรุณากรอกรหัสผ่าน</span
@@ -73,7 +73,7 @@
           placeholder="สมบัติ"
           v-model="userAccount.fname"
           @blur="validateForm"
-          keypress.enter="submit"
+          @keypress.enter="submit"
         />
         <span class="text-cancelButton" v-if="!validateFname"
           >กรุณากรอกชื่อ</span
@@ -100,7 +100,7 @@
           placeholder="สั้นสุดฤทธิ์"
           v-model="userAccount.lname"
           @blur="validateForm"
-          keypress.enter="submit"
+          @keypress.enter="submit"
         />
         <span class="text-cancelButton" v-if="!validateLname"
           >กรุณากรอกนามสกุล</span
@@ -127,7 +127,7 @@
           placeholder="จ๊าบ"
           v-model="userAccount.sex"
           @blur="validateForm"
-          keypress.enter="submit"
+          @keypress.enter="submit"
         />
         <span class="text-cancelButton" v-if="!validateSex"
           >กรุณากรอกเพศ</span
@@ -154,7 +154,7 @@
           placeholder="0941111111"
           v-model="userAccount.phone"
           @blur="validateForm"
-          keypress.enter="submit"
+          @keypress.enter="submit"
         />
         <span class="text-cancelButton" v-if="!validatePhone"
           >กรุณากรอกเบอร์</span
@@ -172,7 +172,7 @@
             value="Customer"
             v-model="userAccount.role"
             @blur="validateForm"
-            keypress.enter="submit"
+            @keypress.enter="submit"
           />
           <label for="customer">ผู้เช่า</label>
         </div>
@@ -185,7 +185,7 @@
             value="Owner"
             v-model="userAccount.role"
             @blur="validateForm"
-            keypress.enter="submit"
+            @keypress.enter="submit"
           />
           <label for="owner">เจ้าของหอพัก</label>
         </div>

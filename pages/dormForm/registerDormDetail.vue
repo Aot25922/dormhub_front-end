@@ -4,9 +4,15 @@
       <h1 class="text-cream-dark font-bold text-center text-xl">เพิ่มหอพัก</h1>
       <RegisterDormInfoForm ref="registerDormInfoForm" @validate="checkForDormInfo"/>
       <RegisterDormAddressForm ref="registerDormAddressForm" @validate="checkForDormAddress"/>
-      <button class="btn btn-neutral mx-auto block bg-cheese" @click="next">Next</button>
-      <nuxt-link to="/dormForm" class="btn btn-neutral mx-auto block bg-cheese">Back</nuxt-link>
-    </div>
+      <div class="flex flex-wrap mt-10">
+        <div class="w-1/2 px-1">
+          <nuxt-link to="/dormForm" class="btn btn-secondary w-full">ย้อนกลับ</nuxt-link>
+        </div>
+        <div class="w-1/2 px-1">
+          <button class="btn btn-accent w-full" @click="next">ต่อไป</button>
+        </div>
+      </div>
+        </div>
   </div>
 </template>
 <script>

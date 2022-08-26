@@ -29,7 +29,7 @@
       "
       placeholder="รหัสผ่าน"
 	  v-model="userAccount.password"
-      keypress.enter="submit"
+      @keypress.enter="submit"
     />
 
     <div class="flex flex-wrap mt-10">

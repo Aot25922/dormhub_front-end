@@ -1,11 +1,11 @@
 <template>
-  <div class="py-3 md:py-5">
+  <div class="py-3">
     <div>
-      <h1 class="text-cream-dark font-bold text-center text-xl">
+      <h1 class="text-cream-dark font-bold text-center text-xl mb-5">
         รายละเอียดห้องพัก
       </h1>
-      <div class="px-3 md:px-20 lg:px-[335px] grid grid-cols-2 gap-4">
-        
+      <div class="px-3 md:grid md:grid-cols-2 md:gap-4">
+
           <RegisterDormRoomtypeForm
           v-for="(i, index) in roomTypeCount" :key="index"
           ref="test"
@@ -13,9 +13,9 @@
             @removeRoomType="removeRoomType(index, ...arguments)"
             @validate="checkForRoomType(index, ...arguments)"
           />
-        
+
         <button
-          class="text-black hover:text-gray-soil hover:bg-cream rounded-lg"
+          class="text-black hover:text-gray-soil hover:bg-cream rounded-lg mt-10 text-center p-5 w-full md:m-0 md:h-[600px]"
         >
           <span
             class="material-icons"
@@ -31,14 +31,19 @@
           <p>เพิ่มประเภทห้องพัก</p>
         </button>
       </div>
-      <button class="btn btn-neutral mx-auto block bg-cheese" @click="next">
-        Next
-      </button>
+      <div class="flex flex-wrap mt-10">
+        <div class="w-1/2 px-1">
       <nuxt-link
         to="/dormForm/registerDormDetail"
-        class="btn btn-neutral mx-auto block bg-cheese"
-        >Back</nuxt-link
-      >
+        class="btn btn-secondary w-full"
+        >ย้อนกลับ</nuxt-link>
+        </div>
+        <div class="w-1/2 px-1">
+          <button class="btn btn-accent w-full" @click="next">
+            ต่อไป
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </template>

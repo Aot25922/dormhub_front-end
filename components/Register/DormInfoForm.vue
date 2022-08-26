@@ -1,35 +1,34 @@
 <template>
   <div>
-    <div class="bg-cream p-3 rounded-lg my-3">
-      <h1 class="text-black text-lg ml-2 mb-2 font-bold">เกี่ยวกับหอพัก</h1>
-      <div class="mb-2">
+    <div class="bg-cream p-3 rounded-lg my-3 md:p-5 md:flex md:flex-wrap">
+      <h1 class="text-black text-lg ml-2 mb-2 font-bold md:w-full">เกี่ยวกับหอพัก</h1>
+      <div class="mb-2 md:px-1 md:w-full">
         <label class="label-text text-gray-soil tracking-wide font-bold my-2"
-          >ชื่อหอพัก <span class="text-cancelButton">*</span></label
-        >
-        <input
-          type="text"
-          autofocus
-          class="
-            py-4
-            px-2
-            w-full
-            input input-sm
-            rounded
-            text-gray-soil
-            bg-cream-light
-            focus:outline-none focus:bg-cream-lightest focus:text-gray-soil
-            border-none
-            disabled:text-white disabled:bg-dark-gray
-          "
-          placeholder="แฮปปี้ดอร์ม"
-          @blur="checkForm"
-          v-model="dorm.name"
-        />
-        <p v-if="!validateName" class="text-cancelButton text-right mt-2">
-          กรุณาใส่ชื่อหอพัก
-        </p>
+          >ชื่อหอพัก <span class="text-cancelButton">*</span></label>
+          <input
+            type="text"
+            autofocus
+            class="
+              py-4
+              px-2
+              w-full
+              input input-sm md:input-md
+              rounded
+              text-gray-soil
+              bg-cream-light
+              focus:outline-none focus:bg-cream-lightest focus:text-gray-soil
+              border-none
+              disabled:text-white disabled:bg-dark-gray
+            "
+            placeholder="แฮปปี้ดอร์ม"
+            @blur="checkForm"
+            v-model="dorm.name"
+          />
+          <p v-if="!validateName" class="text-cancelButton text-right mt-2">
+            กรุณากรอกชื่อหอพัก
+          </p>
       </div>
-      <div class="mb-5">
+      <div class="mb-5 md:px-1 md:w-1/2">
         <label class="label-text text-gray-soil tracking-wide font-bold"
           >เวลาเปิด</label
         >
@@ -39,7 +38,7 @@
             py-4
             px-2
             w-full
-            input input-sm
+            input input-sm md:input-md
             rounded
             text-gray-soil
             bg-cream-light
@@ -55,7 +54,7 @@
             ระบุเวลาเปิดหอพัก
           </p> -->
       </div>
-      <div class="mb-5">
+      <div class="mb-5 md:px-1 md:w-1/2">
         <label class="label-text text-gray-soil tracking-wide font-bold my-2"
           >เวลาปิด</label
         >
@@ -65,7 +64,7 @@
             py-4
             px-2
             w-full
-            input input-sm
+            input input-sm md:input-md
             rounded
             text-gray-soil
             bg-cream-light
@@ -81,7 +80,7 @@
             ระบุเวลาปิดหอพัก
           </p> -->
       </div>
-      <div class="mb-2">
+      <div class="mb-2 md:px-1 md:w-1/2">
         <label class="label-text text-gray-soil tracking-wide font-bold my-2"
           >ค่าน้ำต่อหน่วย <span class="text-cancelButton">*</span></label
         >
@@ -94,7 +93,7 @@
             py-4
             px-2
             w-full
-            input input-sm
+            input input-sm md:input-md
             rounded
             text-gray-soil
             bg-cream-light
@@ -108,7 +107,7 @@
           ใส่ค่าได้ตั้งแต่ 0.01 - 9.99
         </p>
       </div>
-      <div class="mb-2">
+      <div class="mb-2 md:px-1 md:w-1/2">
         <label class="label-text text-gray-soil tracking-wide font-bold my-2"
           >ค่าไฟต่อหน่วย <span class="text-cancelButton">*</span></label
         >
@@ -121,7 +120,7 @@
             py-4
             px-2
             w-full
-            input input-sm
+            input input-sm md:input-md
             rounded
             text-gray-soil
             bg-cream-light
@@ -139,7 +138,7 @@
           ใส่ค่าได้ตั้งแต่ 0.01 - 9.99
         </p>
       </div>
-      <div class="mb-5">
+      <div class="mb-5 md:px-1 md:w-full">
         <label class="label-text text-gray-soil tracking-wide font-bold my-2"
           >ข้อมูลเพิ่มเติม</label
         >
@@ -147,9 +146,10 @@
           v-model="dorm.description"
           class="
             h-[80px]
+            md:h-24
             p-2
             w-full
-            input input-sm
+            input input-sm md:input-md
             rounded
             text-gray-soil
             bg-cream-light
@@ -160,7 +160,7 @@
           placeholder="คำอธิบายเพิ่มเติม"
         />
       </div>
-      <div class="mb-5">
+      <div class="mb-5 md:px-1 md:w-full">
         <label class="label-text text-gray-soil tracking-wide font-bold my-2"
           >เลือกภาพปกที่ใช้แสดงบนหน้าเว็ป
           <span class="text-cancelButton">*</span></label
