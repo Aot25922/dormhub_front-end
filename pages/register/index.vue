@@ -1,11 +1,10 @@
 <template>
-  <div class="p-5">
+  <div class="p-5 md:px-20 lg:px-96">
     <h1 class="pb-5 md:pt-5 text-2xl md:text-3xl font-bold text-cream-darker text-center">
       สมัครสมาชิก
     </h1>
 
-    <div class="md:px-20 md:py-5">
-    <div class="bg-cream p-3 rounded-lg my-3 md:p-5">
+    <div class="bg-cream p-3 rounded-lg my-3 md:p-5 md:mt-5 md:my-8">
       <h1 class="text-black text-lg ml-2 mb-2 font-bold">
         สำหรับการเข้าสู่ระบบ
       </h1>
@@ -48,9 +47,7 @@
         >กรุณากรอกรหัสผ่าน</span
       >
     </div>
-    </div>
 
-    <div class="md:px-20 md:py-5">
     <div class="bg-cream p-3 rounded-lg my-3 md:p-5 md:flex md:flex-wrap">
       <h1 class="text-black text-lg ml-2 mb-2 font-bold md:w-full">
         รายละเอียดส่วนบุคคล
@@ -197,9 +194,9 @@
         >
       </div>
     </div>
-  </div>
 
-    <div class="flex flex-wrap mt-5 md:px-20">
+
+    <div class="flex flex-wrap my-5 md:my-8 md:px-20">
       <div class="w-1/2 px-1">
         <button class="btn btn-secondary w-full">ยกเลิก</button>
       </div>
