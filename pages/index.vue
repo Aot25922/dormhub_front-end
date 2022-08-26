@@ -1,12 +1,12 @@
 <template>
   <div class="p-3 md:py-8 md:px-[68px] lg:px-[335px]">
-    <div class="text-black flex flex-wrap">
-      <h1 class="w-1/2">จังหวัดแนะนำ</h1>
-      <span class="w-1/2 text-xs text-right text-dark-blue">ดูเพิ่มเติม ></span>
-    </div>
-    <div class="flex overflow-x-auto">
-		<ProvinceList v-for="province in provinceList" :Province="province" :key="province" />
-    </div>
+<!--    <div class="text-black flex flex-wrap">-->
+<!--      <h1 class="w-1/2">จังหวัดแนะนำ</h1>-->
+<!--      <span class="w-1/2 text-xs text-right text-dark-blue">ดูเพิ่มเติม ></span>-->
+<!--    </div>-->
+<!--    <div class="flex overflow-x-auto">-->
+<!--		<ProvinceList v-for="province in provinceList" :Province="province" :key="province" />-->
+<!--    </div>-->
 	<!-- DormList -->
     <div class="text-black flex flex-wrap py-3">
       <h1 class="w-1/2">หอพัก</h1>
