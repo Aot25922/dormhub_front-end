@@ -1,9 +1,10 @@
 <template>
-  <div class="p-5">
-    <h1 class="pb-5 text-2xl font-bold text-cream-darker text-center">
-      Sign Up
+  <div class="p-5 md:px-20 lg:px-96">
+    <h1 class="pb-5 md:pt-5 text-2xl md:text-3xl font-bold text-cream-darker text-center">
+      สมัครสมาชิก
     </h1>
-    <div class="bg-cream p-3 rounded-lg my-3">
+
+    <div class="bg-cream p-3 rounded-lg my-3 md:p-5 md:mt-5 md:my-8">
       <h1 class="text-black text-lg ml-2 mb-2 font-bold">
         สำหรับการเข้าสู่ระบบ
       </h1>
@@ -12,44 +13,46 @@
           py-4
           px-2
           w-full
-          input input-sm
+          input input-sm md:input-md
           rounded
           text-gray-soil
           bg-cream-light
           my-2
         "
-        placeholder="Email"
+        placeholder="อีเมล"
         v-model="userAccount.email"
         @blur="validateForm"
+        @keypress.enter="submit"
       />
       <span class="text-cancelButton" v-if="!validateEmail"
-        >Please input this field</span
+        >กรุณากรอกอีเมล</span
       >
       <input
         class="
           py-4
           px-2
           w-full
-          input input-sm
+          input input-sm md:input-md
           rounded
           text-gray-soil
           bg-cream-light
           my-2
         "
-        placeholder="Password"
+        placeholder="รหัสผ่าน"
         v-model="userAccount.password"
         @blur="validateForm"
+        @keypress.enter="submit"
       />
       <span class="text-cancelButton" v-if="!validatePassword"
-        >Please input this field</span
+        >กรุณากรอกรหัสผ่าน</span
       >
     </div>
 
-    <div class="bg-cream p-3 rounded-lg my-3">
-      <h1 class="text-black text-lg ml-2 mb-2 font-bold">
+    <div class="bg-cream p-3 rounded-lg my-3 md:p-5 md:flex md:flex-wrap">
+      <h1 class="text-black text-lg ml-2 mb-2 font-bold md:w-full">
         รายละเอียดส่วนบุคคล
       </h1>
-      <div class="mb-2">
+      <div class="mb-2 md:px-1 md:w-1/2">
         <label class="label-text text-gray-soil tracking-wide font-bold my-2"
           >ชื่อ</label
         >
@@ -59,7 +62,7 @@
             py-4
             px-2
             w-full
-            input input-sm
+            input input-sm md:input-md
             rounded
             text-gray-soil
             bg-cream-light
@@ -70,12 +73,13 @@
           placeholder="สมบัติ"
           v-model="userAccount.fname"
           @blur="validateForm"
+          @keypress.enter="submit"
         />
         <span class="text-cancelButton" v-if="!validateFname"
-          >Please input this field</span
+          >กรุณากรอกชื่อ</span
         >
       </div>
-      <div class="mb-2">
+      <div class="mb-2 md:px-1 md:w-1/2">
         <label class="label-text text-gray-soil tracking-wide font-bold my-2"
           >นามสกุล</label
         >
@@ -85,7 +89,7 @@
             py-4
             px-2
             w-full
-            input input-sm
+            input input-sm md:input-md
             rounded
             text-gray-soil
             bg-cream-light
@@ -96,12 +100,13 @@
           placeholder="สั้นสุดฤทธิ์"
           v-model="userAccount.lname"
           @blur="validateForm"
+          @keypress.enter="submit"
         />
         <span class="text-cancelButton" v-if="!validateLname"
-          >Please input this field</span
+          >กรุณากรอกนามสกุล</span
         >
       </div>
-      <div class="mb-2">
+      <div class="mb-2 md:px-1 md:w-1/2">
         <label class="label-text text-gray-soil tracking-wide font-bold my-2"
           >เพศ</label
         >
@@ -111,7 +116,7 @@
             py-4
             px-2
             w-full
-            input input-sm
+            input input-sm md:input-md
             rounded
             text-gray-soil
             bg-cream-light
@@ -122,12 +127,13 @@
           placeholder="จ๊าบ"
           v-model="userAccount.sex"
           @blur="validateForm"
+          @keypress.enter="submit"
         />
         <span class="text-cancelButton" v-if="!validateSex"
-          >Please input this field</span
+          >กรุณากรอกเพศ</span
         >
       </div>
-      <div class="mb-2">
+      <div class="mb-2 md:px-1 md:w-1/2">
         <label class="label-text text-gray-soil tracking-wide font-bold my-2"
           >เบอร์โทรศัพท์</label
         >
@@ -137,7 +143,7 @@
             py-4
             px-2
             w-full
-            input input-sm
+            input input-sm md:input-md
             rounded
             text-gray-soil
             bg-cream-light
@@ -148,15 +154,16 @@
           placeholder="0941111111"
           v-model="userAccount.phone"
           @blur="validateForm"
+          @keypress.enter="submit"
         />
         <span class="text-cancelButton" v-if="!validatePhone"
-          >Please input this field</span
+          >กรุณากรอกเบอร์</span
         >
       </div>
-      <h1 class="text-black text-lg mt-5 ml-2 mb-2 font-bold">เลือกบทบาท</h1>
-      <div class="flex flex-wrap">
+      <h1 class="text-black text-lg mt-5 ml-2 mb-2 font-bold md:w-full">เลือกบทบาท</h1>
+      <div class="flex flex-wrap text-black md:w-full md:py-3">
         <!-- เดี๋ยวหาภาพมาแปะแทนปุ่ม -->
-        <div>
+        <div class="w-1/2">
           <input
             type="radio"
             name="radio-2"
@@ -165,10 +172,11 @@
             value="Customer"
             v-model="userAccount.role"
             @blur="validateForm"
+            @keypress.enter="submit"
           />
           <label for="customer">ผู้เช่า</label>
         </div>
-        <div>
+        <div class="w-1/2">
           <input
             type="radio"
             name="radio-2"
@@ -177,18 +185,24 @@
             value="Owner"
             v-model="userAccount.role"
             @blur="validateForm"
+            @keypress.enter="submit"
           />
           <label for="owner">เจ้าของหอพัก</label>
         </div>
         <span class="text-cancelButton" v-if="!validateRole"
-          >Please input this field</span
+          >กรุณาเลือกบทบาท</span
         >
       </div>
     </div>
 
-    <div class="flex flex-wrap mt-5">
-      <button class="btn btn-secondary w-1/2">Cancel</button>
-      <button class="btn btn-accent w-1/2" @click="submit">Confirm</button>
+
+    <div class="flex flex-wrap my-5 md:my-8 md:px-20">
+      <div class="w-1/2 px-1">
+        <button class="btn btn-secondary w-full">ยกเลิก</button>
+      </div>
+      <div class="w-1/2 px-1">
+        <button class="btn btn-accent w-full" @click="submit">ยืนยัน</button>
+      </div>
     </div>
   </div>
 </template>

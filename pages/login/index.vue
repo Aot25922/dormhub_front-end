@@ -1,40 +1,44 @@
 <template>
-  <div class="p-5 my-14">
-    <h1 class="pb-5 text-2xl font-bold text-cream-darker">Login</h1>
+  <div class="p-5 my-14 md:my-32 md:px-24 lg:my-48 lg:px-96">
+    <h1 class="pb-5 text-2xl md:text-3xl font-bold text-cream-darker">เข้าสู่ระบบ</h1>
     <input
       class="
         py-6
         px-2
         w-full
-        input input-sm
+        input input-sm md:input-md
         rounded
         text-gray-soil
         bg-cream-light
         my-2
       "
-      placeholder="Email"
+      placeholder="อีเมล"
 	  v-model="userAccount.email"
+      @keypress.enter="submit"
     />
     <input
       class="
         py-6
         px-2
         w-full
-        input input-sm
+        input input-sm md:input-md
         rounded
         text-gray-soil
         bg-cream-light
         my-2
       "
-      placeholder="Password"
+      placeholder="รหัสผ่าน"
 	  v-model="userAccount.password"
+      @keypress.enter="submit"
     />
 
     <div class="flex flex-wrap mt-10">
-      <nuxt-link to="/register" class="btn btn-secondary w-1/2"
-        >Register</nuxt-link
-      >
-      <button class="btn btn-accent w-1/2" @click="submit">Login</button>
+      <div class="w-1/2 px-1">
+        <nuxt-link to="/register" class="btn btn-secondary w-full">สมัครสมาชิก</nuxt-link>
+      </div>
+      <div class="w-1/2 px-1">
+        <button class="btn btn-accent w-full" @click="submit">เข้าสู้ระบบ</button>
+      </div>
     </div>
   </div>
 </template>

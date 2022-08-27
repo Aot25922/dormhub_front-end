@@ -1,13 +1,14 @@
 <template>
-  <div class="bg-cream p-3 rounded-lg mb-3 relative">
+  <div class="bg-cream p-3 rounded-lg mb-3 relative lg:flex lg:flex-wrap">
     <button
       @click="removeRoomType"
       class="absolute top-0 right-0"
       v-if="index > 0"
     >
-      <span class="material-icons text-white">close</span>
+      <span class="material-icons text-black pt-3 pr-3">close</span>
     </button>
-    <h1 class="text-black text-lg ml-2 mb-2 font-bold">ประเภทห้อง</h1>
+    <h1 class="text-black text-lg ml-2 mb-2 font-bold lg:w-full">ประเภทห้อง</h1>
+    <div class="lg:px-1 lg:w-1/2">
     <label class="label-text text-gray-soil tracking-wide font-bold my-2"
       >ชื่อประเภทห้อง <span class="text-cancelButton">*</span></label
     >
@@ -21,7 +22,7 @@
         bg-cream-light
         border-none
         focus:bg-cream-lightest focus:text-gray-soil
-        input input-sm
+        input input-sm md:input-md
         w-full
         disabled:text-white disabled:bg-dark-gray
       "
@@ -33,7 +34,9 @@
     <p class="text-cancelButton text-right" v-if="validateType">
       กรุณาใส่ชื่อประเภทห้อง
     </p>
+    </div>
 
+    <div class="lg:px-1 lg:w-1/2">
     <label class="label-text text-gray-soil tracking-wide font-bold my-2"
       >ราคาค่าเช่าห้องพัก <span class="text-cancelButton">*</span></label
     >
@@ -47,7 +50,7 @@
         bg-cream-light
         border-none
         focus:bg-cream-lightest focus:text-gray-soil
-        input input-sm
+        input input-sm md:input-md
         w-full
         disabled:text-white disabled:bg-dark-gray
       "
@@ -61,7 +64,9 @@
     <p class="text-cancelButton text-right" v-if="validatePrice">
       ราคาได้ตั้งแต่ 1-100000
     </p>
+    </div>
 
+    <div class="lg:px-1 lg:w-1/2">
     <label class="label-text text-gray-soil tracking-wide font-bold my-2"
       >ราคาค่ามัดจำ <span class="text-cancelButton">*</span></label
     >
@@ -75,9 +80,9 @@
         bg-cream-light
         border-none
         focus:bg-cream-lightest focus:text-gray-soil
-        input input-sm
+        input input-sm md:input-md
         w-full
-        disabled:bg-green-darker disabled:text-dark-gray
+        disabled:text-white disabled:bg-dark-gray
       "
       placeholder="200"
       v-model="roomType.deposit"
@@ -89,7 +94,9 @@
     <p class="text-cancelButton text-right" v-if="validateDeposit">
       ราคาได้ตั้งแต่ 1-100000
     </p>
+    </div>
 
+    <div class="lg:px-1 lg:w-1/2">
     <label class="label-text text-gray-soil tracking-wide font-bold my-2"
       >ขนาดพื้นที่ (ตารางเมตร) <span class="text-cancelButton">*</span></label
     >
@@ -103,7 +110,7 @@
         bg-cream-light
         border-none
         focus:bg-cream-lightest focus:text-gray-soil
-        input input-sm
+        input input-sm md:input-md
         w-full
         disabled:text-white disabled:bg-dark-gray
       "
@@ -117,8 +124,36 @@
     <p class="text-cancelButton text-right" v-if="validateArea">
       พื้นที่ได้ตั้งแต่ 1-999.99
     </p>
-    <h1 class="text-black text-lg ml-2 mb-2 font-bold">ภาพประเภทห้อง</h1>
-    <div class="">
+    </div>
+
+    <div class="lg:w-full">
+      <h1 class="text-black text-lg ml-2 mb-2 font-bold">
+        สิ่งอำนวยความสะดวก/บริการเสริม
+      </h1>
+      <textarea
+        class="
+        h-[80px]
+        md:h-24
+        p-2
+        mb-5
+        rounded
+        text-gray-soil
+        bg-cream-light
+        border-none
+        focus:bg-cream-lightest focus:text-gray-soil
+        input input-sm md:input-md
+        w-full
+        disabled:text-white disabled:bg-dark-gray
+      "
+        placeholder="สิ่งอำนวยความสะดวกต่าง ๆ"
+        v-model="roomType.facility"
+        @blur="validateForm"
+        :disabled="disableForm"
+      />
+    </div>
+
+    <h1 class="text-black text-lg ml-2 mb-2 font-bold lg:w-full">ภาพประเภทห้อง</h1>
+    <div class="lg:w-full">
       <div class="mb-3 w-full">
         <label
           for="formFileMultiple"
@@ -127,14 +162,12 @@
         >
         <input
           class="
-            mb-5
             focus:outline-none
             form-control
             block
             w-full
             bg-cream-light
             text-gray-soil
-            input input-sm
             rounded
             transition
             ease-in-out
@@ -160,36 +193,11 @@
         />
       </div>
     </div>
-    <div>
-      <h1 class="text-black text-lg ml-2 mb-2 font-bold">
-        สิ่งอำนวยความสะดวก/บริการเสริม
-      </h1>
-      <input
-      type="number"
-      class="
-        p-2
-        mb-5
-        rounded
-        text-gray-soil
-        bg-cream-light
-        border-none
-        focus:bg-cream-lightest focus:text-gray-soil
-        input input-sm
-        w-full
-        disabled:text-white disabled:bg-dark-gray
-      "
-      placeholder="999.99"
-      min="1"
-      max="999.99"
-      v-model="roomType.facility"
-      @blur="validateForm"
-      :disabled="disableForm"
-    />
-    </div>
+
     <div class="flex flex-wraps">
-      <div class="px-1">
+      <div class="px-1 w-full">
         <button
-          class="btn btn-neutral mx-auto block"
+          class="btn btn-neutral w-full"
           @click="disableForm = false"
           v-if="disableForm"
         >

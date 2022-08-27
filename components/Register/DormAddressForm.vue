@@ -1,6 +1,7 @@
 <template>
-  <div div class="bg-cream p-3 rounded-lg my-3">
-    <h1 class="text-black text-lg ml-2 mb-2 font-bold">สถานที่ตั้งหอพัก</h1>
+  <div div class="bg-cream p-3 rounded-lg my-3 md:p-5 md:flex md:flex-wrap">
+    <h1 class="text-black text-lg ml-2 mb-2 font-bold md:w-full">สถานที่ตั้งหอพัก</h1>
+    <div class="mb-5 md:px-1 md:w-1/2">
     <label for="" class="label-text text-gray-soil tracking-wide font-bold my-2"
       >เลขที่/เลขห้อง
     </label>
@@ -9,9 +10,8 @@
       class="
         py-4
         px-2
-        mb-5
         w-full
-        input input-sm
+        input input-sm md:input-md
         rounded
         text-gray-soil
         bg-cream-light
@@ -25,7 +25,9 @@
     <p class="text-cancelButton text-right" v-if="!validateNumber">
       กรุณาใส่เลขที่/เลขห้อง
     </p>
+    </div>
 
+    <div class="mb-5 md:px-1 md:w-1/2">
     <label for="" class="label-text text-gray-soil tracking-wide font-bold my-2"
       >ถนน
     </label>
@@ -34,9 +36,8 @@
       class="
         py-4
         px-2
-        mb-5
         w-full
-        input input-sm
+        input input-sm md:input-md
         rounded
         text-gray-soil
         bg-cream-light
@@ -50,7 +51,9 @@
     <p class="text-cancelButton text-right" v-if="!validateStreet">
       กรุณาใส่ถนน
     </p>
+    </div>
 
+    <div class="mb-5 md:px-1 md:w-1/2">
     <label for="" class="label-text text-gray-soil tracking-wide font-bold my-2"
       >ซอย</label
     >
@@ -59,9 +62,8 @@
       class="
         py-4
         px-2
-        mb-5
         w-full
-        input input-sm
+        input input-sm md:input-md
         rounded
         text-gray-soil
         bg-cream-light
@@ -71,7 +73,9 @@
       "
       placeholder="69"
     />
+    </div>
 
+    <div class="mb-5 md:px-1 md:w-1/2">
     <label for="" class="label-text text-gray-soil tracking-wide font-bold my-2"
       >ภูมิภาค <span class="text-cancelButton">*</span></label
     >
@@ -80,7 +84,6 @@
       class="
         select
         w-full
-        mb-5
         text-gray-soil
         bg-cream-light
         border-0
@@ -106,8 +109,9 @@
     <p class="text-cancelButton text-right" v-if="!validateRegion">
       กรุณาเลือกภูมิภาค
     </p>
+    </div>
 
-    <div v-if="selectedRegion">
+    <div class="mb-5 md:px-1 md:w-1/2" v-if="selectedRegion">
       <label
         for=""
         class="label-text text-gray-soil tracking-wide font-bold my-2"
@@ -117,7 +121,6 @@
         v-model="selectedProvince"
         class="
           select
-          mb-5
           w-full
           text-gray-soil
           bg-cream-light
@@ -145,7 +148,7 @@
       </p>
     </div>
 
-    <div v-if="selectedProvince">
+    <div class="mb-5 md:px-1 md:w-1/2" v-if="selectedProvince">
       <label
         for=""
         class="label-text text-gray-soil tracking-wide font-bold my-2"
@@ -155,7 +158,6 @@
         v-model="selectedDistrict"
         class="
           select
-          mb-5
           w-full
           text-gray-soil
           bg-cream-light
@@ -182,7 +184,7 @@
       </p>
     </div>
 
-    <div v-if="selectedDistrict">
+    <div class="mb-5 md:px-1 md:w-1/2" v-if="selectedDistrict">
       <label
         for=""
         class="label-text text-gray-soil tracking-wide font-bold my-2"
@@ -192,7 +194,6 @@
         v-model="selectedSubdistrict"
         class="
           select
-          mb-5
           w-full
           text-gray-soil
           bg-cream-light

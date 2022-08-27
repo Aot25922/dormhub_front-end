@@ -6,7 +6,7 @@
     </button>
     <input
       type="text"
-      placeholder="Search"
+      placeholder="ค้นหาหอพัก"
       v-model="search"
       class="
         focus:outline-none

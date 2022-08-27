@@ -1,9 +1,9 @@
 <template>
-    <div class="py-3 md:py-5 px-4 md:px-5">
+    <div class="py-3 px-4 md:px-24 md:py-8 lg:px-96">
       <form-progress />
       <div
         v-if="!this.$route.path.includes('dormForm/')"
-        class="p-3 bg-green-darker rounded"
+        class="p-3 bg-green-darker rounded text-black"
       >
         <h1 class="font-bold">ขั้นตอนการสร้างหอพัก</h1>
         <p>จะมีการสร้างทั้งหมด n ขั้นตอนโดย</p>

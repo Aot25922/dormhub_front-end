@@ -1,18 +1,12 @@
 <template>
-  <div>
+  <div class="overflow-auto mb-5 md:mb-8 lg:mb-10">
     <ul class="steps">
-      <li class="step step-primary">Start Here!</li>
-      <li class="step" :class="{ 'step-primary': step1 }">Dorm Information</li>
-      <li class="step" :class="{ 'step-primary': step2 }">
-        RoomType Information
-      </li>
-      <li class="step" :class="{ 'step-primary': step3 }">Room Information</li>
-      <li class="step" :class="{ 'step-primary': step4 }">
-        Payment Information
-      </li>
-      <li class="step" :class="{ 'step-primary': step5 }">
-        Confirm/Cancel Information
-      </li>
+      <li class="step step-primary"></li>
+      <li class="step" :class="{ 'step-primary': step1 }"></li>
+      <li class="step" :class="{ 'step-primary': step2 }"></li>
+      <li class="step" :class="{ 'step-primary': step3 }"></li>
+      <li class="step" :class="{ 'step-primary': step4 }"></li>
+      <li class="step" :class="{ 'step-primary': step5 }"></li>
     </ul>
   </div>
 </template>
