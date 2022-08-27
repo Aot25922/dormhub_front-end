@@ -7,7 +7,8 @@
         <span class=" m-1 py-2 px-3 bg-PrussianBlue text-HoneyDew w-1/2 rounded-lg text-xl">hub</span></NuxtLink>
     </div>
 
-      <div class="dropdown dropdown-end">
+  <!-- Navbar for Mobile to Ipad -->
+      <div class="dropdown dropdown-end lg:hidden">
         <div tabindex="0" class="btn btn-neutral btn-sm text-PrussianBlue">
           <span class="material-icons duration-150 ease-out">menu</span>
         </div>
@@ -38,6 +39,36 @@
           </li>
         </ul>
       </div>
+
+  <!-- Navbar Laptop -->
+    <div class="hidden lg:block">
+      <ul class="flex flex-row">
+        <li class="px-2">
+          <nuxt-link to="/" class="btn btn-ghost">หน้าหลัก</nuxt-link>
+        </li>
+        <li>
+          <nuxt-link to="/" class="btn btn-ghost">เกี่ยวกับเรา</nuxt-link>
+        </li>
+        <li>
+          <nuxt-link to="/" class="btn btn-ghost">หอพัก</nuxt-link>
+        </li>
+        <li>
+          <nuxt-link to="/" class="btn btn-ghost">การติดต่อ</nuxt-link>
+        </li>
+        <li v-if="$store.state.userAccount.role == 'Guest'">
+          <nuxt-link to="/" class="btn btn-ghost">เข้าสู่ระบบ</nuxt-link>
+        </li>
+        <li v-if="$store.state.userAccount.role == 'Guest'">
+          <nuxt-link to="/" class="btn btn-secondary">สมัครสมาชิก</nuxt-link>
+        </li>
+        <li v-if="$store.state.userAccount.role == 'Owner'">
+          <nuxt-link to="/" class="btn btn-ghost">เพิ่มหอพัก</nuxt-link>
+        </li>
+        <li v-if="$store.state.userAccount.role != 'Guest'">
+          <nuxt-link to="/" class="btn btn-secondary">ออกจากระบบ</nuxt-link>
+        </li>
+      </ul>
+    </div>
 
   </div>
 </template>
