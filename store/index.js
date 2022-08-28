@@ -145,7 +145,7 @@ export const actions = {
     if (!(_.isEmpty(dorm.dorm)) && !(_.isEmpty(dorm.address)) && !(_.isEmpty(dorm.roomType)) && !(_.isEmpty(dorm.room)) && !(_.isEmpty(dorm.dormImg)) && !(_.isEmpty(dorm.roomTypeImg))) {
       let formData = new FormData()
       let data = {}
-      _.assign(data, { dorm: dorm.dorm }, { address: dorm.address }, { roomType: dorm.roomType }, { room: dorm.room })
+      _.assign(data, { dorm: dorm.dorm }, { address: dorm.address }, { roomType: dorm.roomType }, { room: dorm.room }, {bankAccount: dorm.bankAccount})
       formData.append('data', JSON.stringify(data))
       for (let i in state.newDorm.roomTypeImg) {
         for (let j in state.newDorm.roomTypeImg[i]) {

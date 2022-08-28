@@ -67,16 +67,39 @@
             @blur="validate(bankAccount)"
             :disabled="disableForm"
           />
+          <div class="mb-5 md:px-1 md:w-1/2" >
+            <label
+              for=""
+              class="label-text text-gray-soil tracking-wide font-bold my-2"
+              >ธนาคาร <span class="text-cancelButton">*</span></label
+            >
+            <select
+              v-model="bankAccount.bankId"
+              class="
+                select
+                w-full
+                text-gray-soil
+                bg-cream-light
+                border-0
+                disabled:text-white disabled:bg-dark-gray
+              "
+            >
+              <option option disabled selected>กรุณาเลือกธนาคาร</option>
+              <option
+                v-for="option in bankList"
+                :value="option.bankId"
+                :key="option.bankId"
+              >
+                {{ option.name }}
+              </option>
+            </select>
+            <p class="text-cancelButton text-right" v-if="bankValidate">
+              กรุณาเลือกธนาคาร
+            </p>
+          </div>
         </div>
       </div>
     </div>
-    <button
-      class="text-black bg-confirmButton"
-      v-if="!disableForm"
-      @click="submit"
-    >
-      <p>Submit</p>
-    </button>
     <button
       class="text-black bg-confirmButton"
       v-if="disableForm"
@@ -114,16 +137,24 @@
 </template>
 <script>
 export default {
+  async fetch() {
+    this.bankList = await this.$axios.$get(
+      `${this.$store.state.Backend_URL}/bank`
+    );
+  },
   data() {
     return {
       bankAccounts: [
         {
           accountNum: "",
           accountName: "",
+          bankId:""
         },
       ],
+      // bankList: [],
       accountNumValidate: false,
       accountNameValidate: false,
+      bankValidate: false,
       disableForm: false,
     };
   },
@@ -132,7 +163,7 @@ export default {
       for (let i in this.bankAccounts) {
         this.validate(this.bankAccounts[i]);
       }
-      if (!this.accountNumValidate && !this.accountNameValidate) {
+      if (!this.accountNumValidate && !this.accountNameValidate && !this.bankValidate) {
         let newBankAccount = JSON.parse(JSON.stringify(this.bankAccounts));
         this.$store.commit("SET_BANKACCOUNT", newBankAccount);
         this.disableForm = true;
@@ -160,10 +191,11 @@ export default {
     validate(input) {
       this.accountNumValidate = input.accountNum == "" ? true : false;
       this.accountNameValidate = input.accountName == "" ? true : false;
+      this.bankValidate = input.bankId == "" ? true : false;
     },
-    removeBankAccount(index){
+    removeBankAccount(index) {
       this.$delete(this.bankAccounts, index);
-    }
+    },
   },
 };
 </script>
