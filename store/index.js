@@ -38,6 +38,11 @@ export const mutations = {
   },
   SET_ROOMTYPEIMG(state, data) {
     let key = data.key
+    let oldRoomType = data.oldRoomType
+    state.newDorm.roomTypeImg = _.pickBy(state.newDorm.roomTypeImg, function(value, key) {
+      return !(_.isEqual(key, oldRoomType));
+    });
+    console.log(state.newDorm.roomTypeImg)
     state.newDorm.roomTypeImg[key] = data.roomTypeImg
   },
   SET_ROOMTYPE(state, data) {
@@ -56,11 +61,9 @@ export const mutations = {
         state.newDorm.roomType.splice(i, 1)
       }
     }
-  },
-  REMOVE_ROOMTYPEIMG(state, data) {
-    if (_.find(state.newDorm.roomTypeImg, data)) {
-      delete state.newDorm.roomTypeImg[data]
-    }
+    state.newDorm.roomTypeImg = _.pickBy(state.newDorm.roomTypeImg, function(value, key) {
+      return !(_.isEqual(key, data.type));
+    });
   },
   SET_ROOM(state, data) {
     state.newDorm.room = data
@@ -133,8 +136,8 @@ export const actions = {
       commit('DORM_SELECTED', dormInfo.dorm)
     }
   },
-  setNewRoomTypeImg({ commit }, { image, roomType }) {
-    let newRoomTypeImgList = { roomTypeImg: image, key: roomType }
+  setNewRoomTypeImg({ commit }, { image, roomType, oldRoomType }) {
+    let newRoomTypeImgList = { roomTypeImg: image, key: roomType ,oldRoomType: oldRoomType}
     commit('SET_ROOMTYPEIMG', newRoomTypeImgList)
   },
   async addDorm({ state }) {
@@ -156,7 +159,7 @@ export const actions = {
       for (var pair of formData.entries()) {
         console.log(pair[0] + ': ' + pair[1]);
       }
-      await this.$axios.$post(`${state.Backend_URL}/account/register`, formData)
+      await this.$axios.$post(`${state.Backend_URL}/dorm/register`, formData, {withCredentials: true,})
     }
   },
 }

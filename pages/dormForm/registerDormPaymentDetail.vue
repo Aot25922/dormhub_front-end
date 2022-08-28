@@ -2,7 +2,7 @@
   <div class="py-3 md:py-5">
     <div>
       <RegisterDormPaymentForm ref="bank" @validate="checkForPaymentInfo"/>
-      <button class="btn btn-neutral mx-auto block bg-cheese">Next</button>
+      <button class="btn btn-neutral mx-auto block bg-cheese" @click="next">Next</button>
       <nuxt-link to="/dormForm/registerDormRoomDetail" class="btn btn-neutral mx-auto block bg-cheese">Back</nuxt-link>
     </div>
   </div>
@@ -18,7 +18,7 @@ export default {
   methods: {
     next(){
       this.$refs.bank.submit()
-      if(this.validatePayment) this.$router.push({ path: "/dormForm/registerDormPaymentDetail" });
+      if(this.validatePayment) this.$router.push({ path: "/dormForm/confirmForm" });
     },
     checkForPaymentInfo(data){
       this.validatePayment = data

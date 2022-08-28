@@ -249,6 +249,7 @@ export default {
         this.$store.dispatch("setNewRoomTypeImg", {
           image: newRoomTypeImg,
           roomType: newRoomType.type,
+          oldRoomType: this.oldRoomType
         });
         this.oldRoomType = newRoomType.type;
         this.disableForm = true;

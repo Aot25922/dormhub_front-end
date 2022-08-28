@@ -243,7 +243,7 @@ export default {
                   .name_th,
               zipCodeId:
                 addressInfo[i].provinces[j].districts[k].subDistricts[l]
-                  .zipCodeId,
+                  .zip_code,
             });
           }
         }
@@ -288,6 +288,7 @@ export default {
         this.validateRegion &&
         this.validateProvince
       ) {
+        console.log(this.selectedSubdistrict)
         this.address.zipCodeId = this.selectedSubdistrict.zipCodeId;
         this.address.district = this.selectedDistrict;
         this.address.region = this.selectedRegion.regions;
