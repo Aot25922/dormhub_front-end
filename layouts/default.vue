@@ -1,7 +1,6 @@
 <template>
-  <div class="bg-cream-lighter min-h-screen">
+  <div class="bg-white text-black min-h-screen">
     <NavBar class="md:p-3 lg:p-5" />
-    <SearchBar class="my-3 md:my-5" />
     <Nuxt />
     <Footer />
   </div>

@@ -1,30 +1,23 @@
+const colors = require('tailwindcss/colors')
+
 module.exports = {
 	purge: [],
 	theme: {
 		colors: {
-			'cheese': '#FF6000',
-			'dark-blue': '#131316',
-			'dark-gray': '#1F1F29',
-			'gray-soil': '#545762',
-			'light-blue': '#B9C1D9',
-			'cream': {
-				'lightest': '#FEFAE0',
-				'lighter': '#FCF4D7',
-				'light': '#FAEDCD',
-				'DEFAULT': '#E7C8A0',
-				'dark': '#DEB68A',
-				'darker': '#D4A373'
-			},
-			'green': {
-				'light': '#F4F4D5',
-				'DEFAULT': '#E9EDC9',
-				'dark': '#DBE1BC',
-				'darker': '#CCD5AE'
-			},
-			'white': '#ffffff',
-			'black': '#000000',
-			'confirmButton' : 'rgb(16 185 129)',
-			'cancelButton':'rgb(190 18 60)'
+      transparent: 'transparent',
+      current: 'currentColor',
+      black: colors.black,
+      white: colors.white,
+      gray: colors.gray,
+      emerald: colors.emerald,
+      indigo: colors.indigo,
+      yellow: colors.yellow,
+      'imperialRed': '#E63946',
+      'HoneyDew': '#F1FAEE',
+      'powderBlue': '#A8DADC',
+      'celadonBlue': '#457B9D',
+      'PrussianBlue': '#1D3557',
+      'ghostWhite': '#F2F3F8',
 		},
 		extend: {},
 	},
@@ -39,27 +32,27 @@ module.exports = {
 	daisyui: {
 		themes: [
 			{
-				'mytheme': {                          /* your theme name */
-					'primary': '#D4A373',           /* Primary color */
-					'primary-focus': '#E7C8A0',     /* Primary color - focused */
-					'primary-content': '#000000',   /* Foreground content color to use on primary color */
+				'mytheme': {
+					'primary': '#1D3557',
+					'primary-focus': '#457B9D',
+					'primary-content': '#FFFFFF',
 
-					'secondary': '#FCF4D7',         /* Secondary color */
-					'secondary-focus': '#E7C8A0',   /* Secondary color - focused */
-					'secondary-content': '#545762', /* Foreground content color to use on secondary color */
+					'secondary': '#D3EDEE',
+					'secondary-focus': '#98D5D7',
+					'secondary-content': '#1D3557',
 
-					'accent': '#DBE1BC',            /* Accent color */
-					'accent-focus': '#F4F4D5',      /* Accent color - focused */
-					'accent-content': '#000000',    /* Foreground content color to use on accent color */
+          'accent': '#E63946',
+          'accent-focus': '#C81927',
+          'accent-content': '#FFFFFF',
 
-					'neutral': '#D4A373',           /* Neutral color */
-					'neutral-focus': '#FAEDCD',     /* Neutral color - focused */
-					'neutral-content': '#000000',   /* Foreground content color to use on neutral color */
+          'neutral': '#FFFFFF',
+          'neutral-focus': '#F5F5F5',
+          'neutral-content': '#1D3557',
 
-					'info': '#2094f3',              /* Info */
-					'success': '#009485',           /* Success */
-					'warning': '#ff9900',           /* Warning */
-					'error': '#ff5724',             /* Error */
+          'info': '#2094f3',
+          'success': '#009485',
+          'warning': '#ff9900',
+          'error': '#ff5724',
 				},
 			}
 		],
