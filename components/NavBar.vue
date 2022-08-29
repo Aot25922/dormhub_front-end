@@ -28,13 +28,13 @@
           <li v-if="$store.state.userAccount.role == 'Guest'">
             <nuxt-link to="/login">เข้าสู่ระบบ</nuxt-link>
           </li>
-          <li v-if="$store.state.userAccount.role == 'Guest'">
+          <li class="font-bold" v-if="$store.state.userAccount.role == 'Guest'">
             <nuxt-link to="/register">สมัครสมาชิก</nuxt-link>
           </li>
           <li v-if="$store.state.userAccount.role == 'Owner'">
             <nuxt-link to="/dormForm">เพิ่มหอพัก</nuxt-link>
           </li>
-          <li v-if="$store.state.userAccount.role != 'Guest'">
+          <li class="font-bold" v-if="$store.state.userAccount.role != 'Guest'">
             <p @click="logout">ออกระบบ</p>
           </li>
         </ul>
@@ -43,29 +43,29 @@
   <!-- Navbar Laptop -->
     <div class="hidden lg:block">
       <ul class="flex flex-row">
-        <li class="px-2">
+        <li class="px-1">
           <nuxt-link to="/" class="btn btn-ghost">หน้าหลัก</nuxt-link>
         </li>
-        <li>
+        <li class="px-1">
           <nuxt-link to="/" class="btn btn-ghost">เกี่ยวกับเรา</nuxt-link>
         </li>
-        <li>
+        <li class="px-1">
           <nuxt-link to="/" class="btn btn-ghost">หอพัก</nuxt-link>
         </li>
-        <li>
+        <li class="px-1">
           <nuxt-link to="/" class="btn btn-ghost">การติดต่อ</nuxt-link>
         </li>
-        <li v-if="$store.state.userAccount.role == 'Guest'">
-          <nuxt-link to="/" class="btn btn-ghost">เข้าสู่ระบบ</nuxt-link>
+        <li class="px-1" v-if="$store.state.userAccount.role == 'Guest'">
+          <nuxt-link to="/login" class="btn btn-ghost">เข้าสู่ระบบ</nuxt-link>
         </li>
-        <li v-if="$store.state.userAccount.role == 'Guest'">
-          <nuxt-link to="/" class="btn btn-secondary">สมัครสมาชิก</nuxt-link>
+        <li class="px-1" v-if="$store.state.userAccount.role == 'Guest'">
+          <nuxt-link to="/register" class="btn btn-secondary">สมัครสมาชิก</nuxt-link>
         </li>
-        <li v-if="$store.state.userAccount.role == 'Owner'">
-          <nuxt-link to="/" class="btn btn-ghost">เพิ่มหอพัก</nuxt-link>
+        <li class="px-1" v-if="$store.state.userAccount.role == 'Owner'">
+          <nuxt-link to="/dormForm" class="btn btn-ghost">เพิ่มหอพัก</nuxt-link>
         </li>
-        <li v-if="$store.state.userAccount.role != 'Guest'">
-          <nuxt-link to="/" class="btn btn-secondary">ออกจากระบบ</nuxt-link>
+        <li class="px-1" v-if="$store.state.userAccount.role != 'Guest'">
+          <button class="btn btn-secondary">ออกจากระบบ</button>
         </li>
       </ul>
     </div>

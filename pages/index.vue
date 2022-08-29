@@ -15,7 +15,7 @@
         <!-- Ads for Laptop -->
         <div class="hidden lg:block lg:pt-5">
           <div class="card w-full bg-primary text-white">
-            <div class="card-body items-center text-center md:py-10 lg:pb-5 lg:pt-6">
+            <div class="card-body items-center text-center md:py-10 lg:pb-5 lg:pt-6 xl:py-24 2xl:py-32">
               <h2 class="card-title">ท่องไปกับหอพักได้อีกมาก</h2>
               <p class="text-left md:py-5">ก่อนการตัดสินใจบางอย่าง ท่านควรวางแผนความคุ้มค่า การเดินทาง กำลังทรัพย์ที่ไหว</p>
               <div class="flex flex-row py-3 md:py-5">
@@ -23,7 +23,7 @@
                 <p class="italic">"คุณไม่สามารถไว้ใจใครได้อีกต่อไปหากคุณต้องการทำสิ่งที่คุณต้องทำด้วยตัวเอง"</p>
               </div>
             </div>
-            <div class="card-actions p-5">
+            <div class="card-actions p-5 lg:pt-2 lg:mb-4 2xl:pt-8">
               <button class="btn btn-secondary w-full duration-300 ease-in-out">เลือกหอพักได้เลย!</button>
             </div>
           </div>
