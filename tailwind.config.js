@@ -37,7 +37,7 @@ module.exports = {
       'PrussianBlue': '#1D3557',
       'ghostWhite': '#F2F3F8',
 			'confirmButton' : 'rgb(16 185 129)',
-			'cancelButton':'rgb(190 18 60)'
+			// 'cancelButton':'rgb(190 18 60)'
 		},
 		extend: {},
 	},

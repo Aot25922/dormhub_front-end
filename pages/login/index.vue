@@ -1,14 +1,14 @@
 <template>
   <div class="bg-ghostWhite px-5 py-20 md:py-32 md:grid md:grid-cols-2">
     <div>
-      <img src="@/assets/identify.png" class="hidden md:block"/>
+      <img src="@/assets/specify/identify.png" class="hidden md:block"/>
     </div>
 
     <div class="md:py-10 lg:py-20 xl:px-10 xl:py-32 2xl:py-52">
       <h1 class="pb-10 text-2xl md:text-3xl font-bold text-PrussianBlue text-center md:py-5 xl:py-10">เข้าสู่ระบบ</h1>
-      <input class=" py-6 px-2 w-full input input-sm md:input-md rounded-lg text-gray-soil border-x-0 border-t-0 border-b-gray-400 my-2 md:my-4"
+      <input class="py-6 px-2 w-full input input-sm md:input-md rounded-lg text-gray-soil border-x-0 border-t-0 border-b-gray-400 my-2 md:my-4"
         placeholder="อีเมล" v-model="userAccount.email" @keypress.enter="submit"/>
-      <input class=" py-6 px-2 w-full input input-sm md:input-md rounded-lg text-gray-soil border-x-0 border-t-0 border-b-gray-400 my-2 md:my-4"
+      <input class="py-6 px-2 w-full input input-sm md:input-md rounded-lg text-gray-soil border-x-0 border-t-0 border-b-gray-400 my-2 md:my-4"
         placeholder="รหัสผ่าน" v-model="userAccount.password" @keypress.enter="submit"/>
 
       <div class="flex flex-wrap mt-10">
