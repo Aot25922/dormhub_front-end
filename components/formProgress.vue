@@ -1,5 +1,5 @@
 <template>
-  <div class="overflow-auto mb-5 md:mb-8 lg:mb-10">
+  <div class="overflow-auto my-10 lg:my-20">
     <ul class="steps">
       <li class="step step-primary"></li>
       <li class="step" :class="{ 'step-primary': step1 }"></li>

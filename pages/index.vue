@@ -3,7 +3,7 @@
     <ContentIntroduction />
     <div class="p-5 md:flex md:flex-row md:pb-0 lg:px-20 lg:pt-20">
       <h1 class="text-3xl font-bold text-center py-5 md:text-4xl md:text-left">หอพัก</h1>
-      <nuxt-link to="/Content/DormList" class="btn btn-secondary w-full py-3 md:w-1/4 md:ml-auto md:mt-4">ดูหอพักทั้งหมด</nuxt-link>
+      <nuxt-link to="/dormList" class="btn btn-secondary w-full py-3 md:w-1/4 md:ml-auto md:mt-4">ดูหอพักทั้งหมด</nuxt-link>
     </div>
 
     <!-- DormList -->
@@ -24,7 +24,7 @@
               </div>
             </div>
             <div class="card-actions p-5 lg:pt-2 lg:mb-4 2xl:pt-8">
-              <button class="btn btn-secondary w-full duration-300 ease-in-out">เลือกหอพักได้เลย!</button>
+              <nuxt-link to="/dormList" class="btn btn-secondary w-full duration-300 ease-in-out">เลือกหอพักได้เลย!</nuxt-link>
             </div>
           </div>
         </div>
@@ -42,7 +42,7 @@
             </div>
           </div>
           <div class="card-actions p-5">
-            <button class="btn btn-secondary w-full duration-300 ease-in-out">เลือกหอพักได้เลย!</button>
+            <nuxt-link to="/dormList" class="btn btn-secondary w-full duration-300 ease-in-out">เลือกหอพักได้เลย!</nuxt-link>
           </div>
         </div>
       </div>

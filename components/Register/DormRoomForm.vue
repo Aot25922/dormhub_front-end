@@ -1,18 +1,10 @@
 <template>
   <div>
-    <div
-      v-for="(floor, index) in roomList"
-      :key="index"
-      class="grid grid-cols-4 gap-4"
-    >
+    <div v-for="(floor, index) in roomList" :key="index" class="grid grid-cols-4 gap-4">
       <span>ชั้น {{ floor.floor }}</span>
       <div v-for="(room, index) in floor.rooms" :key="index">
         <div class="w-full bg-cream rounded-md p-3">
-          <button
-            @click="$delete(room, index)"
-            class="absolute top-0 right-0"
-            v-if="floor.rooms.length > 1"
-          >
+          <button @click="$delete(room, index)" class="absolute top-0 right-0" v-if="floor.rooms.length > 1">
             <span class="material-icons text-black">close</span>
           </button>
           <label
