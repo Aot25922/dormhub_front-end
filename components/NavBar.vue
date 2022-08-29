@@ -20,7 +20,7 @@
             <nuxt-link to="/">เกี่ยวกับเรา</nuxt-link>
           </li>
           <li>
-            <nuxt-link to="/">หอพัก</nuxt-link>
+            <nuxt-link to="/dormList">หอพัก</nuxt-link>
           </li>
           <li>
             <nuxt-link to="/">การติดต่อ</nuxt-link>
@@ -50,7 +50,7 @@
           <nuxt-link to="/" class="btn btn-ghost">เกี่ยวกับเรา</nuxt-link>
         </li>
         <li class="px-1">
-          <nuxt-link to="/" class="btn btn-ghost">หอพัก</nuxt-link>
+          <nuxt-link to="/dormList" class="btn btn-ghost">หอพัก</nuxt-link>
         </li>
         <li class="px-1">
           <nuxt-link to="/" class="btn btn-ghost">การติดต่อ</nuxt-link>
