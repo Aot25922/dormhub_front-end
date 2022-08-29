@@ -151,7 +151,7 @@ export default {
           bankId:""
         },
       ],
-      // bankList: [],
+      bankList: [],
       accountNumValidate: false,
       accountNameValidate: false,
       bankValidate: false,
