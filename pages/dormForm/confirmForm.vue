@@ -58,21 +58,20 @@ export default {
   },
   created() {
     for (let i in this.$store.state.newDorm.dormImg) {
-      console.log(this.$store.state.newDorm.dormImg[i])
       this.dormImg.push(
         URL.createObjectURL(this.$store.state.newDorm.dormImg[i])
       );
     }
-    // this.roomTypeImg = {...this.$store.state.newDorm.roomTypeImg};
-    this.roomTypeImg = Object.assign({}, this.$store.state.newDorm.roomTypeImg);
-    console.log(this.roomTypeImg)
-    for (let i in this.roomTypeImg) {
-      let img = this.roomTypeImg[i];
-      for (let j in img) {
-        if(typeof img[j] == "object"){
-          this.roomTypeImg[i][j] = URL.createObjectURL(img[j])
+    let myroomTypeImg = { ...this.$store.state.newDorm.roomTypeImg };
+    for (let key in myroomTypeImg) {
+      for (let img in myroomTypeImg[key]) {
+        if (typeof myroomTypeImg[key][img] == "object") {
+          if(this.roomTypeImg[key] == undefined){
+            this.roomTypeImg[key] = []
+          }
+          this.roomTypeImg[key].push(URL.createObjectURL(myroomTypeImg[key][img]));
         }
-        console.log(this.roomTypeImg[i][j])
+
       }
     }
   },
