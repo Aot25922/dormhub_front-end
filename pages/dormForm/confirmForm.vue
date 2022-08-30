@@ -66,12 +66,13 @@ export default {
     for (let key in myroomTypeImg) {
       for (let img in myroomTypeImg[key]) {
         if (typeof myroomTypeImg[key][img] == "object") {
-          if(this.roomTypeImg[key] == undefined){
-            this.roomTypeImg[key] = []
+          if (this.roomTypeImg[key] == undefined) {
+            this.roomTypeImg[key] = [];
           }
-          this.roomTypeImg[key].push(URL.createObjectURL(myroomTypeImg[key][img]));
+          this.roomTypeImg[key].push(
+            URL.createObjectURL(myroomTypeImg[key][img])
+          );
         }
-
       }
     }
   },
