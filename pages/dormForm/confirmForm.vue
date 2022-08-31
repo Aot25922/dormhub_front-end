@@ -98,6 +98,7 @@ export default {
           text: `You data is submit`,
         });
         this.$router.push({path:'/'})
+        this.$store.dispatch("nuxtServerInit")
       }).catch((error) => {
         const noti = this.$vs.notification({
           progress: "auto",

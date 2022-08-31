@@ -71,7 +71,7 @@
           <nuxt-link to="/dormList/owner" class="btn btn-ghost">หอพักของฉัน</nuxt-link>
         </li>
         <li class="px-1" v-if="$store.state.userAccount.role != 'Guest'">
-          <button class="btn btn-secondary">ออกจากระบบ</button>
+          <button class="btn btn-secondary" @click="logout">ออกจากระบบ</button>
         </li>
       </ul>
     </div>

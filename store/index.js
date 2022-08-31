@@ -78,7 +78,7 @@ export const mutations = {
 export const actions = {
   async nuxtServerInit({ commit, state }) {
     try {
-      let data = await this.$axios.$post(`${state.Backend_URL}/account/login`,{
+      let data = await this.$axios.$post(`${state.Backend_URL}/account/login`, null, {
         withCredentials: true,
       })
       if (data != null) {
@@ -165,8 +165,8 @@ export const actions = {
         console.log(pair[0] + ': ' + pair[1]);
       }
       return await this.$axios.$post(`${state.Backend_URL}/dorm/register`, formData, {withCredentials: true,})
-     
-      
+
+
     }
   },
 }
