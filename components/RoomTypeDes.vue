@@ -1,13 +1,16 @@
 <template>
   <div>
     <client-only>
-    <agile style="touch-action: none">
+    <agile style="touch-action: none" v-if="checkRoomtypeImg">
     <div class="slide text-white block relative h-60 md:h-[480px] lg:h-[550px]" v-for="i in media" :key="i.mediaId">
-      <img :src="$store.state.Backend_URL+'/dorm/image/'+i.dormId+'/'+i.mediaId+'/'+roomType.roomTypeId" class="object-cover object-center w-full h-full"/>
+      <img :src="$store.state.Backend_URL+'/dorm/image/'+i.dormId+'/'+i.mediaId+'/'+roomType.roomTypeId" class="object-cover object-center w-full h-full" @error="checkRoomtypeImg = false"/>
     </div>
     <template slot="prevButton"><span class="material-icons">chevron_left</span></template>
     <template slot="nextButton"><span class="material-icons">chevron_right</span></template>
   </agile>
+  <div v-else>
+    <p class="slide text-black block relative h-60 md:h-[480px] lg:h-[550px]">IMAGE NOT FOUND</p>
+  </div>
     </client-only>
    <div class="overflow-x-auto px-5 pt-5">
   <div class="grid grid-cols-3 w-full rounded-md text-black bg-cream-dark p-5 text-center">
@@ -50,6 +53,7 @@ export default {
   props: ["roomType","elecPerUnit","waterPerUnit","media"],
   data() {
     return {
+      checkRoomtypeImg:true
     };
   },
 };

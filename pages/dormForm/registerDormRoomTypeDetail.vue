@@ -49,7 +49,7 @@
 </template>
 <script>
 export default {
-    middleware: 'permission',
+    middleware: ['permission','checkData'],
   data() {
     return {
       roomTypeCount: [{ id: 0, validate: false }],

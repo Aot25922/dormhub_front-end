@@ -2,13 +2,16 @@
   <div class="text-black my-5 md:px-[68px] lg:px-[335px]">
     <div v-if="dorm != null">
       <client-only>
-      <agile>
+      <agile v-if="checkDormImg">
         <div class="slide text-white block relative h-60 md:h-[480px] lg:h-[550px]" v-for="i in dorm.media.filter(x => x.roomTypeId == null)" :key="i.mediaId">
-          <img :src="$store.state.Backend_URL+'/dorm/image/'+dorm.dormId+'/'+i.mediaId" class="object-cover object-center w-full h-full"/>
+          <img :src="$store.state.Backend_URL+'/dorm/image/'+dorm.dormId+'/'+i.mediaId" class="object-cover object-center w-full h-full" @error="checkDormImg = false"/>
         </div>
         <template slot="prevButton"><span class="material-icons">chevron_left</span></template>
         <template slot="nextButton"><span class="material-icons">chevron_right</span></template>
       </agile>
+      <div v-else>
+        <p class="slide block relative h-60 md:h-[480px] lg:h-[550px] text-black"> IMAGE NOT FOUND</p>
+      </div>
       </client-only>
 	  <div class="py-2 px-5">
 		<div class="flex flex-1">
@@ -101,7 +104,8 @@ export default {
       lowPrice: 0,
       highPrice: 0,
       roomType : null,
-      roomTypeMedia:null
+      roomTypeMedia:null,
+      checkDormImg: true
     };
   },
   methods: {
