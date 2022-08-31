@@ -22,7 +22,8 @@
               5. บัญชีธนาคารต่าง ๆ ของเจ้าของหอพัก ประกอบไปด้วย เลขบัญชี ชื่อเจ้าของบัญชี และการยืนยันการมัดจำของผู้เช้าหอ โดยกำหนดโดยเจ้าของหอเอง
             </li>
             <li class="text-center text-imperialRed border border-dashed border-imperialRed p-5">
-              กรุณาตรวจสอบรายละเอียดต่าง ๆ ก่อนกดยืนยัน ทางเราจะมีหน้าสรุปผลให้ดูประกอบ ที่ขั้นตอนที่ 6
+              <span class="material-icons">warning</span>
+              <span>กรุณาตรวจสอบรายละเอียดต่าง ๆ ก่อนกดยืนยัน ทางเราจะมีหน้าสรุปผลให้ดูประกอบ ที่ขั้นตอนที่ 6</span>
             </li>
           </ul>
           <div class="hidden xl:block xl:grid xl:grid-cols-4 xl:mt-5">

@@ -5,21 +5,9 @@
       <div class="mb-2 md:px-1 md:w-full">
         <label class="label-text text-gray-soil tracking-wide font-bold my-2"
           >ชื่อหอพัก <span class="text-cancelButton">*</span></label>
-          <input
-            type="text"
-            autofocus
-            class="
-              py-4
-              px-2
-              w-full
-              input input-sm md:input-md
-              rounded
-              text-gray-soil
-              bg-cream-light
-              focus:outline-none focus:bg-cream-lightest focus:text-gray-soil
-              border-none
-              disabled:text-white disabled:bg-dark-gray
-            "
+          <input type="text" autofocus class=" py-4 px-2 w-full input input-sm md:input-md rounded
+
+              focus:outline-none focus:bg-cream-lightest focus:text-gray-soil border-none disabled:text-white disabled:bg-dark-gray"
             placeholder="แฮปปี้ดอร์ม"
             @blur="checkForm"
             v-model="dorm.name"
