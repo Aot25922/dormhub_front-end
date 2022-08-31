@@ -86,7 +86,7 @@ export default {
     };
   },
   methods: {
-    submit() {
+     submit() {
       console.log(this.$store.state.newDorm);
       this.$store.dispatch("addDorm").then(() => {
         const noti = this.$vs.notification({
@@ -97,7 +97,8 @@ export default {
           title: `Data Update`,
           text: `You data is submit`,
         });
-        this.$router.push({path:'/'})
+        // this.$router.push({path:'/'})
+        this.$store.dispatch("nuxtServerInit")
       }).catch((error) => {
         const noti = this.$vs.notification({
           progress: "auto",
