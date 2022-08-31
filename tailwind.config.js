@@ -19,7 +19,10 @@ module.exports = {
       'PrussianBlue': '#1D3557',
       'ghostWhite': '#F2F3F8',
 		},
-		extend: {},
+    fontFamily: {
+      'Itim': 'Itim, cursive',
+      'Kanit':'Kanit, sans-serif',
+    },
 	},
 	variants: {
 		extend: {},
