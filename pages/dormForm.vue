@@ -35,7 +35,7 @@
       <div class="md:grid md:grid-cols-6 xl:hidden">
         <nuxt-link v-if="!this.$route.path.includes('dormForm/')" to="/dormForm/registerDormDetail" class="btn btn-accent w-full my-5 md:mb-10 md:col-start-5 md:col-span-2">เริ่มสร้างหอพักของคุณ</nuxt-link>
       </div>
-      <NuxtChild keep-alive />
+      <NuxtChild keep-alive class="md:px-10 lg:px-20 xl:px-32 2xl:px-52" />
     </div>
 </template>
 <script>

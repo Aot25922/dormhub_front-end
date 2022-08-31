@@ -1,47 +1,26 @@
 <template>
   <div class="py-3">
     <div>
-      <h1 class="text-cream-dark font-bold text-center text-xl mb-5">
-        รายละเอียดห้องพัก
-      </h1>
+      <h1 class="font-bold text-center text-xl mb-5 md:text-2xl lg:text-3xl xl:text-4xl">รายละเอียดห้องพัก</h1>
       <div class="px-3 md:grid md:grid-cols-2 md:gap-4">
-
-          <RegisterDormRoomtypeForm
-          v-for="(i, index) in roomTypeCount" :key="index"
-          ref="test"
-            :index="index"
-            @removeRoomType="removeRoomType(index, ...arguments)"
-            @validate="checkForRoomType(index, ...arguments)"
-          />
-
-        <button
-          class="text-black hover:text-gray-soil hover:bg-cream rounded-lg mt-10 text-center p-5 w-full md:m-0 md:h-[600px]"
-        >
-          <span
-            class="material-icons"
-            style="font-size: 60px"
+          <RegisterDormRoomtypeForm v-for="(i, index) in roomTypeCount" :key="index"
+          ref="test" :index="index" @removeRoomType="removeRoomType(index, ...arguments)" @validate="checkForRoomType(index, ...arguments)" />
+        <button class="hover:bg-gray-500 rounded-lg mt-10 text-center p-5 w-full md:m-0 md:h-[600px] md:border-2 md:border-gray-400">
+          <span class="material-icons" style="font-size: 60px"
             @click="
               roomTypeCount.push({
                 id: roomTypeCount[roomTypeCount.length - 1].id + 1,
                 validate: false,
-              })
-            "
-            >add_box</span
-          >
+              })">add_box</span>
           <p>เพิ่มประเภทห้องพัก</p>
         </button>
       </div>
       <div class="flex flex-wrap mt-10">
         <div class="w-1/2 px-1">
-      <nuxt-link
-        to="/dormForm/registerDormDetail"
-        class="btn btn-secondary w-full"
-        >ย้อนกลับ</nuxt-link>
+          <nuxt-link to="/dormForm/registerDormDetail" class="btn btn-ghost w-full">ย้อนกลับ</nuxt-link>
         </div>
         <div class="w-1/2 px-1">
-          <button class="btn btn-accent w-full" @click="next">
-            ต่อไป
-          </button>
+          <button class="btn btn-primary w-full" @click="next">ต่อไป</button>
         </div>
       </div>
     </div>

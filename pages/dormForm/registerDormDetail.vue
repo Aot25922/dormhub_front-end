@@ -1,7 +1,7 @@
 <template>
   <div class="py-3 md:py-5">
     <div>
-      <h1 class="text-cream-dark font-bold text-center text-xl md:text-2xl lg:text-3xl xl:text-4xl">เพิ่มหอพัก</h1>
+      <h1 class="font-bold text-center text-xl md:text-2xl lg:text-3xl xl:text-4xl">เพิ่มหอพัก</h1>
       <RegisterDormInfoForm ref="registerDormInfoForm" @validate="checkForDormInfo"/>
       <RegisterDormAddressForm ref="registerDormAddressForm" @validate="checkForDormAddress"/>
       <div class="flex flex-wrap mt-10">
