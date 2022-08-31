@@ -87,7 +87,7 @@
               <option option disabled selected>กรุณาเลือกธนาคาร</option>
               <option
                 v-for="option in bankList"
-                :value="option.bankId"
+                :value="option"
                 :key="option.bankId"
               >
                 {{ option.name }}

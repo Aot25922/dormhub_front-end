@@ -145,7 +145,12 @@ export const actions = {
     if (!(_.isEmpty(dorm.dorm)) && !(_.isEmpty(dorm.address)) && !(_.isEmpty(dorm.roomType)) && !(_.isEmpty(dorm.room)) && !(_.isEmpty(dorm.dormImg)) && !(_.isEmpty(dorm.roomTypeImg))) {
       let formData = new FormData()
       let data = {}
-      _.assign(data, { dorm: dorm.dorm }, { address: dorm.address }, { roomType: dorm.roomType }, { room: dorm.room }, {bankAccount: dorm.bankAccount})
+      let newbankAccount = _.cloneDeep(dorm.bankAccount)
+      console.log(newbankAccount)
+      for(let i in newbankAccount){
+        newbankAccount[i].bankId = newbankAccount[i].bankId.bankId
+      }
+      _.assign(data, { dorm: dorm.dorm }, { address: dorm.address }, { roomType: dorm.roomType }, { room: dorm.room }, {bankAccount: newbankAccount})
       formData.append('data', JSON.stringify(data))
       for (let i in state.newDorm.roomTypeImg) {
         for (let j in state.newDorm.roomTypeImg[i]) {
@@ -159,7 +164,9 @@ export const actions = {
       for (var pair of formData.entries()) {
         console.log(pair[0] + ': ' + pair[1]);
       }
-      await this.$axios.$post(`${state.Backend_URL}/dorm/register`, formData, {withCredentials: true,})
+      return await this.$axios.$post(`${state.Backend_URL}/dorm/register`, formData, {withCredentials: true,})
+     
+      
     }
   },
 }
