@@ -1,10 +1,6 @@
 <template>
   <div>
-    <div
-      v-for="(floor, index) in roomList"
-      :key="index"
-      class="grid grid-cols-4 gap-4"
-    >
+    <div v-for="(floor, index) in roomList" :key="index" class="grid grid-cols-4 gap-4">
       <span>ชั้น {{ floor.floor }}</span>
       <div v-for="(room, index) in floor.rooms" :key="index">
         <div class="w-full bg-cream rounded-md p-3 relative">

@@ -1,15 +1,15 @@
 <template>
   <div class="py-3 md:py-5">
     <div>
-      <h1 class="text-cream-dark font-bold text-center text-xl">เพิ่มหอพัก</h1>
+      <h1 class="text-cream-dark font-bold text-center text-xl md:text-2xl lg:text-3xl xl:text-4xl">เพิ่มหอพัก</h1>
       <RegisterDormInfoForm ref="registerDormInfoForm" @validate="checkForDormInfo"/>
       <RegisterDormAddressForm ref="registerDormAddressForm" @validate="checkForDormAddress"/>
       <div class="flex flex-wrap mt-10">
         <div class="w-1/2 px-1">
-          <nuxt-link to="/dormForm" class="btn btn-secondary w-full">ย้อนกลับ</nuxt-link>
+          <nuxt-link to="/dormForm" class="btn btn-ghost w-full">ย้อนกลับ</nuxt-link>
         </div>
         <div class="w-1/2 px-1">
-          <button class="btn btn-accent w-full" @click="next">ต่อไป</button>
+          <button class="btn btn-primary w-full" @click="next">ต่อไป</button>
         </div>
       </div>
         </div>

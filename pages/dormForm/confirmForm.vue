@@ -78,7 +78,7 @@
 </template>
 <script>
 export default {
-  middleware: ['permission','checkData'],
+  middleware: "permission",
   data() {
     return {
       dormImg: [],
@@ -86,7 +86,7 @@ export default {
     };
   },
   methods: {
-     submit() {
+    submit() {
       console.log(this.$store.state.newDorm);
       this.$store.dispatch("addDorm").then(() => {
         const noti = this.$vs.notification({
@@ -97,8 +97,7 @@ export default {
           title: `Data Update`,
           text: `You data is submit`,
         });
-        // this.$router.push({path:'/'})
-        this.$store.dispatch("nuxtServerInit")
+        this.$router.push({path:'/'})
       }).catch((error) => {
         const noti = this.$vs.notification({
           progress: "auto",
@@ -113,10 +112,10 @@ export default {
   },
   created() {
     for (let i in this.$store.state.newDorm.dormImg) {
+      console.log(this.$store.state.newDorm.dormImg[i])
       this.dormImg.push(
         URL.createObjectURL(this.$store.state.newDorm.dormImg[i])
       );
-    }
     let myroomTypeImg = { ...this.$store.state.newDorm.roomTypeImg };
     for (let key in myroomTypeImg) {
       for (let img in myroomTypeImg[key]) {
@@ -129,6 +128,7 @@ export default {
           );
         }
       }
+    }
     }
   },
   computed: {

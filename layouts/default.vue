@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white text-black min-h-screen">
+  <div class="bg-white text-black min-h-screen font-Kanit">
     <NavBar class="md:p-3 lg:p-5" />
     <Nuxt />
     <Footer />
