@@ -7,10 +7,10 @@
     >
       <span>ชั้น {{ floor.floor }}</span>
       <div v-for="(room, index) in floor.rooms" :key="index">
-        <div class="w-full bg-cream rounded-md p-3">
+        <div class="w-full bg-cream rounded-md p-3 relative">
           <button
-            @click="$delete(room, index)"
-            class="absolute top-0 right-0"
+            @click="$delete(floor.rooms, index)"
+            class="top-0 right-0 absolute"
             v-if="floor.rooms.length > 1"
           >
             <span class="material-icons text-black">close</span>
