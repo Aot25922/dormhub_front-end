@@ -1,7 +1,7 @@
 var _ = require('lodash');
 
 export const state = () => ({
-  Backend_URL: 'http://dormhub-dev.azurewebsites.net',
+  Backend_URL: 'https://dormhub-dev.azurewebsites.net',
   // Backend_URL: 'http://localhost:3001',
   userAccount: { role: "Guest" },
   dormList: [],
