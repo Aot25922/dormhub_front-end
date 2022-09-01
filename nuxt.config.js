@@ -56,9 +56,9 @@ export default {
   },
 
   proxy: {
-    '/api': {
+    '/back': {
       target: process.env.Backend_URL || 'http://localhost:3001',
-      pathRewrite: {'^/api': '/'}
+      pathRewrite: {'^/back': '/'}
     }
   },
 
