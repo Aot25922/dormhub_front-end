@@ -43,7 +43,6 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    '@nuxtjs/proxy',
 	  'nuxt-material-design-icons-iconfont',
     'cookie-universal-nuxt',
   ],
@@ -52,15 +51,6 @@ export default {
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
     baseURL: '/',
-    // proxy: true
-  },
-
-  proxy: {
-    '/api': {
-      target: process.env.Backend_URL || 'http://localhost:3001',
-      pathRewrite: {'^/api': '/'},
-      changeOrigin: true
-    }
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
