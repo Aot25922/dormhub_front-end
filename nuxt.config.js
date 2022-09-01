@@ -43,7 +43,7 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    // '@nuxtjs/proxy',
+    '@nuxtjs/proxy',
 	  'nuxt-material-design-icons-iconfont',
     'cookie-universal-nuxt',
   ],
@@ -55,13 +55,13 @@ export default {
     // proxy: true
   },
 
-  // proxy: {
-  //   '/api': {
-  //     target: process.env.Backend_URL || 'http://localhost:3001',
-  //     pathRewrite: {'^/api': '/'},
-  //     changeOrigin: true
-  //   }
-  // },
+  proxy: {
+    '/api': {
+      target: process.env.Backend_URL || 'http://localhost:3001',
+      pathRewrite: {'^/api': '/'},
+      changeOrigin: true
+    }
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {

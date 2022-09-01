@@ -1,5 +1,7 @@
 {
-  "globalHeaders": {
-    "Access-Control-Allow-Origin": "*"
+  "forwardingGateway": {
+    "allowedForwardedHosts": [
+      "node-dev.dormhub.works"
+    ]
   }
 }
