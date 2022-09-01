@@ -109,10 +109,13 @@
       <p>เเก้ไขข้อมูล</p>
     </button>
     <span v-if="accountNumValidate" class="text-error"
-      >Some account number field not complete</span
+      >กรุณากรอกเลขบัญชีให้ครบทุกช่อง</span
     >
     <span v-if="accountNameValidate" class="text-error"
-      >Some account name field not complete</span
+      >กรุณากรอกชื่อบัญชีให้ครบทุกช่อง</span
+    >
+    <span v-if="accountNameValidate" class="text-error"
+      >กรุณาเลือกธนาคารให้ครบทุกช่อง</span
     >
     <div class="flex items-center justify-center">
       <button
@@ -167,14 +170,6 @@ export default {
         let newBankAccount = JSON.parse(JSON.stringify(this.bankAccounts));
         this.$store.commit("SET_BANKACCOUNT", newBankAccount);
         this.disableForm = true;
-        const noti = this.$vs.notification({
-          progress: "auto",
-          icon: `<i class='bx bx-folder-open' ></i>`,
-          color: "success",
-          position: "top-right",
-          title: `Data Update`,
-          text: `Add you payment data complete!`,
-        });
         this.$emit("validate", true);
       } else {
         const noti = this.$vs.notification({
@@ -182,8 +177,8 @@ export default {
           icon: `<i class='bx bx-error' ></i>`,
           color: "warn",
           position: "top-right",
-          title: "Form data not complete",
-          text: "Please, input all data in field",
+          title: "ข้อมูลของคุญยังได้สมบูรณ์",
+          text: "กรุณาเติมข้อมูลให้ครบ",
         });
         this.$emit("validate", false);
       }

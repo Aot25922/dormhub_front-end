@@ -18,7 +18,16 @@ export default {
   methods: {
     next(){
       this.$refs.bank.submit()
-      if(this.validatePayment) this.$router.push({ path: "/dormForm/confirmForm" });
+      if(this.validatePayment){ 
+        const noti = this.$vs.notification({
+          progress: "auto",
+          icon: `<i class='bx bx-folder-open' ></i>`,
+          color: "success",
+          position: "top-right",
+          title: `ข้อมูลของคุณได้ถูกเพิ่มเเล้ว`,
+          text: `เพิ่มข้อมูช่องทางการชำระเงินเรียบร้อย!`,
+        });
+        this.$router.push({ path: "/dormForm/confirmForm" })};
     },
     checkForPaymentInfo(data){
       this.validatePayment = data
