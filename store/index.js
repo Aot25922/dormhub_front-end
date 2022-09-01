@@ -1,7 +1,7 @@
 var _ = require('lodash');
 
 export const state = () => ({
-  Backend_URL: process.env.Backend_URL || 'http://localhost:3001',
+  Backend_URL: '/api',
   userAccount: { role: "Guest" },
   dormList: [],
   provinceList: [],
