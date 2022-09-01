@@ -1,5 +1,5 @@
 {
   "globalHeaders": {
-    "Access-Control-Allow-Origin": "dormhub.works"
+    "Access-Control-Allow-Origin": "*"
   }
 }
