@@ -2,6 +2,7 @@ var _ = require('lodash');
 
 export const state = () => ({
   Backend_URL: 'https://dormhub-dev.azurewebsites.net',
+  // Backend_URL: 'http://dormhub-dev.azurewebsites.net',
   // Backend_URL: 'http://localhost:3001',
   userAccount: { role: "Guest" },
   dormList: [],
@@ -76,7 +77,7 @@ export const actions = {
       if (data != null) {
         commit('SET_USERACCOUNT', data)
       }
-    } catch (err) {    
+    } catch (err) {
     }
     try {
       await this.$axios.get(`${this.state.Backend_URL}/dorm`)
