@@ -1,8 +1,8 @@
 var _ = require('lodash');
 
 export const state = () => ({
-  Backend_URL: 'https://dormhub-dev.azurewebsites.net',
-  // Backend_URL: 'http://localhost:3001',
+  // Backend_URL: 'https://dormhub-dev.azurewebsites.net',
+  Backend_URL: 'http://localhost:3001',
   userAccount: { role: "Guest" },
   dormList: [],
   provinceList: [],
@@ -74,7 +74,7 @@ export const actions = {
         withCredentials: true,
       })
       if (data != null) {
-        commit('SET_USERACCOUNT', data)
+        console.log(data)
       }
     } catch (err) {    
     }
