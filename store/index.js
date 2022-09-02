@@ -73,7 +73,7 @@ export const actions = {
         withCredentials: true,
       })
       if (data != null) {
-        console.log(data)
+        commit('SET_USERACCOUNT',data)
       }
     } catch (err) {
     }
