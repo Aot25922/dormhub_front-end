@@ -34,10 +34,10 @@
 			</p>
 			<p class="pt-2"><span class="font-bold">ราคา:</span> {{ lowPrice }} - {{ highPrice }} บาท</p>
 			<p class="pt-2 font-bold">ช่องทางการติดต่อ:</p>
-			<!-- <ul class="list-none">
-				<li class="pl-3">อีเมล: <span class="text-light-blue">{{ owner.email }}</span></li>
-				<li class="pl-3">เบอร์โทรศัพท์:  <span class="text-light-blue">{{ owner.phone }}</span></li>
-			</ul> -->
+			<ul class="list-none">
+				<li class="pl-3">อีเมล: <span class="text-light-blue">{{ dorm.userAccount.email }}</span></li>
+				<li class="pl-3">เบอร์โทรศัพท์:  <span class="text-light-blue">{{ dorm.userAccount.phone }}</span></li>
+			</ul>
 		</div>
       </div>
       <div class="dropdown px-4">
@@ -52,7 +52,7 @@
         </ul>
       </div>
       <div>
-       <room-type class="mt-1" v-if="roomType" :roomType="roomType" :elecPerUnit="dorm.elecPerUnit" :waterPerUnit="dorm.waterPerUnit" :media="roomTypeMedia" :key="roomType.roomTypeId"/>
+       <room-type class="mt-1" v-if="roomType" :roomType="roomType" :elecPerUnit="dorm.elecPerUnit" :waterPerUnit="dorm.waterPerUnit" :media="roomTypeMedia" :key="roomType.roomTypeId" :rooms="dorm.rooms.filter(x => x.roomTypeId == roomType.roomTypeId)"/>
       </div>
     </div>
     <div v-else>
