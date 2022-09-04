@@ -12,7 +12,7 @@
             เพื่อให้ผู้เช่าหอพักเห็นหอพักของคุณ
           </p>
         </div>
-        <SearchBar class="" />
+        <SearchBar />
       </div>
     </div>
     <img src="@/assets/intro.webp" class="hidden lg:block lg:w-1/3 lg:object-cover">

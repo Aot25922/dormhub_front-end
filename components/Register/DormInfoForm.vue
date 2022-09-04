@@ -50,7 +50,7 @@
       </div>
       <div class="mb-5 md:px-1 md:w-full">
         <label class="label-text text-gray-500 tracking-wide font-bold my-2">ข้อมูลเพิ่มเติม</label>
-        <textarea v-model="dorm.description" class=" h-[80px] md:h-24 p-2 w-full border-0 input input-sm md:input-md rounded" placeholder="คำอธิบายเพิ่มเติม" />
+        <textarea v-model="dorm.description" class="h-[80px] md:h-24 p-2 w-full border-0 input input-sm md:input-md rounded" placeholder="คำอธิบายเพิ่มเติม" />
       </div>
       <div class="mb-5 md:px-1 md:w-full">
         <label class="label-text text-gray-500 tracking-wide font-bold my-2">เลือกภาพปกที่ใช้แสดงบนหน้าเว็ป<span class="text-imperialRed">*</span></label>

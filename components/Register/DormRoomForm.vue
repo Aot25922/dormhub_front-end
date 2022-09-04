@@ -1,125 +1,56 @@
 <template>
   <div>
-    <div v-for="(floor, index) in roomList" :key="index" class="grid grid-cols-4 gap-4">
-      <span>ชั้น {{ floor.floor }}</span>
-      <div v-for="(room, index) in floor.rooms" :key="index">
-        <div class="w-full bg-cream rounded-md p-3 relative">
-          <button
-            @click="$delete(floor.rooms, index)"
-            class="top-0 right-0 absolute"
-            v-if="floor.rooms.length > 1"
-          >
-            <span class="material-icons text-black">close</span>
-          </button>
-          <label
-            for=""
-            class="label-text text-gray-soil tracking-wide font-bold my-2"
-            >เลขห้อง</label
-          >
-          <input
-            type="text"
-            class="
-              py-4
-              mb-3
-              px-2
-              w-full
-              input-sm
-              rounded
-              text-gray-soil
-              bg-cream-light
-              border-0
-              focus:outline-none focus:bg-cream-lightest focus:text-gray-soil
-              disabled:bg-green-darker disabled:text-dark-gray
-            "
-            placeholder="101"
-            v-model="room.roomNum"
-          />
-          <label
-            for=""
-            class="label-text text-gray-soil tracking-wide font-bold my-2"
-            >สถานะ</label
-          >
-          <input
-            type="text"
-            class="
-              py-4
-              mb-3
-              px-2
-              w-full
-              input-sm
-              rounded
-              text-gray-soil
-              bg-cream-light
-              border-0
-              focus:outline-none focus:bg-cream-lightest focus:text-gray-soil
-              disabled:bg-green-darker disabled:text-dark-gray
-            "
-            placeholder="ว่าง/ไม่ว่าง"
-            v-model="room.status"
-          />
+    <div v-for="(floor, index) in roomList" :key="index" class="rounded border border-gray-600 p-5 mt-5">
+      <div class="">
+        <span>ชั้น {{ floor.floor }}</span>
+        <div v-for="(room, index) in floor.rooms" :key="index">
+          <div class="w-full rounded-md p-3 relative grid grid-cols-3">
+            <div class="col-span-1 px-1">
+              <label class="label-text tracking-wide font-bold my-2">เลขห้อง</label>
+              <input type="text" class="py-4 mb-3 px-2 w-full input-md rounded border-0" placeholder="101" v-model="room.roomNum" />
+            </div>
 
-          <label
-            for=""
-            class="label-text text-gray-soil tracking-wide font-bold my-2"
-            >รายละเอียดเพิ่มเติม</label
-          >
-          <input
-            type="text"
-            class="
-              py-4
-              mb-3
-              px-2
-              w-full
-              input-sm
-              rounded
-              text-gray-soil
-              bg-cream-light
-              border-0
-              focus:outline-none focus:bg-cream-lightest focus:text-gray-soil
-              disabled:bg-green-darker disabled:text-dark-gray
-            "
-            placeholder="หอมชื่นใจ"
-            v-model="room.description"
-          />
+            <div class="col-span-1 px-1">
+              <label class="label-text tracking-wide font-bold my-2">สถานะ</label>
+              <input type="text" class="py-4 mb-3 px-2 w-full input-md rounded border-0" placeholder="ว่าง/ไม่ว่าง" v-model="room.status" />
+            </div>
 
-          <label
-            for=""
-            class="label-text text-gray-soil tracking-wide font-bold my-2"
-            >ประเภทห้อง</label
-          >
-          <select
-            class="
-              select
-              mb-5
-              w-full
-              text-gray-soil
-              bg-dark-gray
-              border-2 border-gray-soil
-              disabled:bg-gratext-gray-soil disabled:text-dark-blue
-            "
-            v-model="room.roomType"
-          >
-            <option option disabled selected>กรุณาเลือกประเภทห้อง</option>
-            <option
-              v-for="option in $store.state.newDorm.roomType"
-              :value="option.type"
-              :key="option.type"
-            >
-              {{ option.type }}
-            </option>
-          </select>
+            <div class="col-span-1 px-1">
+              <label class="label-text tracking-wide font-bold my-2">ประเภทห้อง</label>
+              <select class="select mb-5 w-full" v-model="room.roomType">
+                <option option disabled selected>กรุณาเลือกประเภทห้อง</option>
+                <option
+                  v-for="option in $store.state.newDorm.roomType"
+                  :value="option.type"
+                  :key="option.type">
+                  {{ option.type }}
+                </option>
+              </select>
+            </div>
+
+            <div class="col-span-3 px-1">
+              <label class="label-text tracking-wide font-bold my-2">รายละเอียดเพิ่มเติม</label>
+              <textarea type="text" class="py-4 mb-3 px-2 h-20 w-full input-sm md:input-md rounded border-0" placeholder="โต๊ะ เตียง เก้าอี้" v-model="room.description" />
+            </div>
+
+            <div class="col-span-3 ml-auto">
+              <button @click="$delete(floor.rooms, index)" class="btn btn-accent btn-sm" v-if="floor.rooms.length > 1">
+                <span class="material-icons">delete</span>
+                ลบห้อง {{ room.roomNum }}
+              </button>
+            </div>
+            <div class="col-span-3 divider"></div>
+          </div>
         </div>
-      </div>
-      <div class="py-3">
-        <button class="text-black">
-          <span class="material-icons" @click="addNewRoom(floor)">add_box</span
-          >เพิ่มห้อง
-        </button>
+    </div>
+
+      <div class="py-3 w-full">
+        <button class="btn btn-neutral w-full">เพิ่มห้อง</button>
       </div>
     </div>
-    <button class="btn btn-primary" @click="addNewFloor">
-      เพิ่มชั้นของหอพัก
-    </button>
+    <div class="py-5 w-full">
+      <button class="btn btn-secondary w-full" @click="addNewFloor">เพิ่มชั้นของหอพัก</button>
+    </div>
   </div>
 </template>
 <script>
