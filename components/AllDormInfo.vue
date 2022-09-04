@@ -39,7 +39,8 @@
         </div>
         <div class="flex py-1 text-gray-500">
           <span class="material-icons">local_offer</span>
-          <div class="text-xs px-1 mt-1 lg:text-base">ไตข้างซ้าย<span class="text-gray-400 font-normal">/ เดือน</span></div>
+          <div class="text-xs px-1 mt-1 lg:text-base" v-if="minPrice != maxPrice">{{minPrice}} ถึง {{maxPrice}} บาท<span class="text-gray-400 font-normal">/ เดือน</span></div>
+          <div class="text-xs px-1 mt-1 lg:text-base" v-else>{{minPrice}} บาท<span class="text-gray-400 font-normal">/ เดือน</span></div>
         </div>
         <div class="card-actions">
           <button @click="dormInfo()" class="btn btn-primary w-full duration-300 ease-in-out lg:w-1/3 lg:ml-auto xl:w-1/4">รายละเอียดทั้งหมด</button>
@@ -62,6 +63,22 @@ export default {
       let dormInfo = {dorm:this.dorm}
       this.$store.dispatch('dormSelected',dormInfo)
       this.$router.push({path:`/dorm/${this.dorm.dormId}`})
+    }
+  },
+  computed: {
+    minPrice() {
+      let minvalue = []
+      for(let i in this.dorm.roomTypes){
+        minvalue.push(this.dorm.roomTypes[i].dormHasRoomType.price)
+      }
+      return  Math.min(...minvalue)
+    },
+    maxPrice() {
+      let maxvalue = []
+      for(let i in this.dorm.roomTypes){
+        maxvalue.push(this.dorm.roomTypes[i].dormHasRoomType.price)
+      }
+      return  Math.max(...maxvalue)
     }
   }
 };

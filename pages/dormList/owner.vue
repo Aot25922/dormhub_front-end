@@ -30,18 +30,7 @@ export default {
       for(let i in this.$store.state.userAccount.dorms){
         userDormId.push(this.$store.state.userAccount.dorms[i].dormId)
       }
-      console.log(this.$store.state.dormList)
       this.dormList = this.$store.state.dormList.filter(x => userDormId.includes(x.dormId))
-  },
-  computed: {
-    // dormList() {
-    //   let userDormId = []
-    //   for(let i in this.$store.state.userAccount.dorms){
-    //     userDormId.push(this.$store.state.userAccount.dorms[i].dormId)
-    //   }
-    //   return this.$store.state.dormList.filter(x => userDormId.includes(x.dormId)
-    //   );
-    // }
   },
 }
 </script>

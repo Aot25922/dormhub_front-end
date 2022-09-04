@@ -87,7 +87,6 @@ export default {
   },
   methods: {
     submit() {
-      console.log(this.$store.state.newDorm);
       this.$store.dispatch("addDorm").then(() => {
         const noti = this.$vs.notification({
           progress: "auto",
@@ -113,7 +112,6 @@ export default {
   },
   created() {
     for (let i in this.$store.state.newDorm.dormImg) {
-      console.log(this.$store.state.newDorm.dormImg[i])
       this.dormImg.push(
         URL.createObjectURL(this.$store.state.newDorm.dormImg[i])
       );

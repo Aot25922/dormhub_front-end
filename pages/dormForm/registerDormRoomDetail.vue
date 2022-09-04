@@ -22,7 +22,16 @@ export default {
   methods: {
     next(){
       this.$refs.room.submit()
-      if(this.validateRoom) {this.$router.push({ path: "/dormForm/registerDormPaymentDetail" })};
+      if(this.validateRoom) {
+        const noti = this.$vs.notification({
+          progress: "auto",
+          icon: `<i class='bx bx-folder-open' ></i>`,
+          color: "success",
+          position: "top-right",
+          title: `ข้อมูลของคุณได้ถูกเพิ่มเเล้ว`,
+          text: `เพิ่มข้อมูลห้องพักเรียบร้อย!`,
+        });
+        this.$router.push({ path: "/dormForm/registerDormPaymentDetail" })};
     },
     checkForRoomInfo(data){
       this.validateRoom = data

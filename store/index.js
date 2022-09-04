@@ -1,8 +1,7 @@
 var _ = require('lodash');
 
 export const state = () => ({
-  // Backend_URL: 'http://dormhub-dev.azurewebsites.net',
-  Backend_URL: 'http://localhost:3001',
+  Backend_URL: process.env.Backend_URL || 'http://localhost:3001',
   userAccount: { role: "Guest" },
   dormList: [],
   provinceList: [],
@@ -13,7 +12,6 @@ export const state = () => ({
 export const mutations = {
   SET_USERACCOUNT(state, data) {
     state.userAccount = data.data
-    console.log(state.userAccount)
   },
   SET_DORMLIST(state, data) {
     state.dormList = data;
@@ -23,18 +21,15 @@ export const mutations = {
   },
   DORM_SELECTED(state, dorm) {
     state.selectedDorm = dorm;
-    console.log(state.selectedDorm)
   },
   SET_DORMINFO(state, data) {
     state.newDorm.dorm = data;
-    console.log(state.newDorm.dorm)
   },
   SET_DORMIMG(state, data) {
     state.newDorm.dormImg = data
   },
   SET_DORMADDRESS(state, data) {
     state.newDorm.address = data
-    console.log(state.newDorm.address)
   },
   SET_ROOMTYPEIMG(state, data) {
     let key = data.key
@@ -42,14 +37,12 @@ export const mutations = {
     state.newDorm.roomTypeImg = _.pickBy(state.newDorm.roomTypeImg, function(value, key) {
       return !(_.isEqual(key, oldRoomType));
     });
-    console.log(state.newDorm.roomTypeImg)
     state.newDorm.roomTypeImg[key] = data.roomTypeImg
   },
   SET_ROOMTYPE(state, data) {
     for (let i in state.newDorm.roomType) {
       if (state.newDorm.roomType[i].type == data.type || state.newDorm.roomType[i].type == data.oldRoomType) {
         state.newDorm.roomType[i] = _.omitBy(data, (value, key) => key.includes("oldRoomType"));
-        console.log(state.newDorm.roomType)
         return
       }
     }
@@ -67,11 +60,9 @@ export const mutations = {
   },
   SET_ROOM(state, data) {
     state.newDorm.room = data
-    console.log(state.newDorm.room)
   },
   SET_BANKACCOUNT(state, data) {
     state.newDorm.bankAccount = data
-    console.log(state.newDorm.bankAccount)
   }
 };
 
@@ -82,10 +73,9 @@ export const actions = {
         withCredentials: true,
       })
       if (data != null) {
-        commit('SET_USERACCOUNT', data)
+        commit('SET_USERACCOUNT',data)
       }
     } catch (err) {
-      console.log(err)
     }
     try {
       await this.$axios.get(`${this.state.Backend_URL}/dorm`)
@@ -93,7 +83,6 @@ export const actions = {
           commit('SET_DORMLIST', response.data)
         })
     } catch (err) {
-      console.log(err)
     }
   },
   async fetchDormList({ commit }) {
@@ -101,7 +90,6 @@ export const actions = {
       .then(response => {
         commit('SET_DORMLIST', response.data)
       })
-    console.log("Fetch DormList");
   },
   async fetchProvinceList({ commit }) {
     for (let i in state.dormList) {
@@ -109,7 +97,6 @@ export const actions = {
         commit('SET_PROVINCELIST', state.dormList[i].address.subDistrict.district.province.name);
       }
     }
-    console.log("Fetch ProvinceList");
 
   },
   async logout({ state, commit }) {
@@ -119,7 +106,6 @@ export const actions = {
       })
       commit('SET_USERACCOUNT', { data: { role: "Guest" } })
     } catch (err) {
-      console.log(err)
     }
   },
   async dormSelected({ commit, state }, dormInfo) {
@@ -128,9 +114,7 @@ export const actions = {
       try {
         dorm = await this.$axios.$get(`${state.Backend_URL}/dorm/${dormInfo.id}`)
       } catch (err) {
-        console.log(err)
       }
-      console.log(dorm)
       commit('DORM_SELECTED', dorm)
     } else {
       commit('DORM_SELECTED', dormInfo.dorm)
@@ -146,7 +130,6 @@ export const actions = {
       let formData = new FormData()
       let data = {}
       let newbankAccount = _.cloneDeep(dorm.bankAccount)
-      console.log(newbankAccount)
       for(let i in newbankAccount){
         newbankAccount[i].bankId = newbankAccount[i].bankId.bankId
       }
@@ -160,9 +143,6 @@ export const actions = {
       }
       for (let i in dorm.dormImg) {
         formData.append(`dorm_${dorm.dorm.name}`, dorm.dormImg[i], 'test.jpg')
-      }
-      for (var pair of formData.entries()) {
-        console.log(pair[0] + ': ' + pair[1]);
       }
       return await this.$axios.$post(`${state.Backend_URL}/dorm/register`, formData, {withCredentials: true,})
 

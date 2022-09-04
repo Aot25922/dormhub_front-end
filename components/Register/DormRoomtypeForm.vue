@@ -110,14 +110,6 @@ export default {
         this.oldRoomType = newRoomType.type;
         this.disableForm = true;
         this.$emit('validate',true)
-        const noti = this.$vs.notification({
-          progress: "auto",
-          icon: `<i class='bx bx-folder-open' ></i>`,
-          color: "success",
-          position: "top-right",
-          title: `Data Update`,
-          text: `Add you room type data complete!`,
-        });
       } else {
         this.$emit('validate',false)
         const noti = this.$vs.notification({
@@ -125,8 +117,8 @@ export default {
           icon: `<i class='bx bx-error' ></i>`,
           color: "warn",
           position: "top-right",
-          title: "Form data not complete",
-          text: "Please, input all data in field",
+          title: "ข้อมูลของคุญยังได้สมบูรณ์",
+          text: "กรุณาเติมข้อมูลให้ครบ",
         });
       }
     },

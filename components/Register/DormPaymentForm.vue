@@ -88,14 +88,6 @@ export default {
         let newBankAccount = JSON.parse(JSON.stringify(this.bankAccounts));
         this.$store.commit("SET_BANKACCOUNT", newBankAccount);
         this.disableForm = true;
-        const noti = this.$vs.notification({
-          progress: "auto",
-          icon: `<i class='bx bx-folder-open' ></i>`,
-          color: "success",
-          position: "top-right",
-          title: `Data Update`,
-          text: `Add you payment data complete!`,
-        });
         this.$emit("validate", true);
       } else {
         const noti = this.$vs.notification({
@@ -103,8 +95,8 @@ export default {
           icon: `<i class='bx bx-error' ></i>`,
           color: "warn",
           position: "top-right",
-          title: "Form data not complete",
-          text: "Please, input all data in field",
+          title: "ข้อมูลของคุญยังได้สมบูรณ์",
+          text: "กรุณาเติมข้อมูลให้ครบ",
         });
         this.$emit("validate", false);
       }

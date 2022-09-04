@@ -144,7 +144,6 @@ export default {
         this.validateRegion &&
         this.validateProvince
       ) {
-        console.log(this.selectedSubdistrict)
         this.address.zipCodeId = this.selectedSubdistrict.zipCodeId;
         this.address.district = this.selectedDistrict;
         this.address.region = this.selectedRegion.regions;
@@ -154,14 +153,6 @@ export default {
         this.$store.commit("SET_DORMADDRESS", newAddress);
         this.disableForm = true;
         this.$emit("validate", true);
-        const noti = this.$vs.notification({
-          progress: "auto",
-          icon: `<i class='bx bx-folder-open' ></i>`,
-          color: "success",
-          position: "top-right",
-          title: `Data Update`,
-          text: `Add you dorm address data complete!`,
-        });
       } else {
         this.$emit("validate", false);
         const noti = this.$vs.notification({
@@ -169,8 +160,8 @@ export default {
           icon: `<i class='bx bx-error' ></i>`,
           color: "warn",
           position: "top-right",
-          title: "Form data not complete",
-          text: "Please, input all data in field",
+          title: "ข้อมูลของคุญยังได้สมบูรณ์",
+          text: "กรุณาเติมข้อมูลให้ครบ",
         });
       }
     },
