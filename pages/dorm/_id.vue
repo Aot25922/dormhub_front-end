@@ -69,11 +69,6 @@ export default {
   async fetch() {
     if (this.$store.state.selectedDorm != null) {
       this.dorm = this.$store.state.selectedDorm;
-      for (let i in this.dorm.userAccounts) {
-        if (this.dorm.userAccounts[i].role == "Owner") {
-          this.owner = this.dorm.userAccounts[i];
-        }
-      }
       let price = [];
       for (let i in this.dorm.roomTypes) {
         price.push(this.dorm.roomTypes[i].dormHasRoomType.price);
@@ -84,11 +79,6 @@ export default {
       let dormInfo = { dorm: null, id: this.$route.params.id };
       await this.$store.dispatch("dormSelected", dormInfo);
       this.dorm = this.$store.state.selectedDorm;
-      for (let i in this.dorm.userAccounts) {
-        if (this.dorm.userAccounts[i].role == "Owner") {
-          this.owner = this.dorm.userAccounts[i];
-        }
-      }
       let price = [];
       for (let i in this.dorm.roomTypes) {
         price.push(this.dorm.roomTypes[i].dormHasRoomType.price);
@@ -100,7 +90,6 @@ export default {
   data() {
     return {
       dorm: null,
-      owner: null,
       lowPrice: 0,
       highPrice: 0,
       roomType : null,
@@ -113,6 +102,6 @@ export default {
       this.roomType = data
       this.roomTypeMedia = this.dorm.media.filter(i => i.roomTypeId == this.roomType.roomTypeId)
     }
-  },
+  }
 };
 </script>
