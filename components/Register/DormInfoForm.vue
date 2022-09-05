@@ -3,31 +3,16 @@
     <div class="p-3 rounded-lg my-3 md:p-5 md:flex md:flex-wrap">
       <h1 class="text-lg ml-2 mb-2 font-bold md:w-full">เกี่ยวกับหอพัก</h1>
       <div class="mb-2 md:px-1 md:w-full">
-        <label class="label-text text-gray-500 tracking-wide font-bold my-2"
-          >ชื่อหอพัก <span class="text-imperialRed">*</span></label
-        >
-        <input
-          type="text"
-          autofocus
-          class="py-4 px-2 w-full input input-sm md:input-md rounded"
-          placeholder="แฮปปี้ดอร์ม"
-          @blur="checkForm"
-          v-model="dorm.name"
-        />
-        <p v-if="!validateName" class="text-imperialRed text-right mt-2">
-          กรุณากรอกชื่อหอพัก
-        </p>
-        <p v-if="!validName" class="text-imperialRed text-right mt-2">
-          ชื่อนี้ถูกใช้ไปเเล้ว กรุณากรอกชื่อหอพักใหม่
-        </p>
+        <label class="label-text text-gray-500 tracking-wide font-bold my-2">ชื่อหอพัก <span class="text-imperialRed">*</span></label>
+          <input type="text" autofocus class="py-4 px-2 w-full input input-sm md:input-md rounded"
+            placeholder="แฮปปี้ดอร์ม"
+            @blur="checkForm"
+            v-model="dorm.name" />
+          <p v-if="!validateName" class="text-imperialRed text-right mt-2">กรุณากรอกชื่อหอพัก</p>
       </div>
       <div class="mb-5 md:px-1 md:w-1/2">
-        <label class="label-text text-gray-500 tracking-wide font-bold"
-          >เวลาเปิด</label
-        >
-        <input
-          type="time"
-          class="py-4 px-2 w-full input input-sm md:input-md rounded"
+        <label class="label-text text-gray-500 tracking-wide font-bold">เวลาเปิด</label>
+        <input type="time" class="py-4 px-2 w-full input input-sm md:input-md rounded"
           placeholder="06.00"
           @blur="checkForm"
           v-model="dorm.openTime"
@@ -37,12 +22,8 @@
           </p> -->
       </div>
       <div class="mb-5 md:px-1 md:w-1/2">
-        <label class="label-text text-gray-500 tracking-wide font-bold my-2"
-          >เวลาปิด</label
-        >
-        <input
-          type="time"
-          class="py-4 px-2 w-full input input-sm md:input-md rounded"
+        <label class="label-text text-gray-500 tracking-wide font-bold my-2">เวลาปิด</label>
+        <input type="time" class="py-4 px-2 w-full input input-sm md:input-md rounded"
           placeholder="22.00"
           @blur="checkForm"
           v-model="dorm.closeTime"
@@ -52,97 +33,38 @@
           </p> -->
       </div>
       <div class="mb-2 md:px-1 md:w-1/2">
-        <label class="label-text text-gray-500 tracking-wide font-bold my-2"
-          >ค่าน้ำต่อหน่วย <span class="text-imperialRed">*</span></label
-        >
-        <input
-          type="number"
-          step="0.01"
-          @blur="checkForm"
-          v-model="dorm.waterPerUnit"
+        <label class="label-text text-gray-500 tracking-wide font-bold my-2">ค่าน้ำต่อหน่วย <span class="text-imperialRed">*</span></label>
+        <input type="number" step="0.01" @blur="checkForm" v-model="dorm.waterPerUnit"
           class="py-4 px-2 w-full input input-sm md:input-md rounded"
-          placeholder="0.01 - 9.99"
-        />
-        <p v-if="!validateWater" class="text-imperialRed text-right mt-2">
-          ใส่ค่าได้ตั้งแต่ 0.01 - 9.99
-        </p>
+          placeholder="0.01 - 9.99" />
+        <p v-if="!validateWater" class="text-imperialRed text-right mt-2">ใส่ค่าได้ตั้งแต่ 0.01 - 9.99</p>
       </div>
       <div class="mb-2 md:px-1 md:w-1/2">
         <label class="label-text text-gray-500 tracking-wide font-bold my-2"
           >ค่าไฟต่อหน่วย <span class="text-imperialRed">*</span></label
         >
-        <input
-          type="number"
-          step="0.01"
-          @blur="checkForm"
-          v-model="dorm.elecPerUnit"
+        <input type="number" step="0.01" @blur="checkForm" v-model="dorm.elecPerUnit"
           class="py-4 px-2 w-full input input-sm md:input-md rounded"
-          placeholder="0.01 - 9.99"
-        />
-        <p
-          v-if="!validateElec"
-          @blur="checkForm"
-          class="text-imperialRed text-right mt-2"
-        >
-          ใส่ค่าได้ตั้งแต่ 0.01 - 9.99
-        </p>
+          placeholder="0.01 - 9.99" />
+        <p v-if="!validateElec" @blur="checkForm" class="text-imperialRed text-right mt-2">ใส่ค่าได้ตั้งแต่ 0.01 - 9.99</p>
       </div>
       <div class="mb-5 md:px-1 md:w-full">
-        <label class="label-text text-gray-500 tracking-wide font-bold my-2"
-          >ข้อมูลเพิ่มเติม</label
-        >
-        <textarea
-          v-model="dorm.description"
-          class="
-            h-[80px]
-            md:h-24
-            p-2
-            w-full
-            border-0
-            input input-sm
-            md:input-md
-            rounded
-          "
-          placeholder="คำอธิบายเพิ่มเติม"
-        />
+        <label class="label-text text-gray-500 tracking-wide font-bold my-2">ข้อมูลเพิ่มเติม</label>
+        <textarea v-model="dorm.description" class="h-[80px] md:h-24 p-2 w-full border-0 input input-sm md:input-md rounded" placeholder="คำอธิบายเพิ่มเติม" />
       </div>
       <div class="mb-5 md:px-1 md:w-full">
-        <label class="label-text text-gray-500 tracking-wide font-bold my-2"
-          >เลือกภาพปกที่ใช้แสดงบนหน้าเว็ป<span class="text-imperialRed"
-            >*</span
-          ></label
-        >
-        <input
-          type="file"
-          class="
-            focus:outline-none
-            form-control
-            block
-            w-full
-            rounded
-            transition
-            ease-in-out
-            border-none
-          "
-          @change="
-            onFileChange($event);
-            checkForm();
-          "
-          multiple
-        />
+        <label class="label-text text-gray-500 tracking-wide font-bold my-2">เลือกภาพปกที่ใช้แสดงบนหน้าเว็ป<span class="text-imperialRed">*</span></label>
+        <input type="file" class="focus:outline-none form-control block w-full rounded transition ease-in-out border-none" @change="onFileChange($event); checkForm();" multiple />
         <div v-if="dormImgUrl">
           <div class="md:grid md:grid-cols-2 lg:grid lg:grid-cols-4">
             <img
               v-for="i in dormImgUrl"
               :key="i"
               :src="i"
-              class="py-2 md:p-2 md:max-h-80 md:max-w-full md:object-cover"
-            />
+              class="py-2 md:p-2 md:max-h-80 md:max-w-full md:object-cover" />
           </div>
         </div>
-        <p v-if="!validateDormImg" class="text-imperialRed text-right mt-2">
-          ต้องมีอย่างน้อย 1 ภาพ
-        </p>
+        <p v-if="!validateDormImg" class="text-imperialRed text-right mt-2">ต้องมีอย่างน้อย 1 ภาพ</p>
       </div>
     </div>
   </div>
@@ -170,7 +92,6 @@ export default {
       validateElec: false,
       validateWater: false,
       validateDormImg: false,
-      validName: true
     };
   },
   methods: {
@@ -196,19 +117,8 @@ export default {
         }
       }
     },
-    async submit() {
-      let formData = new FormData();
-      formData.append("data", JSON.stringify({ dormName: this.dorm.name }));
-      let checkName = await this.$axios.$post(
-        `${this.$store.state.Backend_URL}/dorm/validateDorm`,
-        formData,
-        {
-          withCredentials: true,
-        }
-      );
-      this.validName = checkName;
+    submit() {
       if (
-        this.validName&&
         this.validateName &&
         this.validateOpenTime &&
         this.validateCloseTime &&
@@ -222,6 +132,14 @@ export default {
         this.$store.commit("SET_DORMIMG", dormImgCopy);
         this.disableForm = true;
         this.$emit("validate", true);
+        const noti = this.$vs.notification({
+          progress: "auto",
+          icon: `<i class='bx bx-folder-open' ></i>`,
+          color: "success",
+          position: "top-right",
+          title: `Data Update`,
+          text: `Add you dorm detail data complete!`,
+        });
       } else {
         this.$emit("validate", false);
         const noti = this.$vs.notification({
@@ -229,8 +147,8 @@ export default {
           icon: `<i class='bx bx-error' ></i>`,
           color: "warn",
           position: "top-right",
-          title: "ข้อมูลของคุญยังได้สมบูรณ์",
-          text: "กรุณาเติมข้อมูลให้ครบ",
+          title: "Form data not complete",
+          text: "Please, input all data in field",
         });
       }
     },

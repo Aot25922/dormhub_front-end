@@ -2,8 +2,14 @@
   <div class="py-3 md:py-5">
     <div>
       <RegisterDormPaymentForm ref="bank" @validate="checkForPaymentInfo"/>
-      <button class="btn btn-neutral mx-auto block bg-cheese" @click="next">Next</button>
-      <nuxt-link to="/dormForm/registerDormRoomDetail" class="btn btn-neutral mx-auto block bg-cheese">Back</nuxt-link>
+      <div class="flex flex-wrap mt-10">
+        <div class="w-1/2 px-1">
+          <nuxt-link to="/dormForm/registerDormRoomDetail" class="btn btn-ghost w-full">ย้อนกลับ</nuxt-link>
+        </div>
+        <div class="w-1/2 px-1">
+          <button class="btn btn-primary w-full" @click="next">ต่อไป</button>
+        </div>
+      </div>
     </div>
   </div>
 </template>

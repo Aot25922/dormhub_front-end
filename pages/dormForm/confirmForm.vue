@@ -70,8 +70,8 @@
         </div>
       </div>
     </div>
-    <button class="btn btn-neutral mx-auto block bg-cheese" @click="submit">
-      Next
+    <button class="btn btn-primary mx-auto w-full" @click="submit">
+      ยืนยีน
     </button>
   </div>
 </template>
