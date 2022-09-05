@@ -37,6 +37,7 @@ export const mutations = {
     state.newDorm.roomTypeImg = _.pickBy(state.newDorm.roomTypeImg, function(value, key) {
       return !(_.isEqual(key, oldRoomType));
     });
+    console.log(state.newDorm.roomTypeImg)
     state.newDorm.roomTypeImg[key] = data.roomTypeImg
   },
   SET_ROOMTYPE(state, data) {
