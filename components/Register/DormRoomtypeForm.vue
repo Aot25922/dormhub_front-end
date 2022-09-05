@@ -6,35 +6,35 @@
     <h1 class="text-lg ml-2 mb-2 font-bold lg:w-full">ประเภทห้อง</h1>
     <div class="lg:px-1 lg:w-1/2">
       <label class="label-text text-gray-500 tracking-wide font-bold my-2">ชื่อประเภทห้อง <span class="text-imperialRed">*</span></label>
-      <input type="text" class="p-2 mb-5 rounded border-none input input-sm md:input-md w-full"
+      <input type="text" class="p-2 mb-5 rounded border-none input input-sm md:input-md w-full disabled:text-gray-400"
         placeholder="ห้องนี้สีเขียว" v-model="roomType.type" @blur="validateForm" :disabled="disableForm" />
       <p class="text-imperialRed text-right" v-if="validateType">กรุณาใส่ชื่อประเภทห้อง</p>
     </div>
 
     <div class="lg:px-1 lg:w-1/2">
       <label class="label-text text-gray-500 tracking-wide font-bold my-2">ราคาค่าเช่าห้องพัก <span class="text-imperialRed">*</span></label>
-      <input type="number" class="p-2 mb-5 rounded border-none input input-sm md:input-md w-full"
+      <input type="number" class="p-2 mb-5 rounded border-none input input-sm md:input-md w-full disabled:text-gray-400"
         placeholder="200" v-model="roomType.price" min="1" max="100000" @blur="validateForm" :disabled="disableForm" />
       <p class="text-imperialRed text-right" v-if="validatePrice">ราคาได้ตั้งแต่ 1-100000</p>
     </div>
 
     <div class="lg:px-1 lg:w-1/2">
       <label class="label-text text-gray-500 tracking-wide font-bold my-2">ราคาค่ามัดจำ <span class="text-imperialRed">*</span></label>
-      <input type="number" class="p-2 mb-5 rounded border-none input input-sm md:input-md w-full"
+      <input type="number" class="p-2 mb-5 rounded border-none input input-sm md:input-md w-full disabled:text-gray-400"
         placeholder="200" v-model="roomType.deposit" min="1" max="100000" @blur="validateForm" :disabled="disableForm" />
       <p class="text-imperialRed text-right" v-if="validateDeposit">ราคาได้ตั้งแต่ 1-100000</p>
     </div>
 
     <div class="lg:px-1 lg:w-1/2">
       <label class="label-text text-gray-500 tracking-wide font-bold my-2">ขนาดพื้นที่ (ตารางเมตร) <span class="text-imperialRed">*</span></label>
-      <input type="number" class="p-2 mb-5 rounded border-none input input-sm md:input-md w-full"
+      <input type="number" class="p-2 mb-5 rounded border-none input input-sm md:input-md w-full disabled:text-gray-400"
         placeholder="999.99" min="1" max="999.99" v-model="roomType.area" @blur="validateForm" :disabled="disableForm" />
       <p class="text-imperialRed text-right" v-if="validateArea">พื้นที่ได้ตั้งแต่ 1-999.99</p>
     </div>
 
     <div class="lg:w-full">
       <h1 class="text-lg ml-2 mb-2 font-bold">สิ่งอำนวยความสะดวก/บริการเสริม</h1>
-      <textarea class="h-[80px] md:h-24 p-2 mb-5 rounded w-full border-0"
+      <textarea class="h-[80px] md:h-24 p-2 mb-5 rounded w-full border-0 disabled:text-gray-400 disabled:bg-gray-900"
         placeholder="สิ่งอำนวยความสะดวกต่าง ๆ" v-model="roomType.facility" @blur="validateForm" :disabled="disableForm" />
     </div>
 
