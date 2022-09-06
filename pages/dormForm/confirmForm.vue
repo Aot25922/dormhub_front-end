@@ -14,8 +14,8 @@
       <div class="p-5 text-sm">
         <h1 class=" py-2 font-bold text-xl">{{ dorm.dorm.name }}</h1>
         <p>
-          ที่อยู่ : {{ dorm.address.number }} ซอย
-          {{ dorm.address.alley }} เขต {{ dorm.address.district }} อำเภอ
+          ที่อยู่ : {{ dorm.address.number }} <span v-if="dorm.address.alley != ''">ซอย {{ dorm.address.alley }}</span>
+          เขต {{ dorm.address.district }} อำเภอ
           {{ dorm.address.subDistrict }} จังหวัด
           {{ dorm.address.province }} รหัสไปรษณีย์ {{ dorm.address.zipCodeId }}
         </p>
@@ -47,7 +47,7 @@
           <p class="w-full">ขนาดพื้นที่ห้องพัก : {{ roomType.area }} ตารางเมตร</p>
           <div class="w-full font-bold mt-5">รายละเอียดเพิ่มเติม :
             <div class="bg-ghostWhite p-5 text-gray-500 rounded-lg mt-2 mb-5 text-xs">
-              <div v-if="roomType.facility != null">
+              <div v-if="roomType.facility != ''">
                 {{ roomType.facility }}
               </div>
               <div v-else>ไม่มีข้อมูล</div>
@@ -70,24 +70,32 @@
     </div>
 
     <!--room Info-->
-    <div>
-      <h1>ข้อมูลห้องพัก</h1>
-      <div class="md:grid md:grid-cols-2 lg:grid lg:grid-cols-4">
-        <div v-for="(room, index) in dorm.room" :key="index">
-          <p>เลขห้องพัก : {{ room.roomNum }}</p>
-          <p>สถานะห้องพัก : {{ room.status }}</p>
-          <p>ชั้น : {{ room.floors }}</p>
-          <p>รายละเอียดเพิ่มเติม : {{ room.description }}</p>
-          <p>ประเภทห้องพัก : {{ room.roomType }}</p>
+    <div class="p-5 bg-white rounded-lg mb-5">
+      <h1 class="pt-2 pb-5 font-bold text-xl">ข้อมูลห้องพัก</h1>
+      <div>
+        <div v-for="(room, index) in dorm.room" :key="index" class="flex flex-wrap">
+          <p class="font-bold w-full">ชั้น : {{ room.floors }}</p>
+          <div class="p-5 w-1/2 rounded bg-ghostWhite flex flex-wrap">
+            <p class="font-bold w-full text-center">{{ room.roomNum }}</p>
+            <div class="w-1/2 text-success text-left">
+              <div v-if="room.status == 'ว่าง'">{{ room.status }}</div>
+              <div v-else class="text-imperialRed">{{ room.status }}</div>
+            </div>
+            <div class="w-1/2 text-right">{{ room.roomType }}</div>
+            <div class="w-full px-1 py-3 bg-white mt-3 rounded">
+              <div v-if="room.description != ''">{{ room.description }}</div>
+              <div v-else class="text-gray-400">ไม่มีข้อมูล</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
     <!--bankAccount -->
-    <div>
-      <h1>ช่องทางการชำระเงิน</h1>
-      <div class="md:grid md:grid-cols-2 lg:grid lg:grid-cols-4">
-        <div v-for="(bank, index) in dorm.bankAccount" :key="index">
+    <div class="p-5 bg-white rounded-lg mb-5 flex flex-wrap">
+      <h1 class="pt-2 pb-5 font-bold w-full text-xl">ช่องทางการชำระเงิน</h1>
+      <div class="w-1/2">
+        <div v-for="(bank, index) in dorm.bankAccount" :key="index" class="p-3 bg-ghostWhite rounded">
           <p>เลขบัญชี : {{ bank.accountNum }}</p>
           <p>ชื่อบัญชี : {{ bank.accountName }}</p>
           <p>ธนาคาร : {{ bank.bankId.name }}</p>
