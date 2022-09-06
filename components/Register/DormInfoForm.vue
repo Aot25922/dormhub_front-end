@@ -132,14 +132,6 @@ export default {
         this.$store.commit("SET_DORMIMG", dormImgCopy);
         this.disableForm = true;
         this.$emit("validate", true);
-        const noti = this.$vs.notification({
-          progress: "auto",
-          icon: `<i class='bx bx-folder-open' ></i>`,
-          color: "success",
-          position: "top-right",
-          title: `Data Update`,
-          text: `Add you dorm detail data complete!`,
-        });
       } else {
         this.$emit("validate", false);
         const noti = this.$vs.notification({
