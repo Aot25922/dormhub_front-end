@@ -2,17 +2,28 @@
   <div class="py-3 md:py-5">
     <!--Dorm Info-->
     <div class="bg-white rounded-b-lg mb-5">
-        <agile>
-          <div class="slide text-white block relative h-60 md:h-[480px] lg:h-[550px]" v-for="(i,index) in dormImg" :key="index">
-            <img :src="i" class="object-cover object-center w-full h-full" />
-          </div>
-          <template slot="prevButton"><span class="material-icons">chevron_left</span></template>
-          <template slot="nextButton"><span class="material-icons">chevron_right</span></template>
-        </agile>
+      <agile>
+        <div
+          class="slide text-white block relative h-60 md:h-[480px] lg:h-[550px]"
+          v-for="(i, index) in dormImg"
+          :key="index"
+        >
+          <img :src="i" class="object-cover object-center w-full h-full" />
+        </div>
+        <template slot="prevButton"
+          ><span class="material-icons">chevron_left</span></template
+        >
+        <template slot="nextButton"
+          ><span class="material-icons">chevron_right</span></template
+        >
+      </agile>
       <div class="p-5 text-sm">
-        <h1 class=" py-2 font-bold text-xl">{{ dorm.dorm.name }}</h1>
+        <h1 class="py-2 font-bold text-xl">{{ dorm.dorm.name }}</h1>
         <p>
-          ที่อยู่ : {{ dorm.address.number }} <span v-if="dorm.address.alley != ''">ซอย {{ dorm.address.alley }}</span>
+          ที่อยู่ : {{ dorm.address.number }}
+          <span v-if="dorm.address.alley != ''"
+            >ซอย {{ dorm.address.alley }}</span
+          >
           เขต {{ dorm.address.district }} อำเภอ
           {{ dorm.address.subDistrict }} จังหวัด
           {{ dorm.address.province }} รหัสไปรษณีย์ {{ dorm.address.zipCodeId }}
@@ -22,8 +33,11 @@
           <p class="w-1/2">เวลาปิด : {{ dorm.dorm.closeTime }}</p>
           <p class="w-1/2">ค่าไฟต่อหน่วย : {{ dorm.dorm.elecPerUnit }} ฿</p>
           <p class="w-1/2">ค่าน้ำหน่วย : {{ dorm.dorm.waterPerUnit }} ฿</p>
-          <div class="font-bold w-full mt-5">รายละเอียด :
-            <div class="bg-ghostWhite p-5 text-gray-500 rounded-lg mt-2 text-xs">
+          <div class="font-bold w-full mt-5">
+            รายละเอียด :
+            <div
+              class="bg-ghostWhite p-5 text-gray-500 rounded-lg mt-2 text-xs"
+            >
               <div v-if="dorm.description != null">
                 <p>{{ dorm.dorm.description }}</p>
               </div>
@@ -35,16 +49,35 @@
     </div>
 
     <!--roomType Info-->
-    <div class="bg-white rounded-lg mb-5" v-for="(roomType, index) of dorm.roomType" :key="index">
+    <div
+      class="bg-white rounded-lg mb-5"
+      v-for="(roomType, index) of dorm.roomType"
+      :key="index"
+    >
       <div class="p-5">
-        <h1 class=" pt-2 pb-5 font-bold text-xl">ข้อมูลประเภทห้องพัก</h1>
+        <h1 class="pt-2 pb-5 font-bold text-xl">ข้อมูลประเภทห้องพัก</h1>
         <div class="flex flex-wrap">
-          <h1 class="w-full">ประเภทห้องพัก : <span class="font-bold">{{ roomType.type }}</span></h1>
+          <h1 class="w-full">
+            ประเภทห้องพัก : <span class="font-bold">{{ roomType.type }}</span>
+          </h1>
           <p class="w-1/2">ราคาค่าเช่าห้องพัก : {{ roomType.price }} ฿</p>
           <p class="w-1/2">ราคาค่ามัดจำ : {{ roomType.deposit }} ฿</p>
-          <p class="w-full">ขนาดพื้นที่ห้องพัก : {{ roomType.area }} ตารางเมตร</p>
-          <div class="w-full font-bold mt-5">รายละเอียดเพิ่มเติม :
-            <div class="bg-ghostWhite p-5 text-gray-500 rounded-lg mt-2 mb-5 text-xs">
+          <p class="w-full">
+            ขนาดพื้นที่ห้องพัก : {{ roomType.area }} ตารางเมตร
+          </p>
+          <div class="w-full font-bold mt-5">
+            รายละเอียดเพิ่มเติม :
+            <div
+              class="
+                bg-ghostWhite
+                p-5
+                text-gray-500
+                rounded-lg
+                mt-2
+                mb-5
+                text-xs
+              "
+            >
               <div v-if="roomType.facility != ''">
                 {{ roomType.facility }}
               </div>
@@ -52,17 +85,31 @@
             </div>
           </div>
         </div>
-          <div class="p-0">
-              <agile>
-                <div class="slide text-black block relative h-60 md:h-[480px] lg:h-[550px]" v-for="(i,index) in roomTypeImg[roomType.type].img" :key="index">
-                  <img :src="i" class="object-cover object-center w-full h-full" />
-                 
-                </div>
-                <template slot="prevButton"><span class="material-icons">chevron_left</span></template>
-                <template slot="nextButton"><span class="material-icons">chevron_right</span></template>
-              </agile>
-          </div>
-
+        <div class="p-0">
+          <agile>
+            <div
+              class="
+                slide
+                text-black
+                block
+                relative
+                h-60
+                md:h-[480px]
+                lg:h-[550px]
+              "
+              v-for="(i, index) in roomTypeImg[roomType.type].img"
+              :key="index"
+            >
+              <img :src="i" class="object-cover object-center w-full h-full" />
+            </div>
+            <template slot="prevButton"
+              ><span class="material-icons">chevron_left</span></template
+            >
+            <template slot="nextButton"
+              ><span class="material-icons">chevron_right</span></template
+            >
+          </agile>
+        </div>
       </div>
     </div>
 
@@ -70,18 +117,20 @@
     <div class="p-5 bg-white rounded-lg mb-5">
       <h1 class="pt-2 pb-5 font-bold text-xl">ข้อมูลห้องพัก</h1>
       <div>
-        <div v-for="(room, index) in dorm.room" :key="index" class="flex flex-wrap">
-          <p class="font-bold w-full">ชั้น : {{ room.floors }}</p>
-          <div class="p-5 w-1/2 rounded bg-ghostWhite flex flex-wrap">
-            <p class="font-bold w-full text-center">{{ room.roomNum }}</p>
-            <div class="w-1/2 text-success text-left">
-              <div v-if="room.status == 'ว่าง'">{{ room.status }}</div>
-              <div v-else class="text-imperialRed">{{ room.status }}</div>
-            </div>
-            <div class="w-1/2 text-right">{{ room.roomType }}</div>
-            <div class="w-full px-1 py-3 bg-white mt-3 rounded">
-              <div v-if="room.description != ''">{{ room.description }}</div>
-              <div v-else class="text-gray-400">ไม่มีข้อมูล</div>
+        <div v-for="(floor, key) in roomList" :key="key" class="flex flex-wrap">
+          <p>ชั้น : {{ key }}</p>
+          <div v-for="(room, index) in floor" :key="index">
+            <div class="p-5 w-1/2 rounded bg-ghostWhite flex flex-wrap">
+              <p class="font-bold w-full text-center">{{ room.roomNum }}</p>
+              <div class="w-1/2 text-success text-left">
+                <div v-if="room.status == 'ว่าง'">{{ room.status }}</div>
+                <div v-else class="text-imperialRed">{{ room.status }}</div>
+              </div>
+              <div class="w-1/2 text-right">{{ room.roomType }}</div>
+              <div class="w-full px-1 py-3 bg-white mt-3 rounded">
+                <div v-if="room.description != ''">{{ room.description }}</div>
+                <div v-else class="text-gray-400">ไม่มีข้อมูล</div>
+              </div>
             </div>
           </div>
         </div>
@@ -92,7 +141,11 @@
     <div class="p-5 bg-white rounded-lg mb-5 flex flex-wrap">
       <h1 class="pt-2 pb-5 font-bold w-full text-xl">ช่องทางการชำระเงิน</h1>
       <div class="w-1/2">
-        <div v-for="(bank, index) in dorm.bankAccount" :key="index" class="p-3 bg-ghostWhite rounded">
+        <div
+          v-for="(bank, index) in dorm.bankAccount"
+          :key="index"
+          class="p-3 bg-ghostWhite rounded"
+        >
           <p>เลขบัญชี : {{ bank.accountNum }}</p>
           <p>ชื่อบัญชี : {{ bank.accountName }}</p>
           <p>ธนาคาร : {{ bank.bankId.name }}</p>
@@ -101,7 +154,11 @@
     </div>
     <div class="flex flex-wrap mt-10">
       <div class="w-1/2 px-1">
-        <nuxt-link to="/dormForm/registerDormPaymentDetail" class="btn btn-ghost w-full">ย้อนกลับ</nuxt-link>
+        <nuxt-link
+          to="/dormForm/registerDormPaymentDetail"
+          class="btn btn-ghost w-full"
+          >ย้อนกลับ</nuxt-link
+        >
       </div>
       <div class="w-1/2 px-1">
         <button class="btn btn-primary w-full" @click="submit">ยืนยีน</button>
@@ -117,11 +174,11 @@ export default {
   },
   methods: {
     submit() {
-      const loading = this.$vs.loading()
+      const loading = this.$vs.loading();
       this.$store
         .dispatch("addDorm")
         .then(() => {
-          loading.close()
+          loading.close();
           const noti = this.$vs.notification({
             progress: "auto",
             icon: `<i class='bx bx-folder-open' ></i>`,
@@ -134,14 +191,15 @@ export default {
           this.$store.dispatch("nuxtServerInit");
         })
         .catch((error) => {
-          loading.close()
+          loading.close();
+          console.log(error.response);
           const noti = this.$vs.notification({
             progress: "auto",
             icon: `<i class='bx bx-folder-open' ></i>`,
             color: "warning",
             position: "top-right",
             title: `Data Update`,
-            text: `${error.response.data.error.message}, please edit it in form`,
+            text: `${error.response.data}, please edit it in form`,
           });
         });
     },
@@ -151,12 +209,10 @@ export default {
       return this.$store.state.newDorm;
     },
     dormImg() {
-      let IMGLIST = []
-      let myDormImg = {...this.$store.state.newDorm.dormImg}
+      let IMGLIST = [];
+      let myDormImg = { ...this.$store.state.newDorm.dormImg };
       for (let i in myDormImg) {
-        IMGLIST.push(
-          URL.createObjectURL(myDormImg[i])
-        );
+        IMGLIST.push(URL.createObjectURL(myDormImg[i]));
       }
       return IMGLIST;
     },
@@ -164,15 +220,27 @@ export default {
       let IMGLIST = {};
       let myroomTypeImg = { ...this.$store.state.newDorm.roomTypeImg };
       for (let key in myroomTypeImg) {
-        let imgList = []
-        for(let i in Object.values(myroomTypeImg[key])){
-          imgList.push(URL.createObjectURL(Object.values(myroomTypeImg[key])[i]))
+        let imgList = [];
+        for (let i in Object.values(myroomTypeImg[key])) {
+          imgList.push(
+            URL.createObjectURL(Object.values(myroomTypeImg[key])[i])
+          );
         }
-        this.$set(IMGLIST,key,{img:imgList})
-        // IMGLIST[key]={img:imgList}
+        this.$set(IMGLIST, key, { img: imgList });
       }
-      console.log(IMGLIST)
       return IMGLIST;
+    },
+    roomList() {
+      let rooms = {};
+      let myRooms = [...this.$store.state.newDorm.room];
+      console.log(myRooms);
+      for (let i in myRooms) {
+        if (!rooms.hasOwnProperty(myRooms[i].floors)) {
+          this.$set(rooms, myRooms[i].floors, []);
+        }
+        rooms[myRooms[i].floors].push(myRooms[i]);
+      }
+      return rooms;
     },
   },
 };
