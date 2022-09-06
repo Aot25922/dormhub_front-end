@@ -65,7 +65,7 @@
 
 <script>
 export default {
-  props: ["index"],
+  props: ["index","editForm"],
   data() {
     return {
       roomType: {

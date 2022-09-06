@@ -197,6 +197,7 @@ export default {
       this.addressOption.push(addressInfo[i]);
     }
   },
+    props:["editForm"],
   data() {
     return {
       addressOption: [],

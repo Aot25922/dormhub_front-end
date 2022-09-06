@@ -76,16 +76,16 @@
         <RegisterDormInfoForm editForm="true" />
       </div>
       <div v-if="editAddressInfo">
-        <RegisterDormAddressForm />
+        <RegisterDormAddressForm editForm="true"/>
       </div>
       <div v-if="editRoomTypeInfo">
-        <RegisterDormRoomtypeForm />
+        <RegisterDormRoomtypeForm editForm="true"/>
       </div>
       <div v-if="editRoomInfo">
-        <RegisterDormRoomForm />
+        <RegisterDormRoomForm editForm="true"/>
       </div>
       <div v-if="editBankAccountInfo">
-        <RegisterDormPaymentForm />
+        <RegisterDormPaymentForm editForm="true"/>
       </div>
     </div>
   </div>

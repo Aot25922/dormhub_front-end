@@ -126,6 +126,7 @@ export default {
           this.$store.dispatch("nuxtServerInit");
         })
         .catch((error) => {
+          loading.close()
           const noti = this.$vs.notification({
             progress: "auto",
             icon: `<i class='bx bx-folder-open' ></i>`,

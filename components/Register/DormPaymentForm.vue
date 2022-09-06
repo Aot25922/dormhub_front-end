@@ -63,6 +63,7 @@ export default {
       `${this.$store.state.Backend_URL}/bank`
     );
   },
+    props:["editForm"],
   data() {
     return {
       bankAccounts: [

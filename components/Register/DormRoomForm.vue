@@ -105,6 +105,7 @@
 </template>
 <script>
 export default {
+    props:["editForm"],
   data() {
     return {
       roomList: [
