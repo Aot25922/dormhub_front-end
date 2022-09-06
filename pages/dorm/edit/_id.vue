@@ -73,7 +73,7 @@
     <!--Form ของข้อมูลที่ต้องการเเก้ไข-->
     <div>
       <div v-if="editDormInfo">
-        <RegisterDormInfoForm />
+        <RegisterDormInfoForm editForm="true" />
       </div>
       <div v-if="editAddressInfo">
         <RegisterDormAddressForm />

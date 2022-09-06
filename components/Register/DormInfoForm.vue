@@ -55,13 +55,19 @@
       <div class="mb-5 md:px-1 md:w-full">
         <label class="label-text text-gray-500 tracking-wide font-bold my-2">เลือกภาพปกที่ใช้แสดงบนหน้าเว็ป<span class="text-imperialRed">*</span></label>
         <input type="file" class="focus:outline-none form-control block w-full rounded transition ease-in-out border-none" @change="onFileChange($event); checkForm();" multiple />
-        <div v-if="dormImgUrl">
-          <div class="md:grid md:grid-cols-2 lg:grid lg:grid-cols-4">
+        <div>
+          <div class="md:grid md:grid-cols-2 lg:grid lg:grid-cols-4" v-if="dormImgUrl.length != 0">
             <img
               v-for="i in dormImgUrl"
               :key="i"
               :src="i"
-              class="py-2 md:p-2 md:max-h-80 md:max-w-full md:object-cover" />
+              class="py-2 md:p-2 md:max-h-80 md:max-w-full md:object-cover"/>
+          </div>
+          <div class="md:grid md:grid-cols-2 lg:grid lg:grid-cols-4" v-if="dormImgUrl.length == 0 && editForm">
+            <img
+              v-for="i in this.$store.state.selectedDorm.media.filter(x => x.roomTypeId == null)" :key="i.mediaId"
+              :src="$store.state.Backend_URL+'/dorm/image/'+$store.state.selectedDorm.dormId+'/'+i.mediaId"
+              class="py-2 md:p-2 md:max-h-80 md:max-w-full md:object-cover"/>
           </div>
         </div>
         <p v-if="!validateDormImg" class="text-imperialRed text-right mt-2">ต้องมีอย่างน้อย 1 ภาพ</p>
@@ -71,6 +77,7 @@
 </template>
 <script>
 export default {
+  props:["editForm"],
   data() {
     return {
       dormImgUrl: [],
@@ -109,6 +116,7 @@ export default {
     },
     onFileChange(e) {
       this.dormImgUrl = [];
+      this.dormInputImage = []
       let files = e.target.files || e.dataTransfer.files;
       for (let i in files) {
         if (typeof files[i] == "object") {
@@ -145,5 +153,17 @@ export default {
       }
     },
   },
+  created(){
+    if(this.editForm){
+      this.dorm.name = this.$store.state.selectedDorm.name
+      this.dorm.openTime = this.$store.state.selectedDorm.openTime
+      this.dorm.closeTime = this.$store.state.selectedDorm.closeTime
+      this.dorm.description = this.$store.state.selectedDorm.description
+      this.dorm.rating = this.$store.state.selectedDorm.rating
+      this.dorm.acceptPercent = this.$store.state.selectedDorm.acceptPercent
+      this.dorm.elecPerUnit = this.$store.state.selectedDorm.elecPerUnit
+      this.dorm.waterPerUnit = this.$store.state.selectedDorm.waterPerUnit
+    }
+  }
 };
 </script>

@@ -65,7 +65,7 @@ export default {
   },
   methods: {
     dormInfo(data) {
-      if ((data = "edit")) {
+      if (data == "edit") {
         let dormInfo = { dorm: this.dorm };
         this.$store.dispatch("dormSelected", dormInfo);
         this.$router.push({ path: `/dorm/edit/${this.dorm.dormId}`});
