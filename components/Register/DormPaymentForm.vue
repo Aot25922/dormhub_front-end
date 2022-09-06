@@ -18,7 +18,7 @@
 
           <div class="w-1/2 px-1">
             <label class="label-text tracking-wide font-bold my-2">ธนาคาร <span class="text-accent">*</span></label>
-            <select v-model="bankAccount.bankId" class="select w-full border-0">
+            <select v-model="bankAccount.bankId" class="select w-full border-0" @click="validate(bankAccount)">
               <option option disabled selected>กรุณาเลือกธนาคาร</option>
               <option
                 v-for="option in bankList"
