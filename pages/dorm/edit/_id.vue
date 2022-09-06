@@ -5,6 +5,8 @@
     >
       เเก้ไขข้อมูล
     </h1>
+
+    <!--เเถบเลือกข้อมูลที่ต้องการเเก้ไข-->
     <div class="grid grid-cols-5 gap-4">
       <button
         class="btn btn-primary w-full"
@@ -18,52 +20,73 @@
       >
         เเก้ไขข้อมูลหอพัก
       </button>
-      <button class="btn btn-primary w-full" @click="
+      <button
+        class="btn btn-primary w-full"
+        @click="
           editDormInfo = false;
           editAddressInfo = true;
           editRoomTypeInfo = false;
           editRoomInfo = false;
           editBankAccountInfo = false;
-        ">เเก้ไขข้อมูลที่อยู่หอพัก</button>
-      <button class="btn btn-primary w-full" @click="
+        "
+      >
+        เเก้ไขข้อมูลที่อยู่หอพัก
+      </button>
+      <button
+        class="btn btn-primary w-full"
+        @click="
           editDormInfo = false;
           editAddressInfo = false;
           editRoomTypeInfo = true;
           editRoomInfo = false;
           editBankAccountInfo = false;
-        ">เเก้ไขข้อมูลประเภทห้องพัก</button>
-      <button class="btn btn-primary w-full" @click="
+        "
+      >
+        เเก้ไขข้อมูลประเภทห้องพัก
+      </button>
+      <button
+        class="btn btn-primary w-full"
+        @click="
           editDormInfo = false;
           editAddressInfo = false;
           editRoomTypeInfo = false;
           editRoomInfo = true;
           editBankAccountInfo = false;
-        ">เเก้ไขข้อมูลของห้องพัก</button>
-      <button class="btn btn-primary w-full" @click="
+        "
+      >
+        เเก้ไขข้อมูลของห้องพัก
+      </button>
+      <button
+        class="btn btn-primary w-full"
+        @click="
           editDormInfo = false;
           editAddressInfo = false;
           editRoomTypeInfo = false;
           editRoomInfo = false;
           editBankAccountInfo = true;
-        ">
+        "
+      >
         เเก้ไขข้อมูลช่องทางการชำระเงิน
       </button>
     </div>
-    <div v-if="editDormInfo">
-      <RegisterDormInfoForm />
-    </div>
-    <div v-if="editAddressInfo">
-    <h1>TEST</h1>
-      <RegisterDormAddressForm />
-    </div>
-    <div v-if="editRoomTypeInfo">
-      <RegisterDormRoomtypeForm />
-    </div>
-    <div v-if="editRoomInfo">
-      <RegisterDormRoomForm />
-    </div>
-    <div v-if="editBankAccountInfo">
-      <RegisterDormPaymentForm />
+
+    <!--Form ของข้อมูลที่ต้องการเเก้ไข-->
+    <div>
+      <div v-if="editDormInfo">
+        <RegisterDormInfoForm />
+      </div>
+      <div v-if="editAddressInfo">
+        <RegisterDormAddressForm />
+      </div>
+      <div v-if="editRoomTypeInfo">
+        <RegisterDormRoomtypeForm />
+      </div>
+      <div v-if="editRoomInfo">
+        <RegisterDormRoomForm />
+      </div>
+      <div v-if="editBankAccountInfo">
+        <RegisterDormPaymentForm />
+      </div>
     </div>
   </div>
 </template>

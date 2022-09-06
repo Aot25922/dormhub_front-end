@@ -83,9 +83,11 @@ export default {
   },
   methods: {
     submit() {
+      const loading = this.$vs.loading()
       this.$store
         .dispatch("addDorm")
         .then(() => {
+          loading.close()
           const noti = this.$vs.notification({
             progress: "auto",
             icon: `<i class='bx bx-folder-open' ></i>`,

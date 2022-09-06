@@ -116,7 +116,7 @@ export default {
       if ((data = "edit")) {
         let dormInfo = { dorm: this.dorm };
         this.$store.dispatch("dormSelected", dormInfo);
-        this.$router.push({ path: `/dorm/${this.dorm.dormId}`});
+        this.$router.push({ path: `/dorm/edit/${this.dorm.dormId}`});
       } else {
         let dormInfo = { dorm: this.dorm };
         this.$store.dispatch("dormSelected", dormInfo);
