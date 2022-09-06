@@ -45,7 +45,7 @@
     </div>
 
       <div class="py-3 w-full">
-        <button class="btn btn-neutral w-full">เพิ่มห้อง</button>
+        <button class="btn btn-neutral w-full" @click="addNewRoom(floor)">เพิ่มห้อง</button>
       </div>
     </div>
     <div class="py-5 w-full">
