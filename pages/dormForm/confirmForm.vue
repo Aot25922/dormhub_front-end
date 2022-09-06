@@ -2,15 +2,13 @@
   <div class="py-3 md:py-5">
     <!--Dorm Info-->
     <div class="bg-white rounded-b-lg mb-5">
-      <client-only>
         <agile>
-          <div class="slide text-white block relative h-60 md:h-[480px] lg:h-[550px]" v-for="i in dormImg" :key="i">
+          <div class="slide text-white block relative h-60 md:h-[480px] lg:h-[550px]" v-for="(i,index) in dormImg" :key="index">
             <img :src="i" class="object-cover object-center w-full h-full" />
           </div>
           <template slot="prevButton"><span class="material-icons">chevron_left</span></template>
           <template slot="nextButton"><span class="material-icons">chevron_right</span></template>
         </agile>
-      </client-only>
       <div class="p-5 text-sm">
         <h1 class=" py-2 font-bold text-xl">{{ dorm.dorm.name }}</h1>
         <p>
@@ -55,15 +53,14 @@
           </div>
         </div>
           <div class="p-0">
-            <client-only>
               <agile>
-                <div class="slide text-white block relative h-60 md:h-[480px] lg:h-[550px]"v-for="i in roomTypeImg[roomType.type]" :key="i">
+                <div class="slide text-black block relative h-60 md:h-[480px] lg:h-[550px]" v-for="(i,index) in roomTypeImg[roomType.type].img" :key="index">
                   <img :src="i" class="object-cover object-center w-full h-full" />
+                 
                 </div>
                 <template slot="prevButton"><span class="material-icons">chevron_left</span></template>
                 <template slot="nextButton"><span class="material-icons">chevron_right</span></template>
               </agile>
-            </client-only>
           </div>
 
       </div>
@@ -145,30 +142,28 @@ export default {
       return this.$store.state.newDorm;
     },
     dormImg() {
-      let dormImg = []
+      let IMGLIST = []
       let myDormImg = {...this.$store.state.newDorm.dormImg}
       for (let i in myDormImg) {
-        dormImg.push(
+        IMGLIST.push(
           URL.createObjectURL(myDormImg[i])
         );
       }
-      return dormImg;
+      return IMGLIST;
     },
     roomTypeImg() {
-      let roomTypeImg = {};
+      let IMGLIST = {};
       let myroomTypeImg = { ...this.$store.state.newDorm.roomTypeImg };
       for (let key in myroomTypeImg) {
-        for (let img in myroomTypeImg[key]) {
-          if (typeof myroomTypeImg[key][img] == "object") {
-            if (roomTypeImg[key] == undefined) {
-              roomTypeImg[key] = [];
-            }
-            roomTypeImg[key].push(URL.createObjectURL(myroomTypeImg[key][img]));
-          }
+        let imgList = []
+        for(let i in Object.values(myroomTypeImg[key])){
+          imgList.push(URL.createObjectURL(Object.values(myroomTypeImg[key])[i]))
         }
+        this.$set(IMGLIST,key,{img:imgList})
+        // IMGLIST[key]={img:imgList}
       }
-      // console.log(roomTypeImg)
-      return roomTypeImg;
+      console.log(IMGLIST)
+      return IMGLIST;
     },
   },
 };

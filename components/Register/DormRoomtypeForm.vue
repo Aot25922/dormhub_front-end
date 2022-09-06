@@ -123,6 +123,8 @@ export default {
       }
     },
     onFileChange(e) {
+      this.roomTypeInputImage = []
+      this.roomTypeImageUrl = []
       let files = e.target.files || e.dataTransfer.files;
       for (let i in files) {
         if (typeof files[i] == "object") {

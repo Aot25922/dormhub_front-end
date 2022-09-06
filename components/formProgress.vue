@@ -19,18 +19,20 @@ export default {
         this.$route.path == "/dormForm/registerDormDetail" ||
         this.$route.path == "/dormForm/registerDormRoomTypeDetail" ||
         this.$route.path == "/dormForm/registerDormRoomDetail" ||
-        this.$route.path == "/dormForm/registerDormPaymentDetail"
+        this.$route.path == "/dormForm/registerDormPaymentDetail" ||
+        this.$route.path == "/dormForm/confirmForm"
       );
     },
     step2() {
       return (
         this.$route.path == "/dormForm/registerDormRoomTypeDetail" ||
         this.$route.path == "/dormForm/registerDormRoomDetail" ||
-        this.$route.path == "/dormForm/registerDormPaymentDetail"
+        this.$route.path == "/dormForm/registerDormPaymentDetail" ||
+        this.$route.path == "/dormForm/confirmForm"
       );
     },
     step3() {
-      return this.$route.path == "/dormForm/registerDormRoomDetail"||this.$route.path == "/dormForm/registerDormPaymentDetail";
+      return this.$route.path == "/dormForm/registerDormRoomDetail"||this.$route.path == "/dormForm/registerDormPaymentDetail" || this.$route.path == "/dormForm/confirmForm";
     },
     step4() {
       return this.$route.path == "/dormForm/registerDormPaymentDetail" || this.$route.path == "/dormForm/confirmForm"
