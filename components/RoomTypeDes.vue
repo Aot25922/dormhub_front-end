@@ -71,10 +71,10 @@
     <div class="my-5 p-5 bg-white drop-shadow-lg rounded-lg">
       <h1 class="font-bold text-lg">ห้องพักทั้งหมด</h1>
       <div v-for="(room, index) in rooms" :key="index">
+        <p>ชั้น : {{ room.floors }}</p>
         <p>เลขห้องพัก : {{ room.roomNum }}</p>
-          <p>สถานะห้องพัก : {{ room.status }}</p>
-          <p>ชั้น : {{ room.floors }}</p>
-          <p>รายละเอียดเพิ่มเติม : {{ room.description }}</p>
+        <p>สถานะห้องพัก : {{ room.status }}</p>
+        <p>รายละเอียดเพิ่มเติม : {{ room.description }}</p>
       </div>
     </div>
 

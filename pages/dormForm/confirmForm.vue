@@ -60,8 +60,8 @@
           <h1 class="w-full">
             ประเภทห้องพัก : <span class="font-bold">{{ roomType.type }}</span>
           </h1>
-          <p class="w-1/2">ราคาค่าเช่าห้องพัก : {{ roomType.price }} ฿</p>
-          <p class="w-1/2">ราคาค่ามัดจำ : {{ roomType.deposit }} ฿</p>
+          <p class="w-1/2">ค่าเช่าห้องพัก : {{ roomType.price }} ฿</p>
+          <p class="w-1/2">ค่ามัดจำ : {{ roomType.deposit }} ฿</p>
           <p class="w-full">
             ขนาดพื้นที่ห้องพัก : {{ roomType.area }} ตารางเมตร
           </p>
@@ -118,9 +118,9 @@
       <h1 class="pt-2 pb-5 font-bold text-xl">ข้อมูลห้องพัก</h1>
       <div>
         <div v-for="(floor, key) in roomList" :key="key" class="flex flex-wrap">
-          <p>ชั้น : {{ key }}</p>
-          <div v-for="(room, index) in floor" :key="index">
-            <div class="p-5 w-1/2 rounded bg-ghostWhite flex flex-wrap">
+          <div class="w-full font-bold">ชั้น : {{ key }}</div>
+          <div v-for="(room, index) in floor" :key="index" class="w-1/2">
+            <div class="p-5 m-1 rounded bg-ghostWhite flex flex-wrap">
               <p class="font-bold w-full text-center">{{ room.roomNum }}</p>
               <div class="w-1/2 text-success text-left">
                 <div v-if="room.status == 'ว่าง'">{{ room.status }}</div>
@@ -138,14 +138,10 @@
     </div>
 
     <!--bankAccount -->
-    <div class="p-5 bg-white rounded-lg mb-5 flex flex-wrap">
-      <h1 class="pt-2 pb-5 font-bold w-full text-xl">ช่องทางการชำระเงิน</h1>
-      <div class="w-1/2">
-        <div
-          v-for="(bank, index) in dorm.bankAccount"
-          :key="index"
-          class="p-3 bg-ghostWhite rounded"
-        >
+    <div class="p-5 bg-white rounded-lg mb-5">
+      <h1 class="pt-2 pb-5 font-bold text-xl">ช่องทางการชำระเงิน</h1>
+      <div class="grid grid-cols-2">
+        <div v-for="(bank, index) in dorm.bankAccount" :key="index" class="p-3 bg-ghostWhite rounded m-1">
           <p>เลขบัญชี : {{ bank.accountNum }}</p>
           <p>ชื่อบัญชี : {{ bank.accountName }}</p>
           <p>ธนาคาร : {{ bank.bankId.name }}</p>

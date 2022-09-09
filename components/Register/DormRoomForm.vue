@@ -94,7 +94,7 @@
       </div>
     </div>
     <div class="py-5 w-full">
-      <button class="btn btn-secondary w-full" @click="addNewFloor">
+      <button class="btn btn-secondary w-full my-5" @click="addNewFloor">
         เพิ่มชั้นของหอพัก
       </button>
       <button class="btn btn-secondary w-full" @click="disableForm = false" v-if="disableForm">
