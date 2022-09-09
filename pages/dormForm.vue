@@ -1,7 +1,7 @@
 <template>
     <div class="bg-ghostWhite p-5 xl:p-20">
-      <form-progress class="" />
-      <div v-if="!this.$route.path.includes('dormForm/')" class="text-black md:grid md:grid-cols-2">
+      <form-progress />
+      <div v-if="!this.$route.path.includes('dormForm/')" class="md:grid md:grid-cols-2">
         <img src="@/assets/form1.png" class="hidden md:block md:py-24 lg:py-10">
         <div class="lg:py-10">
           <h1 class="font-bold text-lg md:text-xl xl:text-2xl 2xl:text-3xl">ขั้นตอนการสร้างหอพัก</h1>

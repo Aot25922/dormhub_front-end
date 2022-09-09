@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="bg-ghostWhite">
     <h1
-      class="font-bold text-center text-xl md:text-2xl lg:text-3xl xl:text-4xl"
+      class="p-5 font-bold text-center text-xl md:text-2xl lg:text-3xl xl:text-4xl"
     >
       เเก้ไขข้อมูล
     </h1>
@@ -71,7 +71,7 @@
     </div>
 
     <!--Form ของข้อมูลที่ต้องการเเก้ไข-->
-    <div>
+    <div class="p-5">
       <div v-if="editDormInfo">
         <RegisterDormInfoForm editForm="true" />
       </div>

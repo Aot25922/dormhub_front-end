@@ -127,7 +127,7 @@
                 <div v-else class="text-imperialRed">{{ room.status }}</div>
               </div>
               <div class="w-1/2 text-right">{{ room.roomType }}</div>
-              <div class="w-full px-1 py-3 bg-white mt-3 rounded">
+              <div class="w-full px-2 py-3 bg-white mt-3 rounded">
                 <div v-if="room.description != ''">{{ room.description }}</div>
                 <div v-else class="text-gray-400">ไม่มีข้อมูล</div>
               </div>
