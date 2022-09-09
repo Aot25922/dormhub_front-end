@@ -1,5 +1,5 @@
 <template>
-  <div class="overflow-auto my-10 lg:my-20">
+  <div class="overflow-auto my-10 lg:my-20 flex justify-center ">
     <ul class="steps">
       <li class="step step-primary">เริ่มต้นเพิ่มหอพัก</li>
       <li class="step" :class="{ 'step-primary': step1 }">ข้อมูลหอพัก</li>
