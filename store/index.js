@@ -76,6 +76,7 @@ export const actions = {
         commit('SET_USERACCOUNT',data)
       }
     } catch (err) {
+      console.log("handle error:"+ err)
     }
     try {
       await this.$axios.get(`${this.state.Backend_URL}/dorm`)

@@ -37,6 +37,7 @@ export default {
   },
   methods: {
     async submit() {
+      const loading = this.$vs.loading();
       let formData = new FormData();
       formData.append("data", JSON.stringify(this.userAccount));
       try {
@@ -55,9 +56,11 @@ export default {
           title: `Data Update`,
           text: `Register account complete!`,
         });
+        loading.close();
 		this.$store.commit("SET_USERACCOUNT",data)
     this.$router.push({path:"/"})
       } catch (error) {
+        loading.close();
         const noti = this.$vs.notification({
           progress: "auto",
           icon: `<i class='bx bx-folder-open' ></i>`,

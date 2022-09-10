@@ -165,9 +165,6 @@
 <script>
 export default {
   middleware: "permission",
-  data() {
-    return {};
-  },
   methods: {
     submit() {
       const loading = this.$vs.loading();
