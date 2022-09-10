@@ -51,7 +51,7 @@
         </div>
         <div class="card-actions">
           <button @click="dormInfo()" class=" btn btn-primary w-full duration-300 ease-in-out lg:w-1/3 lg:ml-auto xl:w-1/4">รายละเอียดทั้งหมด</button>
-          <button @click="dormInfo('edit')" class="btn btn-primary w-full duration-300 ease-in-out lg:w-1/3 lg:ml-auto xl:w-1/4">เเก้ไขข้อมูลหอพัก</button>
+          <button v-if="$store.state.userAccount.role != 'Guest'" @click="dormInfo('edit')" class="btn btn-primary w-full duration-300 ease-in-out lg:w-1/3 lg:ml-auto xl:w-1/4">เเก้ไขข้อมูลหอพัก</button>
         </div>
       </div>
     </div>
