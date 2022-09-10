@@ -192,7 +192,6 @@ export default {
         })
         .catch((error) => {
           loading.close();
-          console.log(error.response);
           const noti = this.$vs.notification({
             progress: "auto",
             icon: `<i class='bx bx-folder-open' ></i>`,
@@ -233,7 +232,6 @@ export default {
     roomList() {
       let rooms = {};
       let myRooms = [...this.$store.state.newDorm.room];
-      console.log(myRooms);
       for (let i in myRooms) {
         if (!rooms.hasOwnProperty(myRooms[i].floors)) {
           this.$set(rooms, myRooms[i].floors, []);
