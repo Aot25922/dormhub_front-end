@@ -1,25 +1,65 @@
 <template>
-    <div class="flex flex-wrap relative justify-center item-center">
-		<button class="absolute left-7 top-3 text-gray-soil">
-			<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
-			<!-- <font-awesome-icon icon="fa-solid fa-user" /> -->
-        </button>
-		<input type="text" placeholder="Search" v-model="search" class="focus:outline-none input input-bordered bg-dark-blue text-light-blue w-11/12 px-12">
+    <!--  Search Bar with filer -->
+    <div class="bg-white p-5 rounded-xl md:flex md:flex-wrap md:p-8">
+      <div class="py-2 md:px-2 md:w-1/2">
+        <h1 class="font-bold p-1">ค้นหาหอพักที่ต้องการ</h1>
+        <input type="text" class="input w-full border-x-0 border-t-0 border-b-gray-400" placeholder="ค้นหาหอพัก...">
+	    </div>
+
+      <div class="py-2 md:px-2 md:w-1/4">
+      <p class="font-bold p-1">ภูมิภาค</p>
+      <select class="select border-x-0 border-t-0 border-b-gray-400 w-full">
+        <option disabled selected>เลือกภูมิภาค</option>
+        <option>Han Solo</option>
+        <option>Greedo</option>
+      </select>
+      </div>
+
+      <div class="py-2 md:px-2 md:w-1/4">
+      <p class="font-bold p-1">จังหวัด</p>
+      <select class="select border-x-0 border-t-0 border-b-gray-400 w-full">
+        <option disabled selected>เลือกจังหวัด</option>
+        <option>Han Solo</option>
+        <option>Greedo</option>
+      </select>
+      </div>
+
+      <div class="py-2 md:px-2 md:w-1/4">
+      <p class="font-bold p-1">เขต/อำเภอ</p>
+      <select class="select border-x-0 border-t-0 border-b-gray-400 w-full">
+        <option disabled selected>เลือกเขต/อำเภอ</option>
+        <option>Han Solo</option>
+        <option>Greedo</option>
+      </select>
+      </div>
+
+      <div class="py-2 md:px-2 md:w-1/4">
+      <p class="font-bold p-1">แขวง/ตำบล</p>
+      <select class="select border-x-0 border-t-0 border-b-gray-400 w-full">
+        <option disabled selected>เลือกแขวง/อำเภอ</option>
+        <option>Han Solo</option>
+        <option>Greedo</option>
+      </select>
+      </div>
+
+	  <div class="py-3 w-full md:py-0 md:mt-10 md:w-1/2 md:px-2">
+		<button class="btn btn-primary w-full">ค้นหา</button>
+	  </div>
     </div>
 </template>
 
 <script>
 export default {
-    name: 'SearchBar',
-	data() {
-		return {
-			search: ""
-		}
-	},
-	computed: {
-		filteredDorms() {
-			return 0
-		}
-	}
-}
+  name: "SearchBar",
+  data() {
+    return {
+      search: "",
+    };
+  },
+  computed: {
+    filteredDorms() {
+      return 0;
+    },
+  },
+};
 </script>
