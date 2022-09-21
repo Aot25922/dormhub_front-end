@@ -85,7 +85,7 @@ export default {
       },
       computed: {
         dormList() {
-          return this.$store.state.dormList;
+          return this.$store.state.dormList.results;
         }
       },
 }

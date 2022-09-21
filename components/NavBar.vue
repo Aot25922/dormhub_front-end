@@ -84,6 +84,7 @@ export default {
   name: "NavBar",
   methods: {
     async logout() {
+      this.$router.push({path:"/"})
       this.$store.dispatch('logout')
     }
   },

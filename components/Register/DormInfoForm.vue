@@ -63,12 +63,12 @@
               :src="i"
               class="py-2 md:p-2 md:max-h-80 md:max-w-full md:object-cover"/>
           </div>
-          <div class="md:grid md:grid-cols-2 lg:grid lg:grid-cols-4" v-if="dormImgUrl.length == 0 && editForm">
+          <!-- <div class="md:grid md:grid-cols-2 lg:grid lg:grid-cols-4" v-if="dormImgUrl.length == 0 && editForm">
             <img
               v-for="i in this.$store.state.selectedDorm.media.filter(x => x.roomTypeId == null)" :key="i.mediaId"
               :src="$store.state.Backend_URL+'/dorm/image/'+$store.state.selectedDorm.dormId+'/'+i.mediaId"
               class="py-2 md:p-2 md:max-h-80 md:max-w-full md:object-cover"/>
-          </div>
+          </div> -->
         </div>
         <p v-if="!validateDormImg" class="text-imperialRed text-right mt-2">ต้องมีอย่างน้อย 1 ภาพ</p>
       </div>
@@ -155,6 +155,10 @@ export default {
   },
   created(){
     if(this.editForm){
+      if(!this.$store.state.selectedDorm){
+        this.$router.push({path:'/dormList'})
+        return
+      }
       this.dorm.name = this.$store.state.selectedDorm.name
       this.dorm.openTime = this.$store.state.selectedDorm.openTime
       this.dorm.closeTime = this.$store.state.selectedDorm.closeTime

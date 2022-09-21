@@ -30,7 +30,7 @@ export default {
       for(let i in this.$store.state.userAccount.dorms){
         userDormId.push(this.$store.state.userAccount.dorms[i].dormId)
       }
-      this.dormList = this.$store.state.dormList.filter(x => userDormId.includes(x.dormId))
+      this.dormList = this.$store.state.dormList.results.filter(x => userDormId.includes(x.dormId))
   },
 }
 </script>

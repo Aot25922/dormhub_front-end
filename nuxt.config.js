@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
@@ -56,5 +58,14 @@ export default {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     transpile: ['vue-agile']
+  },
+  generate: {
+    routes() {
+      return axios.get('http://dormhub-dev.azurewebsites.net/dorm').then(res => {
+        return res.data.map(dorm => {
+          return '/dorm/' + dorm.dormId
+        })
+      })
+    }
   }
 }

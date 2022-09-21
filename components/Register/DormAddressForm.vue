@@ -50,7 +50,7 @@
       <select
         v-model="selectedRegion"
         class="select w-full text-gray-500 border-0"
-         @change="
+        @change="
           selectedProvince = null;
           selectedDistrict = null;
           selectedSubDistrict = null;
@@ -189,15 +189,7 @@
 <script>
 export default {
   name: "Address",
-  async fetch() {
-    let addressInfo = await this.$axios.$get(
-      `${this.$store.state.Backend_URL}/address`
-    );
-    for (let i in addressInfo) {
-      this.addressOption.push(addressInfo[i]);
-    }
-  },
-    props:["editForm"],
+  props: ["editForm"],
   data() {
     return {
       addressOption: [],
@@ -220,6 +212,30 @@ export default {
       validateZipcode: false,
       disableForm: false,
     };
+  },
+  async fetch() {
+    this.addressOption = await this.$axios.$get(
+      `${this.$store.state.Backend_URL}/address`
+    );
+    if (this.editForm) {
+      if (!this.$store.state.selectedDorm) {
+        this.$router.push({ path: "/dormList" });
+        return;
+      }
+      this.selectedRegion = this.addressOption.filter(
+        (x) =>
+          x.name ==
+          this.$store.state.selectedDorm.address.subDistrict.district.province
+            .geography.name
+      )[0];
+      this.selectedProvince = this.selectedRegion.provinces.filter(x => x.name_th == this.$store.state.selectedDorm.address.subDistrict.district.province.name_th)[0]
+      this.selectedDistrict = this.selectedProvince.districts.filter(x => x.name_th == this.$store.state.selectedDorm.address.subDistrict.district.name_th)[0]
+      this.selectedSubDistrict = this.selectedDistrict.subDistricts.filter(x => x.name_th == this.$store.state.selectedDorm.address.subDistrict.name_th)[0]
+      this.selectedZipCode = this.selectedSubDistrict.zip_code
+      this.address.number = this.$store.state.selectedDorm.address.number;
+      this.address.street = this.$store.state.selectedDorm.address.street;
+      this.address.alley = this.$store.state.selectedDorm.address.alley;
+    }
   },
   methods: {
     submit() {
@@ -261,8 +277,15 @@ export default {
         this.selectedSubDistrict != null ? true : false;
       this.validateRegion = this.selectedRegion != null ? true : false;
       this.validateProvince = this.selectedProvince != null ? true : false;
-      this.validateZipcode = this.selectedZipCode != null ? true : false
+      this.validateZipcode = this.selectedZipCode != null ? true : false;
     },
   },
+  async mounted() {
+      // this.selectedZipCode = this.$store.state.selectedDorm.address.subDistrict.zip_code
+      // this.selectedSubDistrict = this.$store.state.selectedDorm.address.subDistrict
+      // this.selectedDistrict = this.$store.state.selectedDorm.address.subDistrict.district
+      // this.selectedProvince = this.$store.state.selectedDorm.address.subDistrict.district.province
+      // this.selectedRegion = this.$store.state.selectedDorm.address.subDistrict.district.province.geography
+    }
 };
 </script>

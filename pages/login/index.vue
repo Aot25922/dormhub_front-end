@@ -54,7 +54,7 @@ export default {
           color: "success",
           position: "top-right",
           title: `Data Update`,
-          text: `Register account complete!`,
+          text: `Login complete!`,
         });
         loading.close();
 		this.$store.commit("SET_USERACCOUNT",data)
