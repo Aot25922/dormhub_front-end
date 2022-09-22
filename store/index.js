@@ -1,7 +1,7 @@
 var _ = require('lodash');
 
 export const state = () => ({
-  Backend_URL: process.env.Backend_URL || 'http://localhost:3001',
+  Backend_URL: process.env.Backend_URL ||'http://localhost:3001',
   userAccount: { role: "Guest" },
   dormList: [],
   provinceList: [],
@@ -14,6 +14,7 @@ export const mutations = {
     state.userAccount = data.data
   },
   SET_DORMLIST(state, data) {
+    console.log(data)
     state.dormList = data;
   },
   SET_PROVINCELIST(state, data) {
@@ -78,16 +79,29 @@ export const actions = {
     } catch (err) {
       console.log("handle error:"+ err)
     }
-    try {
-      await this.$axios.get(`${this.state.Backend_URL}/dorm`)
-        .then(response => {
-          commit('SET_DORMLIST', response.data)
-        })
-    } catch (err) {
-    }
+    // try {
+    //   await this.$axios.get(`${this.state.Backend_URL}/dorm?limit=10&page=0`)
+    //     .then(response => {
+    //       commit('SET_DORMLIST', response.data)
+    //     })
+    // } catch (err) {
+    // }
   },
-  async fetchDormList({ commit }) {
-    await this.$axios.get(`${this.state.Backend_URL}/dorm`)
+  async fetchDormList({ commit },page) {
+    await this.$axios.get(`${this.state.Backend_URL}/dorm?page=${page}`)
+      .then(response => {
+        commit('SET_DORMLIST', response.data)
+      })
+  },
+  async fetchDormOwnerList({ commit },page,dormIdList) {
+    const request = {
+      params: {
+        page: page,
+        dormIdList: dormIdList,
+        limit: 5
+      }
+    }
+    await this.$axios.get(`${this.state.Backend_URL}/dorm`,request)
       .then(response => {
         commit('SET_DORMLIST', response.data)
       })

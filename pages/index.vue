@@ -75,18 +75,17 @@ export default {
           name: 'รับรองหอพัก',
           img: 'https://cdn-icons-png.flaticon.com/512/5241/5241729.png'
         }
-      ]
+      ],
+      dormList:[]
     }
   },
       methods: {},
-      async beforeMount() {
-        if (this.$store.state.dormList.length == 0) await this.$store.dispatch('fetchDormList');
-        await this.$store.dispatch('fetchProvinceList');
-      },
-      computed: {
-        dormList() {
-          return this.$store.state.dormList.results;
+      async created() {
+        if (this.$store.state.dormList.length == 0) {
+          await this.$store.dispatch('fetchDormList',0)
         }
+        await this.$store.dispatch('fetchProvinceList')
+        this.dormList = this.$store.state.dormList.results
       },
 }
 </script>
