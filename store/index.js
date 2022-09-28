@@ -1,7 +1,7 @@
 var _ = require('lodash');
 
 export const state = () => ({
-  Backend_URL: process.env.Backend_URL ||'http://localhost:3001',
+  Backend_URL: 'http://localhost:3001',
   userAccount: { role: "Guest" },
   dormList: [],
   provinceList: [],
@@ -10,6 +10,13 @@ export const state = () => ({
 });
 
 export const mutations = {
+  SET_ROOMSTATUS(state, data){
+    for(let i in state.selectedDorm.rooms){
+      if(state.selectedDorm.rooms[i].roomId == data.roomId){
+        state.selectedDorm.rooms[i].status = data.status
+      }
+    }
+  },
   SET_USERACCOUNT(state, data) {
     state.userAccount = data.data
   },
