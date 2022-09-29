@@ -59,9 +59,9 @@ export default {
   build: {
     transpile: ['vue-agile']
   },
-  generate: {
+  mounted: {
     routes() {
-      return axios.get(`${state.Backend_URL}/dorm`).then(res => {
+      return axios.get(`${this.state.Backend_URL}/dorm`).then(res => {
         return res.data.map(dorm => {
           return '/dorm/' + dorm.dormId
         })
