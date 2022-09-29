@@ -1,6 +1,6 @@
 {
   "globalHeaders": {
     "Referrer-Policy": "strict-origin-when-cross-origin",
-    "Content-Security-Policy": "default-src 'self'; connect-src *.dormhub.works; img-src *;"
+    "Content-Security-Policy": "default-src 'self'; connect-src *.dormhub.works; img-src *; style-src 'unsafe-inline';"
   }
 }
