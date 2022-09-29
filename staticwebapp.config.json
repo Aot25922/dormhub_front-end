@@ -1,6 +1,6 @@
 {
   "globalHeaders": {
     "Referrer-Policy": "strict-origin-when-cross-origin",
-    "Content-Security-Policy": "default-src 'self'; img-src *; script-src 'self' fonts.googleapis.com;"
+    "Content-Security-Policy": "default-src 'self'; img-src *; style-src https://fonts.googleapis.com;"
   }
 }
