@@ -91,7 +91,7 @@
       <!--Modal Zone-->
       <input type="checkbox" id="my-modal-6" class="modal-toggle" />
       <div class="modal modal-bottom sm:modal-middle">
-        <div class="modal-box">
+        <div class="modal-box h-64">
           <div>
             <h3 class="font-bold text-lg">เลือกช่องทางการชำระเงิน</h3>
             <label class="label-text text-gray-500 tracking-wide font-bold my-2"
@@ -113,14 +113,19 @@
                 {{ option.accountNum }} ธนาคาร{{ option.bank.name }}
               </option>
             </select>
+            <label class="label-text text-gray-500 tracking-wide font-bold my-2"
+              >วันที่จะเริ่มเข้าพัก<span class="text-imperialRed">*</span></label
+            >
+            <input type="Date" class="py-4 px-2 w-full input input-sm md:input-md rounded" placeholder="" v-model="startDate"/> 
+            <label class="label-text text-gray-500 tracking-wide font-bold my-2">วันที่จะเริ่มเข้าพัก<span class="text-imperialRed">*</span></label>
+            <input type="Date" class="py-4 px-2 w-full input input-sm md:input-md rounded" placeholder="" v-model="endDate"/> 
           </div>
-          <div></div>
           <div class="modal-action">
             <label for="my-modal-6" class="btn">ยกเลิกการจอง</label>
             <label
               for="my-modal-6"
               class="btn"
-              v-if="selectedBankAccount"
+              v-if="selectedBankAccount && (startDate<endDate)"
               @click="booking"
               >ยืนยันการจอง</label
             >
@@ -181,6 +186,8 @@ export default {
       checkRoomtypeImg: true,
       selectedBankAccount: null,
       selectedRoom: null,
+      startDate: null,
+      endDate: null
     };
   },
   methods: {
@@ -201,6 +208,8 @@ export default {
       let bookingInfo = {
         userId: this.$store.state.userAccount.userId,
         bankAccId: this.selectedBankAccount.bankAccId,
+        startDate: this.startDate,
+        endDate: this.endDate,
         dormId: this.$store.state.selectedDorm.dormId,
         roomId: this.selectedRoom.roomId,
       };

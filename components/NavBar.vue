@@ -37,7 +37,7 @@
           <li v-if="$store.state.userAccount.role == 'Owner'">
             <nuxt-link to="/dormList/owner">หอพักของฉัน</nuxt-link>
           </li>
-          <li v-if="$store.state.userAccount.role == 'Customer'">
+          <li v-if="$store.state.userAccount.role != 'Guest'">
             <nuxt-link to="/booking" >การจองห้องพักของฉัน</nuxt-link>
           </li>
           <li class="font-bold" v-if="$store.state.userAccount.role != 'Guest'">
@@ -73,7 +73,7 @@
         <li class="px-1" v-if="$store.state.userAccount.role == 'Owner'">
           <nuxt-link to="/dormList/owner" class="btn btn-ghost">หอพักของฉัน</nuxt-link>
         </li>
-        <li v-if="$store.state.userAccount.role == 'Customer'">
+        <li v-if="$store.state.userAccount.role == 'Customer' || $store.state.userAccount.role == 'Owner'">
           <nuxt-link to="/booking" class="btn btn-ghost">การจองห้องพักของฉัน</nuxt-link>
         </li>
         <li class="px-1" v-if="$store.state.userAccount.role != 'Guest'">

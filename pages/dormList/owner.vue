@@ -43,13 +43,14 @@ export default {
   },
    methods: {
     async changePage() {
-      await this.$store.dispatch('fetchDormOwnerList',this.page-1,this.userDormId)
+      await this.$store.dispatch('fetchDormOwnerList',{page:this.page-1,dormIdList: this.userDormId})
     },
   },
   async created() {
     for (let i in this.$store.state.userAccount.dorms) {
       this.userDormId.push(this.$store.state.userAccount.dorms[i].dormId);
     }
+    console.log(this.userDormId)
     await this.changePage()
   },
   computed: {

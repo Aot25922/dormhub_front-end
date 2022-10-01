@@ -100,7 +100,7 @@ export const actions = {
         commit('SET_DORMLIST', response.data)
       })
   },
-  async fetchDormOwnerList({ commit },page,dormIdList) {
+  async fetchDormOwnerList({ commit },{page,dormIdList}) {
     const request = {
       params: {
         page: page,
@@ -108,7 +108,8 @@ export const actions = {
         limit: 5
       }
     }
-    await this.$axios.get(`${this.state.Backend_URL}/dorm`,request)
+    console.log(dormIdList)
+    await this.$axios.get(`${this.state.Backend_URL}/dorm/owner`,request)
       .then(response => {
         commit('SET_DORMLIST', response.data)
       })
