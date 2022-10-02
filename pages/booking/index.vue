@@ -36,13 +36,32 @@
           <vs-td>
             {{ tr.endDate }}
           </vs-td>
-          <vs-td>
+          <vs-td v-if="$store.state.userAccount.role == 'Customer'">
             {{ tr.status }}
+          </vs-td>
+          <vs-td v-if="$store.state.userAccount.role == 'Owner'">
+            <select
+              v-model="tr.status"
+              class="select w-full text-gray-500 border-0"
+              @change="updateStatus(tr)"
+            >
+              <option
+                v-for="(option, index) in statusList"
+                :value="option"
+                :key="index"
+              >
+                {{ option }}
+              </option>
+            </select>
           </vs-td>
         </vs-tr>
       </template>
       <template #footer>
-        <vs-pagination v-if="bookingList" v-model="page" :length="$vs.getLength(bookingList, max)" />
+        <vs-pagination
+          v-if="bookingList"
+          v-model="page"
+          :length="$vs.getLength(bookingList, max)"
+        />
       </template>
     </vs-table>
   </div>
@@ -55,6 +74,8 @@ export default {
       this.bookingList = await this.$axios.$get(
         `${this.$store.state.Backend_URL}/booking/${this.$store.state.userAccount.userId}`
       );
+      for (let i in this.bookingList) {
+      }
     } else if (this.$store.state.userAccount.role == "Owner") {
       this.bookingList = await this.$axios.$get(
         `${this.$store.state.Backend_URL}/booking/owner/${this.$store.state.userAccount.userId}`
@@ -68,9 +89,53 @@ export default {
       page: 1,
       max: 5,
       bookingList: null,
+      statusList: ["Confirm", "Cancel", "Waiting"],
+      selectedStatus: null,
     };
   },
-  methods: {},
+  methods: {
+    async updateStatus(booking) {
+      console.log(booking);
+      const loading = this.$vs.loading();
+      let formData = new FormData();
+      const data = {
+        status: booking.status,
+        bookingId: booking.bookingId,
+        roomId: booking.roomId,
+        roomTypeId: booking.room.roomTypeId,
+        dormId: booking.room.dormId,
+      };
+      formData.append("data", JSON.stringify(data));
+      try {
+        await this.$axios.$put(
+          `${this.$store.state.Backend_URL}/booking/owner/update`,
+          formData,
+          {
+            withCredentials: true,
+          }
+        );
+        const noti = this.$vs.notification({
+          progress: "auto",
+          icon: `<i class='bx bx-folder-open' ></i>`,
+          color: "success",
+          position: "top-right",
+          title: `Data Update`,
+          text: `Update status complete!`,
+        });
+        loading.close();
+      } catch (error) {
+        loading.close();
+        const noti = this.$vs.notification({
+          progress: "auto",
+          icon: `<i class='bx bx-folder-open' ></i>`,
+          color: "warn",
+          position: "top-right",
+          title: `Data Update`,
+          text: error.response.data.error.message,
+        });
+      }
+    },
+  },
 };
 </script>
 
