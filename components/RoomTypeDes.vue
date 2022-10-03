@@ -111,8 +111,11 @@
               >วันที่จะเริ่มเข้าพัก<span class="text-imperialRed">*</span></label
             >
             <input type="Date" class="py-4 px-2 w-full input input-sm md:input-md rounded" placeholder="" v-model="startDate"/>
-            <label class="label-text text-gray-500 tracking-wide font-bold my-2">วันที่จะเริ่มเข้าพัก<span class="text-imperialRed">*</span></label>
-            <input type="Date" class="py-4 px-2 w-full input input-sm md:input-md rounded" placeholder="" v-model="endDate"/>
+            <label class="label-text text-gray-500 tracking-wide font-bold my-2">วันที่จะสิ้นสุดการเข้าพัก<span class="text-imperialRed">*</span></label>
+            <input type="Date" class="py-4 px-2 w-full input input-sm md:input-md rounded" placeholder="" v-model="endDate"/> 
+            <label class="label-text text-gray-500 tracking-wide font-bold my-2">เลือกภาพสลิป<span class="text-imperialRed">*</span></label>
+            <input type="file" class="focus:outline-none form-control block w-full rounded transition ease-in-out border-none" @change="onFileChange($event)" />
+            <img :src="slipImgUrl" class="py-2 md:p-2 md:max-h-80 md:max-w-full md:object-cover"/>
           </div>
           <div class="modal-action">
             <label for="my-modal-6" class="btn">ยกเลิกการจอง</label>
@@ -182,7 +185,9 @@ export default {
       selectedBankAccount: null,
       selectedRoom: null,
       startDate: null,
-      endDate: null
+      endDate: null,
+      slipImg:null,
+      slipImgUrl:null
     };
   },
   methods: {
@@ -209,6 +214,7 @@ export default {
         roomId: this.selectedRoom.roomId,
       };
       formData.append("data", JSON.stringify(bookingInfo));
+      formData.append("moneySlip", this.slipImg);
       try {
         await this.$axios.$post(
           `${this.$store.state.Backend_URL}/booking/new`,
@@ -239,6 +245,11 @@ export default {
           text: error.response.data.error.message,
         });
       }
+    },
+    onFileChange(e) {
+      let files = e.target.files || e.dataTransfer.files;
+      this.slipImgUrl = URL.createObjectURL(files[0])
+      this.slipImg = files[0]
     },
   },
   computed: {

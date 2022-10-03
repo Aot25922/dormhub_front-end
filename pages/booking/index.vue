@@ -7,6 +7,7 @@
           <vs-th> ประเภทห้องพัก </vs-th>
           <vs-th> ราคา </vs-th>
           <vs-th> เลขห้องพัก </vs-th>
+          <vs-th> ภาพสลิป </vs-th>
           <vs-th> วันที่เริ่มเข้าพัก </vs-th>
           <vs-th> วันที่สิ้นสุดการเข้าพัก </vs-th>
           <vs-th> สถานะ </vs-th>
@@ -29,6 +30,9 @@
           </vs-td>
           <vs-td>
             {{ tr.room.roomNum }}
+          </vs-td>
+          <vs-td>
+            <img :src="$store.state.Backend_URL+'/booking/image/'+tr.moneySlip" class="object-cover object-center w-full h-full" />
           </vs-td>
           <vs-td>
             {{ tr.startDate }}
@@ -89,7 +93,7 @@ export default {
       page: 1,
       max: 5,
       bookingList: null,
-      statusList: ["ยืนยันแล้ว", "ยกเลิก", "รอการยืนยัน"],
+      statusList: ["ยืนยันเเล้ว", "ยกเลิก", "รอการยืนยัน"],
       selectedStatus: null,
     };
   },
