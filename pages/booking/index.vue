@@ -89,7 +89,7 @@ export default {
       page: 1,
       max: 5,
       bookingList: null,
-      statusList: ["Confirm", "Cancel", "Waiting"],
+      statusList: ["ยืนยันแล้ว", "ยกเลิก", "รอการยืนยัน"],
       selectedStatus: null,
     };
   },

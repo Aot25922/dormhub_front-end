@@ -10,8 +10,7 @@
               block
               relative
               h-60
-              md:h-[480px]
-              lg:h-[550px]
+              md:h-[480px] lg:h-[550px]
             "
             v-for="i in media"
             :key="i.mediaId"
@@ -33,55 +32,50 @@
           <template slot="prevButton"><span class="material-icons">chevron_left</span></template>
           <template slot="nextButton"><span class="material-icons">chevron_right</span></template>
         </agile>
-        <!-- <div v-else>
-          <div class="relative">
-            <img src="@/assets/error/404.png" class="w-full mx-auto md:w-1/2" />
-          </div>
-        </div> -->
       </client-only>
       <div class="p-5">
         <div class="">
-          <div class="font-bold text-lg">{{ roomType.type }}</div>
+          <div class="font-bold text-lg md:text-xl lg:text-2xl 2xl:text-3xl">{{ roomType.type }}</div>
 
-          <div class="font-bold">
+          <div class="ml-3 font-bold text-sm md:text-base lg:text-lg xl:text-xl">
             ราคา :
             <span class="font-normal"
               >{{ roomType.dormHasRoomType.price }} บาท</span
             >
           </div>
 
-          <div class="font-bold">
+          <div class="ml-3 font-bold text-sm md:text-base lg:text-lg xl:text-xl">
             มัดจำ :
             <span class="font-normal"
               >{{ roomType.dormHasRoomType.deposit }} บาท</span
             >
           </div>
 
-          <div class="font-bold">
+          <div class="ml-3 font-bold text-sm md:text-base lg:text-lg xl:text-xl">
             ค่าน้ำ :
             <span class="font-normal">{{ waterPerUnit }} บาทต่อหน่วย</span>
           </div>
 
-          <div class="font-bold">
+          <div class="ml-3 font-bold text-sm md:text-base lg:text-lg xl:text-xl">
             ค่าไฟ :
             <span class="font-normal">{{ elecPerUnit }} บาทต่อหน่วย</span>
           </div>
 
-          <div class="font-bold">
+          <div class="ml-3 font-bold text-sm md:text-base lg:text-lg xl:text-xl">
             ขนาดพื้นที่ :
             <span class="font-normal"
               >{{ roomType.dormHasRoomType.area }} ตารางเมตร</span
             >
           </div>
 
-          <div class="pt-5 font-bold">รายละเอียดเพิ่มเติม</div>
+          <div class="pt-5 font-bold md:text-lg lg:text-xl xl:text-2xl">รายละเอียดเพิ่มเติม</div>
           <div
-            class="w-full text-gray-600 px-2 py-3 bg-ghostWhite mt-3 rounded"
+            class="w-full text-gray-600 px-2 py-3 bg-ghostWhite mt-3 rounded text-sm md:text-base lg:text-lg xl:text-xl"
           >
-            <div v-if="roomType.description != ''">
+            <div class="text-sm md:text-base lg:text-lg xl:text-xl" v-if="roomType.description">
               {{ roomType.description }}
             </div>
-            <div v-else class="text-gray-400">ไม่มีข้อมูล</div>
+            <div v-else class="text-gray-400 text-sm md:text-base lg:text-lg xl:text-xl">&emsp;ไม่มีข้อมูล</div>
           </div>
         </div>
       </div>
@@ -116,9 +110,9 @@
             <label class="label-text text-gray-500 tracking-wide font-bold my-2"
               >วันที่จะเริ่มเข้าพัก<span class="text-imperialRed">*</span></label
             >
-            <input type="Date" class="py-4 px-2 w-full input input-sm md:input-md rounded" placeholder="" v-model="startDate"/> 
+            <input type="Date" class="py-4 px-2 w-full input input-sm md:input-md rounded" placeholder="" v-model="startDate"/>
             <label class="label-text text-gray-500 tracking-wide font-bold my-2">วันที่จะเริ่มเข้าพัก<span class="text-imperialRed">*</span></label>
-            <input type="Date" class="py-4 px-2 w-full input input-sm md:input-md rounded" placeholder="" v-model="endDate"/> 
+            <input type="Date" class="py-4 px-2 w-full input input-sm md:input-md rounded" placeholder="" v-model="endDate"/>
           </div>
           <div class="modal-action">
             <label for="my-modal-6" class="btn">ยกเลิกการจอง</label>
@@ -134,14 +128,15 @@
       </div>
 
       <!--All room-->
-      <h1 class="font-bold text-lg">ห้องพักทั้งหมด</h1>
+      <h1 class="font-bold text-lg md:text-xl lg:text-2xl 2xl:text-3xl">ห้องพักทั้งหมด</h1>
       <p>{{ this.$store.state.userAccount }}</p>
       <div v-for="(room, index) in rooms" :key="index">
-        <div class="bg-emerald-800">
-          <p>ชั้น : {{ room.floors }}</p>
+        <div class="font-bold md:text-lg lg:text-xl xl:text-2xl">ชั้น : {{ room.floors }}</div>
+        <div class="bg-ghostWhite p-3 rounded-lg text-sm md:text-base lg:text-lg xl:text-xl">
           <p>เลขห้องพัก : {{ room.roomNum }}</p>
           <p>สถานะห้องพัก : {{ room.status }}</p>
-          <p>รายละเอียดเพิ่มเติม : {{ room.description }}</p>
+          <p v-if="room.description != ''">รายละเอียดเพิ่มเติม : {{ room.description }}</p>
+          <p v-else class="hidden"></p>
           <!-- <button class="bg-imperialRed" v-if="room.status != 'booking'" @click="">
             จองห้องพัก
           </button> -->

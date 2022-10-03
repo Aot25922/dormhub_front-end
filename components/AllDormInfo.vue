@@ -35,8 +35,9 @@
           <span class="material-icons">schedule</span>
           <div class="text-xs flex px-1 mt-1 lg:text-base">
             <h1 v-if="Dorm.openTime != null">{{ Dorm.openTime }}-</h1>
-            <h1 v-else>ไม่มีข้อมูล</h1>
             <h1 v-if="Dorm.closeTime != null">{{ Dorm.closeTime }} น.</h1>
+            <h1 v-else-if="Dorm.openTime != null && Dorm.closeTime == null">เปิด {{ Dorm.openTime }}</h1>
+            <h1 v-else-if="Dorm.openTime == null && Dorm.closeTime != null">ปิด {{ Dorm.closeTime }}</h1>
             <span v-else>ไม่มีข้อมูล</span>
           </div>
         </div>
