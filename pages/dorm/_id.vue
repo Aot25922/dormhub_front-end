@@ -1,6 +1,6 @@
 <template>
   <div class="bg-gray-50">
-    <div class="bg-ghostWhite px-5 py-12 xl:p-20">
+    <div class="bg-ghostWhite px-5 py-12 xl:py-20 xl:px-52 2xl:px-96">
       <div class="breadcrumbs text-gray-500 md:text-lg lg:text-xl">
         <ul>
           <li>หน้าหลัก</li>
@@ -9,7 +9,7 @@
       </div>
       <h1 class="text-PrussianBlue font-bold text-3xl md:text-4xl lg:text-5xl">{{ dorm.name }}</h1>
     </div>
-    <div class="px-5 py-12 xl:p-20">
+    <div class="px-5 py-12 xl:py-20 xl:px-52 2xl:px-96">
       <div v-if="dorm != null">
         <div class="bg-white drop-shadow-lg rounded-lg">
           <client-only>
@@ -28,7 +28,7 @@
           </client-only>
         <div class="p-5">
         <div class="flex flex-1">
-          <h1 class="py-1 font-bold text-lg">{{ dorm.name }}</h1>
+          <h1 class="py-1 font-bold text-lg md:text-xl lg:text-2xl 2xl:text-3xl">{{ dorm.name }}</h1>
     <!--			<div class="rounded p-1 text-2xs my-1 mx-2">-->
     <!--				{{ dorm.rating }}-->
     <!--				<div class="rating rating-xs">-->
@@ -36,8 +36,8 @@
     <!--				</div>-->
     <!--			</div>-->
         </div>
-            <div class="rounded-md text-sm">
-          <p>
+            <div class="pt-2 rounded-md text-sm md:text-base lg:text-lg xl:text-xl">
+          <p class="ml-3">
           <span class="font-bold">ที่อยู่ :</span> {{ dorm.address.number }} ถนน {{ dorm.address.street }}
           <span v-if="dorm.address.alley != ''">{{ dorm.address.alley }}</span> ตำบล {{ dorm.address.subDistrict.name_th }}
           อำเภอ {{ dorm.address.subDistrict.district.name_th }}
@@ -45,7 +45,7 @@
             รหัสไปรษณีย์ {{ dorm.address.subDistrict.zip_code }}
   <!--        {{ dorm.address.subDistrict.district.province.geography.name }}-->
           </p>
-          <p class="pt-2"><span class="font-bold">ราคา :</span> {{ lowPrice }} - {{ highPrice }} บาท</p>
+          <p class="pt-2 ml-3 text-sm md:text-base lg:text-lg xl:text-xl"><span class="font-bold">ราคา :</span> {{ lowPrice }} - {{ highPrice }} บาท</p>
           <p class="pt-2 font-bold">ช่องทางการติดต่อ:</p>
           <ul class="list-none">
             <li class="pl-3">อีเมล : <span class="text-light-blue">{{ dorm.userAccount.email }}</span></li>
@@ -55,13 +55,13 @@
           </div>
         </div>
           <div class="my-5 dropdown">
-            <label tabindex="0" class="btn btn-neutral m-1">ประเภทห้องพัก<span class="material-icons">expand_more</span></label>
+            <label tabindex="0" class="btn btn-neutral m-1 md:text-lg lg:text-xl xl:text-2xl">ประเภทห้องพัก<span class="material-icons">expand_more</span></label>
             <ul
               tabindex="0"
               class="dropdown-content menu p-2 shadow rounded-box w-52 bg-white border border-black"
             >
               <li v-for="type in dorm.roomTypes" :key="type.roomTypeId">
-                <p class="text-black" @click="selectRoomtype(type)">{{ type.type }}</p>
+                <p class="text-black text-sm md:text-base lg:text-lg xl:text-xl" @click="selectRoomtype(type)">{{ type.type }}</p>
               </li>
             </ul>
           </div>

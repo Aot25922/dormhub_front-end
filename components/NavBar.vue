@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar flex flex-row">
+  <div class="navbar flex flex-row xl:px-48 2xl:px-80">
     <div class="font-bold text-PrussianBlue mr-auto cursor-pointer">
       <NuxtLink to="/" class="flex flex-row px-3">
 <!--        <img src="@/assets/logo.png" class="mt-1 mx-1 w-10 h-10"/>-->
