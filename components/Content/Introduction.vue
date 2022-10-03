@@ -1,7 +1,7 @@
 <template>
-  <div class="lg:flex lg:flex-wrap">
+  <div class="lg:flex lg:flex-wrap xl:pl-36">
     <div class="lg:w-2/3">
-      <div class="bg-ghostWhite py-20 px-5">
+      <div class="bg-ghostWhite py-20 px-5 lg:rounded-l-lg lg:pl-20">
         <h1 class="text-PrussianBlue font-bold text-3xl md:text-4xl md:pr-44">
           Dorm Hub - เว็ปไซต์ที่จะนำพาผู้เช่าหอพัก เจอหอพักที่ใช่ ค้นหาง่าย ตามต้องการ
         </h1>
