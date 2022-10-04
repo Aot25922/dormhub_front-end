@@ -38,12 +38,17 @@
             <h1 v-if="Dorm.closeTime != null">{{ Dorm.closeTime }}</h1>
             <h1 v-else-if="Dorm.openTime != null && Dorm.closeTime == null">เปิด {{ Dorm.openTime }}</h1>
             <h1 v-else-if="Dorm.openTime == null && Dorm.closeTime != null">ปิด {{ Dorm.closeTime }}</h1>
-            <h1 v-else>-</h1>
+            <h1 v-else>ไม่มีข้อมูล</h1>
           </div>
         </div>
         <div class="flex py-1 text-gray-500">
           <span class="material-icons">local_offer</span>
-          <div class="text-xs px-1 mt-1 md:text-base">ไตข้างซ้าย<span class="text-gray-400 font-normal">/ เดือน</span></div>
+          <div class="text-xs px-1 mt-1 lg:text-base" v-if="minPrice != maxPrice">
+            {{ minPrice }} ถึง {{ maxPrice }} บาท<span class="text-gray-400 font-normal">/ เดือน</span>
+          </div>
+          <div class="text-xs px-1 mt-1 lg:text-base" v-else>
+            {{ minPrice }} บาท<span class="text-gray-400 font-normal">/ เดือน</span>
+          </div>
         </div>
         <div class="card-actions">
           <button @click="dormInfo()" class="btn btn-ghost w-full duration-300 ease-in-out">รายละเอียดทั้งหมด</button>
@@ -62,12 +67,34 @@ export default {
       checkDormImg: true
     }
   },
-  methods : {
-     dormInfo(){
-       let dormInfo = {dorm:this.dorm}
-       this.$store.dispatch('dormSelected',dormInfo)
-       this.$router.push({path:`/dorm/${this.dorm.dormId}`})
-    }
-  }
+  methods: {
+    dormInfo(data) {
+      if (data == "edit") {
+        let dormInfo = { dorm: this.dorm };
+        this.$store.dispatch("dormSelected", dormInfo);
+        this.$router.push({ path: `/dorm/edit/${this.dorm.dormId}`});
+      } else {
+        let dormInfo = { dorm: this.dorm };
+        this.$store.dispatch("dormSelected", dormInfo);
+        this.$router.push({ path: `/dorm/${this.dorm.dormId}`});
+      }
+    },
+  },
+  computed: {
+    minPrice() {
+      let minvalue = [];
+      for (let i in this.dorm.roomTypes) {
+        minvalue.push(this.dorm.roomTypes[i].dormHasRoomType.price);
+      }
+      return Math.min(...minvalue);
+    },
+    maxPrice() {
+      let maxvalue = [];
+      for (let i in this.dorm.roomTypes) {
+        maxvalue.push(this.dorm.roomTypes[i].dormHasRoomType.price);
+      }
+      return Math.max(...maxvalue);
+    },
+  },
 };
 </script>
