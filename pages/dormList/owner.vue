@@ -12,15 +12,16 @@
       </h1>
     </div>
     <div class="px-5 md:my-20 xl:p-20">
+      <SearchBar />
       <AllDormInfo
         class="my-10 md:my-0"
         v-for="dorm in dormList.results"
         :Dorm="dorm"
         :key="dorm.dormId"
       />
-      <div >
-        <vs-pagination  v-model="page" :length="dormList.totalPage" />
-        {{dormList.totalPage}}
+      <div>
+        <vs-pagination v-model="page" :length="dormList.totalPage" />
+        {{ dormList.totalPage }}
       </div>
     </div>
   </div>
@@ -30,8 +31,8 @@
 export default {
   data() {
     return {
-      page:1,
-      userDormId : []
+      page: 1,
+      userDormId: [],
     };
   },
   watch: {
@@ -41,17 +42,20 @@ export default {
       }
     },
   },
-   methods: {
+  methods: {
     async changePage() {
-      await this.$store.dispatch('fetchDormOwnerList',{page:this.page-1,dormIdList: this.userDormId})
+      await this.$store.dispatch("fetchDormOwnerList", {
+        page: this.page - 1,
+        dormIdList: this.userDormId,
+      });
     },
   },
   async created() {
     for (let i in this.$store.state.userAccount.dorms) {
       this.userDormId.push(this.$store.state.userAccount.dorms[i].dormId);
     }
-    console.log(this.userDormId)
-    await this.changePage()
+    console.log(this.userDormId);
+    await this.changePage();
   },
   computed: {
     dormList() {

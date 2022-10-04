@@ -192,7 +192,7 @@ export default {
   props: ["editForm"],
   data() {
     return {
-      addressOption: [],
+      addressOption: this.$store.state.addressOption,
       selectedDistrict: null,
       selectedSubDistrict: null,
       selectedRegion: null,
@@ -214,9 +214,6 @@ export default {
     };
   },
   async fetch() {
-    this.addressOption = await this.$axios.$get(
-      `${this.$store.state.Backend_URL}/address`
-    );
     if (this.editForm) {
       if (!this.$store.state.selectedDorm) {
         this.$router.push({ path: "/dormList" });
@@ -280,12 +277,5 @@ export default {
       this.validateZipcode = this.selectedZipCode != null ? true : false;
     },
   },
-  async mounted() {
-      // this.selectedZipCode = this.$store.state.selectedDorm.address.subDistrict.zip_code
-      // this.selectedSubDistrict = this.$store.state.selectedDorm.address.subDistrict
-      // this.selectedDistrict = this.$store.state.selectedDorm.address.subDistrict.district
-      // this.selectedProvince = this.$store.state.selectedDorm.address.subDistrict.district.province
-      // this.selectedRegion = this.$store.state.selectedDorm.address.subDistrict.district.province.geography
-    }
 };
 </script>
