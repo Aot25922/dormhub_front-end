@@ -1,7 +1,7 @@
 var _ = require('lodash');
 
 export const state = () => ({
-  Backend_URL: process.env.Backend_URL ||'http://localhost:3001',
+  Backend_URL: process.env.Backend_URL || 'http://localhost:3001',
   userAccount: { role: "Guest" },
   dormList: [],
   provinceList: [],
@@ -100,7 +100,7 @@ export const actions = {
     }
   },
   async fetchDormList({ commit }, page) {
-    await this.$axios.get(`${this.state.Backend_URL}/dorm?page=${page}`)
+    await this.$axios.get(`${this.state.Backend_URL}/dorm?page=${page}`,)
       .then(response => {
         commit('SET_DORMLIST', response.data)
       })
@@ -111,7 +111,8 @@ export const actions = {
         page: page,
         dormIdList: dormIdList,
         limit: 5
-      }
+      },
+      withCredentials: true
     }
     console.log(dormIdList)
     await this.$axios.get(`${this.state.Backend_URL}/dorm/owner`, request)

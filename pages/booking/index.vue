@@ -32,7 +32,10 @@
             {{ tr.room.roomNum }}
           </vs-td>
           <vs-td>
-            <img :src="$store.state.Backend_URL+'/booking/image/'+tr.moneySlip" class="object-cover object-center w-full h-full" />
+            <img
+              :src="$store.state.Backend_URL + '/booking/image/' + tr.bookingId"
+              class="object-cover object-center w-full h-full"
+            />
           </vs-td>
           <vs-td>
             {{ tr.startDate }}
@@ -76,13 +79,19 @@ export default {
   async fetch() {
     if (this.$store.state.userAccount.role == "Customer") {
       this.bookingList = await this.$axios.$get(
-        `${this.$store.state.Backend_URL}/booking/${this.$store.state.userAccount.userId}`
+        `${this.$store.state.Backend_URL}/booking`,
+        {
+          withCredentials: true,
+        }
       );
       for (let i in this.bookingList) {
       }
     } else if (this.$store.state.userAccount.role == "Owner") {
       this.bookingList = await this.$axios.$get(
-        `${this.$store.state.Backend_URL}/booking/owner/${this.$store.state.userAccount.userId}`
+        `${this.$store.state.Backend_URL}/booking/owner`,
+        {
+          withCredentials: true,
+        }
       );
     } else {
       this.$router.push({ path: "/" });
@@ -99,7 +108,6 @@ export default {
   },
   methods: {
     async updateStatus(booking) {
-      console.log(booking);
       const loading = this.$vs.loading();
       let formData = new FormData();
       const data = {

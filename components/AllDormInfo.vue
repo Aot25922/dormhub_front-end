@@ -4,13 +4,6 @@
     <div class="card w-full shadow-xl my-5 md:card-side">
       <figure v-if="checkDormImg" class="relative md:w-1/2 lg:w-1/3">
               <img :src="$store.state.Backend_URL+'/dorm/image/'+Dorm.dormId+'/'+Dorm.media.filter(x=>x.roomTypeId == null)[0].mediaId" @error="checkDormImg = false" class="w-full h-full object-cover"/>
-<!--        <img src="https://placeimg.com/400/225/arch" class="w-full object-cover md:h-full"/>-->
-<!--        <div class=" badge badge-secondary absolute bottom-1 right-1 font-bold md:bottom-2">-->
-<!--          {{ Dorm.rating }}-->
-<!--          <div class="rating rating-xs">-->
-<!--            <input type="radio" name="rating-2" class="mask mask-star-2 bg-warning" />-->
-<!--          </div>-->
-<!--        </div>-->
       </figure>
       <figure v-else class="relative md:w-1/2 lg:w-1/3">
         <img src="https://placeimg.com/400/225/arch" class="h-full w-full object-cover" />
@@ -25,10 +18,10 @@
             {{ Dorm.address.number }}
             {{ Dorm.address.street }}
             {{ Dorm.address.alley }}
-            {{ Dorm.address.subDistrict.name }}
-            {{ Dorm.address.subDistrict.zipCodeId }}
-            {{ Dorm.address.subDistrict.district.name }}
-            {{ Dorm.address.subDistrict.district.province.name }}
+            {{ Dorm.address.subDistrict.name_th }}
+            {{ Dorm.address.subDistrict.zip_code }}
+            {{ Dorm.address.subDistrict.district.name_th }}
+            {{ Dorm.address.subDistrict.district.province.name_th }}
           </p>
         </div>
         <div class="flex py-1 text-gray-500">
@@ -36,8 +29,8 @@
           <div class="text-xs flex px-1 mt-1 lg:text-base">
             <h1 v-if="Dorm.openTime != null">{{ Dorm.openTime }}-</h1>
             <h1 v-if="Dorm.closeTime != null">{{ Dorm.closeTime }} น.</h1>
-            <h1 v-else-if="Dorm.openTime != null && Dorm.closeTime == null">เปิด {{ Dorm.openTime }}</h1>
-            <h1 v-else-if="Dorm.openTime == null && Dorm.closeTime != null">ปิด {{ Dorm.closeTime }}</h1>
+            <h1 v-if="Dorm.openTime != null && Dorm.closeTime == null">เปิด {{ Dorm.openTime }}</h1>
+            <h1 v-if="Dorm.openTime == null && Dorm.closeTime != null">ปิด {{ Dorm.closeTime }}</h1>
             <span v-else>ไม่มีข้อมูล</span>
           </div>
         </div>
@@ -52,7 +45,7 @@
         </div>
         <div class="card-actions">
           <button @click="dormInfo()" class=" btn btn-primary w-full duration-300 ease-in-out lg:w-1/3 lg:ml-auto xl:w-1/4">รายละเอียดทั้งหมด</button>
-          <button v-if="$store.state.userAccount.role != 'Guest'" @click="dormInfo('edit')" class="btn btn-primary w-full duration-300 ease-in-out lg:w-1/3 lg:ml-auto xl:w-1/4">เเก้ไขข้อมูลหอพัก</button>
+          <button v-if="$store.state.userAccount.role == 'Owner'" @click="dormInfo('edit')" class="btn btn-primary w-full duration-300 ease-in-out lg:w-1/3 lg:ml-auto xl:w-1/4">เเก้ไขข้อมูลหอพัก</button>
         </div>
       </div>
     </div>

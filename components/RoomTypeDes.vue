@@ -132,7 +132,6 @@
 
       <!--All room-->
       <h1 class="font-bold text-lg md:text-xl lg:text-2xl 2xl:text-3xl">ห้องพักทั้งหมด</h1>
-      <p>{{ this.$store.state.userAccount }}</p>
       <div v-for="(room, index) in rooms" :key="index">
         <div class="font-bold md:text-lg lg:text-xl xl:text-2xl">ชั้น : {{ room.floors }}</div>
         <div class="bg-ghostWhite p-3 rounded-lg text-sm md:text-base lg:text-lg xl:text-xl">
@@ -146,7 +145,7 @@
           <label
             for="my-modal-6"
             class="btn modal-button"
-            v-if="room.status != 'booking' && $store.state.userAccount.role == 'Customer' "
+            v-if="room.status != 'จองเเล้ว' && $store.state.userAccount.role == 'Customer' "
             @click="selectedRoom = room"
             >จองห้องพัก</label
           >
@@ -206,7 +205,6 @@ export default {
       const loading = this.$vs.loading();
       let formData = new FormData();
       let bookingInfo = {
-        userId: this.$store.state.userAccount.userId,
         bankAccId: this.selectedBankAccount.bankAccId,
         startDate: this.startDate,
         endDate: this.endDate,
@@ -232,7 +230,7 @@ export default {
           title: `Data Update`,
           text: `booking complete!`,
         });
-         let bookingStatus = { roomId: this.selectedRoom.roomId, status: "booking" };
+         let bookingStatus = { roomId: this.selectedRoom.roomId, status: "จองเเล้ว" };
         this.$store.commit("SET_ROOMSTATUS", bookingStatus)
       } catch (error) {
         loading.close();
