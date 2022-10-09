@@ -4,7 +4,7 @@
     "_comment1": "Missing Anti-clickjacking Header",
     "X-Frame-Options": "DENY",
     "_comment2": "Content Security Policy (CSP) Header Not Set",
-    "Content-Security-Policy": "base-uri 'self';"
+    "Content-Security-Policy": "default-src 'self';"
   },
   "responseOverrides": {
     "404": {
