@@ -2,7 +2,7 @@
   "globalHeaders": {
     "Referrer-Policy": "strict-origin-when-cross-origin",
     "X-Frame-Options": "DENY",
-    "Content-Security-Policy": "default-src 'self' *.dormhub.works; img-src 'self' blob: data: *.dormhub.works https://cdn-icons-png.flaticon.com https://placeimg.com; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; frame-ancestors 'none'; form-action 'self';",
+    "Content-Security-Policy": "default-src 'self' *.dormhub.works; img-src 'self' blob: data: *.dormhub.works https://cdn-icons-png.flaticon.com https://placeimg.com; script-src 'self' 'sha256-O8n2Uf1v2lRLABnIIBgEUmmSVfctA3bBgNKB8MNYNPY='; style-src 'self' 'sha256-og+4Vb3LFLBk8E/V9HLtwDwtqsOdeZ8N1S69XKimhec=' 'sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=' 'sha256-VZRfH/3Bwi5/eYybvbBZ0vWttfyoI7loqicYXiNREq4=' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; frame-ancestors 'none'; form-action 'self';",
     "Cache-Control": "private, must-revalidate"
   },
   "responseOverrides": {
