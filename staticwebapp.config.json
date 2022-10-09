@@ -4,11 +4,10 @@
     "_comment1": "Missing Anti-clickjacking Header",
     "X-Frame-Options": "DENY",
     "_comment2": "Content Security Policy (CSP) Header Not Set",
-    "Content-Security-Policy": "base-uri 'self'; connect-src *.dormhub.works; img-src *; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com;"
+    "Content-Security-Policy": "base-uri 'self'; connect-src *.dormhub.works; img-src *; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com;"
   },
   "responseOverrides": {
     "404": {
-      "rewrite": "index.html",
       "statusCode": 404
     }
   }
