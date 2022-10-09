@@ -1,9 +1,5 @@
 {
-  "globalHeaders": {
 
-    "X-Frame-Options": "DENY",
-    "Cache-Control": "private, must-revalidate"
-  },
   "responseOverrides": {
     "404": {
       "statusCode": 404
