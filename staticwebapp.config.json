@@ -2,7 +2,7 @@
   "globalHeaders": {
     "Referrer-Policy": "strict-origin-when-cross-origin",
     "X-Frame-Options": "DENY",
-    "Content-Security-Policy": "default-src 'self'; frame-ancestors 'none'; form-action 'self'; connect-src *.dormhub.works; img-src 'self' blob: data: *.dormhub.works https://cdn-icons-png.flaticon.com https://placeimg.com; script-src 'self' 'sha256-tCGx2K4ey2pD8YhtEW/FcOfUTopQ5y+7MG+9E4EmizU=' 'sha256-plASre6D0V84tcQkDqtMl338a6pLx95ypZzHQpNs3b0=' 'sha256-J62Nj0MuvQUfuKQzE1Bo6nyTTdqEl1DNVjItFrsMQeI=' 'sha256-38V7eUaV4RGKQjv0MTcKbbcl5zXMptfOkRqJX1x/FGU=' 'sha256-BKNitmlqecoahFKhnybY4hYUubQGFJ1TteLcG5aGsT4='; style-src 'self' 'sha256-MCFJc5CWmvpSw0ZdP18/hkNgUjk+pRK7cRJQepaypVU=' 'sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=' 'sha256-VZRfH/3Bwi5/eYybvbBZ0vWttfyoI7loqicYXiNREq4=' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com;",
+    "Content-Security-Policy": "default-src 'self'; frame-ancestors 'none'; form-action 'self'; connect-src *.dormhub.works; img-src 'self' blob: data: *.dormhub.works https://cdn-icons-png.flaticon.com https://placeimg.com; script-src 'self' 'unsafe-inline'; style-src 'self' 'sha256-MCFJc5CWmvpSw0ZdP18/hkNgUjk+pRK7cRJQepaypVU=' 'sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=' 'sha256-VZRfH/3Bwi5/eYybvbBZ0vWttfyoI7loqicYXiNREq4=' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com;",
     "Cache-Control": "private, must-revalidate"
   },
   "responseOverrides": {
