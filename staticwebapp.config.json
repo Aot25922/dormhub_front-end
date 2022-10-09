@@ -2,7 +2,7 @@
   "globalHeaders": {
     "Referrer-Policy": "strict-origin-when-cross-origin",
     "X-Frame-Options": "DENY",
-    "Content-Security-Policy": "default-src 'self'; frame-ancestors 'none'; form-action 'self'; connect-src *.dormhub.works; img-src 'self' blob: data: *.dormhub.works https://cdn-icons-png.flaticon.com https://placeimg.com; script-src 'self' 'sha256-0HIiNG4aUMT3+dfYxHvT+Ir+9B1i5tPUVUmlKy8MfRs=' ; style-src 'self' 'sha256-MCFJc5CWmvpSw0ZdP18/hkNgUjk+pRK7cRJQepaypVU='  https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com;",
+    "Content-Security-Policy": "default-src 'self'; frame-ancestors 'none'; form-action 'self'; connect-src *.dormhub.works; img-src 'self' blob: data: *.dormhub.works https://cdn-icons-png.flaticon.com https://placeimg.com; script-src 'self'; style-src 'self'; font-src 'self';",
     "Cache-Control": "private, must-revalidate"
   },
   "responseOverrides": {
