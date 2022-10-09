@@ -7,6 +7,7 @@
   },
   "responseOverrides": {
     "404": {
+      "redirect": "/index.html",
       "statusCode": 404
     }
   }
