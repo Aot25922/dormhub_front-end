@@ -4,7 +4,7 @@
     "_comment1": "Missing Anti-clickjacking Header",
     "X-Frame-Options": "DENY",
     "_comment2": "Content Security Policy (CSP) Header Not Set",
-    "Content-Security-Policy": "default-src 'self'; frame-ancestors 'none'; form-action 'self'; connect-src *.dormhub.works; img-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com;"
+    "Content-Security-Policy": "default-src 'self'; frame-ancestors 'none'; form-action 'self'; connect-src *.dormhub.works; img-src 'self' *.dormhub.works https://cdn-icons-png.flaticon.com https://placeimg.com; style-src 'self' 'sha256-og+4Vb3LFLBk8E/V9HLtwDwtqsOdeZ8N1S69XKimhec=' 'sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=' 'sha256-VZRfH/3Bwi5/eYybvbBZ0vWttfyoI7loqicYXiNREq4=' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com;"
   },
   "responseOverrides": {
     "404": {
