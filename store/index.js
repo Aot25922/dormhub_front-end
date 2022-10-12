@@ -23,6 +23,7 @@ export const mutations = {
     }
   },
   SET_USERACCOUNT(state, data) {
+    console.log(data.data)
     state.userAccount = data.data
   },
   SET_DORMLIST(state, data) {
