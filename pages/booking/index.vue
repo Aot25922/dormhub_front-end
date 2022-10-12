@@ -76,27 +76,6 @@
 
 <script>
 export default {
-  async fetch() {
-    if (this.$store.state.userAccount.role == "Customer") {
-      this.bookingList = await this.$axios.$get(
-        `${this.$store.state.Backend_URL}/booking`,
-        {
-          withCredentials: true,
-        }
-      );
-      for (let i in this.bookingList) {
-      }
-    } else if (this.$store.state.userAccount.role == "Owner") {
-      this.bookingList = await this.$axios.$get(
-        `${this.$store.state.Backend_URL}/booking/owner`,
-        {
-          withCredentials: true,
-        }
-      );
-    } else {
-      this.$router.push({ path: "/" });
-    }
-  },
   data() {
     return {
       page: 1,
@@ -147,6 +126,27 @@ export default {
         });
       }
     },
+  },
+  async created() {
+    if (this.$store.state.userAccount.role == "Customer") {
+      this.bookingList = await this.$axios.$get(
+        `${this.$store.state.Backend_URL}/booking`,
+        {
+          withCredentials: true,
+        }
+      );
+      for (let i in this.bookingList) {
+      }
+    } else if (this.$store.state.userAccount.role == "Owner") {
+      this.bookingList = await this.$axios.$get(
+        `${this.$store.state.Backend_URL}/booking/owner`,
+        {
+          withCredentials: true,
+        }
+      );
+    } else {
+      this.$router.push({ path: "/" });
+    }
   },
 };
 </script>
