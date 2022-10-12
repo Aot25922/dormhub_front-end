@@ -51,6 +51,7 @@ export default {
     },
   },
   async created() {
+    console.log(this.$store.state.userAccount)
     for (let i in this.$store.state.userAccount.dorms) {
       this.userDormId.push(this.$store.state.userAccount.dorms[i].dormId);
     }
