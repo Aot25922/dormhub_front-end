@@ -145,7 +145,7 @@
           <label
             for="my-modal-6"
             class="btn modal-button"
-            v-if="room.status != 'จองเเล้ว' && $store.state.userAccount.role == 'Customer' "
+            v-if="room.status != 'จองเเล้ว' && $store.state.userAccount.role == 'Customer' && slipImg != null"
             @click="selectedRoom = room"
             >จองห้องพัก</label
           >
@@ -211,6 +211,12 @@ export default {
         dormId: this.$store.state.selectedDorm.dormId,
         roomId: this.selectedRoom.roomId,
       };
+      this.selectedBankAccount = null
+      this.selectedRoom = null
+      this.startDate = null
+      this.endDate = null
+      this.slipImg = null
+      this.slipImgUrl = null
       formData.append("data", JSON.stringify(bookingInfo));
       formData.append("moneySlip", this.slipImg);
       try {
