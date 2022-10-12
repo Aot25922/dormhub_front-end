@@ -1,5 +1,5 @@
 <template>
-  <div class="p-3 rounded-lg mb-3 relative border-2 border-gray-400 lg:flex lg:flex-wrap">
+  <div class="p-3 rounded-lg mb-3 relative border shadow-lg lg:flex lg:flex-wrap">
     <button @click="removeRoomType" class="absolute top-0 right-0" v-if="index > 0">
       <span class="material-icons btn btn-ghost pt-3 pr-3">delete</span>
     </button>

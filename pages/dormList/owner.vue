@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="bg-ghostWhite px-5 py-12 xl:p-20">
+    <div class="bg-ghostWhite px-5 py-12 xl:py-20 xl:px-52 2xl:px-96">
       <div class="breadcrumbs text-gray-500 md:text-lg lg:text-xl">
         <ul>
           <li>หน้าหลัก</li>
@@ -11,7 +11,7 @@
         หอพัก
       </h1>
     </div>
-    <div class="px-5 md:my-20 xl:p-20">
+    <div class="p-5 xl:pb-20 xl:px-52 2xl:px-96">
       <SearchBar />
       <AllDormInfo
         class="my-10 md:my-0"
@@ -19,7 +19,7 @@
         :Dorm="dorm"
         :key="dorm.dormId"
       />
-      <div>
+      <div class="center con-pagination my-10 md:my-20 lg:mb-0">
         <vs-pagination v-model="page" :length="dormList.totalPage" />
         {{ dormList.totalPage }}
       </div>
