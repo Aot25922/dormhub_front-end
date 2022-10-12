@@ -50,8 +50,7 @@ export default {
       });
     },
   },
-  // async created() {
-  //   console.log(this.$store.state.userAccount);
+  // async mounted() {
   //   for (let i in this.$store.state.userAccount.dorms) {
   //     this.userDormId.push(this.$store.state.userAccount.dorms[i].dormId);
   //   }
@@ -59,11 +58,13 @@ export default {
   //   await this.changePage();
   // },
   computed: {
-    async dormList() {
-      for (let i in this.$store.state.userAccount.dorms) {
-        this.userDormId.push(this.$store.state.userAccount.dorms[i].dormId);
+    dormList() {
+      if (this.userDormId.length == 0) {
+        for (let i in this.$store.state.userAccount.dorms) {
+          this.userDormId.push(this.$store.state.userAccount.dorms[i].dormId);
+        }
+        this.changePage();
       }
-      await this.changePage();
       return this.$store.state.dormList;
     },
   },
