@@ -50,15 +50,21 @@ export default {
       });
     },
   },
-  async created() {
-    for (let i in this.$store.state.userAccount.dorms) {
-      this.userDormId.push(this.$store.state.userAccount.dorms[i].dormId);
-    }
-    console.log(this.userDormId);
-    await this.changePage();
-  },
+  // async mounted() {
+  //   for (let i in this.$store.state.userAccount.dorms) {
+  //     this.userDormId.push(this.$store.state.userAccount.dorms[i].dormId);
+  //   }
+  //   console.log(this.userDormId);
+  //   await this.changePage();
+  // },
   computed: {
     dormList() {
+      if (this.userDormId.length == 0) {
+        for (let i in this.$store.state.userAccount.dorms) {
+          this.userDormId.push(this.$store.state.userAccount.dorms[i].dormId);
+        }
+        this.changePage();
+      }
       return this.$store.state.dormList;
     },
   },

@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gray-50">
+  <div class="bg-gray-50" v-if="dorm" >
     <div class="bg-ghostWhite px-5 py-12 xl:py-20 xl:px-52 2xl:px-96">
       <div class="breadcrumbs text-gray-500 md:text-lg lg:text-xl">
         <ul>
@@ -43,7 +43,6 @@
           อำเภอ {{ dorm.address.subDistrict.district.name_th }}
           จังหวัด {{ dorm.address.subDistrict.district.province.name_th }}
             รหัสไปรษณีย์ {{ dorm.address.subDistrict.zip_code }}
-  <!--        {{ dorm.address.subDistrict.district.province.geography.name }}-->
           </p>
           <p class="pt-2 ml-3 text-sm md:text-base lg:text-lg xl:text-xl"><span class="font-bold">ราคา :</span> {{ lowPrice }} - {{ highPrice }} บาท</p>
           <p class="pt-2 font-bold">ช่องทางการติดต่อ:</p>
