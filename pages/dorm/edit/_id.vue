@@ -79,7 +79,7 @@
         <RegisterDormAddressForm editForm="true"/>
       </div>
       <div v-if="editRoomTypeInfo">
-        <RegisterDormRoomtypeForm editForm="true"/>
+        <RegisterDormRoomtypeForm editForm="true" :roomTypeProp="i" v-for="i in roomType" :key="i.roomTypeId"/>
       </div>
       <div v-if="editRoomInfo">
         <RegisterDormRoomForm editForm="true"/>
@@ -102,6 +102,10 @@ export default {
     };
   },
   methods: {},
-  computed: {},
+  computed: {
+    roomType(){
+      return this.$store.state.selectedDorm.roomTypes
+    },
+  },
 };
 </script>

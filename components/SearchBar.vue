@@ -175,7 +175,6 @@ export default {
     },
   },
   created() {
-    console.log(this.$router.history.current.params.search)
     if (this.$router.history.current.params.search) {
       let oldSearchData = this.$router.history.current.params.search;
       this.search = oldSearchData.search;

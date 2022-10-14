@@ -4,13 +4,6 @@
     <div class="card w-full shadow-xl my-5">
       <figure v-if="checkDormImg" class="relative">
         <img :src="$store.state.Backend_URL+'/dorm/image/'+Dorm.dormId+'/'+Dorm.media.filter(x=>x.roomTypeId == null)[0].mediaId" @error="checkDormImg = false" class="w-full object-cover"/>
-<!--        <img src="https://placeimg.com/400/225/arch" class="w-full object-cover" />-->
-<!--        <div class="badge badge-secondary absolute bottom-1 right-1 font-bold">-->
-<!--          {{Dorm.rating}}-->
-<!--          <div class="rating rating-xs">-->
-<!--            <input type="radio" name="rating-2" class="mask mask-star-2 bg-warning">-->
-<!--          </div>-->
-<!--        </div>-->
       </figure>
       <figure v-else class="relative">
         <img src="https://placeimg.com/400/225/arch" class="w-full object-cover" />
@@ -36,8 +29,8 @@
           <div class="text-xs flex px-1 mt-1 md:text-base">
             <h1 v-if="Dorm.openTime != null">{{ Dorm.openTime }} ถึง</h1>
             <h1 v-if="Dorm.closeTime != null">{{ Dorm.closeTime }}</h1>
-            <h1 v-else-if="Dorm.openTime != null && Dorm.closeTime == null">เปิด {{ Dorm.openTime }}</h1>
-            <h1 v-else-if="Dorm.openTime == null && Dorm.closeTime != null">ปิด {{ Dorm.closeTime }}</h1>
+            <h1 v-if="Dorm.openTime != null && Dorm.closeTime == null">เปิด {{ Dorm.openTime }}</h1>
+            <h1 v-if="Dorm.openTime == null && Dorm.closeTime != null">ปิด {{ Dorm.closeTime }}</h1>
             <h1 v-else>ไม่มีข้อมูล</h1>
           </div>
         </div>
@@ -64,7 +57,7 @@ export default {
   data() {
     return {
       dorm : this.$props.Dorm,
-      checkDormImg: true
+      checkDormImg: this.dorm != null
     }
   },
   methods: {

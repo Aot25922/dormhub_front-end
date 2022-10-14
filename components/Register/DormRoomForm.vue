@@ -39,10 +39,14 @@
               <label class="label-text tracking-wide font-bold my-2"
                 >ประเภทห้อง</label
               >
-              <select class="select mb-5 w-full" v-model="room.roomType" :disabled="disableForm">
+              <select
+                class="select mb-5 w-full"
+                v-model="room.roomType"
+                :disabled="disableForm"
+              >
                 <option option disabled selected>กรุณาเลือกประเภทห้อง</option>
                 <option
-                  v-for="option in $store.state.newDorm.roomType"
+                  v-for="option in $store.state.selectedDorm.roomTypes"
                   :value="option.type"
                   :key="option.type"
                 >
@@ -90,14 +94,20 @@
       </div>
 
       <div class="py-3 w-full">
-        <button class="btn btn-neutral w-full" @click="addNewRoom(floor)">เพิ่มห้อง</button>
+        <button class="btn btn-neutral w-full" @click="addNewRoom(floor)">
+          เพิ่มห้อง
+        </button>
       </div>
     </div>
     <div class="py-5 w-full">
       <button class="btn btn-secondary w-full my-5" @click="addNewFloor">
         เพิ่มชั้นของหอพัก
       </button>
-      <button class="btn btn-secondary w-full" @click="disableForm = false" v-if="disableForm">
+      <button
+        class="btn btn-secondary w-full"
+        @click="disableForm = false"
+        v-if="disableForm"
+      >
         เเก้ไขข้อมูลของห้องพัก
       </button>
     </div>
@@ -105,7 +115,7 @@
 </template>
 <script>
 export default {
-    props:["editForm"],
+  props: ["editForm"],
   data() {
     return {
       roomList: [
@@ -122,7 +132,7 @@ export default {
           ],
         },
       ],
-      disableForm : false
+      disableForm: false,
     };
   },
   methods: {
@@ -138,7 +148,7 @@ export default {
       }
       newRoomList = JSON.parse(JSON.stringify(newRoomList));
       this.$store.commit("SET_ROOM", newRoomList);
-      this.disableForm = true
+      this.disableForm = true;
       this.$emit("validate", true);
     },
     removeRoomType(index, roomType) {
@@ -169,6 +179,50 @@ export default {
         roomType: "",
       });
     },
+  },
+  created() {
+    if (this.editForm) {
+      if (!this.$store.state.selectedDorm) {
+        this.$router.push({ path: "/dormList" });
+        return;
+      }
+      let roomList = [];
+      let floorList = [
+        ...new Map(
+          this.$store.state.selectedDorm.rooms.map((item) => [
+            item["floors"],
+            item,
+          ])
+        ).values(),
+      ];
+      for (let i in floorList) {
+        roomList.push({
+          floor: floorList[i].floors,
+          rooms: [],
+        });
+      }
+      for (let i in this.$store.state.selectedDorm.rooms) {
+          roomList.some((room, index) => {
+            if (room.floor == this.$store.state.selectedDorm.rooms[i].floors) {
+              roomList[index].rooms.push({
+                roomNum: this.$store.state.selectedDorm.rooms[i].roomNum,
+                status: this.$store.state.selectedDorm.rooms[i].status,
+                floors: room.floor,
+                description:
+                  this.$store.state.selectedDorm.rooms[i].description,
+                roomType: this.$store.state.selectedDorm.roomTypes.find(
+                  (type) =>
+                    type.roomTypeId ==
+                    this.$store.state.selectedDorm.rooms[i].roomTypeId
+                ).type,
+              });
+              return true
+            }
+          });
+      }
+      console.log(this.$store.state.selectedDorm);
+      this.roomList = roomList;
+    }
   },
 };
 </script>

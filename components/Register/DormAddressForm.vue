@@ -164,9 +164,7 @@
       <select
         v-model="selectedZipCode"
         class="select w-full text-gray-500 border-0"
-         @change="
-          checkForm();
-        "
+        @change="checkForm()"
       >
         <option option disabled selected>กรุณาเลือกเลขไปรณีย์</option>
         <option
@@ -213,27 +211,6 @@ export default {
       disableForm: false,
     };
   },
-  async fetch() {
-    if (this.editForm) {
-      if (!this.$store.state.selectedDorm) {
-        this.$router.push({ path: "/dormList" });
-        return;
-      }
-      this.selectedRegion = this.addressOption.filter(
-        (x) =>
-          x.name ==
-          this.$store.state.selectedDorm.address.subDistrict.district.province
-            .geography.name
-      )[0];
-      this.selectedProvince = this.selectedRegion.provinces.filter(x => x.name_th == this.$store.state.selectedDorm.address.subDistrict.district.province.name_th)[0]
-      this.selectedDistrict = this.selectedProvince.districts.filter(x => x.name_th == this.$store.state.selectedDorm.address.subDistrict.district.name_th)[0]
-      this.selectedSubDistrict = this.selectedDistrict.subDistricts.filter(x => x.name_th == this.$store.state.selectedDorm.address.subDistrict.name_th)[0]
-      this.selectedZipCode = this.selectedSubDistrict.zip_code
-      this.address.number = this.$store.state.selectedDorm.address.number;
-      this.address.street = this.$store.state.selectedDorm.address.street;
-      this.address.alley = this.$store.state.selectedDorm.address.alley;
-    }
-  },
   methods: {
     submit() {
       if (
@@ -276,6 +253,40 @@ export default {
       this.validateProvince = this.selectedProvince != null ? true : false;
       this.validateZipcode = this.selectedZipCode != null ? true : false;
     },
+  },
+  created() {
+    if (this.editForm) {
+      if (!this.$store.state.selectedDorm) {
+        this.$router.push({ path: "/dormList" });
+        return;
+      }
+      this.selectedRegion = this.addressOption.filter(
+        (x) =>
+          x.name ==
+          this.$store.state.selectedDorm.address.subDistrict.district.province
+            .geography.name
+      )[0];
+      this.selectedProvince = this.selectedRegion.provinces.filter(
+        (x) =>
+          x.name_th ==
+          this.$store.state.selectedDorm.address.subDistrict.district.province
+            .name_th
+      )[0];
+      this.selectedDistrict = this.selectedProvince.districts.filter(
+        (x) =>
+          x.name_th ==
+          this.$store.state.selectedDorm.address.subDistrict.district.name_th
+      )[0];
+      this.selectedSubDistrict = this.selectedDistrict.subDistricts.filter(
+        (x) =>
+          x.name_th ==
+          this.$store.state.selectedDorm.address.subDistrict.name_th
+      )[0];
+      this.selectedZipCode = this.selectedSubDistrict.zip_code;
+      this.address.number = this.$store.state.selectedDorm.address.number;
+      this.address.street = this.$store.state.selectedDorm.address.street;
+      this.address.alley = this.$store.state.selectedDorm.address.alley;
+    }
   },
 };
 </script>

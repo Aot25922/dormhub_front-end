@@ -58,7 +58,7 @@ export default {
   data() {
     return {
       dorm: this.$props.Dorm,
-      checkDormImg: true
+      checkDormImg: this.dorm != null
     };
   },
   methods: {

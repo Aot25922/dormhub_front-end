@@ -21,7 +21,6 @@
       />
       <div>
         <vs-pagination v-model="page" :length="dormList.totalPage" />
-        {{ dormList.totalPage }}
       </div>
     </div>
   </div>

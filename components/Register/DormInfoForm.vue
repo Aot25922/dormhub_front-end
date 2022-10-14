@@ -63,12 +63,12 @@
               :src="i"
               class="py-2 md:p-2 md:max-h-80 md:max-w-full md:object-cover"/>
           </div>
-          <!-- <div class="md:grid md:grid-cols-2 lg:grid lg:grid-cols-4" v-if="dormImgUrl.length == 0 && editForm">
+          <div class="md:grid md:grid-cols-2 lg:grid lg:grid-cols-4" v-else-if="dormImgUrl.length == 0 && editForm && this.$store.state.selectedDorm != null">
             <img
               v-for="i in this.$store.state.selectedDorm.media.filter(x => x.roomTypeId == null)" :key="i.mediaId"
               :src="$store.state.Backend_URL+'/dorm/image/'+$store.state.selectedDorm.dormId+'/'+i.mediaId"
               class="py-2 md:p-2 md:max-h-80 md:max-w-full md:object-cover"/>
-          </div> -->
+          </div>
         </div>
         <p v-if="!validateDormImg" class="text-imperialRed text-right mt-2">ต้องมีอย่างน้อย 1 ภาพ</p>
       </div>

@@ -12,7 +12,6 @@ export const state = () => ({
 
 export const mutations = {
   SET_ADDRESSOPTIONS(state, data) {
-    console.log(data)
     state.addressOption = data
   },
   SET_ROOMSTATUS(state, data) {
@@ -23,11 +22,9 @@ export const mutations = {
     }
   },
   SET_USERACCOUNT(state, data) {
-    console.log(data.data)
     state.userAccount = data.data
   },
   SET_DORMLIST(state, data) {
-    console.log(data)
     state.dormList = data;
   },
   SET_PROVINCELIST(state, data) {
@@ -97,7 +94,7 @@ export const actions = {
         commit('SET_USERACCOUNT', data)
       }
     } catch (err) {
-      console.log("handle error:" + err)
+      console.log("handle error:" + err.response.data.error.message)
     }
   },
   async fetchDormList({ commit }, page) {
@@ -107,6 +104,9 @@ export const actions = {
       })
   },
   async fetchDormOwnerList({ commit }, { page, dormIdList }) {
+    if(!dormIdList){
+      return
+    }
     const request = {
       params: {
         page: page,
@@ -115,7 +115,6 @@ export const actions = {
       },
       withCredentials: true
     }
-    console.log(dormIdList)
     await this.$axios.get(`${this.state.Backend_URL}/dorm/owner`, request)
       .then(response => {
         commit('SET_DORMLIST', response.data)
