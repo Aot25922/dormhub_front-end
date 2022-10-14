@@ -11,7 +11,7 @@
         หอพัก
       </h1>
     </div>
-    <div class="px-5 md:my-20 xl:py-20 xl:px-52 2xl:px-96">
+    <div class="p-5 xl:pb-20 xl:px-52 2xl:px-96">
       <SearchBar />
       <AllDormInfo
         class="my-10 md:my-0"

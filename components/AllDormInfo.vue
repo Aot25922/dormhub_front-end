@@ -43,9 +43,13 @@
             {{ minPrice }} บาท<span class="text-gray-400 font-normal">/ เดือน</span>
           </div>
         </div>
-        <div class="card-actions">
-          <button @click="dormInfo()" class=" btn btn-primary w-full duration-300 ease-in-out lg:w-1/3 lg:ml-auto xl:w-1/4">รายละเอียดทั้งหมด</button>
-          <button v-if="$store.state.userAccount.role == 'Owner'" @click="dormInfo('edit')" class="btn btn-primary w-full duration-300 ease-in-out lg:w-1/3 lg:ml-auto xl:w-1/4">เเก้ไขข้อมูลหอพัก</button>
+        <div class="flex flex-wrap md:flex-row">
+          <div class="w-full p-1 lg:w-1/2">
+            <button v-if="$store.state.userAccount.role == 'Owner'" @click="dormInfo('edit')" class="btn btn-accent w-full duration-300 ease-in-out">เเก้ไขข้อมูลหอพัก</button>
+          </div>
+          <div class="w-full p-1 lg:w-1/2">
+            <button @click="dormInfo()" class=" btn btn-primary w-full duration-300 ease-in-out">รายละเอียดทั้งหมด</button>
+          </div>
         </div>
       </div>
     </div>

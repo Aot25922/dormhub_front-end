@@ -5,7 +5,7 @@
       <div class="px-3 md:grid md:grid-cols-2 md:gap-4">
           <RegisterDormRoomtypeForm v-for="(i, index) in roomTypeCount" :key="index"
           ref="test" :index="index" @removeRoomType="removeRoomType(index, ...arguments)" @validate="checkForRoomType(index, ...arguments)" />
-        <button class="hover:bg-gray-500 rounded-lg mt-10 text-center p-5 w-full md:m-0 md:h-[600px] md:border-2 md:border-gray-400">
+        <button class="rounded-lg mt-10 text-center p-5 w-full md:m-0 md:h-[600px] border shadow-lg">
           <span class="material-icons" style="font-size: 60px"
             @click="
               roomTypeCount.push({
