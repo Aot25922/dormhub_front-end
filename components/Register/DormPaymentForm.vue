@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="border border-gray-400 p-3 rounded-lg my-3">
+    <div class="border p-3 rounded-lg my-3 shadow-lg">
       <h1 class="text-lg ml-2 mb-2 font-bold">เพิ่มช่องทางการชำระเงิน</h1>
       <div>
         <div
@@ -8,21 +8,21 @@
           :key="index"
           class="relative flex flex-wrap"
         >
-          <div class="w-1/2 px-1">
+          <div class="w-1/2 px-1 md:w-1/3">
             <label class="label-text tracking-wide font-bold my-2"
               >เลขบัญชี <span class="text-accent">*</span></label
             >
             <input
               type="text"
               class="py-4 mb-3 px-2 w-full input-md rounded border-0"
-              placeholder="101"
+              placeholder="101100000"
               v-model="bankAccount.accountNum"
               @blur="validate(bankAccount)"
               :disabled="disableForm"
             />
           </div>
 
-          <div class="w-1/2 px-1">
+          <div class="w-1/2 px-1 md:w-1/3">
             <label class="label-text tracking-wide font-bold my-2"
               >ชื่อบัญชี <span class="text-accent">*</span></label
             >
@@ -36,7 +36,7 @@
             />
           </div>
 
-          <div class="w-1/2 px-1">
+          <div class="w-1/2 px-1 md:w-1/3">
             <label class="label-text tracking-wide font-bold my-2"
               >ธนาคาร <span class="text-accent">*</span></label
             >
@@ -60,10 +60,10 @@
             </p>
           </div>
 
-          <div class="w-1/2 px-1 pt-6 ml-auto">
+          <div class="w-1/2 px-1 pt-6">
             <button
               @click="removeBankAccount(index)"
-              class="btn btn-accent w-1/2"
+              class="btn btn-accent"
               v-if="index > 0"
             >
               <span class="material-icons">delete</span>
@@ -87,30 +87,13 @@
         เเก้ไขข้อมูล
       </button>
     </div>
-    <div class="flex items-center justify-center">
-      <button
-        class="
-          hover:bg-gray-500
-          rounded-lg
-          mt-10
-          text-center
-          p-5
-          w-full
-          md:m-0 md:h-[600px] md:border-2 md:border-gray-400
-        "
-      >
-        <span
-          class="material-icons"
-          style="font-size: 60px"
-          @click="
-            bankAccounts.push({
-              accountNum: '',
-              accountName: '',
-            })
-          "
-          >add_box</span
-        >
-        <p>เพิ่มบัญชีธนาคาร</p>
+    <div v-if="!disableForm" class="flex items-center justify-center">
+      <!-- Mobile Button -->
+      <button  @click=" bankAccounts.push({
+      accountNum: '',
+      accountName: '', })"
+        class="btn btn-secondary p-5 w-full">
+        เพิ่มบัญชีธนาคาร
       </button>
     </div>
   </div>

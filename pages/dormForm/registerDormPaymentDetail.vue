@@ -1,6 +1,6 @@
 <template>
   <div class="py-3 md:py-5">
-    <div>
+    <div class="xl:px-48 2xl:px-80">
       <RegisterDormPaymentForm ref="bank" @validate="checkForPaymentInfo"/>
       <div class="flex flex-wrap mt-10">
         <div class="w-1/2 px-1">
@@ -24,7 +24,7 @@ export default {
   methods: {
     next(){
       this.$refs.bank.submit()
-      if(this.validatePayment){ 
+      if(this.validatePayment){
         const noti = this.$vs.notification({
           progress: "auto",
           icon: `<i class='bx bx-folder-open' ></i>`,

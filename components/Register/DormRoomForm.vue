@@ -3,10 +3,10 @@
     <div
       v-for="(floor, index) in roomList"
       :key="index"
-      class="rounded border border-gray-600 p-5 mt-5"
+      class="rounded border shadow-lg p-5 mt-5"
     >
       <div class="">
-        <span>ชั้น {{ floor.floor }}</span>
+        <span class="font-bold">ชั้น {{ floor.floor }}</span>
         <div v-for="(room, index) in floor.rooms" :key="index">
           <div class="w-full rounded-md p-3 relative grid grid-cols-3">
             <div class="col-span-1 px-1">
@@ -109,18 +109,18 @@
         </div>
       </div>
 
-      <div class="py-3 w-full">
+      <div v-if="!disableForm" class="py-3 w-full">
         <button class="btn btn-neutral w-full" @click="addNewRoom(floor)">
           เพิ่มห้อง
         </button>
       </div>
     </div>
     <div class="py-5 w-full">
-      <button class="btn btn-secondary w-full my-5" @click="addNewFloor">
+      <button v-if="!disableForm" class="btn btn-secondary w-full my-5" @click="addNewFloor">
         เพิ่มชั้นของหอพัก
       </button>
       <button
-        class="btn btn-secondary w-full"
+        class="btn btn-accent w-full"
         @click="disableForm = false"
         v-if="disableForm"
       >

@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-ghostWhite px-5 py-20 md:py-32 md:grid md:grid-cols-2 xl:px-48">
+  <div class="bg-ghostWhite px-5 py-20 md:py-32 md:grid md:grid-cols-2 xl:px-48 2xl:px-80">
     <div>
       <img src="@/assets/specify/identify.png" class="hidden md:block"/>
     </div>

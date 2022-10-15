@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-ghostWhite px-5 py-20 md:py-32 md:grid md:grid-cols-2 xl:px-48">
+  <div class="bg-ghostWhite px-5 py-20 md:py-32 md:grid md:grid-cols-2 xl:px-48 2xl:px-80">
     <div>
       <img src="@/assets/specify/identify.png" class="hidden md:block"/>
     </div>
@@ -29,8 +29,13 @@
         <!--        placeholder="ยืนยันรหัสผ่าน" v-model="userAccount.password" @blur="validateForm" @keypress.enter="submit" />-->
         <!--      <span class="text-imperialRed" v-if="!validatePassword">รหัสไม่ตรงกัน</span>-->
 
-        <div class="w-1/2 ml-auto mt-5">
-          <button class="btn btn-primary w-full" @click="nextFirstStep">ต่อไป</button>
+        <div class="w-full flex flex-wrap mt-5">
+          <div class="w-1/2 px-1">
+            <nuxt-link to="/login" class="btn btn-ghost w-full">เข้าสู่ระบบ</nuxt-link>
+          </div>
+          <div class="w-1/2 px-1">
+            <button class="btn btn-primary w-full" @click="nextFirstStep">ต่อไป</button>
+          </div>
         </div>
       </div>
 
