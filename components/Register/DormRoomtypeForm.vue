@@ -168,7 +168,7 @@
       </p>
       <div
         class="md:grid md:grid-cols-2 lg:grid lg:grid-cols-4"
-        v-if="roomTypeImageUrl.length != 0"
+        v-if="roomTypeImageUrl.length != 0 && editForm"
       >
         <img
           v-for="(image, index) in roomTypeImageUrl"
@@ -184,6 +184,17 @@
           "
           class="py-2 md:p-2 md:max-h-80 md:max-w-full md:object-cover"
         />
+        <div
+            class="md:grid md:grid-cols-2 lg:grid lg:grid-cols-4"
+            v-if="dormImgUrl.length != 0"
+          >
+            <img
+              v-for="i in roomTypeImageUrl"
+              :key="i"
+              :src="i"
+              class="py-2 md:p-2 md:max-h-80 md:max-w-full md:object-cover"
+            />
+          </div>
       </div>
     </div>
 

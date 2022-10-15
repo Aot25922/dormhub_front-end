@@ -16,7 +16,7 @@
       <AllDormInfo
         class="my-10 md:my-0"
         v-for="dorm in dormList.results"
-        :Dorm="dorm"
+        :dorm="dorm"
         :key="dorm.dormId"
       />
       <div class="center con-pagination my-10 md:my-20 lg:mb-0">
