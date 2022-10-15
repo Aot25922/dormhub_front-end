@@ -196,6 +196,12 @@
             />
           </div>
       </div>
+      <div v-else>
+        <img
+        v-for="i in roomTypeImageUrl"
+        :key="i"
+        :src="i"
+        class="py-2 md:p-2 md:max-h-80 md:max-w-full md:object-cover"/></div>
     </div>
 
     <div class="flex flex-wraps">
