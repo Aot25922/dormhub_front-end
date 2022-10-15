@@ -5,9 +5,14 @@
       <div class="px-3 md:grid md:grid-cols-2 md:gap-4">
           <RegisterDormRoomtypeForm v-for="(i, index) in roomTypeCount" :key="index"
           ref="test" :index="index" @removeRoomType="removeRoomType(index, ...arguments)" @validate="checkForRoomType(index, ...arguments)" />
-        <button class="rounded-lg mt-10 text-center p-5 w-full md:m-0 md:h-[600px] border shadow-lg">
+        <!-- Mobile Button -->
+        <button @click="roomTypeCount.push({ id: roomTypeCount[roomTypeCount.length - 1].id + 1, validate: false, })" class="md:hidden btn btn-secondary mt-10 text-center p-5 w-full">
+          <p>เพิ่มประเภทห้องพัก</p>
+        </button>
+        <!-- 768px Button -->
+        <button class="hidden md:block rounded-lg mt-10 text-center p-5 w-full md:m-0 md:h-[600px] border shadow-lg">
           <span class="material-icons" style="font-size: 60px"
-            @click="
+                @click="
               roomTypeCount.push({
                 id: roomTypeCount[roomTypeCount.length - 1].id + 1,
                 validate: false,

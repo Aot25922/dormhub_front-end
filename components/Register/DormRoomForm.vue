@@ -39,19 +39,35 @@
               <label class="label-text tracking-wide font-bold my-2"
                 >ประเภทห้อง</label
               >
-              <select
+              <select v-if="editForm"
                 class="select mb-5 w-full"
                 v-model="room.roomType"
                 :disabled="disableForm"
               >
                 <option option disabled selected>กรุณาเลือกประเภทห้อง</option>
-                <option
-                  v-for="option in $store.state.selectedDorm.roomTypes"
-                  :value="option.type"
-                  :key="option.type"
-                >
-                  {{ option.type }}
-                </option>
+
+                  <option
+                    v-for="option in $store.state.selectedDorm.roomTypes"
+                    :value="option.type"
+                    :key="option.type"
+                  >
+                    {{ option.type }}
+                  </option>
+              </select>
+
+              <select v-else
+                class="select mb-5 w-full"
+                v-model="room.roomType"
+                :disabled="disableForm"
+              >
+                <option option disabled selected>กรุณาเลือกประเภทห้อง</option>
+                  <option
+                    v-for="option in $store.state.newDorm.roomType"
+                    :value="option.type"
+                    :key="option.type"
+                  >
+                    {{ option.type }}
+                  </option>
               </select>
             </div>
 
