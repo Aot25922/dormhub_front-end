@@ -1,6 +1,12 @@
 <template>
-  <div class="p-3 rounded-lg mb-3 relative border shadow-lg lg:flex lg:flex-wrap">
-    <button @click="removeRoomType" class="absolute top-0 right-0" v-if="index > 0">
+  <div
+    class="p-3 rounded-lg mb-3 relative border shadow-lg lg:flex lg:flex-wrap"
+  >
+    <button
+      @click="removeRoomType"
+      class="absolute top-0 right-0"
+      v-if="index > 0"
+    >
       <span class="material-icons btn btn-ghost pt-3 pr-3">delete</span>
     </button>
     <h1 class="text-lg ml-2 mb-2 font-bold lg:w-full">ประเภทห้อง</h1>
@@ -168,7 +174,7 @@
       </p>
       <div
         class="md:grid md:grid-cols-2 lg:grid lg:grid-cols-4"
-        v-if="roomTypeImageUrl.length != 0 && editForm"
+        v-if="roomTypeImageUrl.length == 0 && editForm"
       >
         <img
           v-for="(image, index) in roomTypeImageUrl"
@@ -184,24 +190,15 @@
           "
           class="py-2 md:p-2 md:max-h-80 md:max-w-full md:object-cover"
         />
-        <div
-            class="md:grid md:grid-cols-2 lg:grid lg:grid-cols-4"
-            v-if="dormImgUrl.length != 0"
-          >
-            <img
-              v-for="i in roomTypeImageUrl"
-              :key="i"
-              :src="i"
-              class="py-2 md:p-2 md:max-h-80 md:max-w-full md:object-cover"
-            />
-          </div>
       </div>
-      <div v-else>
+      <div v-else class="md:grid md:grid-cols-2 lg:grid lg:grid-cols-4">
         <img
-        v-for="i in roomTypeImageUrl"
-        :key="i"
-        :src="i"
-        class="py-2 md:p-2 md:max-h-80 md:max-w-full md:object-cover"/></div>
+          v-for="i,index in roomTypeImageUrl"
+          :key="index"
+          :src="i"
+          class="py-2 md:p-2 md:max-h-80 md:max-w-full md:object-cover"
+        />
+      </div>
     </div>
 
     <div class="flex flex-wraps">
@@ -213,6 +210,10 @@
         >
           เเก้ไขข้อมูลประเภทห้องพัก
         </button>
+        <button v-if="editForm" @click="addRoomTypes()" class="bg-emerald-900">
+          ยืนยันการเเก้ไขข้อมูล
+        </button>
+        {{ roomTypeProp }}
       </div>
     </div>
   </div>
@@ -244,7 +245,7 @@ export default {
     };
   },
   methods: {
-    addRoomTypes() {
+    async addRoomTypes() {
       this.validateForm();
       if (
         this.validateType == false &&
@@ -256,15 +257,63 @@ export default {
         let newRoomType = JSON.parse(JSON.stringify(this.roomType));
         newRoomType.oldRoomType = this.oldRoomType;
         let newRoomTypeImg = Object.assign({}, this.roomTypeInputImage);
-        this.$store.commit("SET_ROOMTYPE", newRoomType);
-        this.$store.dispatch("setNewRoomTypeImg", {
-          image: newRoomTypeImg,
-          roomType: newRoomType.type,
-          oldRoomType: this.oldRoomType,
-        });
-        this.oldRoomType = newRoomType.type;
-        this.disableForm = true;
-        this.$emit("validate", true);
+        if (this.editForm) {
+          const loading = this.$vs.loading();
+          let formData = new FormData();
+          let data = {
+            roomType: {
+              dormId: this.roomTypeProp.dormHasRoomType.dormId,
+              roomTypeId: this.roomTypeProp.dormHasRoomType.roomTypeId,
+              type: this.roomType.type,
+              price: this.roomType.price,
+              deposit: this.roomType.deposit,
+              area: this.roomType.area,
+              description: this.roomType.facility,
+            },
+          };
+          formData.append("data", JSON.stringify(data));
+          for (let i in this.roomTypeInputImage) {
+              formData.append(`dorm_roomType_${this.roomType.type}`, this.roomTypeInputImage[i], "test.jpg"); 
+          }
+          try {
+            await this.$axios.$put(
+              `${this.$store.state.Backend_URL}/dorm/edit`,
+              formData,
+              {
+                withCredentials: true,
+              }
+            );
+            const noti = this.$vs.notification({
+              progress: "auto",
+              icon: `<i class='bx bx-folder-open' ></i>`,
+              color: "success",
+              position: "top-right",
+              title: `Data Update`,
+              text: `Update Dorm roomType complete!`,
+            });
+            loading.close();
+          } catch (error) {
+            loading.close();
+            const noti = this.$vs.notification({
+              progress: "auto",
+              icon: `<i class='bx bx-folder-open' ></i>`,
+              color: "warn",
+              position: "top-right",
+              title: `Data Update`,
+              text: error.response.data.error.message,
+            });
+          }
+        } else {
+          this.$store.commit("SET_ROOMTYPE", newRoomType);
+          this.$store.dispatch("setNewRoomTypeImg", {
+            image: newRoomTypeImg,
+            roomType: newRoomType.type,
+            oldRoomType: this.oldRoomType,
+          });
+          this.oldRoomType = newRoomType.type;
+          this.disableForm = true;
+          this.$emit("validate", true);
+        }
       } else {
         this.$emit("validate", false);
         const noti = this.$vs.notification({
@@ -296,7 +345,8 @@ export default {
       this.validateType = this.roomType.type == "" ? true : false;
       this.validatePrice = this.roomType.price <= 0 ? true : false;
       this.validateDeposit = this.roomType.deposit <= 0 ? true : false;
-      this.validateArea = this.roomType.area <= 0 ? true : false;
+      this.validateArea =
+        this.roomType.area <= 0 || this.roomType.area >= 1000 ? true : false;
       this.validateFacility == "" ? true : false;
       this.validateFile = this.roomTypeInputImage.length == 0 ? true : false;
     },

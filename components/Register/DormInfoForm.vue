@@ -167,7 +167,9 @@
           ต้องมีอย่างน้อย 1 ภาพ
         </p>
       </div>
-      <button v-if="editForm" @click="submit()" class=" bg-emerald-900">ยืนยันการเเก้ไขข้อมูล</button>
+      <button v-if="editForm" @click="submit()" class="bg-emerald-900">
+        ยืนยันการเเก้ไขข้อมูล
+      </button>
     </div>
   </div>
 </template>
@@ -235,10 +237,10 @@ export default {
         this.validateElec &&
         this.validateDormImg
       ) {
+        let dormCopy = { ...this.dorm };
+        const dormImgCopy = { ...this.dormInputImage };
         if (this.editForm) {
           const loading = this.$vs.loading();
-          let dormCopy = { ...this.dorm };
-          const dormImgCopy = { ...this.dormInputImage };
           dormCopy.ownerId = this.$store.state.userAccount.userId;
           let formData = new FormData();
           let data = {
@@ -247,7 +249,11 @@ export default {
           };
           formData.append("data", JSON.stringify(data));
           for (let i in dormImgCopy) {
-            formData.append(`dorm_${dormCopy.name}`, dormImgCopy[i], "test.jpg");
+            formData.append(
+              `dorm_${dormCopy.name}`,
+              dormImgCopy[i],
+              "test.jpg"
+            );
           }
           try {
             await this.$axios.$put(
@@ -266,10 +272,6 @@ export default {
               text: `Update Dorm complete!`,
             });
             loading.close();
-            this.$router.push({
-            name: "dormList-owner",
-            params: { rand: Date.now() },
-          });
           } catch (error) {
             loading.close();
             const noti = this.$vs.notification({
@@ -281,13 +283,12 @@ export default {
               text: error.response.data.error.message,
             });
           }
+        } else {
+          this.$store.commit("SET_DORMINFO", dormCopy);
+          this.$store.commit("SET_DORMIMG", dormImgCopy);
+          this.disableForm = true;
+          this.$emit("validate", true);
         }
-        const dormCopy = { ...this.dorm };
-        const dormImgCopy = { ...this.dormInputImage };
-        this.$store.commit("SET_DORMINFO", dormCopy);
-        this.$store.commit("SET_DORMIMG", dormImgCopy);
-        this.disableForm = true;
-        this.$emit("validate", true);
       } else {
         this.$emit("validate", false);
         const noti = this.$vs.notification({

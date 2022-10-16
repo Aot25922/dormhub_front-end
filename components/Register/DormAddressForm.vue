@@ -180,6 +180,9 @@
       <p class="text-imperialRed text-right" v-if="!validateZipcode">
         กรุณาเลือกเลขไปรณีย์
       </p>
+      <button v-if="editForm" @click="submit()" class="bg-emerald-900">
+        ยืนยันการเเก้ไขข้อมูล
+      </button>
     </div>
   </div>
 </template>
@@ -212,7 +215,8 @@ export default {
     };
   },
   methods: {
-    submit() {
+    async submit() {
+      this.checkForm();
       if (
         this.validateNumber &&
         this.validateStreet &&
@@ -228,9 +232,52 @@ export default {
         this.address.province = this.selectedProvince.name_th;
         this.address.subDistrict = this.selectedSubDistrict.name_th;
         let newAddress = { ...this.address };
-        this.$store.commit("SET_DORMADDRESS", newAddress);
-        this.disableForm = true;
-        this.$emit("validate", true);
+        if (this.editForm) {
+          const loading = this.$vs.loading();
+          let formData = new FormData();
+          let data = {
+            address: {
+              number: this.address.number,
+              alley: this.address.alley,
+              street: this.address.street,
+              subDistrictsId: this.selectedSubDistrict.subDistrictsId,
+              addressId: this.$store.state.selectedDorm.addressId,
+            },
+          };
+          formData.append("data", JSON.stringify(data));
+          try {
+            await this.$axios.$put(
+              `${this.$store.state.Backend_URL}/dorm/edit`,
+              formData,
+              {
+                withCredentials: true,
+              }
+            );
+            const noti = this.$vs.notification({
+              progress: "auto",
+              icon: `<i class='bx bx-folder-open' ></i>`,
+              color: "success",
+              position: "top-right",
+              title: `Data Update`,
+              text: `Update Dorm Address complete!`,
+            });
+            loading.close();
+          } catch (error) {
+            loading.close();
+            const noti = this.$vs.notification({
+              progress: "auto",
+              icon: `<i class='bx bx-folder-open' ></i>`,
+              color: "warn",
+              position: "top-right",
+              title: `Data Update`,
+              text: error.response.data.error.message,
+            });
+          }
+        } else {
+          this.$store.commit("SET_DORMADDRESS", newAddress);
+          this.disableForm = true;
+          this.$emit("validate", true);
+        }
       } else {
         this.$emit("validate", false);
         const noti = this.$vs.notification({
