@@ -145,7 +145,7 @@
           <label
             for="my-modal-6"
             class="btn modal-button"
-            v-if="room.status != 'จองเเล้ว' && $store.state.userAccount.role == 'Customer' && slipImg != null"
+            v-if="room.status != 'จองเเล้ว' && $store.state.userAccount.role == 'Customer'"
             @click="selectedRoom = room"
             >จองห้องพัก</label
           >
@@ -211,14 +211,8 @@ export default {
         dormId: this.$store.state.selectedDorm.dormId,
         roomId: this.selectedRoom.roomId,
       };
-      this.selectedBankAccount = null
-      this.selectedRoom = null
-      this.startDate = null
-      this.endDate = null
-      this.slipImg = null
-      this.slipImgUrl = null
-      formData.append("data", JSON.stringify(bookingInfo));
       formData.append("moneySlip", this.slipImg);
+      formData.append("data", JSON.stringify(bookingInfo));
       try {
         await this.$axios.$post(
           `${this.$store.state.Backend_URL}/booking/new`,
@@ -238,6 +232,12 @@ export default {
         });
          let bookingStatus = { roomId: this.selectedRoom.roomId, status: "จองเเล้ว" };
         this.$store.commit("SET_ROOMSTATUS", bookingStatus)
+        this.selectedBankAccount = null
+        this.selectedRoom = null
+        this.startDate = null
+        this.endDate = null
+        this.slipImg = null
+        this.slipImgUrl = null
       } catch (error) {
         loading.close();
         const noti = this.$vs.notification({
@@ -246,7 +246,7 @@ export default {
           color: "warn",
           position: "top-right",
           title: `Data Update`,
-          text: error.response.data.error.message,
+          text: error,
         });
       }
     },

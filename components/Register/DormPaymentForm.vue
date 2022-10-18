@@ -89,13 +89,25 @@
     </div>
     <div v-if="!disableForm" class="flex items-center justify-center">
       <!-- Mobile Button -->
-      <button  @click=" bankAccounts.push({
-      accountNum: '',
-      accountName: '', })"
-        class="btn btn-secondary p-5 w-full">
+      <button
+        @click="
+          bankAccounts.push({
+            accountNum: '',
+            accountName: '',
+          })
+        "
+        class="btn btn-secondary p-5 w-full"
+      >
         เพิ่มบัญชีธนาคาร
       </button>
     </div>
+    <button
+      v-if="editForm"
+      @click="submit()"
+      class="bg-emerald-900 btn btn-secondary p-5 w-full"
+    >
+      ยืนยันการเเก้ไขข้อมูล
+    </button>
   </div>
 </template>
 <script>
@@ -116,6 +128,7 @@ export default {
         },
       ],
       bankList: [],
+      deleteBankAccount: [],
       accountNumValidate: false,
       accountNameValidate: false,
       bankValidate: false,
@@ -123,7 +136,7 @@ export default {
     };
   },
   methods: {
-    submit() {
+    async submit() {
       for (let i in this.bankAccounts) {
         this.validate(this.bankAccounts[i]);
       }
@@ -133,16 +146,56 @@ export default {
         !this.bankValidate
       ) {
         let newBankAccount = JSON.parse(JSON.stringify(this.bankAccounts));
-        this.$store.commit("SET_BANKACCOUNT", newBankAccount);
-        this.disableForm = true;
-        this.$emit("validate", true);
+        if (this.editForm) {
+          const loading = this.$vs.loading();
+          let formData = new FormData();
+          console.log(newBankAccount);
+          console.log(this.deleteBankAccount);
+          for (let i in this.deleteBankAccount) {
+            newBankAccount.push(this.deleteBankAccount[i]);
+          }
+          for (let i in newBankAccount) {
+            newBankAccount[i].bankId = newBankAccount[i].bankId.bankId;
+            newBankAccount[i].dormId = this.$store.state.selectedDorm.dormId;
+          }
+          const data = {
+            bankAccount: newBankAccount,
+          };
+          formData.append("data", JSON.stringify(data));
+          await this.$axios.$put(
+            `${this.$store.state.Backend_URL}/dorm/edit`,
+            formData,
+            {
+              withCredentials: true,
+            }
+          );
+          const noti = this.$vs.notification({
+            progress: "auto",
+            icon: `<i class='bx bx-folder-open' ></i>`,
+            color: "success",
+            position: "top-right",
+            title: `Data Update`,
+            text: `Update Dorm roomType complete!`,
+          });
+          loading.close();
+          let dormInfo = {
+            dorm: null,
+            id: this.$store.state.selectedDorm.dormId,
+          };
+          await this.$store.dispatch("dormSelected", dormInfo);
+          console.log(newBankAccount);
+        } else {
+          this.$store.commit("SET_BANKACCOUNT", newBankAccount);
+          this.disableForm = true;
+          this.$emit("validate", true);
+        }
       } else {
         const noti = this.$vs.notification({
           progress: "auto",
           icon: `<i class='bx bx-error' ></i>`,
           color: "warn",
           position: "top-right",
-          title: "ข้อมูลของคุญยังได้สมบูรณ์",
+          title: "ข้อมูลของคุญยังไม่สมบูรณ์",
           text: "กรุณาเติมข้อมูลให้ครบ",
         });
         this.$emit("validate", false);
@@ -154,6 +207,10 @@ export default {
       this.bankValidate = input.bankId == "" ? true : false;
     },
     removeBankAccount(index) {
+      if (this.bankAccounts[index].bankAccId != undefined) {
+        this.bankAccounts[index].delete = true;
+        this.deleteBankAccount.push(this.bankAccounts[index]);
+      }
       this.$delete(this.bankAccounts, index);
     },
   },
@@ -163,14 +220,16 @@ export default {
         this.$router.push({ path: "/dormList" });
         return;
       }
-      console.log(this.$store.state.selectedDorm.bankAccounts)
-      this.bankAccounts = []
-      for(let i in this.$store.state.selectedDorm.bankAccounts){
+      console.log(this.$store.state.selectedDorm.bankAccounts);
+      this.bankAccounts = [];
+      for (let i in this.$store.state.selectedDorm.bankAccounts) {
         this.bankAccounts.push({
+          bankAccId: this.$store.state.selectedDorm.bankAccounts[i].bankAccId,
           accountNum: this.$store.state.selectedDorm.bankAccounts[i].accountNum,
-          accountName: this.$store.state.selectedDorm.bankAccounts[i].accountName,
-          bankId: this.$store.state.selectedDorm.bankAccounts[i].bank
-        })
+          accountName:
+            this.$store.state.selectedDorm.bankAccounts[i].accountName,
+          bankId: this.$store.state.selectedDorm.bankAccounts[i].bank,
+        });
       }
     }
   },

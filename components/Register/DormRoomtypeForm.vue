@@ -174,7 +174,7 @@
       </p>
       <div
         class="md:grid md:grid-cols-2 lg:grid lg:grid-cols-4"
-        v-if="roomTypeImageUrl.length == 0 && editForm"
+        v-if="checkForImageChangeOnEdit && editForm"
       >
         <img
           v-for="(image, index) in roomTypeImageUrl"
@@ -191,9 +191,20 @@
           class="py-2 md:p-2 md:max-h-80 md:max-w-full md:object-cover"
         />
       </div>
+      <div
+        class="md:grid md:grid-cols-2 lg:grid lg:grid-cols-4"
+        v-else-if="!checkForImageChangeOnEdit && editForm"
+      >
+        <img
+          v-for="(image, index) in roomTypeImageUrl"
+          :key="index"
+          :src="image"
+          class="py-2 md:p-2 md:max-h-80 md:max-w-full md:object-cover"
+        />
+      </div>
       <div v-else class="md:grid md:grid-cols-2 lg:grid lg:grid-cols-4">
         <img
-          v-for="i,index in roomTypeImageUrl"
+          v-for="(i, index) in roomTypeImageUrl"
           :key="index"
           :src="i"
           class="py-2 md:p-2 md:max-h-80 md:max-w-full md:object-cover"
@@ -231,6 +242,7 @@ export default {
         area: 0,
         facility: "",
       },
+      checkForImageChangeOnEdit: true,
       confirmThisroomType: false,
       validateType: false,
       validatePrice: false,
@@ -273,7 +285,11 @@ export default {
           };
           formData.append("data", JSON.stringify(data));
           for (let i in this.roomTypeInputImage) {
-              formData.append(`dorm_roomType_${this.roomType.type}`, this.roomTypeInputImage[i], "test.jpg"); 
+            formData.append(
+              `dorm_roomType_${this.roomType.type}`,
+              this.roomTypeInputImage[i],
+              "test.jpg"
+            );
           }
           try {
             await this.$axios.$put(
@@ -292,6 +308,11 @@ export default {
               text: `Update Dorm roomType complete!`,
             });
             loading.close();
+            let dormInfo = {
+              dorm: null,
+              id: this.$store.state.selectedDorm.dormId,
+            };
+            await this.$store.dispatch("dormSelected", dormInfo);
           } catch (error) {
             loading.close();
             const noti = this.$vs.notification({
@@ -329,6 +350,7 @@ export default {
     onFileChange(e) {
       this.roomTypeInputImage = [];
       this.roomTypeImageUrl = [];
+      this.checkForImageChangeOnEdit = false;
       let files = e.target.files || e.dataTransfer.files;
       for (let i in files) {
         if (typeof files[i] == "object") {

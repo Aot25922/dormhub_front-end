@@ -272,6 +272,11 @@ export default {
               text: `Update Dorm complete!`,
             });
             loading.close();
+            let dormInfo = {
+              dorm: null,
+              id: this.$store.state.selectedDorm.dormId,
+            };
+            await this.$store.dispatch("dormSelected", dormInfo);
           } catch (error) {
             loading.close();
             const noti = this.$vs.notification({
