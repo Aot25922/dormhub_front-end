@@ -224,7 +224,6 @@
         <button v-if="editForm" @click="addRoomTypes()" class="bg-emerald-900">
           ยืนยันการเเก้ไขข้อมูล
         </button>
-        {{ roomTypeProp }}
       </div>
     </div>
   </div>

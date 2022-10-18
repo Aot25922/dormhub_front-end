@@ -149,8 +149,6 @@ export default {
         if (this.editForm) {
           const loading = this.$vs.loading();
           let formData = new FormData();
-          console.log(newBankAccount);
-          console.log(this.deleteBankAccount);
           for (let i in this.deleteBankAccount) {
             newBankAccount.push(this.deleteBankAccount[i]);
           }
@@ -183,7 +181,6 @@ export default {
             id: this.$store.state.selectedDorm.dormId,
           };
           await this.$store.dispatch("dormSelected", dormInfo);
-          console.log(newBankAccount);
         } else {
           this.$store.commit("SET_BANKACCOUNT", newBankAccount);
           this.disableForm = true;
@@ -220,7 +217,6 @@ export default {
         this.$router.push({ path: "/dormList" });
         return;
       }
-      console.log(this.$store.state.selectedDorm.bankAccounts);
       this.bankAccounts = [];
       for (let i in this.$store.state.selectedDorm.bankAccounts) {
         this.bankAccounts.push({

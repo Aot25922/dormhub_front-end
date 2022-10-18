@@ -175,7 +175,6 @@ export default {
   methods: {
     async submit() {
       let newRoomList = [];
-      console.log(this.deleteRoomList);
       for (let i in this.roomList) {
         this.roomList[i].rooms = this.roomList[i].rooms.filter(
           (x) => !(x.roomNum == "" || x.status == "" || x.roomType == "")
@@ -211,7 +210,6 @@ export default {
               withCredentials: true,
             }
           );
-          console.log(newRoomList);
           const noti = this.$vs.notification({
             progress: "auto",
             icon: `<i class='bx bx-folder-open' ></i>`,
@@ -314,6 +312,9 @@ export default {
           }
         });
       }
+      roomList.sort((a, b) => {
+        return a.floor - b.floor;
+      });
       this.roomList = roomList;
     }
   },

@@ -338,6 +338,7 @@ export default {
       this.address.number = this.$store.state.selectedDorm.address.number;
       this.address.street = this.$store.state.selectedDorm.address.street;
       this.address.alley = this.$store.state.selectedDorm.address.alley;
+      this.checkForm();
     }
   },
 };
