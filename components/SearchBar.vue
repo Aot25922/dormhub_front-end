@@ -130,6 +130,13 @@ export default {
     async searchDorm() {
       const loading = this.$vs.loading();
       let formData = new FormData();
+      if (this.search == "" && this.selectedRegion == "" && this.selectedProvince=="" && this.selectedDistrict == "" && this.selectedSubDistrict == "") {
+        this.$router.push({
+          name: "dormList",
+        });
+        loading.close();
+        return
+      }
       let searchData = {
         search: this.search,
         region: this.selectedRegion.name,

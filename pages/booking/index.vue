@@ -128,6 +128,7 @@ export default {
     },
   },
   async created() {
+    try{
     if (this.$store.state.userAccount.role == "Customer") {
       this.bookingList = await this.$axios.$get(
         `${this.$store.state.Backend_URL}/booking`,
@@ -146,6 +147,9 @@ export default {
       );
     } else {
       this.$router.push({ path: "/" });
+    }
+    }catch(err){
+      console.log(err)
     }
   },
 };

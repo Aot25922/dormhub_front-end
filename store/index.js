@@ -101,6 +101,9 @@ export const actions = {
     await this.$axios.get(`${this.state.Backend_URL}/dorm?page=${page}`,)
       .then(response => {
         commit('SET_DORMLIST', response.data)
+      }).catch(function (error) {
+        console.log(error);
+        commit('SET_DORMLIST', [])
       })
   },
   async fetchDormOwnerList({ commit }, { page, dormIdList }) {
@@ -118,6 +121,9 @@ export const actions = {
     await this.$axios.get(`${this.state.Backend_URL}/dorm/owner`, request)
       .then(response => {
         commit('SET_DORMLIST', response.data)
+      }).catch(function (error) {
+        console.log(error);
+        commit('SET_DORMLIST', [])
       })
   },
   async fetchProvinceList({ commit }) {
