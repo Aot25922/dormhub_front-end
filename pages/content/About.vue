@@ -43,21 +43,26 @@
       <DormInfo class="my-10 md:my-0" v-for="dorm in dormList.slice(0, 3)" :Dorm="dorm" :key="dorm.dormId" />
     </div>
 
-    <div class="p-5 md:py-20 xl:px-52 2xl:px-96">
-      <h1 class="font-bold text-xl md:text-2xl lg:text-3xl">ขั้นตอนในการจองห้องพัก</h1>
-      <div class="py-5">
-        <div class="flex flex-wrap font-semibold" v-for="booking in bookingRoom" :key="booking.id">
-          <div class="w-1/4 md:w-1/6 lg:flex lg:justify-center">
-            <img :src="booking.img" class="w-full p-5 lg:w-3/4">
+    <div class="p-5 md:py-20 xl:flex xl:flex-wrap xl:px-52 2xl:px-96">
+      <div class="xl:py-5 xl:w-1/2">
+        <h1 class="font-bold text-xl md:text-2xl lg:text-3xl">ขั้นตอนในการจองห้องพัก</h1>
+        <div class="py-5 xl:pt-5 xl:pb-0">
+          <div class="flex flex-wrap font-semibold" v-for="booking in bookingRoom" :key="booking.id">
+            <div class="w-1/4 md:w-1/6 lg:flex lg:justify-center">
+              <img :src="booking.img" class="w-full p-5 xl:px-0 xl:py-5">
+            </div>
+            <div class="w-3/4 py-3 md:w-5/6 2xl:py-6">
+              <h2 class="pl-5 md:text-lg lg:text-xl">{{ booking.id }}. {{ booking.name }}</h2>
+              <p class="text-gray-500 text-xs md:text-sm md:pr-10 lg:text-base xl:px-3">{{ booking.desc }}</p>
+            </div>
           </div>
-          <div class="w-3/4 py-3 md:w-5/6">
-            <h2 class="pl-5 md:text-lg lg:text-xl">{{ booking.id }}. {{ booking.name }}</h2>
-            <p class="text-gray-500 text-xs md:text-sm md:pr-10 lg:text-base">{{ booking.desc }}</p>
+          <div class="py-10 xl:pt-10 xl:pb-0">
+            <nuxt-link to="/dormList" class="btn btn-primary w-full py-3 md:w-1/4 xl:w-1/2">เลือกห้องพักของคุณ</nuxt-link>
           </div>
         </div>
-        <div class="py-10 md:flex md:justify-end">
-          <nuxt-link to="/dormList" class="btn btn-primary w-full py-3 md:w-1/4">เลือกห้องพักของคุณ</nuxt-link>
-        </div>
+      </div>
+      <div class="hidden xl:block xl:w-1/2">
+        <img src="@/assets/about1.webp" class="h-full rounded-md object-cover"/>
       </div>
     </div>
   </div>
