@@ -48,7 +48,7 @@
       </div>
 
   <!-- Last Content -->
-    <div class="p-5 bg-ghostWhite md:py-20 lg:p-20 lg:px-52 2xl:px-[22rem]">
+    <div class="p-5 bg-ghostWhite md:py-20 lg:p-20 lg:px-52 2xl:px-96">
       <h1 class="font-bold text-3xl md:pr-44 lg:pr-64">ค้นหาความเหมาะสมให้เข้ากับคุณในทุกด้าน ไม่ไหวอย่าฝืน</h1>
       <p class="py-3 md:pr-48 md:py-8 text-gray-500">การอ่านหนังสือโดยไม่ได้คิดค้น การอ่านจะไม่ได้อะไรเลย การคิดค้นโดยไม่ได้อ่านหนังสือ การคิดค้นจะเปล่าประโยชน์</p>
       <div class="lg:py-5 md:grid md:grid-cols-2">
@@ -64,7 +64,7 @@
 export default {
   data() {
     return {
-      "cardList": [
+      cardList: [
         {
           id: 1,
           name: 'ขอบเขตหอพัก',

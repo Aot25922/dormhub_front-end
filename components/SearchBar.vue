@@ -1,6 +1,6 @@
 <template>
   <!--  Search Bar with filer -->
-  <div class="bg-white p-5 rounded-xl md:flex md:flex-wrap md:p-8">
+  <div class="bg-white p-5 shadow rounded-xl md:flex md:flex-wrap md:p-8">
     <div class="py-2 md:px-2 md:w-1/2">
       <h1 class="font-bold p-1">ค้นหาหอพักที่ต้องการ</h1>
       <input

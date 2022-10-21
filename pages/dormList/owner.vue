@@ -12,7 +12,13 @@
       </h1>
     </div>
     <div class="p-5 xl:pb-20 xl:px-52 2xl:px-96">
-      <h1 v-if="!dormList.results" class="text-center">คุณยังไม่มีหอพัก</h1>
+      <div v-if="!dormList.results" class="text-center py-10">
+        <img src="@/assets/error/dummy.png" class="mx-auto w-full" />
+        <h1 class="font-bold py-2 md:text-lg lg:text-xl">คุณยังไม่มีหอพัก</h1>
+        <div class="pt-10">
+          <nuxt-link class="btn btn-accent w-full md:w-1/2 lg:w-1/3" to="/dormForm">เพิ่มหอพัก</nuxt-link>
+        </div>
+      </div>
       <div v-else>
         <AllDormInfo
           class="my-10 md:my-0"
@@ -20,9 +26,9 @@
           :dorm="dorm"
           :key="dorm.dormId"
         />
-      </div>
-      <div class="center con-pagination my-10 md:my-20 lg:mb-0">
-        <vs-pagination v-model="page" :length="dormList.totalPage" />
+        <div class="center con-pagination my-10 md:my-20 lg:mb-0">
+          <vs-pagination v-model="page" :length="dormList.totalPage" />
+        </div>
       </div>
     </div>
   </div>

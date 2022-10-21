@@ -17,13 +17,13 @@
             <nuxt-link to="/">หน้าหลัก</nuxt-link>
           </li>
           <li>
-            <nuxt-link to="/">เกี่ยวกับเรา</nuxt-link>
+            <nuxt-link to="/content/About">เกี่ยวกับเรา</nuxt-link>
           </li>
           <li>
             <nuxt-link to="/dormList">หอพัก</nuxt-link>
           </li>
           <li>
-            <nuxt-link to="/">การติดต่อ</nuxt-link>
+            <nuxt-link to="/content/Contact">การติดต่อ</nuxt-link>
           </li>
           <li v-if="$store.state.userAccount.role == 'Guest'">
             <nuxt-link to="/login">เข้าสู่ระบบ</nuxt-link>
@@ -53,13 +53,13 @@
           <nuxt-link to="/" class="btn btn-ghost">หน้าหลัก</nuxt-link>
         </li>
         <li class="px-1">
-          <nuxt-link to="/" class="btn btn-ghost">เกี่ยวกับเรา</nuxt-link>
+          <nuxt-link to="/content/About" class="btn btn-ghost">เกี่ยวกับเรา</nuxt-link>
         </li>
         <li class="px-1">
           <nuxt-link to="/dormList" class="btn btn-ghost">หอพัก</nuxt-link>
         </li>
         <li class="px-1">
-          <nuxt-link to="/" class="btn btn-ghost">การติดต่อ</nuxt-link>
+          <nuxt-link to="/content/Contact" class="btn btn-ghost">การติดต่อ</nuxt-link>
         </li>
         <li class="px-1" v-if="$store.state.userAccount.role == 'Guest'">
           <nuxt-link to="/login" class="btn btn-ghost">เข้าสู่ระบบ</nuxt-link>
