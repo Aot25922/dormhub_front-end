@@ -10,6 +10,7 @@
           <vs-th> ภาพสลิป </vs-th>
           <vs-th> วันที่เริ่มเข้าพัก </vs-th>
           <vs-th> วันที่สิ้นสุดการเข้าพัก </vs-th>
+          <vs-th> ผู้จอง </vs-th>
           <vs-th> สถานะ </vs-th>
         </vs-tr>
       </template>
@@ -42,6 +43,11 @@
           </vs-td>
           <vs-td>
             {{ tr.endDate }}
+          </vs-td>
+          <vs-td v-if="$store.state.userAccount.role == 'Owner'">
+            <p>E-mail : {{tr.userAccount.email}}</p>
+            <p>เบอร์โทรศัพท์ : {{tr.userAccount.phone}}</p>
+            <p>ชื่อ : {{tr.userAccount.fname}} {{tr.userAccount.lname}}</p>
           </vs-td>
           <vs-td v-if="$store.state.userAccount.role == 'Customer'">
             {{ tr.status }}
