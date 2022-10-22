@@ -47,6 +47,7 @@ export default {
     '@nuxtjs/axios',
 	  'nuxt-material-design-icons-iconfont',
     'cookie-universal-nuxt',
+    'nuxt-gmaps',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios

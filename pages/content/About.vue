@@ -13,8 +13,10 @@
     </div>
 
     <div class="py-20 px-5 xl:px-52 2xl:px-96">
-      <h1 class="text-black font-bold text-3xl md:text-4xl">สาเหตุที่ควรเลือกใช้ Drom Hub ของเรา</h1>
-      <p class="text-gray-500 py-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tortor turpis, consequat non aliquet maximus, finibus id nisl. Mauris volutpat commodo felis eu euismod.</p>
+      <div class="md:grid md:grid-cols-2">
+        <h1 class="text-black font-bold text-3xl md:text-4xl">สาเหตุที่ควรเลือกใช้ Drom Hub ของเรา</h1>
+        <p class="text-gray-500 py-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tortor turpis, consequat non aliquet maximus, finibus id nisl. Mauris volutpat commodo felis eu euismod.</p>
+      </div>
 
       <div class="stats shadow w-full stats-vertical md:stats-horizontal">
         <div class="stat place-items-center">
@@ -82,7 +84,7 @@ export default {
         },
         {
           id: 2,
-          name: 'การหาห้องพักที่ต้องการ',
+          name: 'กรอกข้อมูลและชำระค่ามัดจำ',
           desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tortor turpis, consequat non aliquet maximus, finibus id nisl.',
           img: 'https://cdn-icons-png.flaticon.com/512/2014/2014997.png'
         },
