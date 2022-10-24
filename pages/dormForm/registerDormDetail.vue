@@ -1,6 +1,6 @@
 <template>
   <div class="py-3 md:py-5">
-    <div>
+    <div class="xl:px-48 2xl:px-80">
       <h1 class="font-bold text-center text-xl md:text-2xl lg:text-3xl xl:text-4xl">เพิ่มหอพัก</h1>
       <RegisterDormInfoForm ref="registerDormInfoForm" @validate="checkForDormInfo"/>
       <RegisterDormAddressForm ref="registerDormAddressForm" @validate="checkForDormAddress"/>

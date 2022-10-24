@@ -1,36 +1,74 @@
 <template>
   <div>
-    <div class="bg-ghostWhite px-5 py-12 xl:p-20">
+    <div class="bg-ghostWhite px-5 py-12 xl:py-20 xl:px-52 2xl:px-96">
       <div class="breadcrumbs text-gray-500 md:text-lg lg:text-xl">
         <ul>
           <li>หน้าหลัก</li>
           <li>หอพักของฉัน</li>
         </ul>
       </div>
-      <h1 class="text-PrussianBlue font-bold text-3xl md:text-4xl lg:text-5xl">หอพัก</h1>
+      <h1 class="text-PrussianBlue font-bold text-3xl md:text-4xl lg:text-5xl">
+        หอพัก
+      </h1>
     </div>
-    <div class="px-5 md:my-20 xl:p-20">
-      <AllDormInfo class="my-10 md:my-0"
-                v-for="dorm in dormList"
-                :Dorm="dorm"
-                :key="dorm.dormId" />
+    <div class="p-5 xl:pb-20 xl:px-52 2xl:px-96">
+      <div v-if="!dormList.results" class="text-center py-10">
+        <img src="@/assets/error/dummy.png" class="mx-auto w-full" />
+        <h1 class="font-bold py-2 md:text-lg lg:text-xl">คุณยังไม่มีหอพัก</h1>
+        <div class="pt-10">
+          <nuxt-link class="btn btn-accent w-full md:w-1/2 lg:w-1/3" to="/dormForm">เพิ่มหอพัก</nuxt-link>
+        </div>
+      </div>
+      <div v-else>
+        <AllDormInfo
+          class="my-10 md:my-0"
+          v-for="dorm in dormList.results"
+          :dorm="dorm"
+          :key="dorm.dormId"
+        />
+        <div class="center con-pagination my-10 md:my-20 lg:mb-0">
+          <vs-pagination v-model="page" :length="dormList.totalPage" />
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  data(){
+  data() {
     return {
-      dormList:[]
+      page: 1,
+      userDormId: [],
+    };
+  },
+  watch: {
+    page(newPage, oldPage) {
+      if (newPage != oldPage) {
+        this.changePage();
+      }
+    },
+  },
+  methods: {
+    async changePage() {
+      await this.$store.dispatch("fetchDormOwnerList", {
+        page: this.page - 1,
+        dormIdList: this.userDormId,
+      });
+    },
+  },
+  created() {
+    if (this.userDormId.length == 0) {
+      for (let i in this.$store.state.userAccount.dorms) {
+        this.userDormId.push(this.$store.state.userAccount.dorms[i].dormId);
+      }
+      this.changePage();
     }
   },
-  created(){
-      let userDormId = []
-      for(let i in this.$store.state.userAccount.dorms){
-        userDormId.push(this.$store.state.userAccount.dorms[i].dormId)
-      }
-      this.dormList = this.$store.state.dormList.filter(x => userDormId.includes(x.dormId))
+  computed: {
+    dormList() {
+      return this.$store.state.dormList;
+    },
   },
-}
+};
 </script>

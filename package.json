@@ -12,6 +12,7 @@
     "node": "16.x"
   },
   "dependencies": {
+    "@fawmi/vue-google-maps": "^0.9.79",
     "@nuxtjs/axios": "^5.13.6",
     "bootstrap-vue": "^2.22.0",
     "cookie-universal-nuxt": "^2.2.2",
@@ -19,6 +20,7 @@
     "daisyui": "^2.24.0",
     "lodash": "^4.17.21",
     "nuxt": "^2.15.8",
+    "nuxt-gmaps": "^1.2.10",
     "nuxt-material-design-icons-iconfont": "^1.0.2",
     "tw-elements": "^1.0.0-alpha12",
     "vue": "^2.6.14",

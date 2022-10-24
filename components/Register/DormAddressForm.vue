@@ -1,5 +1,5 @@
 <template>
-  <div div class="p-3 rounded-lg my-3 md:p-5 md:flex md:flex-wrap">
+  <div class="p-3 rounded-lg my-3 md:p-5 md:flex md:flex-wrap">
     <h1 class="text-lg ml-2 mb-2 font-bold md:w-full">สถานที่ตั้งหอพัก</h1>
     <div class="mb-5 md:px-1 md:w-1/2 lg:w-1/3">
       <label class="label-text text-gray-500 tracking-wide font-bold my-2"
@@ -50,7 +50,7 @@
       <select
         v-model="selectedRegion"
         class="select w-full text-gray-500 border-0"
-         @change="
+        @change="
           selectedProvince = null;
           selectedDistrict = null;
           selectedSubDistrict = null;
@@ -164,9 +164,7 @@
       <select
         v-model="selectedZipCode"
         class="select w-full text-gray-500 border-0"
-         @change="
-          checkForm();
-        "
+        @change="checkForm()"
       >
         <option option disabled selected>กรุณาเลือกเลขไปรณีย์</option>
         <option
@@ -182,6 +180,13 @@
       <p class="text-imperialRed text-right" v-if="!validateZipcode">
         กรุณาเลือกเลขไปรณีย์
       </p>
+      </div>
+    <div class="py-5 w-full md:flex md:justify-end">
+      <div class="md:w-1/2">
+        <button v-if="editForm" @click="submit()" class="btn btn-success w-full">
+          ยืนยันการเเก้ไขข้อมูล
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -189,18 +194,10 @@
 <script>
 export default {
   name: "Address",
-  async fetch() {
-    let addressInfo = await this.$axios.$get(
-      `${this.$store.state.Backend_URL}/address`
-    );
-    for (let i in addressInfo) {
-      this.addressOption.push(addressInfo[i]);
-    }
-  },
-    props:["editForm"],
+  props: ["editForm"],
   data() {
     return {
-      addressOption: [],
+      addressOption: this.$store.state.addressOption,
       selectedDistrict: null,
       selectedSubDistrict: null,
       selectedRegion: null,
@@ -222,7 +219,8 @@ export default {
     };
   },
   methods: {
-    submit() {
+    async submit() {
+      this.checkForm();
       if (
         this.validateNumber &&
         this.validateStreet &&
@@ -238,9 +236,57 @@ export default {
         this.address.province = this.selectedProvince.name_th;
         this.address.subDistrict = this.selectedSubDistrict.name_th;
         let newAddress = { ...this.address };
-        this.$store.commit("SET_DORMADDRESS", newAddress);
-        this.disableForm = true;
-        this.$emit("validate", true);
+        if (this.editForm) {
+          const loading = this.$vs.loading();
+          let formData = new FormData();
+          let data = {
+            address: {
+              number: this.address.number,
+              alley: this.address.alley,
+              street: this.address.street,
+              subDistrictsId: this.selectedSubDistrict.subDistrictsId,
+              addressId: this.$store.state.selectedDorm.addressId,
+            },
+          };
+          formData.append("data", JSON.stringify(data));
+          try {
+            await this.$axios.$put(
+              `${this.$store.state.Backend_URL}/dorm/edit`,
+              formData,
+              {
+                withCredentials: true,
+              }
+            );
+            const noti = this.$vs.notification({
+              progress: "auto",
+              icon: `<i class='bx bx-folder-open' ></i>`,
+              color: "success",
+              position: "top-right",
+              title: `Data Update`,
+              text: `Update Dorm Address complete!`,
+            });
+            loading.close();
+            let dormInfo = {
+              dorm: null,
+              id: this.$store.state.selectedDorm.dormId,
+            };
+            await this.$store.dispatch("dormSelected", dormInfo);
+          } catch (error) {
+            loading.close();
+            const noti = this.$vs.notification({
+              progress: "auto",
+              icon: `<i class='bx bx-folder-open' ></i>`,
+              color: "warn",
+              position: "top-right",
+              title: `Data Update`,
+              text: error.response.data.error.message,
+            });
+          }
+        } else {
+          this.$store.commit("SET_DORMADDRESS", newAddress);
+          this.disableForm = true;
+          this.$emit("validate", true);
+        }
       } else {
         this.$emit("validate", false);
         const noti = this.$vs.notification({
@@ -261,8 +307,43 @@ export default {
         this.selectedSubDistrict != null ? true : false;
       this.validateRegion = this.selectedRegion != null ? true : false;
       this.validateProvince = this.selectedProvince != null ? true : false;
-      this.validateZipcode = this.selectedZipCode != null ? true : false
+      this.validateZipcode = this.selectedZipCode != null ? true : false;
     },
+  },
+  created() {
+    if (this.editForm) {
+      if (!this.$store.state.selectedDorm) {
+        this.$router.push({ path: "/dormList" });
+        return;
+      }
+      this.selectedRegion = this.addressOption.filter(
+        (x) =>
+          x.name ==
+          this.$store.state.selectedDorm.address.subDistrict.district.province
+            .geography.name
+      )[0];
+      this.selectedProvince = this.selectedRegion.provinces.filter(
+        (x) =>
+          x.name_th ==
+          this.$store.state.selectedDorm.address.subDistrict.district.province
+            .name_th
+      )[0];
+      this.selectedDistrict = this.selectedProvince.districts.filter(
+        (x) =>
+          x.name_th ==
+          this.$store.state.selectedDorm.address.subDistrict.district.name_th
+      )[0];
+      this.selectedSubDistrict = this.selectedDistrict.subDistricts.filter(
+        (x) =>
+          x.name_th ==
+          this.$store.state.selectedDorm.address.subDistrict.name_th
+      )[0];
+      this.selectedZipCode = this.selectedSubDistrict.zip_code;
+      this.address.number = this.$store.state.selectedDorm.address.number;
+      this.address.street = this.$store.state.selectedDorm.address.street;
+      this.address.alley = this.$store.state.selectedDorm.address.alley;
+      this.checkForm();
+    }
   },
 };
 </script>

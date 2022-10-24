@@ -1,13 +1,13 @@
 <template>
   <div>
     <ContentIntroduction />
-    <div class="p-5 md:flex md:flex-row md:pb-0 lg:px-20 lg:pt-20">
+    <div class="p-5 md:flex md:flex-row md:pb-0 lg:px-20 lg:pt-20 xl:px-52 2xl:px-[22rem]">
       <h1 class="text-3xl font-bold text-center py-5 md:text-4xl md:text-left">หอพัก</h1>
       <nuxt-link to="/dormList" class="btn btn-secondary w-full py-3 md:w-1/4 md:ml-auto md:mt-4">ดูหอพักทั้งหมด</nuxt-link>
     </div>
 
     <!-- DormList -->
-      <div class="p-5 md:grid md:grid-cols-2 md:pb-0 md:pt-0 lg:grid-cols-3 lg:px-20 lg:pb-20">
+      <div class="p-5 md:grid md:grid-cols-2 md:pb-0 md:pt-0 lg:grid-cols-3 lg:px-20 lg:pb-20 xl:px-52 2xl:px-[22rem]">
           <DormInfo class="my-10 md:my-0"
             v-for="dorm in dormList.slice(0, 2)"
             :Dorm="dorm"
@@ -15,7 +15,7 @@
         <!-- Ads for Laptop -->
         <div class="hidden lg:block lg:pt-5">
           <div class="card w-full bg-primary text-white">
-            <div class="card-body items-center text-center md:py-10 lg:pb-5 lg:pt-6 xl:py-24 2xl:py-32">
+            <div class="card-body items-center text-center md:py-10 lg:pb-11 lg:pt-6 xl:py-16 xl:my-2 2xl:mt-3 2xl:mb-4">
               <h2 class="card-title">ท่องไปกับหอพักได้อีกมาก</h2>
               <p class="text-left md:py-5">ก่อนการตัดสินใจบางอย่าง ท่านควรวางแผนความคุ้มค่า การเดินทาง กำลังทรัพย์ที่ไหว</p>
               <div class="flex flex-row py-3 md:py-5">
@@ -48,7 +48,7 @@
       </div>
 
   <!-- Last Content -->
-    <div class="p-5 bg-ghostWhite md:py-20 lg:p-20">
+    <div class="p-5 bg-ghostWhite md:py-20 lg:p-20 lg:px-52 2xl:px-96">
       <h1 class="font-bold text-3xl md:pr-44 lg:pr-64">ค้นหาความเหมาะสมให้เข้ากับคุณในทุกด้าน ไม่ไหวอย่าฝืน</h1>
       <p class="py-3 md:pr-48 md:py-8 text-gray-500">การอ่านหนังสือโดยไม่ได้คิดค้น การอ่านจะไม่ได้อะไรเลย การคิดค้นโดยไม่ได้อ่านหนังสือ การคิดค้นจะเปล่าประโยชน์</p>
       <div class="lg:py-5 md:grid md:grid-cols-2">
@@ -64,7 +64,7 @@
 export default {
   data() {
     return {
-      "cardList": [
+      cardList: [
         {
           id: 1,
           name: 'ขอบเขตหอพัก',
@@ -75,18 +75,17 @@ export default {
           name: 'รับรองหอพัก',
           img: 'https://cdn-icons-png.flaticon.com/512/5241/5241729.png'
         }
-      ]
+      ],
+      dormList:[]
     }
   },
       methods: {},
-      async beforeMount() {
-        if (this.$store.state.dormList.length == 0) await this.$store.dispatch('fetchDormList');
-        await this.$store.dispatch('fetchProvinceList');
-      },
-      computed: {
-        dormList() {
-          return this.$store.state.dormList;
+      async created() {
+        if (this.$store.state.dormList.length == 0) {
+          await this.$store.dispatch('fetchDormList',0)
         }
+        await this.$store.dispatch('fetchProvinceList')
+        this.dormList = this.$store.state.dormList.results
       },
 }
 </script>

@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
@@ -21,7 +23,7 @@ export default {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
-    '@/assets/test.css'
+    '@/assets/main.css'
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -45,6 +47,7 @@ export default {
     '@nuxtjs/axios',
 	  'nuxt-material-design-icons-iconfont',
     'cookie-universal-nuxt',
+    'nuxt-gmaps',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -56,5 +59,14 @@ export default {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     transpile: ['vue-agile']
+  },
+  mounted: {
+    routes() {
+      return axios.get(`${this.state.Backend_URL}/dorm`).then(res => {
+        return res.data.map(dorm => {
+          return '/dorm/' + dorm.dormId
+        })
+      })
+    }
   }
 }

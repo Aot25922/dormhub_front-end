@@ -1,7 +1,7 @@
 <template>
-    <div class="bg-ghostWhite p-5 xl:p-20">
+    <div class="bg-ghostWhite p-5 xl:p-10">
       <form-progress />
-      <div v-if="!this.$route.path.includes('dormForm/')" class="md:grid md:grid-cols-2">
+      <div v-if="!this.$route.path.includes('dormForm/')" class="md:grid md:grid-cols-2 xl:px-48 2xl:px-80">
         <img src="@/assets/form1.png" class="hidden md:block md:py-24 lg:py-10">
         <div class="lg:py-10">
           <h1 class="font-bold text-lg md:text-xl xl:text-2xl 2xl:text-3xl">ขั้นตอนการสร้างหอพัก</h1>
@@ -27,7 +27,7 @@
             </li>
           </ul>
           <div class="hidden xl:block xl:grid xl:grid-cols-4 xl:mt-5">
-            <nuxt-link v-if="!this.$route.path.includes('dormForm/')" to="/dormForm/registerDormDetail" class="btn btn-accent w-full col-start-4">เริ่มสร้างหอพักของคุณ</nuxt-link>
+            <nuxt-link v-if="!this.$route.path.includes('dormForm/')" to="/dormForm/registerDormDetail" class="btn btn-accent w-full col-start-3 col-span-2">เริ่มสร้างหอพักของคุณ</nuxt-link>
           </div>
         </div>
 

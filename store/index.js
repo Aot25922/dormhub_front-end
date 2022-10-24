@@ -6,10 +6,21 @@ export const state = () => ({
   dormList: [],
   provinceList: [],
   selectedDorm: null,
+  addressOption: [],
   newDorm: { dorm: {}, address: {}, roomType: [], room: [], dormImg: [], roomTypeImg: {}, bankAccount: [] }
 });
 
 export const mutations = {
+  SET_ADDRESSOPTIONS(state, data) {
+    state.addressOption = data
+  },
+  SET_ROOMSTATUS(state, data) {
+    for (let i in state.selectedDorm.rooms) {
+      if (state.selectedDorm.rooms[i].roomId == data.roomId) {
+        state.selectedDorm.rooms[i].status = data.status
+      }
+    }
+  },
   SET_USERACCOUNT(state, data) {
     state.userAccount = data.data
   },
@@ -34,7 +45,7 @@ export const mutations = {
   SET_ROOMTYPEIMG(state, data) {
     let key = data.key
     let oldRoomType = data.oldRoomType
-    state.newDorm.roomTypeImg = _.pickBy(state.newDorm.roomTypeImg, function(value, key) {
+    state.newDorm.roomTypeImg = _.pickBy(state.newDorm.roomTypeImg, function (value, key) {
       return !(_.isEqual(key, oldRoomType));
     });
     state.newDorm.roomTypeImg[key] = data.roomTypeImg
@@ -54,7 +65,7 @@ export const mutations = {
         state.newDorm.roomType.splice(i, 1)
       }
     }
-    state.newDorm.roomTypeImg = _.pickBy(state.newDorm.roomTypeImg, function(value, key) {
+    state.newDorm.roomTypeImg = _.pickBy(state.newDorm.roomTypeImg, function (value, key) {
       return !(_.isEqual(key, data.type));
     });
   },
@@ -69,27 +80,50 @@ export const mutations = {
 export const actions = {
   async nuxtServerInit({ commit, state }) {
     try {
+      await this.$axios.$get(
+        `${state.Backend_URL}/address`
+      ).then(option => {
+        if (option != null) {
+          commit('SET_ADDRESSOPTIONS', option)
+        }
+      })
       let data = await this.$axios.$post(`${state.Backend_URL}/account/login`, null, {
         withCredentials: true,
       })
       if (data != null) {
-        commit('SET_USERACCOUNT',data)
+        commit('SET_USERACCOUNT', data)
       }
     } catch (err) {
-      console.log("handle error:"+ err)
-    }
-    try {
-      await this.$axios.get(`${this.state.Backend_URL}/dorm`)
-        .then(response => {
-          commit('SET_DORMLIST', response.data)
-        })
-    } catch (err) {
+      console.log("handle error:" + err.response.data.error.message)
     }
   },
-  async fetchDormList({ commit }) {
-    await this.$axios.get(`${this.state.Backend_URL}/dorm`)
+  async fetchDormList({ commit }, page) {
+    await this.$axios.get(`${this.state.Backend_URL}/dorm?page=${page}`,)
       .then(response => {
         commit('SET_DORMLIST', response.data)
+      }).catch(function (error) {
+        console.log(error);
+        commit('SET_DORMLIST', [])
+      })
+  },
+  async fetchDormOwnerList({ commit }, { page, dormIdList }) {
+    if(!dormIdList){
+      return
+    }
+    const request = {
+      params: {
+        page: page,
+        dormIdList: dormIdList,
+        limit: 5
+      },
+      withCredentials: true
+    }
+    await this.$axios.get(`${this.state.Backend_URL}/dorm/owner`, request)
+      .then(response => {
+        commit('SET_DORMLIST', response.data)
+      }).catch(function (error) {
+        console.log(error);
+        commit('SET_DORMLIST', [])
       })
   },
   async fetchProvinceList({ commit }) {
@@ -102,7 +136,7 @@ export const actions = {
   },
   async logout({ state, commit }) {
     try {
-      await this.$axios.$delete(`${state.Backend_URL}/account/logout`,{
+      await this.$axios.$delete(`${state.Backend_URL}/account/logout`, {
         withCredentials: true,
       })
       commit('SET_USERACCOUNT', { data: { role: "Guest" } })
@@ -122,7 +156,7 @@ export const actions = {
     }
   },
   setNewRoomTypeImg({ commit }, { image, roomType, oldRoomType }) {
-    let newRoomTypeImgList = { roomTypeImg: image, key: roomType ,oldRoomType: oldRoomType}
+    let newRoomTypeImgList = { roomTypeImg: image, key: roomType, oldRoomType: oldRoomType }
     commit('SET_ROOMTYPEIMG', newRoomTypeImgList)
   },
   async addDorm({ state }) {
@@ -131,10 +165,10 @@ export const actions = {
       let formData = new FormData()
       let data = {}
       let newbankAccount = _.cloneDeep(dorm.bankAccount)
-      for(let i in newbankAccount){
+      for (let i in newbankAccount) {
         newbankAccount[i].bankId = newbankAccount[i].bankId.bankId
       }
-      _.assign(data, { dorm: dorm.dorm }, { address: dorm.address }, { roomType: dorm.roomType }, { room: dorm.room }, {bankAccount: newbankAccount})
+      _.assign(data, { dorm: dorm.dorm }, { address: dorm.address }, { roomType: dorm.roomType }, { room: dorm.room }, { bankAccount: newbankAccount })
       formData.append('data', JSON.stringify(data))
       for (let i in state.newDorm.roomTypeImg) {
         for (let j in state.newDorm.roomTypeImg[i]) {
@@ -145,7 +179,7 @@ export const actions = {
       for (let i in dorm.dormImg) {
         formData.append(`dorm_${dorm.dorm.name}`, dorm.dormImg[i], 'test.jpg')
       }
-      return await this.$axios.$post(`${state.Backend_URL}/dorm/register`, formData, {withCredentials: true,})
+      return await this.$axios.$post(`${state.Backend_URL}/dorm/register`, formData, { withCredentials: true, })
 
 
     }

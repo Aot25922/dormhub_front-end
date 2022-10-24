@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar flex flex-row">
+  <div class="navbar flex flex-row xl:px-48 2xl:px-80">
     <div class="font-bold text-PrussianBlue mr-auto cursor-pointer">
       <NuxtLink to="/" class="flex flex-row px-3">
 <!--        <img src="@/assets/logo.png" class="mt-1 mx-1 w-10 h-10"/>-->
@@ -17,13 +17,13 @@
             <nuxt-link to="/">หน้าหลัก</nuxt-link>
           </li>
           <li>
-            <nuxt-link to="/">เกี่ยวกับเรา</nuxt-link>
+            <nuxt-link to="/content/About">เกี่ยวกับเรา</nuxt-link>
           </li>
           <li>
             <nuxt-link to="/dormList">หอพัก</nuxt-link>
           </li>
           <li>
-            <nuxt-link to="/">การติดต่อ</nuxt-link>
+            <nuxt-link to="/content/Contact">การติดต่อ</nuxt-link>
           </li>
           <li v-if="$store.state.userAccount.role == 'Guest'">
             <nuxt-link to="/login">เข้าสู่ระบบ</nuxt-link>
@@ -36,6 +36,9 @@
           </li>
           <li v-if="$store.state.userAccount.role == 'Owner'">
             <nuxt-link to="/dormList/owner">หอพักของฉัน</nuxt-link>
+          </li>
+          <li v-if="$store.state.userAccount.role != 'Guest'">
+            <nuxt-link to="/booking" >การจองห้องพักของฉัน</nuxt-link>
           </li>
           <li class="font-bold" v-if="$store.state.userAccount.role != 'Guest'">
             <p @click="logout">ออกระบบ</p>
@@ -50,13 +53,13 @@
           <nuxt-link to="/" class="btn btn-ghost">หน้าหลัก</nuxt-link>
         </li>
         <li class="px-1">
-          <nuxt-link to="/" class="btn btn-ghost">เกี่ยวกับเรา</nuxt-link>
+          <nuxt-link to="/content/About" class="btn btn-ghost">เกี่ยวกับเรา</nuxt-link>
         </li>
         <li class="px-1">
           <nuxt-link to="/dormList" class="btn btn-ghost">หอพัก</nuxt-link>
         </li>
         <li class="px-1">
-          <nuxt-link to="/" class="btn btn-ghost">การติดต่อ</nuxt-link>
+          <nuxt-link to="/content/Contact" class="btn btn-ghost">การติดต่อ</nuxt-link>
         </li>
         <li class="px-1" v-if="$store.state.userAccount.role == 'Guest'">
           <nuxt-link to="/login" class="btn btn-ghost">เข้าสู่ระบบ</nuxt-link>
@@ -69,6 +72,9 @@
         </li>
         <li class="px-1" v-if="$store.state.userAccount.role == 'Owner'">
           <nuxt-link to="/dormList/owner" class="btn btn-ghost">หอพักของฉัน</nuxt-link>
+        </li>
+        <li v-if="$store.state.userAccount.role == 'Customer' || $store.state.userAccount.role == 'Owner'">
+          <nuxt-link to="/booking" class="btn btn-ghost">การจองห้องพักของฉัน</nuxt-link>
         </li>
         <li class="px-1" v-if="$store.state.userAccount.role != 'Guest'">
           <button class="btn btn-secondary" @click="logout">ออกจากระบบ</button>
@@ -84,6 +90,7 @@ export default {
   name: "NavBar",
   methods: {
     async logout() {
+      this.$router.push({path:"/"})
       this.$store.dispatch('logout')
     }
   },
