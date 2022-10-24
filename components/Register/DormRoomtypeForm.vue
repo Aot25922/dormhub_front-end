@@ -221,7 +221,11 @@
         >
           เเก้ไขข้อมูลประเภทห้องพัก
         </button>
-        <button v-if="editForm" @click="addRoomTypes()" class="bg-emerald-900">
+      </div>
+    </div>
+    <div class="py-5 w-full md:flex md:justify-end">
+      <div class="md:w-1/2">
+        <button v-if="editForm" @click="addRoomTypes()" class="btn btn-success w-full">
           ยืนยันการเเก้ไขข้อมูล
         </button>
       </div>

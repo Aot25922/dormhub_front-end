@@ -167,9 +167,13 @@
           ต้องมีอย่างน้อย 1 ภาพ
         </p>
       </div>
-      <button v-if="editForm" @click="submit()" class="bg-emerald-900">
-        ยืนยันการเเก้ไขข้อมูล
-      </button>
+      <div class="py-5 w-full md:flex md:justify-end">
+        <div class="md:w-1/2">
+          <button v-if="editForm" @click="submit()" class="btn btn-success w-full">
+            ยืนยันการเเก้ไขข้อมูล
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </template>

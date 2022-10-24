@@ -25,32 +25,32 @@
           </div>
         </div>
       </div>
-      <div class="pb-20 xl:w-1/2 xl:py-20">
-        <GMap
-          ref="gMap"
-          language="en"
-          :cluster="{options: {styles: clusterStyle}}"
-          :center="{lat: locations[0].lat, lng: locations[0].lng}"
-          :options="{fullscreenControl: false, styles: mapStyle}"
-          :zoom="15"
-        >
-          <GMapMarker
-            v-for="location in locations"
-            :key="location.id"
-            :position="{lat: location.lat, lng: location.lng}"
-            :options="{icon: location === currentLocation ? pins.selected : pins.notSelected}"
-            @click="currentLocation = location"
-          >
-            <GMapInfoWindow>
-              <code>
-                lat: {{ location.lat }},
-                lng: {{ location.lng }}
-              </code>
-            </GMapInfoWindow>
-          </GMapMarker>
-          <GMapCircle :options="circleOptions"/>
-        </GMap>
-      </div>
+<!--      <div class="pb-20 xl:w-1/2 xl:py-20">-->
+<!--        <GMap-->
+<!--          ref="gMap"-->
+<!--          language="en"-->
+<!--          :cluster="{options: {styles: clusterStyle}}"-->
+<!--          :center="{lat: locations[0].lat, lng: locations[0].lng}"-->
+<!--          :options="{fullscreenControl: false, styles: mapStyle}"-->
+<!--          :zoom="15"-->
+<!--        >-->
+<!--          <GMapMarker-->
+<!--            v-for="location in locations"-->
+<!--            :key="location.id"-->
+<!--            :position="{lat: location.lat, lng: location.lng}"-->
+<!--            :options="{icon: location === currentLocation ? pins.selected : pins.notSelected}"-->
+<!--            @click="currentLocation = location"-->
+<!--          >-->
+<!--            <GMapInfoWindow>-->
+<!--              <code>-->
+<!--                lat: {{ location.lat }},-->
+<!--                lng: {{ location.lng }}-->
+<!--              </code>-->
+<!--            </GMapInfoWindow>-->
+<!--          </GMapMarker>-->
+<!--          <GMapCircle :options="circleOptions"/>-->
+<!--        </GMap>-->
+<!--      </div>-->
 
       <div class="pb-20 stats shadow w-full stats-vertical md:stats-horizontal xl:w-full xl:px-52 2xl:px-96">
         <div class="stat place-items-center">

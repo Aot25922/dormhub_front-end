@@ -1,5 +1,5 @@
 <template>
-  <div div class="p-3 rounded-lg my-3 md:p-5 md:flex md:flex-wrap">
+  <div class="p-3 rounded-lg my-3 md:p-5 md:flex md:flex-wrap">
     <h1 class="text-lg ml-2 mb-2 font-bold md:w-full">สถานที่ตั้งหอพัก</h1>
     <div class="mb-5 md:px-1 md:w-1/2 lg:w-1/3">
       <label class="label-text text-gray-500 tracking-wide font-bold my-2"
@@ -180,9 +180,13 @@
       <p class="text-imperialRed text-right" v-if="!validateZipcode">
         กรุณาเลือกเลขไปรณีย์
       </p>
-      <button v-if="editForm" @click="submit()" class="bg-emerald-900">
-        ยืนยันการเเก้ไขข้อมูล
-      </button>
+      </div>
+    <div class="py-5 w-full md:flex md:justify-end">
+      <div class="md:w-1/2">
+        <button v-if="editForm" @click="submit()" class="btn btn-success w-full">
+          ยืนยันการเเก้ไขข้อมูล
+        </button>
+      </div>
     </div>
   </div>
 </template>

@@ -8,7 +8,7 @@
           :key="index"
           class="relative flex flex-wrap"
         >
-          <div class="w-1/2 px-1 md:w-1/3">
+          <div class="w-1/2 px-1 md:w-1/4">
             <label class="label-text tracking-wide font-bold my-2"
               >เลขบัญชี <span class="text-accent">*</span></label
             >
@@ -22,7 +22,7 @@
             />
           </div>
 
-          <div class="w-1/2 px-1 md:w-1/3">
+          <div class="w-1/2 px-1 md:w-1/4">
             <label class="label-text tracking-wide font-bold my-2"
               >ชื่อบัญชี <span class="text-accent">*</span></label
             >
@@ -36,7 +36,7 @@
             />
           </div>
 
-          <div class="w-1/2 px-1 md:w-1/3">
+          <div class="w-1/2 px-1 md:w-1/4">
             <label class="label-text tracking-wide font-bold my-2"
               >ธนาคาร <span class="text-accent">*</span></label
             >
@@ -60,15 +60,16 @@
             </p>
           </div>
 
-          <div class="w-1/2 px-1 pt-6">
+          <div class="w-1/2 px-1 pt-6 md:w-1/4 md:flex md:justify-end">
             <button
               @click="removeBankAccount(index)"
-              class="btn btn-accent"
+              class="btn btn-accent w-2/3"
               v-if="index > 0"
             >
               <span class="material-icons">delete</span>
             </button>
           </div>
+          <div class="w-full divider"></div>
         </div>
       </div>
     </div>
@@ -101,13 +102,15 @@
         เพิ่มบัญชีธนาคาร
       </button>
     </div>
+    <div class="py-5">
     <button
       v-if="editForm"
       @click="submit()"
-      class="bg-emerald-900 btn btn-secondary p-5 w-full"
+      class="btn btn-success w-full"
     >
       ยืนยันการเเก้ไขข้อมูล
     </button>
+    </div>
   </div>
 </template>
 <script>

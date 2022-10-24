@@ -143,7 +143,9 @@
       >
         เเก้ไขข้อมูลของห้องพัก
       </button>
-      <button v-if="editForm" @click="submit()" class="bg-emerald-900">
+      </div>
+    <div class="py-3">
+      <button v-if="editForm" @click="submit()" class="btn btn-success w-full">
         ยืนยันการเเก้ไขข้อมูล
       </button>
     </div>
