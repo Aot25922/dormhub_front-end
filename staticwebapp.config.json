@@ -2,7 +2,7 @@
   "globalHeaders": {
     "Referrer-Policy": "strict-origin-when-cross-origin",
     "X-Frame-Options": "DENY",
-    "Content-Security-Policy": "default-src 'self' *.dormhub.works; img-src 'self' blob: data: *.dormhub.works https://cdn-icons-png.flaticon.com https://placeimg.com; style-src 'self' https://fonts.googleapis.com 'sha256-z3LgqS9HxKUQHL2q9hSJyhjKgMcZyfT1yopoTalYuUw=' 'sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=' 'sha256-LG55JDIGMB2vcs7am0zx+DiKQb3j0MxpGchwaZbdHH8=' 'sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=' 'sha256-VZRfH/3Bwi5/eYybvbBZ0vWttfyoI7loqicYXiNREq4='; font-src 'self' https://fonts.gstatic.com; frame-ancestors 'none'; form-action 'self';",
+    "Content-Security-Policy": "default-src 'self' *.dormhub.works; img-src 'self' blob: data: *.dormhub.works https://cdn-icons-png.flaticon.com https://placeimg.com; style-src 'self' https://fonts.googleapis.com 'sha256-GhDVQhZW6ySxU5L4bsXyS6M1xtUcIFD0D3RdpNlf8H0=' 'sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=' 'sha256-LG55JDIGMB2vcs7am0zx+DiKQb3j0MxpGchwaZbdHH8=' 'sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=' 'sha256-VZRfH/3Bwi5/eYybvbBZ0vWttfyoI7loqicYXiNREq4='; font-src 'self' https://fonts.gstatic.com; frame-ancestors 'none'; form-action 'self';",
     "Cache-Control": "private, must-revalidate"
   },
   "navigationFallback": {
