@@ -54,7 +54,6 @@ export default {
   },
   computed: {
     dormList() {
-      console.log(this.$store.state.dormList)
       return this.$store.state.dormList;
     },
   },
