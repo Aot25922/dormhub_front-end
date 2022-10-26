@@ -6,7 +6,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'dormhub',
+    title: 'Dormitory Center | Dorm Hub',
     htmlAttrs: {
       lang: 'en'
     },
