@@ -10,7 +10,7 @@
           <vs-th> ภาพสลิป </vs-th>
           <vs-th> วันที่เริ่มเข้าพัก </vs-th>
           <vs-th> วันที่สิ้นสุดการเข้าพัก </vs-th>
-          <vs-th> ผู้จอง </vs-th>
+          <vs-th v-if="$store.state.userAccount.role == 'Owner'"> ผู้จอง </vs-th>
           <vs-th> สถานะ </vs-th>
         </vs-tr>
       </template>
