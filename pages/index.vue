@@ -38,7 +38,7 @@
             <p class="text-left md:py-5">ก่อนการตัดสินใจบางอย่าง ท่านควรวางแผนความคุ้มค่า การเดินทาง กำลังทรัพย์ที่ไหว</p>
             <div class="flex flex-row py-3 md:py-5">
               <div class="divider divider-horizontal bg-white ml-0 text-white"></div>
-              <p class="italic">"คุณไม่สามารถไว้ใจใครได้อีกต่อไปหากคุณต้องการทำสิ่งที่คุณต้องทำด้วยตัวเอง"</p>
+              <p class="italic font-Itim">"คุณไม่สามารถไว้ใจใครได้อีกต่อไปหากคุณต้องการทำสิ่งที่คุณต้องทำด้วยตัวเอง"</p>
             </div>
           </div>
           <div class="card-actions p-5">
@@ -89,4 +89,10 @@ export default {
       },
 }
 </script>
+
+<style scoped>
+  font-Itim {
+    font-family: 'Itim'
+  }
+</style>
 

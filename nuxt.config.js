@@ -17,7 +17,9 @@ export default {
       { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: "stylesheet", href: 'https://fonts.googleapis.com/css2?family=Kanit:wght@100;200;300;400;500;600;700;800;900&display=swap' },
+      { rel: "stylesheet", href: 'https://fonts.googleapis.com/css2?family=Itim&display=swap'}
     ]
   },
 
@@ -47,7 +49,7 @@ export default {
     '@nuxtjs/axios',
 	  'nuxt-material-design-icons-iconfont',
     'cookie-universal-nuxt',
-    'nuxt-gmaps',
+    // 'nuxt-gmaps',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
