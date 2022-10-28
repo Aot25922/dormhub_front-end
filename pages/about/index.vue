@@ -67,6 +67,19 @@
         <img src="@/assets/about1.webp" class="h-full rounded-md object-cover"/>
       </div>
     </div>
+
+    <div class="py-10 px-5 xl:py-32 xl:px-52 2xl:px-96">
+      <div class="rounded shadow-lg p-5">
+        <h1 class="text-black font-bold text-3xl md:text-4xl">การติดต่อ</h1>
+        <p class="text-gray-500 py-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tortor turpis, consequat non aliquet maximus, finibus id nisl. Mauris volutpat commodo felis eu euismod.</p>
+        <div>
+          <span class="material-icons-outlined">สมาชิก</span>
+          <p class="text-gray-500">62130500031 ธนทรัพย์ลีลาพิสุทธิ์</p>
+          <p class="text-gray-500">62130500033 ธนภัทร กัลกุล</p>
+          <p class="text-gray-500">62130500043 นิทัศน์ วาสนาพงษ์</p>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 

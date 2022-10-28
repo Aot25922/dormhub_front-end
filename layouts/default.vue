@@ -1,7 +1,7 @@
 <template>
   <div class="bg-white text-black min-h-screen font-Kanit">
     <NavBar class="md:p-3 lg:p-5" />
-    <Nuxt />
+    <Nuxt class="pt-[4.25rem]" />
     <ContentFooter />
   </div>
 </template>
