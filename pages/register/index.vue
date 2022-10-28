@@ -17,7 +17,7 @@
         />
         <span class="text-imperialRed" v-if="validateEmail">กรุณากรอกอีเมล</span>
 
-        <input
+        <input type="password"
           class="py-6 px-2 w-full input input-sm md:input-md rounded-lg text-gray-soil border-x-0 border-t-0 border-b-gray-400 my-2 md:my-4"
           placeholder="รหัสผ่าน"
           v-model="userAccount.password"
@@ -25,9 +25,9 @@
         />
         <span class="text-imperialRed" v-if="validatePassword">กรุณากรอกรหัสผ่าน</span>
 
-        <!--      <input class="py-6 px-2 w-full input input-sm md:input-md rounded-lg text-gray-soil border-x-0 border-t-0 border-b-gray-400 my-2 md:my-4"-->
-        <!--        placeholder="ยืนยันรหัสผ่าน" v-model="userAccount.password" @blur="validateForm" @keypress.enter="submit" />-->
-        <!--      <span class="text-imperialRed" v-if="!validatePassword">รหัสไม่ตรงกัน</span>-->
+        <input type="password" class="py-6 px-2 w-full input input-sm md:input-md rounded-lg text-gray-soil border-x-0 border-t-0 border-b-gray-400 my-2 md:my-4"
+          placeholder="ยืนยันรหัสผ่าน" v-model="confirmPassword" @blur="validateForm" @keypress.enter="submit" />
+        <span class="text-imperialRed" v-if="passwordNotSame ">รหัสไม่ตรงกัน</span>
 
         <div class="w-full flex flex-wrap mt-5">
           <div class="w-1/2 px-1">
@@ -149,6 +149,8 @@ export default {
       validateSex: false,
       validatePhone: false,
       validateRole: false,
+      passwordNotSame: false,
+      confirmPassword: '',
       firstStep: true,
       secondStep: false,
       thirdStep: false,
@@ -173,56 +175,60 @@ export default {
       if (
         !this.validateEmail &&
         !this.validatePassword &&
+        !this.passwordNotSame &&
         !this.validateFname &&
         !this.validateLname &&
         !this.validateSex &&
         !this.validatePhone &&
         this.validateRole
-      ) {
-        let formData = new FormData();
-        formData.append("data", JSON.stringify(this.userAccount));
-        const loading = this.$vs.loading();
-        try {
-          let data = await this.$axios.$post(
-            `${this.$store.state.Backend_URL}/account/register`,
-            formData,
-            {
-              withCredentials: true,
-            }
-          );
-          this.$store.commit("SET_USERACCOUNT", data);
-          this.userAccount = {
-            email: "",
-            password: "",
-            fname: "",
-            lname: "",
-            sex: "",
-            phone: "",
-            role: "",
-          };
-          loading.close();
-          this.$router.push({ path: "/" });
-          const noti = this.$vs.notification({
-            progress: "auto",
-            icon: `<i class='bx bx-folder-open' ></i>`,
-            color: "success",
-            position: "top-right",
-            title: `Data Update`,
-            text: `Register account complete!`,
-          });
-        } catch (error) {
-          loading.close();
-          const noti = this.$vs.notification({
-            progress: "auto",
-            icon: `<i class='bx bx-folder-open' ></i>`,
-            color: "warn",
-            position: "top-right",
-            title: `Data Update`,
-            text: error.response.data.error.message,
-          });
+      )
+        {
+          let formData = new FormData();
+          formData.append("data", JSON.stringify(this.userAccount));
+          const loading = this.$vs.loading();
+          try {
+            let data = await this.$axios.$post(
+              `${this.$store.state.Backend_URL}/account/register`,
+              formData,
+              {
+                withCredentials: true,
+              }
+            );
+            this.$store.commit("SET_USERACCOUNT", data);
+            this.userAccount = {
+              email: "",
+              password: "",
+              fname: "",
+              lname: "",
+              sex: "",
+              phone: "",
+              role: "",
+            };
+            loading.close();
+            this.$router.push({path: "/"});
+            const noti = this.$vs.notification({
+              progress: "auto",
+              icon: `<i class='bx bx-folder-open' ></i>`,
+              color: "success",
+              position: "top-right",
+              title: `Data Update`,
+              text: `Register account complete!`,
+            });
+          } catch (error) {
+            loading.close();
+            const noti = this.$vs.notification({
+              progress: "auto",
+              icon: `<i class='bx bx-folder-open' ></i>`,
+              color: "warn",
+              position: "top-right",
+              title: `Data Update`,
+              text: error.response.data.error.message,
+            });
+          }
         }
-      }else{
-        const noti = this.$vs.notification({
+      else
+        {
+          const noti = this.$vs.notification({
             progress: "auto",
             icon: `<i class='bx bx-folder-open' ></i>`,
             color: "warn",
@@ -235,11 +241,13 @@ export default {
     validateForm() {
       this.validateEmail = this.userAccount.email == "" ? true : false;
       this.validatePassword = this.userAccount.password == "" ? true : false;
+      this.passwordNotSame = this.userAccount.password != this.confirmPassword ? true : false;
       this.validateFname = this.userAccount.fname == "" ? true : false;
       this.validateLname = this.userAccount.lname == "" ? true : false;
       this.validateSex = this.userAccount.sex == "" ? true : false;
       this.validatePhone = this.userAccount.phone == "" ? true : false;
       this.validateRole = this.userAccount.role != "" ? true : false;
+
     },
   },
 };

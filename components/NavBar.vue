@@ -12,7 +12,7 @@
         <div tabindex="0" class="btn btn-neutral btn-sm text-PrussianBlue">
           <span class="material-icons duration-150 ease-out">menu</span>
         </div>
-        <ul tabindex="0" class=" p-2 shadow menu dropdown-content rounded-box w-52 text-gray-600 bg-white">
+        <ul tabindex="0" class=" p-2 shadow menu dropdown-content rounded-box w-52 text-gray-600 bg-white z-1">
           <li>
             <nuxt-link to="/">หน้าหลัก</nuxt-link>
           </li>
