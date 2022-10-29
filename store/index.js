@@ -1,7 +1,7 @@
 var _ = require('lodash');
 
 export const state = () => ({
-  Backend_URL: process.env.Backend_URL || 'http://localhost:3001',
+  Backend_URL: process.env.Backend_URL ||'http://localhost:3001',
   userAccount: { role: "Guest" },
   dormList: [],
   provinceList: [],
@@ -11,6 +11,9 @@ export const state = () => ({
 });
 
 export const mutations = {
+  RESET_NEWDORM(state) {
+    state.newDorm = { dorm: {}, address: {}, roomType: [], room: [], dormImg: [], roomTypeImg: {}, bankAccount: [] }
+  },
   SET_ADDRESSOPTIONS(state, data) {
     state.addressOption = data
   },
@@ -40,7 +43,7 @@ export const mutations = {
     state.newDorm.dormImg = data
   },
   SET_DORMADDRESS(state, data) {
-    state.newDorm.address = data
+    state.newDorm.dorm.address = data
   },
   SET_ROOMTYPEIMG(state, data) {
     let key = data.key
@@ -161,14 +164,14 @@ export const actions = {
   },
   async addDorm({ state }) {
     let dorm = state.newDorm
-    if (!(_.isEmpty(dorm.dorm)) && !(_.isEmpty(dorm.address)) && !(_.isEmpty(dorm.roomType)) && !(_.isEmpty(dorm.room)) && !(_.isEmpty(dorm.dormImg)) && !(_.isEmpty(dorm.roomTypeImg))) {
+    if (!(_.isEmpty(dorm.dorm))  && !(_.isEmpty(dorm.roomType)) && !(_.isEmpty(dorm.room)) && !(_.isEmpty(dorm.dormImg)) && !(_.isEmpty(dorm.roomTypeImg))) {
       let formData = new FormData()
       let data = {}
       let newbankAccount = _.cloneDeep(dorm.bankAccount)
       for (let i in newbankAccount) {
         newbankAccount[i].bankId = newbankAccount[i].bankId.bankId
       }
-      _.assign(data, { dorm: dorm.dorm }, { address: dorm.address }, { roomType: dorm.roomType }, { room: dorm.room }, { bankAccount: newbankAccount })
+      _.assign(data, { dorm: dorm.dorm }, { roomType: dorm.roomType }, { room: dorm.room }, { bankAccount: newbankAccount })
       formData.append('data', JSON.stringify(data))
       for (let i in state.newDorm.roomTypeImg) {
         for (let j in state.newDorm.roomTypeImg[i]) {
@@ -180,8 +183,6 @@ export const actions = {
         formData.append(`dorm_${dorm.dorm.name}`, dorm.dormImg[i], 'test.jpg')
       }
       return await this.$axios.$post(`${state.Backend_URL}/dorm/register`, formData, { withCredentials: true, })
-
-
     }
   },
 }

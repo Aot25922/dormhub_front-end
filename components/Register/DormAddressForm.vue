@@ -235,7 +235,7 @@ export default {
         this.address.region = this.selectedRegion.name;
         this.address.province = this.selectedProvince.name_th;
         this.address.subDistrict = this.selectedSubDistrict.name_th;
-        let newAddress = { ...this.address };
+        let newAddress =this.address.number+' '+this.address.alley+ ' '+ this.address.street + ' '+ this.selectedRegion.name + ' '+this.selectedDistrict.name_th + ' ' + this.selectedSubDistrict.name_th + ' ' + this.selectedProvince.name_th + ' ' + this.selectedZipCode;
         if (this.editForm) {
           const loading = this.$vs.loading();
           let formData = new FormData();

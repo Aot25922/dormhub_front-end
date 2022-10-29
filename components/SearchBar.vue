@@ -108,7 +108,22 @@
     </div>
 
     <div class="py-3 w-full md:py-0 md:mt-10 md:w-1/2 md:px-2">
-      <button @click="searchDorm" class="btn btn-primary w-full">ค้นหา</button>
+      <button
+        @click="searchDorm(true)"
+        v-if="
+          search ||
+          selectedRegion ||
+          selectedProvince ||
+          selectedDistrict ||
+          selectedSubDistrict
+        "
+        class="btn btn-primary w-full"
+      >
+        ล้างการกรอง
+      </button>
+      <button @click="searchDorm(false)" class="btn btn-primary w-full">
+        ค้นหา
+      </button>
     </div>
   </div>
 </template>
@@ -127,57 +142,92 @@ export default {
     };
   },
   methods: {
-    async searchDorm() {
+    async searchDorm(clearFilter) {
       const loading = this.$vs.loading();
-      let formData = new FormData();
-      if (this.search == "" && this.selectedRegion == "" && this.selectedProvince=="" && this.selectedDistrict == "" && this.selectedSubDistrict == "") {
-        this.$router.push({
-          name: "dormList",
-        });
-        loading.close();
-        return
-      }
-      let searchData = {
-        search: this.search,
-        region: this.selectedRegion.name,
-        province: this.selectedProvince.name_th,
-        district: this.selectedDistrict.name_th,
-        subDistrict: this.selectedSubDistrict.name_th,
-      };
-      let existedSearchData = {
-        search: this.search,
-        region: this.selectedRegion,
-        province: this.selectedProvince,
-        district: this.selectedDistrict,
-        subDistrict: this.selectedSubDistrict,
-      };
-      formData.append("data", JSON.stringify(searchData));
-      try {
-        let data = await this.$axios.$post(
-          `${this.$store.state.Backend_URL}/dorm/search`,
-          formData,
-          {
-            withCredentials: true,
+      if (clearFilter || (this.search == "" && this.selectedRegion == "" && this.selectedProvince=="" && this.selectedDistrict == "" && this.selectedSubDistrict == "")) {
+        this.search = "";
+        this.selectedRegion = "";
+        this.selectedProvince = "";
+        this.selectedDistrict = "";
+        this.selectedSubDistrict = "";
+        let existedSearchData = {
+          search: this.search,
+          region: this.selectedRegion,
+          province: this.selectedProvince,
+          district: this.selectedDistrict,
+          subDistrict: this.selectedSubDistrict,
+        };
+        try {
+          let data = await this.$axios.$get(
+            `${this.$store.state.Backend_URL}/dorm`,
+            {
+              withCredentials: true,
+            }
+          );
+          loading.close();
+          this.$store.commit("SET_DORMLIST", data);
+          if (this.$route.path == "/") {
+            this.$router.push({
+              name: "dormList",
+              params: { search: existedSearchData },
+            });
           }
-        );
-        loading.close();
-        this.$store.commit("SET_DORMLIST", data);
-        if (this.$route.path == "/") {
-          this.$router.push({
-            name: "dormList",
-            params: { search: existedSearchData },
+        } catch (error) {
+          loading.close();
+          const noti = this.$vs.notification({
+            progress: "auto",
+            icon: `<i class='bx bx-folder-open' ></i>`,
+            color: "warn",
+            position: "top-right",
+            title: `Data Update`,
+            text: error.response.data.error.message,
           });
         }
-      } catch (error) {
-        loading.close();
-        const noti = this.$vs.notification({
-          progress: "auto",
-          icon: `<i class='bx bx-folder-open' ></i>`,
-          color: "warn",
-          position: "top-right",
-          title: `Data Update`,
-          text: error.response.data.error.message,
-        });
+      } else {
+        let searchData = {
+          search: this.search,
+          region: this.selectedRegion.name,
+          province: this.selectedProvince.name_th,
+          district: this.selectedDistrict.name_th,
+          subDistrict: this.selectedSubDistrict.name_th,
+        };
+        let formData = new FormData();
+        formData.append("data", JSON.stringify(searchData));
+        let existedSearchData = {
+          search: this.search,
+          region: this.selectedRegion,
+          province: this.selectedProvince,
+          district: this.selectedDistrict,
+          subDistrict: this.selectedSubDistrict,
+        };
+        console.log(searchData)
+        try {
+          let data = await this.$axios.$post(
+            `${this.$store.state.Backend_URL}/dorm/search`,
+            formData,
+            {
+              withCredentials: true,
+            }
+          );
+          loading.close();
+          this.$store.commit("SET_DORMLIST", data);
+          if (this.$route.path == "/") {
+            this.$router.push({
+              name: "dormList",
+              params: { search: existedSearchData },
+            });
+          }
+        } catch (error) {
+          loading.close();
+          const noti = this.$vs.notification({
+            progress: "auto",
+            icon: `<i class='bx bx-folder-open' ></i>`,
+            color: "warn",
+            position: "top-right",
+            title: `Data Update`,
+            text: error.response.data.error.message,
+          });
+        }
       }
     },
   },
