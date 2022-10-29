@@ -14,8 +14,8 @@
             :key="dorm.dormId" />
         <!-- Ads for Laptop -->
         <div class="hidden lg:block lg:pt-5">
-          <div class="card w-full bg-primary text-white">
-            <div class="card-body items-center text-center md:py-10 lg:pb-11 lg:pt-6 xl:py-16 xl:my-2 2xl:mt-3 2xl:mb-4">
+          <div class="card w-full bg-primary text-white lg:h-[30rem] 2xl:h-[32rem]">
+            <div class="card-body items-center text-center md:py-10">
               <h2 class="card-title">ท่องไปกับหอพักได้อีกมาก</h2>
               <p class="text-left md:py-5">ก่อนการตัดสินใจบางอย่าง ท่านควรวางแผนความคุ้มค่า การเดินทาง กำลังทรัพย์ที่ไหว</p>
               <div class="flex flex-row py-3 md:py-5">
@@ -30,7 +30,7 @@
         </div>
       </div>
 
-    <!--  Ads  -->
+    <!--  Ads Mobile to Ipad -->
       <div class="p-5 md:w-1/2 md:pl-7 md:pr-2 md:pt-0 md:pb-10 lg:hidden">
         <div class="card w-full bg-primary text-white">
           <div class="card-body items-center text-center md:py-10 lg:py-20">
@@ -38,7 +38,7 @@
             <p class="text-left md:py-5">ก่อนการตัดสินใจบางอย่าง ท่านควรวางแผนความคุ้มค่า การเดินทาง กำลังทรัพย์ที่ไหว</p>
             <div class="flex flex-row py-3 md:py-5">
               <div class="divider divider-horizontal bg-white ml-0 text-white"></div>
-              <p class="italic">"คุณไม่สามารถไว้ใจใครได้อีกต่อไปหากคุณต้องการทำสิ่งที่คุณต้องทำด้วยตัวเอง"</p>
+              <p class="italic font-Itim">"คุณไม่สามารถไว้ใจใครได้อีกต่อไปหากคุณต้องการทำสิ่งที่คุณต้องทำด้วยตัวเอง"</p>
             </div>
           </div>
           <div class="card-actions p-5">
@@ -89,4 +89,10 @@ export default {
       },
 }
 </script>
+
+<style scoped>
+  font-Itim {
+    font-family: 'Itim'
+  }
+</style>
 

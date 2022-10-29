@@ -1,9 +1,9 @@
 <template>
   <!-- Using in Home page -->
   <div class="md:px-2">
-    <div class="card w-full shadow-xl my-5">
+    <div class="card w-full shadow-xl my-5 lg:h-[30rem] 2xl:h-[32rem]">
       <figure v-if="checkDormImg" class="relative">
-        <img :src="$store.state.Backend_URL+'/dorm/image/'+Dorm.dormId+'/'+Dorm.media.filter(x=>x.roomTypeId == null)[0].mediaId" @error="checkDormImg = false" class="w-full object-cover"/>
+        <img :src="$store.state.Backend_URL+'/dorm/image/'+dorm.dormId+'/'+dorm.media.filter(x=>x.roomTypeId == null)[0].mediaId+ '?cache=' + $route.params.rand" @error="checkDormImg = false" class="w-full object-cover"/>
       </figure>
       <figure v-else class="relative">
         <img src="https://placeimg.com/400/225/arch" class="w-full object-cover" />
@@ -21,11 +21,11 @@
         <div class="flex  py-1 text-gray-500">
           <span class="material-icons">schedule</span>
           <div class="text-xs flex px-1 mt-1 md:text-base">
-            <h1 v-if="Dorm.openTime != null">{{ Dorm.openTime }} ถึง</h1>
-            <h1 v-if="Dorm.closeTime != null">{{ Dorm.closeTime }}</h1>
-            <h1 v-if="Dorm.openTime != null && Dorm.closeTime == null">เปิด {{ Dorm.openTime }}</h1>
-            <h1 v-if="Dorm.openTime == null && Dorm.closeTime != null">ปิด {{ Dorm.closeTime }}</h1>
-            <h1 v-else>ไม่มีข้อมูล</h1>
+            <h1 v-if="Dorm.openTime != null">{{ Dorm.openTime }} -</h1>
+            <h1 v-if="Dorm.closeTime != null">&nbsp;{{ Dorm.closeTime }} น.</h1>
+            <h1 v-if="Dorm.openTime != null && Dorm.closeTime == null">เปิด {{ Dorm.openTime }} น.</h1>
+            <h1 v-if="Dorm.openTime == null && Dorm.closeTime != null">ปิด {{ Dorm.closeTime }} น.</h1>
+            <h1 v-if="Dorm.openTime == null && Dorm.closeTime == null">ไม่มีข้อมูล</h1>
           </div>
         </div>
         <div class="flex py-1 text-gray-500">

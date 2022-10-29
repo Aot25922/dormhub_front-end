@@ -8,7 +8,7 @@
       <h1 class="pb-10 text-2xl md:text-3xl font-bold text-PrussianBlue text-center md:py-5 xl:py-10">เข้าสู่ระบบ</h1>
       <input class="py-6 px-2 w-full input input-sm md:input-md rounded-lg border-x-0 border-t-0 border-b-gray-400 my-2 md:my-4"
         placeholder="อีเมล" v-model="userAccount.email" @keypress.enter="submit"/>
-      <input class="py-6 px-2 w-full input input-sm md:input-md rounded-lg border-x-0 border-t-0 border-b-gray-400 my-2 md:my-4"
+      <input type="password" class="py-6 px-2 w-full input input-sm md:input-md rounded-lg border-x-0 border-t-0 border-b-gray-400 my-2 md:my-4"
         placeholder="รหัสผ่าน" v-model="userAccount.password" @keypress.enter="submit"/>
 
       <div class="flex flex-wrap mt-10">
