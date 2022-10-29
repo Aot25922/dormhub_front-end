@@ -73,9 +73,11 @@
           <label class="label-text text-gray-soil tracking-wide font-bold my-2">เบอร์โทรศัพท์</label>
           <input type="text" class=" py-6 px-2 w-full input input-sm md:input-md rounded-lg text-gray-soil border-x-0 border-t-0 border-b-gray-400 my-2 md:my-4"
             placeholder="0941111111"
+            maxlength="10"
             v-model="userAccount.phone"
             @blur="validateForm"
           />
+          <div v-text="10 - userAccount.phone.length"></div>
           <span class="text-imperialRed" v-if="validatePhone">กรุณากรอกเบอร์</span>
         </div>
         <div class="flex flex-wrap my-5 md:my-8 md:w-full">
