@@ -112,7 +112,7 @@
             >
             <input type="Date" class="py-4 px-2 w-full input input-sm md:input-md rounded" placeholder="" v-model="startDate"/>
             <label class="label-text text-gray-500 tracking-wide font-bold my-2">วันที่จะสิ้นสุดการเข้าพัก<span class="text-imperialRed">*</span></label>
-            <input type="Date" class="py-4 px-2 w-full input input-sm md:input-md rounded" placeholder="" v-model="endDate"/> 
+            <input type="Date" class="py-4 px-2 w-full input input-sm md:input-md rounded" placeholder="" v-model="endDate"/>
             <label class="label-text text-gray-500 tracking-wide font-bold my-2">เลือกภาพสลิป<span class="text-imperialRed">*</span></label>
             <input type="file" class="focus:outline-none form-control block w-full rounded transition ease-in-out border-none" @change="onFileChange($event)" />
             <img :src="slipImgUrl" class="py-2 md:p-2 md:max-h-80 md:max-w-full md:object-cover"/>
@@ -136,7 +136,10 @@
         <div class="font-bold md:text-lg lg:text-xl xl:text-2xl">ชั้น : {{ room.floors }}</div>
         <div class="bg-ghostWhite p-3 rounded-lg text-sm md:text-base lg:text-lg xl:text-xl">
           <p>เลขห้องพัก : {{ room.roomNum }}</p>
-          <p>สถานะห้องพัก : {{ room.status }}</p>
+          <p>สถานะห้องพัก :
+            <span v-if="room.status == true">ว่าง</span>
+            <span v-else>ไม่ว่าง</span>
+          </p>
           <p v-if="room.description != ''">รายละเอียดเพิ่มเติม : {{ room.description }}</p>
           <p v-else class="hidden"></p>
           <!-- <button class="bg-imperialRed" v-if="room.status != 'booking'" @click="">
@@ -145,7 +148,7 @@
           <label
             for="my-modal-6"
             class="btn modal-button"
-            v-if="room.status != 'จองเเล้ว' && $store.state.userAccount.role == 'Customer'"
+            v-if="room.status != false && $store.state.userAccount.role == 'Customer'"
             @click="selectedRoom = room"
             >จองห้องพัก</label
           >

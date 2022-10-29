@@ -11,12 +11,13 @@
           <div class="w-full rounded-md p-3 relative grid grid-cols-3">
             <div class="col-span-1 px-1">
               <label class="label-text tracking-wide font-bold my-2"
-                >เลขห้อง</label
+                >เลขห้อง (<span v-text="6 - room.roomNum.length"></span> หลัก)</label
               >
               <input
                 type="text"
                 class="py-4 mb-3 px-2 w-full input-md rounded border-0"
-                placeholder="101"
+                maxlength="6"
+                placeholder="A101"
                 v-model="room.roomNum"
                 :disabled="disableForm"
               />
@@ -26,13 +27,23 @@
               <label class="label-text tracking-wide font-bold my-2"
                 >สถานะ</label
               >
-              <input
-                type="text"
-                class="py-4 mb-3 px-2 w-full input-md rounded border-0"
-                placeholder="ว่าง/ไม่ว่าง"
-                v-model="room.status"
-                :disabled="disableForm"
-              />
+<!--              <input-->
+<!--                type="text"-->
+<!--                class="py-4 mb-3 px-2 w-full input-md rounded border-0"-->
+<!--                placeholder="ว่าง/ไม่ว่าง"-->
+<!--                v-model="room.status"-->
+<!--                :disabled="disableForm"-->
+<!--              />-->
+              <div class="center con-switch">
+                <vs-switch success class="w-full" v-model="room.status">
+                  <template #off>
+                    ไม่ว่าง
+                  </template>
+                  <template #on>
+                    ว่าง
+                  </template>
+                </vs-switch>
+              </div>
             </div>
 
             <div class="col-span-1 px-1">
@@ -162,7 +173,7 @@ export default {
           rooms: [
             {
               roomNum: "",
-              status: "",
+              status: true,
               floors: 1,
               description: "",
               roomType: "",
@@ -256,7 +267,7 @@ export default {
         rooms: [
           {
             roomNum: "",
-            status: "",
+            status: true,
             floors: newFloor,
             description: "",
             roomType: "",
@@ -267,7 +278,7 @@ export default {
     addNewRoom(floor) {
       floor.rooms.push({
         roomNum: "",
-        status: "",
+        status: true,
         floors: floor.floor,
         description: "",
         roomType: "",

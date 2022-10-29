@@ -240,9 +240,9 @@ export default {
     return {
       roomType: {
         type: "",
-        price: 0,
-        deposit: 0,
-        area: 0,
+        price: null,
+        deposit: null,
+        area: null,
         facility: "",
       },
       checkForImageChangeOnEdit: true,

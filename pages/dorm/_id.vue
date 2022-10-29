@@ -29,16 +29,10 @@
         <div class="p-5">
         <div class="flex flex-1">
           <h1 class="py-1 font-bold text-lg md:text-xl lg:text-2xl 2xl:text-3xl">{{ dorm.name }}</h1>
-    <!--			<div class="rounded p-1 text-2xs my-1 mx-2">-->
-    <!--				{{ dorm.rating }}-->
-    <!--				<div class="rating rating-xs">-->
-    <!--					<input type="radio" name="rating-2" class="mask mask-star-2">-->
-    <!--				</div>-->
-    <!--			</div>-->
         </div>
             <div class="pt-2 rounded-md text-sm md:text-base lg:text-lg xl:text-xl">
           <p class="ml-3">
-          <span class="font-bold">ที่อยู่ :</span> {{ dorm.address }} 
+          <span class="font-bold">ที่อยู่ :</span> {{ dorm.address }}
           </p>
           <p class="pt-2 ml-3 text-sm md:text-base lg:text-lg xl:text-xl"><span class="font-bold">ราคา :</span> {{ lowPrice }} - {{ highPrice }} บาท</p>
           <p class="pt-2 font-bold">ช่องทางการติดต่อ:</p>
