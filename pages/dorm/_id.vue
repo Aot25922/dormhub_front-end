@@ -38,11 +38,7 @@
         </div>
             <div class="pt-2 rounded-md text-sm md:text-base lg:text-lg xl:text-xl">
           <p class="ml-3">
-          <span class="font-bold">ที่อยู่ :</span> {{ dorm.address.number }} ถนน {{ dorm.address.street }}
-          <span v-if="dorm.address.alley != ''">{{ dorm.address.alley }}</span> ตำบล {{ dorm.address.subDistrict.name_th }}
-          อำเภอ {{ dorm.address.subDistrict.district.name_th }}
-          จังหวัด {{ dorm.address.subDistrict.district.province.name_th }}
-            รหัสไปรษณีย์ {{ dorm.address.subDistrict.zip_code }}
+          <span class="font-bold">ที่อยู่ :</span> {{ dorm.address }} 
           </p>
           <p class="pt-2 ml-3 text-sm md:text-base lg:text-lg xl:text-xl"><span class="font-bold">ราคา :</span> {{ lowPrice }} - {{ highPrice }} บาท</p>
           <p class="pt-2 font-bold">ช่องทางการติดต่อ:</p>

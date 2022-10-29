@@ -21,13 +21,7 @@
       <div class="p-5 text-sm">
         <h1 class="py-2 font-bold text-xl">{{ dorm.dorm.name }}</h1>
         <p>
-          ที่อยู่ : {{ dorm.address.number }}
-          <span v-if="dorm.address.alley != ''"
-            >ซอย {{ dorm.address.alley }}</span
-          >
-          เขต {{ dorm.address.district }} อำเภอ
-          {{ dorm.address.subDistrict }} จังหวัด
-          {{ dorm.address.province }} รหัสไปรษณีย์ {{ dorm.address.zipCodeId }}
+          ที่อยู่ : {{ dorm.dorm.address}}
         </p>
         <div class="flex flex-wrap">
           <p class="w-1/2">เวลาเปิด : {{ dorm.dorm.openTime }}</p>
@@ -183,6 +177,7 @@ export default {
             text: `You data is submit`,
           });
           this.$router.push({ path: "/" });
+          this.$store.commit('RESET_NEWDORM')
           this.$store.dispatch("nuxtServerInit");
         })
         .catch((error) => {

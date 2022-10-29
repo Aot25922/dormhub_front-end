@@ -15,13 +15,7 @@
         <div class="flex space-x-0 text-gray-500">
           <span class="material-icons">location_on</span>
           <p class="text-xs mt-1 px-1 md:text-base">
-            {{ Dorm.address.number }}
-            {{ Dorm.address.street }}
-            {{ Dorm.address.alley }}
-            {{ Dorm.address.subDistrict.name }}
-            {{ Dorm.address.subDistrict.zipCodeId }}
-            {{ Dorm.address.subDistrict.district.name }}
-            {{ Dorm.address.subDistrict.district.province.name }}
+            {{ Dorm.address}}
           </p>
         </div>
         <div class="flex  py-1 text-gray-500">
