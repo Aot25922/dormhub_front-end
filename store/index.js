@@ -97,7 +97,7 @@ export const actions = {
         commit('SET_USERACCOUNT', data)
       }
     } catch (err) {
-      console.log("handle error:" + err.response.data.error.message)
+      console.log("handle error:" + err)
     }
   },
   async fetchDormList({ commit }, page) {

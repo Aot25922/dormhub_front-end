@@ -29,14 +29,6 @@ export default {
       this.$refs.registerDormInfoForm.submit()
       this.$refs.registerDormAddressForm.submit()
       if(this.validateDormInfo && this.validateDormAddress){
-        const noti = this.$vs.notification({
-          progress: "auto",
-          icon: `<i class='bx bx-folder-open' ></i>`,
-          color: "success",
-          position: "top-right",
-          title: `ข้อมูลของคุณได้ถูกเพิ่มเเล้ว`,
-          text: `เพิ่มข้อมูลหอพักเรียบร้อย!`,
-        });
       this.$router.push({path:'/dormForm/registerDormRoomTypeDetail'})
       }
     },

@@ -250,6 +250,17 @@ export default {
       }
     },
     addNewFloor() {
+      if(this.roomList.length >= 10){
+        const noti = this.$vs.notification({
+            progress: "auto",
+            icon: `<i class='bx bx-folder-open' ></i>`,
+            color: "warn",
+            position: "top-right",
+            title: `ไม่สามารถเพิ่มชั้นได้`,
+            text: `ไม่สามารถเพิ่มชั้นเกิน 10 ชั้น`,
+          });
+        return
+      }
       let newFloor = this.roomList[this.roomList.length - 1].floor + 1;
       this.roomList.push({
         floor: newFloor,
@@ -265,6 +276,17 @@ export default {
       });
     },
     addNewRoom(floor) {
+      if(floor.rooms.length >= 15){
+        const noti = this.$vs.notification({
+            progress: "auto",
+            icon: `<i class='bx bx-folder-open' ></i>`,
+            color: "warn",
+            position: "top-right",
+            title: `ไม่สามารถเพิ่มห้องได้`,
+            text: "ไม่สามารถเพิ่มห้องเกิน 15 ห้อง",
+          });
+        return 
+      }
       floor.rooms.push({
         roomNum: "",
         status: "",

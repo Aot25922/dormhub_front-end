@@ -180,10 +180,14 @@
       <p class="text-imperialRed text-right" v-if="!validateZipcode">
         กรุณาเลือกเลขไปรณีย์
       </p>
-      </div>
+    </div>
     <div class="py-5 w-full md:flex md:justify-end">
       <div class="md:w-1/2">
-        <button v-if="editForm" @click="submit()" class="btn btn-success w-full">
+        <button
+          v-if="editForm"
+          @click="submit()"
+          class="btn btn-success w-full"
+        >
           ยืนยันการเเก้ไขข้อมูล
         </button>
       </div>
@@ -235,17 +239,29 @@ export default {
         this.address.region = this.selectedRegion.name;
         this.address.province = this.selectedProvince.name_th;
         this.address.subDistrict = this.selectedSubDistrict.name_th;
-        let newAddress =this.address.number+' '+this.address.alley+ ' '+ this.address.street + ' '+ this.selectedRegion.name + ' '+this.selectedDistrict.name_th + ' ' + this.selectedSubDistrict.name_th + ' ' + this.selectedProvince.name_th + ' ' + this.selectedZipCode;
+        let newAddress =
+          this.address.number +
+          " " +
+          this.address.alley +
+          " " +
+          this.address.street +
+          " " +
+          this.selectedRegion.name +
+          " " +
+          this.selectedDistrict.name_th +
+          " " +
+          this.selectedSubDistrict.name_th +
+          " " +
+          this.selectedProvince.name_th +
+          " " +
+          this.selectedZipCode;
         if (this.editForm) {
           const loading = this.$vs.loading();
           let formData = new FormData();
           let data = {
-            address: {
-              number: this.address.number,
-              alley: this.address.alley,
-              street: this.address.street,
-              subDistrictsId: this.selectedSubDistrict.subDistrictsId,
-              addressId: this.$store.state.selectedDorm.addressId,
+            dormId: this.$store.state.selectedDorm.dormId,
+            dorm: {
+              address: newAddress,
             },
           };
           formData.append("data", JSON.stringify(data));
@@ -316,32 +332,27 @@ export default {
         this.$router.push({ path: "/dormList" });
         return;
       }
+      const address = this.$store.state.selectedDorm.address.split(" ")
+      this.address.number = address[0]
+      this.address.street = address[1]
+      this.address.alley = address[2]
       this.selectedRegion = this.addressOption.filter(
         (x) =>
-          x.name ==
-          this.$store.state.selectedDorm.address.subDistrict.district.province
-            .geography.name
+          this.$store.state.selectedDorm.address.includes(x.name)
       )[0];
       this.selectedProvince = this.selectedRegion.provinces.filter(
         (x) =>
-          x.name_th ==
-          this.$store.state.selectedDorm.address.subDistrict.district.province
-            .name_th
+          this.$store.state.selectedDorm.address.includes(x.name_th)
       )[0];
       this.selectedDistrict = this.selectedProvince.districts.filter(
         (x) =>
-          x.name_th ==
-          this.$store.state.selectedDorm.address.subDistrict.district.name_th
+          this.$store.state.selectedDorm.address.includes(x.name_th)
       )[0];
       this.selectedSubDistrict = this.selectedDistrict.subDistricts.filter(
         (x) =>
-          x.name_th ==
-          this.$store.state.selectedDorm.address.subDistrict.name_th
+          this.$store.state.selectedDorm.address.includes(x.name_th)
       )[0];
       this.selectedZipCode = this.selectedSubDistrict.zip_code;
-      this.address.number = this.$store.state.selectedDorm.address.number;
-      this.address.street = this.$store.state.selectedDorm.address.street;
-      this.address.alley = this.$store.state.selectedDorm.address.alley;
       this.checkForm();
     }
   },

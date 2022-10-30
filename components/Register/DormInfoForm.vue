@@ -288,7 +288,7 @@ export default {
               icon: `<i class='bx bx-folder-open' ></i>`,
               color: "warn",
               position: "top-right",
-              title: `Data Update`,
+              title: `error`,
               text: error.response.data.error.message,
             });
           }

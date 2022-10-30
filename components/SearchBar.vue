@@ -200,7 +200,6 @@ export default {
           district: this.selectedDistrict,
           subDistrict: this.selectedSubDistrict,
         };
-        console.log(searchData)
         try {
           let data = await this.$axios.$post(
             `${this.$store.state.Backend_URL}/dorm/search`,

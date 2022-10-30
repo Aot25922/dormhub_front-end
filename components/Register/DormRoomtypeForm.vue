@@ -373,7 +373,7 @@ export default {
       this.validateArea =
         this.roomType.area <= 0 || this.roomType.area >= 1000 ? true : false;
       this.validateFacility == "" ? true : false;
-      this.validateFile = this.roomTypeInputImage.length == 0 ? true : false;
+      this.validateFile = this.roomTypeImageUrl.length == 0 ? true : false;
     },
   },
   created() {
