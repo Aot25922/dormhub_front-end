@@ -29,9 +29,6 @@
           @blur="checkForm"
           v-model="dorm.openTime"
         />
-        <!-- <p v-if="!validateOpenTime" class="text-imperialRed text-right mt-2">
-            ระบุเวลาเปิดหอพัก
-          </p> -->
       </div>
       <div class="mb-5 md:px-1 md:w-1/2">
         <label class="label-text text-gray-500 tracking-wide font-bold my-2"
@@ -44,9 +41,6 @@
           @blur="checkForm"
           v-model="dorm.closeTime"
         />
-        <!-- <p v-if="!validateCloseTime" class="text-imperialRed text-right mt-2">
-            ระบุเวลาปิดหอพัก
-          </p> -->
       </div>
       <div class="mb-2 md:px-1 md:w-1/2">
         <label class="label-text text-gray-500 tracking-wide font-bold my-2"
@@ -58,10 +52,10 @@
           @blur="checkForm"
           v-model="dorm.waterPerUnit"
           class="py-4 px-2 w-full input input-sm md:input-md rounded"
-          placeholder="0.01 - 9.99"
+          placeholder="0.01 - 50.00"
         />
         <p v-if="!validateWater" class="text-imperialRed text-right mt-2">
-          ใส่ค่าได้ตั้งแต่ 0.01 - 9.99
+          ใส่ค่าได้ตั้งแต่ 0.01 - 50.00
         </p>
       </div>
       <div class="mb-2 md:px-1 md:w-1/2">
@@ -74,14 +68,14 @@
           @blur="checkForm"
           v-model="dorm.elecPerUnit"
           class="py-4 px-2 w-full input input-sm md:input-md rounded"
-          placeholder="0.01 - 9.99"
+          placeholder="0.01 - 50.00"
         />
         <p
           v-if="!validateElec"
           @blur="checkForm"
           class="text-imperialRed text-right mt-2"
         >
-          ใส่ค่าได้ตั้งแต่ 0.01 - 9.99
+          ใส่ค่าได้ตั้งแต่ 0.01 - 50.00
         </p>
       </div>
       <div class="mb-5 md:px-1 md:w-full">
@@ -188,10 +182,8 @@ export default {
         openTime: null,
         closeTime: null,
         description: "",
-        rating: 0,
-        acceptPercent: 0,
-        elecPerUnit: 0,
-        waterPerUnit: 0,
+        elecPerUnit: null,
+        waterPerUnit: null,
       },
       disableForm: false,
       dormInputImage: [],
@@ -209,9 +201,9 @@ export default {
       this.validateOpenTime = this.dorm.openTime != "" ? true : false;
       this.validateCloseTime = this.dorm.closeTime != "" ? true : false;
       this.validateElec =
-        0 < this.dorm.elecPerUnit && this.dorm.elecPerUnit < 10 ? true : false;
+        0 < this.dorm.elecPerUnit && this.dorm.elecPerUnit < 50.01 ? true : false;
       this.validateWater =
-        0 < this.dorm.waterPerUnit && this.dorm.waterPerUnit < 10
+        0 < this.dorm.waterPerUnit && this.dorm.waterPerUnit < 50.01
           ? true
           : false;
       if (this.editForm) {

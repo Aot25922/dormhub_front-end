@@ -10,12 +10,13 @@
         >
           <div class="w-1/2 px-1 md:w-1/4">
             <label class="label-text tracking-wide font-bold my-2"
-              >เลขบัญชี <span class="text-accent">*</span></label
+              >เลขบัญชี <span class="text-accent">*</span> (<span v-text="10 - bankAccount.accountNum.length"></span> หลัก)</label
             >
             <input
               type="text"
               class="py-4 mb-3 px-2 w-full input-md rounded border-0"
               placeholder="101100000"
+              maxlength="10"
               v-model="bankAccount.accountNum"
               @blur="validate(bankAccount)"
               :disabled="disableForm"
