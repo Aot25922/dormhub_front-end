@@ -1,5 +1,5 @@
 <template>
-  <div class="center">
+  <div class="center pt-[6rem]">
     <vs-table>
       <template #thead>
         <vs-tr>
