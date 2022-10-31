@@ -98,14 +98,14 @@
               <option option disabled selected>
                 กรุณาเลือกช่องทางการชำระเงิน
               </option>
-              <option
-                v-for="option in this.bankAccount"
-                :value="option"
-                :key="option.bankAccId"
-              >
-                เลขที่บัญชี: {{ option.accountName }} ชื่อบัญชี:
-                {{ option.accountNum }} ธนาคาร{{ option.bank.name }}
-              </option>
+<!--              <option-->
+<!--                v-for="option in this.bankAccount"-->
+<!--                :value="option"-->
+<!--                :key="option.bankAccId"-->
+<!--              >-->
+<!--                เลขที่บัญชี: {{ option.accountName }} ชื่อบัญชี:-->
+<!--                {{ option.accountNum }} ธนาคาร{{ option.bank.name }}-->
+<!--              </option>-->
             </select>
             <label class="label-text text-gray-500 tracking-wide font-bold my-2"
               >วันที่จะเริ่มเข้าพัก<span class="text-imperialRed">*</span></label
@@ -113,9 +113,9 @@
             <input type="Date" class="py-4 px-2 w-full input input-sm md:input-md rounded" placeholder="" v-model="startDate"/>
             <label class="label-text text-gray-500 tracking-wide font-bold my-2">วันที่จะสิ้นสุดการเข้าพัก<span class="text-imperialRed">*</span></label>
             <input type="Date" class="py-4 px-2 w-full input input-sm md:input-md rounded" placeholder="" v-model="endDate"/>
-            <label class="label-text text-gray-500 tracking-wide font-bold my-2">เลือกภาพสลิป<span class="text-imperialRed">*</span></label>
-            <input type="file" class="focus:outline-none form-control block w-full rounded transition ease-in-out border-none" @change="onFileChange($event)" />
-            <img :src="slipImgUrl" class="py-2 md:p-2 md:max-h-80 md:max-w-full md:object-cover"/>
+<!--            <label class="label-text text-gray-500 tracking-wide font-bold my-2">เลือกภาพสลิป<span class="text-imperialRed">*</span></label>-->
+<!--            <input type="file" class="focus:outline-none form-control block w-full rounded transition ease-in-out border-none" @change="onFileChange($event)" />-->
+<!--            <img :src="slipImgUrl" class="py-2 md:p-2 md:max-h-80 md:max-w-full md:object-cover"/>-->
           </div>
           <div class="modal-action">
             <label for="my-modal-6" class="btn">ยกเลิกการจอง</label>
@@ -132,26 +132,42 @@
 
       <!--All room-->
       <h1 class="font-bold text-lg md:text-xl lg:text-2xl 2xl:text-3xl">ห้องพักทั้งหมด</h1>
-      <div v-for="(room, index) in rooms" :key="index">
-        <div class="font-bold md:text-lg lg:text-xl xl:text-2xl">ชั้น : {{ room.floors }}</div>
-        <div class="bg-ghostWhite p-3 rounded-lg text-sm md:text-base lg:text-lg xl:text-xl">
-          <p>เลขห้องพัก : {{ room.roomNum }}</p>
-          <p>สถานะห้องพัก :
-            <span v-if="room.status == true">ว่าง</span>
-            <span v-else>ไม่ว่าง</span>
-          </p>
-          <p v-if="room.description != ''">รายละเอียดเพิ่มเติม : {{ room.description }}</p>
-          <p v-else class="hidden"></p>
-          <!-- <button class="bg-imperialRed" v-if="room.status != 'booking'" @click="">
-            จองห้องพัก
-          </button> -->
-          <label
-            for="my-modal-6"
-            class="btn modal-button"
-            v-if="room.status != false && $store.state.userAccount.role == 'Customer'"
-            @click="selectedRoom = room"
-            >จองห้องพัก</label
-          >
+<!--      <div v-for="(room, index) in rooms" :key="index">-->
+<!--        <div class="font-bold md:text-lg lg:text-xl xl:text-2xl">ชั้น : {{ room.floors }}</div>-->
+<!--        <div class="bg-ghostWhite p-3 rounded-lg text-sm md:text-base lg:text-lg xl:text-xl">-->
+<!--          <p>เลขห้องพัก : {{ room.roomNum }}</p>-->
+<!--          <p>สถานะห้องพัก : {{ room.status }}</p>-->
+<!--          <p v-if="room.description != ''">รายละเอียดเพิ่มเติม : {{ room.description }}</p>-->
+<!--          <p v-else class="hidden"></p>-->
+<!--          <label-->
+<!--            for="my-modal-6"-->
+<!--            class="btn modal-button"-->
+<!--            v-if="room.status != false && $store.state.userAccount.role == 'Customer'"-->
+<!--            @click="selectedRoom = room"-->
+<!--            >จองห้องพัก</label>-->
+<!--        </div>-->
+<!--      </div>-->
+      <div v-for="(floor, key) in roomList" :key="key" class="flex flex-wrap">
+        <div class="w-full font-bold">ชั้น : {{ floor.floor }}</div>
+        <div v-for="(room, index) in floor.rooms" :key="index" class="w-1/2 md:w-1/3 lg:w-1/4">
+          <div class="p-5 m-1 rounded bg-ghostWhite flex flex-wrap shadow">
+            <p class="font-bold w-full md:text-center"><span class="md:hidden">เลขห้อง: </span><b>{{ room.roomNum }}</b></p>
+            <div class="w-full text-success md:text-left md:w-1/2">
+              <div v-if="room.status == 'ว่าง'"><span class="md:hidden">สถานะ: </span><b>{{ room.status }}</b></div>
+              <div v-else class="text-imperialRed">{{ room.status }}</div>
+            </div>
+            <div class="w-full md:w-1/2 md:text-right"><span class="md:hidden">ประเภทห้อง: </span><b>{{ room.roomType }}</b></div>
+            <div>
+              <div v-if="room.description != ''" class="w-full px-2 py-3 bg-white mt-3 rounded">{{ room.description }}</div>
+              <div v-else class="bg-inherit hidden"></div>
+            </div>
+            <label
+              for="my-modal-6"
+              class="btn modal-button"
+              v-if="room.status != false && $store.state.userAccount.role == 'Customer'"
+              @click="selectedRoom = room"
+            >จองห้องพัก</label>
+          </div>
         </div>
       </div>
     </div>
@@ -183,6 +199,7 @@ export default {
   props: ["roomType", "elecPerUnit", "waterPerUnit", "media", "rooms"],
   data() {
     return {
+      roomList: [],
       checkRoomtypeImg: true,
       selectedBankAccount: null,
       selectedRoom: null,
@@ -263,6 +280,47 @@ export default {
     bankAccount() {
       return this.$store.state.selectedDorm.bankAccounts;
     },
+  },
+  created() {
+      let roomList = [];
+      let floorList = [
+        ...new Map(
+          this.$store.state.selectedDorm.rooms.map((item) => [
+            item["floors"],
+            item,
+          ])
+        ).values(),
+      ];
+      for (let i in floorList) {
+        roomList.push({
+          floor: floorList[i].floors,
+          rooms: [],
+        });
+      }
+      for (let i in this.$store.state.selectedDorm.rooms) {
+        roomList.some((room, index) => {
+          if (room.floor == this.$store.state.selectedDorm.rooms[i].floors) {
+            roomList[index].rooms.push({
+              roomId: this.$store.state.selectedDorm.rooms[i].roomId,
+              roomNum: this.$store.state.selectedDorm.rooms[i].roomNum,
+              status: this.$store.state.selectedDorm.rooms[i].status,
+              floors: room.floor,
+              description: this.$store.state.selectedDorm.rooms[i].description,
+              roomType: this.$store.state.selectedDorm.roomTypes.find(
+                (type) =>
+                  type.roomTypeId ==
+                  this.$store.state.selectedDorm.rooms[i].roomTypeId
+              ).type,
+            });
+            return true;
+          }
+        });
+      }
+      roomList.sort((a, b) => {
+        return a.floor - b.floor;
+      });
+      this.roomList = roomList;
+      console.log(roomList)
   },
 };
 </script>

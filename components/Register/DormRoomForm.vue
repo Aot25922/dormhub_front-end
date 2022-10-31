@@ -44,6 +44,7 @@
                   </template>
                 </vs-switch>
               </div>
+              {{room.status}}
             </div>
 
             <div class="col-span-1 px-1">
@@ -189,6 +190,13 @@ export default {
     async submit() {
       let newRoomList = [];
       for (let i in this.roomList) {
+        for(let j in this.roomList[i].rooms){
+          if (this.roomList[i].rooms[j].status) {
+            this.roomList[i].rooms[j].status = 'ว่าง'
+          } else {
+            this.roomList[i].rooms[j].status = 'ไม่ว่าง'
+          }
+        }
         this.roomList[i].rooms = this.roomList[i].rooms.filter(
           (x) => !(x.roomNum == "" || x.status == "" || x.roomType == "")
         );
@@ -296,7 +304,7 @@ export default {
             title: `ไม่สามารถเพิ่มห้องได้`,
             text: "ไม่สามารถเพิ่มห้องเกิน 15 ห้อง",
           });
-        return 
+        return
       }
       floor.rooms.push({
         roomNum: "",
