@@ -10,7 +10,8 @@
               block
               relative
               h-60
-              md:h-[480px] lg:h-[550px]
+              md:h-[480px]
+              lg:h-[550px]
             "
             v-for="i in media"
             :key="i.mediaId"
@@ -29,53 +30,91 @@
               @error="checkRoomtypeImg = false"
             />
           </div>
-          <template slot="prevButton"><span class="material-icons">chevron_left</span></template>
-          <template slot="nextButton"><span class="material-icons">chevron_right</span></template>
+          <template slot="prevButton"
+            ><span class="material-icons">chevron_left</span></template
+          >
+          <template slot="nextButton"
+            ><span class="material-icons">chevron_right</span></template
+          >
         </agile>
       </client-only>
       <div class="p-5">
         <div class="">
-          <div class="font-bold text-lg md:text-xl lg:text-2xl 2xl:text-3xl">{{ roomType.type }}</div>
+          <div class="font-bold text-lg md:text-xl lg:text-2xl 2xl:text-3xl">
+            {{ roomType.type }}
+          </div>
 
-          <div class="ml-3 font-bold text-sm md:text-base lg:text-lg xl:text-xl">
+          <div
+            class="ml-3 font-bold text-sm md:text-base lg:text-lg xl:text-xl"
+          >
             ราคา :
             <span class="font-normal"
               >{{ roomType.dormHasRoomType.price }} บาท</span
             >
           </div>
 
-          <div class="ml-3 font-bold text-sm md:text-base lg:text-lg xl:text-xl">
+          <div
+            class="ml-3 font-bold text-sm md:text-base lg:text-lg xl:text-xl"
+          >
             มัดจำ :
             <span class="font-normal"
               >{{ roomType.dormHasRoomType.deposit }} บาท</span
             >
           </div>
 
-          <div class="ml-3 font-bold text-sm md:text-base lg:text-lg xl:text-xl">
+          <div
+            class="ml-3 font-bold text-sm md:text-base lg:text-lg xl:text-xl"
+          >
             ค่าน้ำ :
             <span class="font-normal">{{ waterPerUnit }} บาทต่อหน่วย</span>
           </div>
 
-          <div class="ml-3 font-bold text-sm md:text-base lg:text-lg xl:text-xl">
+          <div
+            class="ml-3 font-bold text-sm md:text-base lg:text-lg xl:text-xl"
+          >
             ค่าไฟ :
             <span class="font-normal">{{ elecPerUnit }} บาทต่อหน่วย</span>
           </div>
 
-          <div class="ml-3 font-bold text-sm md:text-base lg:text-lg xl:text-xl">
+          <div
+            class="ml-3 font-bold text-sm md:text-base lg:text-lg xl:text-xl"
+          >
             ขนาดพื้นที่ :
             <span class="font-normal"
               >{{ roomType.dormHasRoomType.area }} ตารางเมตร</span
             >
           </div>
 
-          <div class="pt-5 font-bold md:text-lg lg:text-xl xl:text-2xl">รายละเอียดเพิ่มเติม</div>
+          <div class="pt-5 font-bold md:text-lg lg:text-xl xl:text-2xl">
+            รายละเอียดเพิ่มเติม
+          </div>
           <div
-            class="w-full text-gray-600 px-2 py-3 bg-ghostWhite mt-3 rounded text-sm md:text-base lg:text-lg xl:text-xl"
+            class="
+              w-full
+              text-gray-600
+              px-2
+              py-3
+              bg-ghostWhite
+              mt-3
+              rounded
+              text-sm
+              md:text-base
+              lg:text-lg
+              xl:text-xl
+            "
           >
-            <div class="text-sm md:text-base lg:text-lg xl:text-xl" v-if="roomType.description">
+            <div
+              class="text-sm md:text-base lg:text-lg xl:text-xl"
+              v-if="roomType.description"
+            >
               {{ roomType.description }}
             </div>
-            <div v-else class="text-gray-400 text-sm md:text-base lg:text-lg xl:text-xl">&emsp;ไม่มีข้อมูล</div>
+            <div
+              v-else
+              class="text-gray-400 text-sm md:text-base lg:text-lg xl:text-xl"
+            >
+              &emsp;ไม่มีข้อมูล
+            </div>
           </div>
         </div>
       </div>
@@ -98,31 +137,47 @@
               <option option disabled selected>
                 กรุณาเลือกช่องทางการชำระเงิน
               </option>
-<!--              <option-->
-<!--                v-for="option in this.bankAccount"-->
-<!--                :value="option"-->
-<!--                :key="option.bankAccId"-->
-<!--              >-->
-<!--                เลขที่บัญชี: {{ option.accountName }} ชื่อบัญชี:-->
-<!--                {{ option.accountNum }} ธนาคาร{{ option.bank.name }}-->
-<!--              </option>-->
+              <option
+                v-for="option in this.bankAccount"
+                :value="option"
+                :key="option.bankAccId"
+              >
+                เลขที่บัญชี: {{ option.accountName }} ชื่อบัญชี:
+                {{ option.accountNum }} ธนาคาร{{ option.bank.name }}
+              </option>
             </select>
             <label class="label-text text-gray-500 tracking-wide font-bold my-2"
-              >วันที่จะเริ่มเข้าพัก<span class="text-imperialRed">*</span></label
+              >วันที่จะเริ่มเข้าพัก<span class="text-imperialRed"
+                >*</span
+              ></label
             >
-            <input type="Date" class="py-4 px-2 w-full input input-sm md:input-md rounded" placeholder="" v-model="startDate"/>
-            <label class="label-text text-gray-500 tracking-wide font-bold my-2">วันที่จะสิ้นสุดการเข้าพัก<span class="text-imperialRed">*</span></label>
-            <input type="Date" class="py-4 px-2 w-full input input-sm md:input-md rounded" placeholder="" v-model="endDate"/>
-<!--            <label class="label-text text-gray-500 tracking-wide font-bold my-2">เลือกภาพสลิป<span class="text-imperialRed">*</span></label>-->
-<!--            <input type="file" class="focus:outline-none form-control block w-full rounded transition ease-in-out border-none" @change="onFileChange($event)" />-->
-<!--            <img :src="slipImgUrl" class="py-2 md:p-2 md:max-h-80 md:max-w-full md:object-cover"/>-->
+            <input
+              type="Date"
+              class="py-4 px-2 w-full input input-sm md:input-md rounded"
+              placeholder=""
+              v-model="startDate"
+            />
+            <label class="label-text text-gray-500 tracking-wide font-bold my-2"
+              >วันที่จะสิ้นสุดการเข้าพัก<span class="text-imperialRed"
+                >*</span
+              ></label
+            >
+            <input
+              type="Date"
+              class="py-4 px-2 w-full input input-sm md:input-md rounded"
+              placeholder=""
+              v-model="endDate"
+            />
+            <!--            <label class="label-text text-gray-500 tracking-wide font-bold my-2">เลือกภาพสลิป<span class="text-imperialRed">*</span></label>-->
+            <!--            <input type="file" class="focus:outline-none form-control block w-full rounded transition ease-in-out border-none" @change="onFileChange($event)" />-->
+            <!--            <img :src="slipImgUrl" class="py-2 md:p-2 md:max-h-80 md:max-w-full md:object-cover"/>-->
           </div>
           <div class="modal-action">
             <label for="my-modal-6" class="btn">ยกเลิกการจอง</label>
             <label
               for="my-modal-6"
               class="btn"
-              v-if="selectedBankAccount && (startDate<endDate)"
+              v-if="selectedBankAccount && startDate < endDate"
               @click="booking"
               >ยืนยันการจอง</label
             >
@@ -131,42 +186,64 @@
       </div>
 
       <!--All room-->
-      <h1 class="font-bold text-lg md:text-xl lg:text-2xl 2xl:text-3xl">ห้องพักทั้งหมด</h1>
-<!--      <div v-for="(room, index) in rooms" :key="index">-->
-<!--        <div class="font-bold md:text-lg lg:text-xl xl:text-2xl">ชั้น : {{ room.floors }}</div>-->
-<!--        <div class="bg-ghostWhite p-3 rounded-lg text-sm md:text-base lg:text-lg xl:text-xl">-->
-<!--          <p>เลขห้องพัก : {{ room.roomNum }}</p>-->
-<!--          <p>สถานะห้องพัก : {{ room.status }}</p>-->
-<!--          <p v-if="room.description != ''">รายละเอียดเพิ่มเติม : {{ room.description }}</p>-->
-<!--          <p v-else class="hidden"></p>-->
-<!--          <label-->
-<!--            for="my-modal-6"-->
-<!--            class="btn modal-button"-->
-<!--            v-if="room.status != false && $store.state.userAccount.role == 'Customer'"-->
-<!--            @click="selectedRoom = room"-->
-<!--            >จองห้องพัก</label>-->
-<!--        </div>-->
-<!--      </div>-->
+      <h1 class="font-bold text-lg md:text-xl lg:text-2xl 2xl:text-3xl">
+        ห้องพักทั้งหมด
+      </h1>
+      <!--      <div v-for="(room, index) in rooms" :key="index">-->
+      <!--        <div class="font-bold md:text-lg lg:text-xl xl:text-2xl">ชั้น : {{ room.floors }}</div>-->
+      <!--        <div class="bg-ghostWhite p-3 rounded-lg text-sm md:text-base lg:text-lg xl:text-xl">-->
+      <!--          <p>เลขห้องพัก : {{ room.roomNum }}</p>-->
+      <!--          <p>สถานะห้องพัก : {{ room.status }}</p>-->
+      <!--          <p v-if="room.description != ''">รายละเอียดเพิ่มเติม : {{ room.description }}</p>-->
+      <!--          <p v-else class="hidden"></p>-->
+      <!--          <label-->
+      <!--            for="my-modal-6"-->
+      <!--            class="btn modal-button"-->
+      <!--            v-if="room.status != false && $store.state.userAccount.role == 'Customer'"-->
+      <!--            @click="selectedRoom = room"-->
+      <!--            >จองห้องพัก</label>-->
+      <!--        </div>-->
+      <!--      </div>-->
       <div v-for="(floor, key) in roomList" :key="key" class="flex flex-wrap">
         <div class="w-full font-bold">ชั้น : {{ floor.floor }}</div>
-        <div v-for="(room, index) in floor.rooms" :key="index" class="w-1/2 md:w-1/3 lg:w-1/4">
+        <div
+          v-for="(room, index) in floor.rooms"
+          :key="index"
+          class="w-1/2 md:w-1/3 lg:w-1/4"
+        >
           <div class="p-5 m-1 rounded bg-ghostWhite flex flex-wrap shadow">
-            <p class="font-bold w-full md:text-center"><span class="md:hidden">เลขห้อง: </span><b>{{ room.roomNum }}</b></p>
+            <p class="font-bold w-full md:text-center">
+              <span class="md:hidden">เลขห้อง: </span><b>{{ room.roomNum }}</b>
+            </p>
             <div class="w-full text-success md:text-left md:w-1/2">
-              <div v-if="room.status == 'ว่าง'"><span class="md:hidden">สถานะ: </span><b>{{ room.status }}</b></div>
+              <div v-if="room.status == 'ว่าง'">
+                <span class="md:hidden">สถานะ: </span><b>{{ room.status }}</b>
+              </div>
               <div v-else class="text-imperialRed">{{ room.status }}</div>
             </div>
-            <div class="w-full md:w-1/2 md:text-right"><span class="md:hidden">ประเภทห้อง: </span><b>{{ room.roomType }}</b></div>
+            <div class="w-full md:w-1/2 md:text-right">
+              <span class="md:hidden">ประเภทห้อง: </span
+              ><b>{{ room.roomType }}</b>
+            </div>
             <div>
-              <div v-if="room.description != ''" class="w-full px-2 py-3 bg-white mt-3 rounded">{{ room.description }}</div>
+              <div
+                v-if="room.description != ''"
+                class="w-full px-2 py-3 bg-white mt-3 rounded"
+              >
+                {{ room.description }}
+              </div>
               <div v-else class="bg-inherit hidden"></div>
             </div>
             <label
               for="my-modal-6"
               class="btn modal-button"
-              v-if="room.status != false && $store.state.userAccount.role == 'Customer'"
+              v-if="
+                room.status != false &&
+                $store.state.userAccount.role == 'Customer'
+              "
               @click="selectedRoom = room"
-            >จองห้องพัก</label>
+              >จองห้องพัก</label
+            >
           </div>
         </div>
       </div>
@@ -205,8 +282,8 @@ export default {
       selectedRoom: null,
       startDate: null,
       endDate: null,
-      slipImg:null,
-      slipImgUrl:null
+      slipImg: null,
+      slipImgUrl: null,
     };
   },
   methods: {
@@ -250,14 +327,17 @@ export default {
           title: `Data Update`,
           text: `booking complete!`,
         });
-         let bookingStatus = { roomId: this.selectedRoom.roomId, status: "จองเเล้ว" };
-        this.$store.commit("SET_ROOMSTATUS", bookingStatus)
-        this.selectedBankAccount = null
-        this.selectedRoom = null
-        this.startDate = null
-        this.endDate = null
-        this.slipImg = null
-        this.slipImgUrl = null
+        let bookingStatus = {
+          roomId: this.selectedRoom.roomId,
+          status: "จองเเล้ว",
+        };
+        this.$store.commit("SET_ROOMSTATUS", bookingStatus);
+        this.selectedBankAccount = null;
+        this.selectedRoom = null;
+        this.startDate = null;
+        this.endDate = null;
+        this.slipImg = null;
+        this.slipImgUrl = null;
       } catch (error) {
         loading.close();
         const noti = this.$vs.notification({
@@ -272,8 +352,8 @@ export default {
     },
     onFileChange(e) {
       let files = e.target.files || e.dataTransfer.files;
-      this.slipImgUrl = URL.createObjectURL(files[0])
-      this.slipImg = files[0]
+      this.slipImgUrl = URL.createObjectURL(files[0]);
+      this.slipImg = files[0];
     },
   },
   computed: {
@@ -282,45 +362,45 @@ export default {
     },
   },
   created() {
-      let roomList = [];
-      let floorList = [
-        ...new Map(
-          this.$store.state.selectedDorm.rooms.map((item) => [
-            item["floors"],
-            item,
-          ])
-        ).values(),
-      ];
-      for (let i in floorList) {
-        roomList.push({
-          floor: floorList[i].floors,
-          rooms: [],
-        });
-      }
-      for (let i in this.$store.state.selectedDorm.rooms) {
-        roomList.some((room, index) => {
-          if (room.floor == this.$store.state.selectedDorm.rooms[i].floors) {
-            roomList[index].rooms.push({
-              roomId: this.$store.state.selectedDorm.rooms[i].roomId,
-              roomNum: this.$store.state.selectedDorm.rooms[i].roomNum,
-              status: this.$store.state.selectedDorm.rooms[i].status,
-              floors: room.floor,
-              description: this.$store.state.selectedDorm.rooms[i].description,
-              roomType: this.$store.state.selectedDorm.roomTypes.find(
-                (type) =>
-                  type.roomTypeId ==
-                  this.$store.state.selectedDorm.rooms[i].roomTypeId
-              ).type,
-            });
-            return true;
-          }
-        });
-      }
-      roomList.sort((a, b) => {
-        return a.floor - b.floor;
+    let roomList = [];
+    let floorList = [
+      ...new Map(
+        this.$store.state.selectedDorm.rooms.map((item) => [
+          item["floors"],
+          item,
+        ])
+      ).values(),
+    ];
+    for (let i in floorList) {
+      roomList.push({
+        floor: floorList[i].floors,
+        rooms: [],
       });
-      this.roomList = roomList;
-      console.log(roomList)
+    }
+    for (let i in this.$store.state.selectedDorm.rooms) {
+      roomList.some((room, index) => {
+        if (room.floor == this.$store.state.selectedDorm.rooms[i].floors) {
+          roomList[index].rooms.push({
+            roomId: this.$store.state.selectedDorm.rooms[i].roomId,
+            roomNum: this.$store.state.selectedDorm.rooms[i].roomNum,
+            status: this.$store.state.selectedDorm.rooms[i].status,
+            floors: room.floor,
+            description: this.$store.state.selectedDorm.rooms[i].description,
+            roomType: this.$store.state.selectedDorm.roomTypes.find(
+              (type) =>
+                type.roomTypeId ==
+                this.$store.state.selectedDorm.rooms[i].roomTypeId
+            ).type,
+          });
+          return true;
+        }
+      });
+    }
+    roomList.sort((a, b) => {
+      return a.floor - b.floor;
+    });
+    this.roomList = roomList;
+    console.log(roomList);
   },
 };
 </script>
