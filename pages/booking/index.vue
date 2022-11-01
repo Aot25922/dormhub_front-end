@@ -63,7 +63,7 @@
           <vs-td v-if="$store.state.userAccount.role == 'Customer'">
             <div v-if="tr.status == 'รอการโอน'">
               <p>เเนบหลักฐานการโอนเงิน</p>
-              <input type="file" @change="onFileChange($event)" />
+              <input type="file" @change="onFileChange($event, tr)" />
             </div>
             <p v-else>{{ tr.status }}</p>
           </vs-td>
@@ -75,16 +75,19 @@
             >
               ยืนยัน
             </button>
+            <button
+              v-if="tr.status == 'รอการยืนยัน'"
+              class="bg-imperialRed"
+              @click="updateStatus(tr, 'ยกเลิก')"
+            >
+              ยกเลิก
+            </button>
             <p
               v-else-if="tr.status == 'ยืนยันการโอน' || tr.status == 'รอการโอน'"
             >
               {{ tr.status }}
             </p>
-            <p
-              v-else-if="tr.status == 'ยกเลิก'"
-            >
-              ยกเลิกการจองเเล้ว
-            </p>
+            <p v-else-if="tr.status == 'ยกเลิก'">ยกเลิกการจองเเล้ว</p>
             <button
               v-else
               class="bg-imperialRed"
@@ -118,6 +121,7 @@ export default {
   },
   methods: {
     async updateStatus(booking, status) {
+      booking.status = status
       const loading = this.$vs.loading();
       let formData = new FormData();
       const data = {
@@ -157,7 +161,7 @@ export default {
         });
       }
     },
-    async onFileChange(e) {
+    async onFileChange(e, booking) {
       const loading = this.$vs.loading();
       let formData = new FormData();
       let files = e.target.files || e.dataTransfer.files;

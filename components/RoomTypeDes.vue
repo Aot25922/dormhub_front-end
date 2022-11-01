@@ -238,7 +238,7 @@
               for="my-modal-6"
               class="btn modal-button"
               v-if="
-                room.status != false &&
+                room.status == 'ว่าง' &&
                 $store.state.userAccount.role == 'Customer'
               "
               @click="selectedRoom = room"
@@ -295,10 +295,11 @@ export default {
           color: "warn",
           position: "top-right",
           title: `Data Update`,
-          text: "You not customer",
+          text: "คุณไม่ใช่ผู้เช่าหอพัก",
         });
         return;
       }
+      this.selectedRoom.status = "จองเเล้ว"
       const loading = this.$vs.loading();
       let formData = new FormData();
       let bookingInfo = {

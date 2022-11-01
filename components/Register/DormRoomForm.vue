@@ -1,5 +1,25 @@
 <template>
   <div>
+    <div>
+      <h1 class="font-bold text-lg md:text-xl xl:text-2xl 2xl:text-3xl">
+        ข้อกำหนด
+      </h1>
+      <ul
+        class="
+          py-5
+          text-sm
+          space-y-5
+          md:text-base
+          lg:text-lg
+          xl:text-xl
+          2xl:space-y-10
+        "
+      >
+        <li class="indent-5">
+          1. ไม่สามารถเเก้ไขข้อมูลของห้องพักได้หากยังไม่ได้ยกเลิกการจองทั้งหมด
+        </li>
+      </ul>
+    </div>
     <div
       v-for="(floor, index) in roomList"
       :key="index"
@@ -11,7 +31,8 @@
           <div class="w-full rounded-md p-3 relative grid grid-cols-3">
             <div class="col-span-1 px-1">
               <label class="label-text tracking-wide font-bold my-2"
-                >เลขห้อง (<span v-text="6 - room.roomNum.length"></span> หลัก)</label
+                >เลขห้อง (<span v-text="6 - room.roomNum.length"></span>
+                หลัก)</label
               >
               <input
                 type="text"
@@ -27,24 +48,19 @@
               <label class="label-text tracking-wide font-bold my-2"
                 >สถานะ</label
               >
-<!--              <input-->
-<!--                type="text"-->
-<!--                class="py-4 mb-3 px-2 w-full input-md rounded border-0"-->
-<!--                placeholder="ว่าง/ไม่ว่าง"-->
-<!--                v-model="room.status"-->
-<!--                :disabled="disableForm"-->
-<!--              />-->
+              <!--              <input-->
+              <!--                type="text"-->
+              <!--                class="py-4 mb-3 px-2 w-full input-md rounded border-0"-->
+              <!--                placeholder="ว่าง/ไม่ว่าง"-->
+              <!--                v-model="room.status"-->
+              <!--                :disabled="disableForm"-->
+              <!--              />-->
               <div class="center con-switch">
                 <vs-switch success class="w-full" v-model="room.status">
-                  <template #off>
-                    ไม่ว่าง
-                  </template>
-                  <template #on>
-                    ว่าง
-                  </template>
+                  <template #off> ไม่ว่าง </template>
+                  <template #on> ว่าง </template>
                 </vs-switch>
               </div>
-              {{room.status}}
             </div>
 
             <div class="col-span-1 px-1">
@@ -155,7 +171,7 @@
       >
         เเก้ไขข้อมูลของห้องพัก
       </button>
-      </div>
+    </div>
     <div class="py-3">
       <button v-if="editForm" @click="submit()" class="btn btn-success w-full">
         ยืนยันการเเก้ไขข้อมูล
@@ -190,21 +206,22 @@ export default {
     async submit() {
       let newRoomList = [];
       for (let i in this.roomList) {
-        for(let j in this.roomList[i].rooms){
-          if (this.roomList[i].rooms[j].status) {
-            this.roomList[i].rooms[j].status = 'ว่าง'
-          } else {
-            this.roomList[i].rooms[j].status = 'ไม่ว่าง'
-          }
-        }
         this.roomList[i].rooms = this.roomList[i].rooms.filter(
-          (x) => !(x.roomNum == "" || x.status == "" || x.roomType == "")
+          (x) => !(x.roomNum == "" || x.roomType == "")
         );
         for (let j in this.roomList[i].rooms) {
           newRoomList.push(this.roomList[i].rooms[j]);
         }
       }
       newRoomList = JSON.parse(JSON.stringify(newRoomList));
+      for (let i in newRoomList) {
+        if (newRoomList[i].status) {
+          newRoomList[i].status = "ว่าง";
+        } else {
+          newRoomList[i].status = "ไม่ว่าง";
+        }
+      }
+      console.log(newRoomList);
       if (this.editForm) {
         const loading = this.$vs.loading();
         for (let i in this.deleteRoomList) {
@@ -224,7 +241,7 @@ export default {
         };
         formData.append("data", JSON.stringify(data));
         try {
-          await this.$axios.$put(
+          let result = await this.$axios.$put(
             `${this.$store.state.Backend_URL}/dorm/edit`,
             formData,
             {
@@ -234,10 +251,12 @@ export default {
           const noti = this.$vs.notification({
             progress: "auto",
             icon: `<i class='bx bx-folder-open' ></i>`,
-            color: "success",
+            color: result.message ? "warn" : "success",
             position: "top-right",
-            title: `Data Update`,
-            text: `Update Dorm room complete!`,
+            title: `เเจ้งเตือน`,
+            text: result.message
+              ? result.message
+              : "เเก้ไขข้อมูลห้องพักเรียบร้อย",
           });
           let dormInfo = {
             dorm: null,
@@ -269,16 +288,16 @@ export default {
       }
     },
     addNewFloor() {
-      if(this.roomList.length >= 10){
+      if (this.roomList.length >= 10) {
         const noti = this.$vs.notification({
-            progress: "auto",
-            icon: `<i class='bx bx-folder-open' ></i>`,
-            color: "warn",
-            position: "top-right",
-            title: `ไม่สามารถเพิ่มชั้นได้`,
-            text: `ไม่สามารถเพิ่มชั้นเกิน 10 ชั้น`,
-          });
-        return
+          progress: "auto",
+          icon: `<i class='bx bx-folder-open' ></i>`,
+          color: "warn",
+          position: "top-right",
+          title: `ไม่สามารถเพิ่มชั้นได้`,
+          text: `ไม่สามารถเพิ่มชั้นเกิน 10 ชั้น`,
+        });
+        return;
       }
       let newFloor = this.roomList[this.roomList.length - 1].floor + 1;
       this.roomList.push({
@@ -295,16 +314,16 @@ export default {
       });
     },
     addNewRoom(floor) {
-      if(floor.rooms.length >= 15){
+      if (floor.rooms.length >= 15) {
         const noti = this.$vs.notification({
-            progress: "auto",
-            icon: `<i class='bx bx-folder-open' ></i>`,
-            color: "warn",
-            position: "top-right",
-            title: `ไม่สามารถเพิ่มห้องได้`,
-            text: "ไม่สามารถเพิ่มห้องเกิน 15 ห้อง",
-          });
-        return
+          progress: "auto",
+          icon: `<i class='bx bx-folder-open' ></i>`,
+          color: "warn",
+          position: "top-right",
+          title: `ไม่สามารถเพิ่มห้องได้`,
+          text: "ไม่สามารถเพิ่มห้องเกิน 15 ห้อง",
+        });
+        return;
       }
       floor.rooms.push({
         roomNum: "",
@@ -342,7 +361,10 @@ export default {
             roomList[index].rooms.push({
               roomId: this.$store.state.selectedDorm.rooms[i].roomId,
               roomNum: this.$store.state.selectedDorm.rooms[i].roomNum,
-              status: this.$store.state.selectedDorm.rooms[i].status,
+              status:
+                this.$store.state.selectedDorm.rooms[i].status == "ว่าง"
+                  ? true
+                  : false,
               floors: room.floor,
               description: this.$store.state.selectedDorm.rooms[i].description,
               roomType: this.$store.state.selectedDorm.roomTypes.find(
