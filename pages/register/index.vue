@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-ghostWhite px-5 py-20 md:py-32 md:grid md:grid-cols-2 xl:px-48 2xl:px-80">
+  <div class="bg-ghostWhite pt-[7rem] px-5 py-20 md:py-32 md:grid md:grid-cols-2 xl:px-48 2xl:px-80">
     <div>
       <img src="@/assets/specify/identify.png" class="hidden md:block"/>
     </div>
@@ -10,7 +10,7 @@
       <!--ขั้นตอนที่ 1-->
       <div v-if="firstStep">
         <input
-          class="py-6 px-2 w-full input input-sm md:input-md rounded-lg text-gray-soil border-x-0 border-t-0 border-b-gray-400 my-2 md:my-4"
+          class="py-6 px-2 w-full input input-sm md:input-md rounded-lg border-x-0 border-t-0 border-b-gray-400 my-2 md:my-4"
           placeholder="อีเมล"
           v-model="userAccount.email"
           @blur="validateForm"
@@ -18,14 +18,14 @@
         <span class="text-imperialRed" v-if="validateEmail">กรุณากรอกอีเมล</span>
 
         <input type="password"
-          class="py-6 px-2 w-full input input-sm md:input-md rounded-lg text-gray-soil border-x-0 border-t-0 border-b-gray-400 my-2 md:my-4"
+          class="py-6 px-2 w-full input input-sm md:input-md rounded-lg border-x-0 border-t-0 border-b-gray-400 my-2 md:my-4"
           placeholder="รหัสผ่าน"
           v-model="userAccount.password"
           @blur="validateForm"
         />
-        <span class="text-imperialRed" v-if="validatePassword">กรุณากรอกรหัสผ่าน</span>
+        <span class="text-imperialRed" v-if="validatePassword || minimumPassword">กรุณากรอกรหัสผ่านขั้นต่ำ 7 อักขระ</span>
 
-        <input type="password" class="py-6 px-2 w-full input input-sm md:input-md rounded-lg text-gray-soil border-x-0 border-t-0 border-b-gray-400 my-2 md:my-4"
+        <input type="password" class="py-6 px-2 w-full input input-sm md:input-md rounded-lg border-x-0 border-t-0 border-b-gray-400 my-2 md:my-4"
           placeholder="ยืนยันรหัสผ่าน" v-model="confirmPassword" @blur="validateForm" @keypress.enter="submit" />
         <span class="text-imperialRed" v-if="passwordNotSame ">รหัสไม่ตรงกัน</span>
 
@@ -43,8 +43,8 @@
       <div v-if="secondStep" class="md:flex md:flex-wrap">
         <h1 class="text-black text-lg mt-5 ml-2 mb-2 font-bold md:w-full">รายละเอียดส่วนบุคคล</h1>
         <div class="mb-2 md:px-1 md:w-1/2">
-          <label class="label-text text-gray-soil tracking-wide font-bold my-2">ชื่อ</label>
-          <input type="text" class="py-6 px-2 w-full input input-sm md:input-md rounded-lg text-gray-soil border-x-0 border-t-0 border-b-gray-400 my-2 md:my-4"
+          <label class="label-text tracking-wide font-bold my-2">ชื่อ</label>
+          <input type="text" class="py-6 px-2 w-full input input-sm md:input-md rounded-lg border-x-0 border-t-0 border-b-gray-400 my-2 md:my-4"
             placeholder="สมบัติ"
             v-model="userAccount.fname"
             @blur="validateForm"
@@ -52,8 +52,8 @@
           <span class="text-imperialRed" v-if="validateFname">กรุณากรอกชื่อ</span>
         </div>
         <div class="mb-2 md:px-1 md:w-1/2">
-          <label class="label-text text-gray-soil tracking-wide font-bold my-2">นามสกุล</label>
-          <input type="text" class=" py-6 px-2 w-full input input-sm md:input-md rounded-lg text-gray-soil border-x-0 border-t-0 border-b-gray-400 my-2 md:my-4"
+          <label class="label-text tracking-wide font-bold my-2">นามสกุล</label>
+          <input type="text" class=" py-6 px-2 w-full input input-sm md:input-md rounded-lg border-x-0 border-t-0 border-b-gray-400 my-2 md:my-4"
             placeholder="สั้นสุดฤทธิ์"
             v-model="userAccount.lname"
             @blur="validateForm"
@@ -61,8 +61,8 @@
           <span class="text-imperialRed" v-if="validateLname">กรุณากรอกนามสกุล</span>
         </div>
         <div class="mb-2 md:px-1 md:w-1/2">
-          <label class="label-text text-gray-soil tracking-wide font-bold my-2">เพศ</label>
-          <input type="text" class="py-6 px-2 w-full input input-sm md:input-md rounded-lg text-gray-soil border-x-0 border-t-0 border-b-gray-400 my-2 md:my-4"
+          <label class="label-text tracking-wide font-bold my-2">เพศ</label>
+          <input type="text" class="py-6 px-2 w-full input input-sm md:input-md rounded-lg border-x-0 border-t-0 border-b-gray-400 my-2 md:my-4"
             placeholder="จ๊าบ"
             v-model="userAccount.sex"
             @blur="validateForm"
@@ -70,9 +70,9 @@
           <span class="text-imperialRed" v-if="validateSex">กรุณากรอกเพศ</span>
         </div>
         <div class="mb-2 md:px-1 md:w-1/2">
-          <label class="label-text text-gray-soil tracking-wide font-bold my-2">เบอร์โทรศัพท์ (<span v-text="10 - userAccount.phone.length"></span> หลัก)</label>
-          <input type="text" class=" py-6 px-2 w-full input input-sm md:input-md rounded-lg text-gray-soil border-x-0 border-t-0 border-b-gray-400 my-2 md:my-4"
-            placeholder="0941111111"
+          <label class="label-text tracking-wide font-bold my-2">เบอร์โทรศัพท์ (<span v-text="10 - userAccount.phone.length"></span> หลัก)</label>
+          <input type="text" class=" py-6 px-2 w-full input input-sm md:input-md rounded-lg border-x-0 border-t-0 border-b-gray-400 my-2 md:my-4"
+            placeholder="0942384569"
             maxlength="10"
             v-model="userAccount.phone"
             @blur="validateForm"
@@ -145,6 +145,7 @@ export default {
       },
       validateEmail: false,
       validatePassword: false,
+      minimumPassword: false,
       validateFname: false,
       validateLname: false,
       validateSex: false,
@@ -160,7 +161,7 @@ export default {
   methods: {
     nextFirstStep() {
       this.validateForm();
-      if (!this.validateEmail && !this.validatePassword && !this.passwordNotSame) {
+      if (!this.validateEmail && !this.minimumPassword && !this.validatePassword && !this.passwordNotSame) {
         this.firstStep = false;
         this.secondStep = true;
       }
@@ -242,6 +243,7 @@ export default {
     validateForm() {
       this.validateEmail = this.userAccount.email == "" ? true : false;
       this.validatePassword = this.userAccount.password == "" ? true : false;
+      this.minimumPassword = this.userAccount.password.length <= 6 ? true : false;
       this.passwordNotSame = this.userAccount.password != this.confirmPassword ? true : false;
       this.validateFname = this.userAccount.fname == "" ? true : false;
       this.validateLname = this.userAccount.lname == "" ? true : false;

@@ -16,7 +16,7 @@
         "
       >
         <li class="indent-5">
-          1. ไม่สามารถเเก้ไขข้อมูลของห้องพักได้หากยังไม่ได้ยกเลิกการจองทั้งหมด
+          ไม่สามารถเเก้ไขข้อมูลของห้องพักได้หากยังไม่ได้ยกเลิกการจองทั้งหมด
         </li>
       </ul>
     </div>
@@ -31,31 +31,28 @@
           <div class="w-full rounded-md p-3 relative grid grid-cols-3">
             <div class="col-span-1 px-1">
               <label class="label-text tracking-wide font-bold my-2"
-                >เลขห้อง (<span v-text="6 - room.roomNum.length"></span>
-                หลัก)</label
+                >เลขห้อง
+                </label
               >
               <input
                 type="text"
-                class="py-4 mb-3 px-2 w-full input-md rounded border-0"
+                class="py-4 px-2 w-full input-md rounded border-0"
                 maxlength="6"
                 placeholder="A101"
                 v-model="room.roomNum"
                 :disabled="disableForm"
               />
+              <div class="text-gray-400 pt-1 font-bold text-xs md:text-sm lg:text-base">
+                <span v-text="6 - room.roomNum.length"></span>
+                <span>หลัก</span>
+              </div>
             </div>
 
             <div class="col-span-1 px-1">
               <label class="label-text tracking-wide font-bold my-2"
                 >สถานะ</label
               >
-              <!--              <input-->
-              <!--                type="text"-->
-              <!--                class="py-4 mb-3 px-2 w-full input-md rounded border-0"-->
-              <!--                placeholder="ว่าง/ไม่ว่าง"-->
-              <!--                v-model="room.status"-->
-              <!--                :disabled="disableForm"-->
-              <!--              />-->
-              <div class="center con-switch">
+              <div class="center con-switch py-2">
                 <vs-switch success class="w-full" v-model="room.status">
                   <template #off> ไม่ว่าง </template>
                   <template #on> ว่าง </template>
@@ -111,12 +108,14 @@
                   py-4
                   mb-3
                   px-2
-                  h-20
                   w-full
                   input-sm
                   md:input-md
                   rounded
                   border-0
+                  md:h-28
+                  h-20
+                  md:h-28
                 "
                 placeholder="โต๊ะ เตียง เก้าอี้"
                 v-model="room.description"
