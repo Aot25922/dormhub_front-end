@@ -35,6 +35,14 @@
           <span class="font-bold">ที่อยู่ :</span> {{ dorm.address }}
           </p>
           <p class="pt-2 ml-3 text-sm md:text-base lg:text-lg xl:text-xl"><span class="font-bold">ราคา :</span> {{ lowPrice }} - {{ highPrice }} บาท</p>
+          <p class="flex pt-2 ml-3 text-sm md:text-base lg:text-lg xl:text-xl">
+            <span class="font-bold">เวลา :</span>
+            <span v-if="dorm.openTime != null">&nbsp;{{ dorm.openTime }} -</span>
+            <span v-if="dorm.closeTime != null">&nbsp;{{ dorm.closeTime }} น.</span>
+            <span v-if="dorm.openTime != null && dorm.closeTime == null">เปิด {{ dorm.openTime }} น.</span>
+            <span v-if="dorm.openTime == null && dorm.closeTime != null">ปิด {{ dorm.closeTime }} น.</span>
+            <span v-if="dorm.openTime == null && dorm.closeTime == null">ไม่มีข้อมูล</span>
+          </p>
           <p class="pt-2 font-bold">ช่องทางการติดต่อ:</p>
           <ul class="list-none">
             <li class="pl-3">อีเมล : <span class="text-light-blue">{{ dorm.userAccount.email }}</span></li>

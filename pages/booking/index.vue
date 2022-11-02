@@ -35,22 +35,22 @@
             {{ tr.room.roomNum }}
           </vs-td>
           <vs-td>
-            <p v-if="tr.status != 'ยืนยันการโอน' && !slipImgUrl">
-              {{ tr.status }}
-            </p>
             <img
-              v-else-if="tr.status == 'รอการโอน'"
+              v-if="tr.status == 'รอการโอน' && tr.bookingId == chosenBookingId"
               :src="slipImgUrl"
               class="object-cover object-center w-full h-full"
             />
             <img
-              v-else
+              v-else-if="tr.moneySlip"
               :src="$store.state.Backend_URL + '/booking/image/' + tr.bookingId"
               class="object-cover object-center w-full h-full"
             />
+            <p v-else>
+              {{ tr.status }}
+            </p>
           </vs-td>
           <vs-td>
-            {{ new Date(tr.startDate).toDateString()}}
+            {{ new Date(tr.startDate).toDateString() }}
           </vs-td>
           <vs-td>
             {{ new Date(tr.endDate).toDateString() }}
@@ -62,7 +62,7 @@
           </vs-td>
           <vs-td v-if="$store.state.userAccount.role == 'Customer'">
             <div v-if="tr.status == 'รอการโอน' || tr.status == 'ยืนยันการโอน'">
-              <p>{{tr.status}}</p>
+              <p>{{ tr.status }}</p>
               <p>เเนบหลักฐานการโอนเงิน</p>
               <input type="file" @change="onFileChange($event, tr)" />
             </div>
@@ -122,7 +122,7 @@ export default {
   },
   methods: {
     async updateStatus(booking, status) {
-      booking.status = status
+      booking.status = status;
       const loading = this.$vs.loading();
       let formData = new FormData();
       const data = {
@@ -166,6 +166,7 @@ export default {
       const loading = this.$vs.loading();
       let formData = new FormData();
       let files = e.target.files || e.dataTransfer.files;
+      this.chosenBookingId = booking.bookingId;
       this.slipImgUrl = URL.createObjectURL(files[0]);
       const data = {
         status: "ยืนยันการโอน",
