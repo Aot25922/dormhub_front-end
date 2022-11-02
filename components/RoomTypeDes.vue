@@ -207,7 +207,7 @@
       <div v-for="(floor, key) in roomList" :key="key" class="flex flex-wrap">
         <div class="w-full font-bold">ชั้น : {{ floor.floor }}</div>
         <div
-          v-for="(room, index) in floor.rooms"
+          v-for="(room, index) in floor.rooms.filter(x => x.roomType == roomType.type)"
           :key="index"
           class="w-1/2 md:w-1/3 lg:w-1/4"
         >

@@ -66,6 +66,15 @@
               <p>เเนบหลักฐานการโอนเงิน</p>
               <input type="file" @change="onFileChange($event, tr)" />
             </div>
+            <div v-else-if="tr.status == 'รอการยืนยัน'">
+              {{ tr.status }}
+              <button
+                class="bg-imperialRed"
+                @click="updateStatus(tr, 'ยกเลิก')"
+              >
+                ยกเลิกการจอง
+              </button>
+            </div>
             <p v-else>{{ tr.status }}</p>
           </vs-td>
           <vs-td v-if="$store.state.userAccount.role == 'Owner'">
@@ -118,6 +127,7 @@ export default {
       max: 5,
       bookingList: null,
       slipImgUrl: null,
+      chosenBookingId:null
     };
   },
   methods: {
@@ -134,13 +144,23 @@ export default {
       };
       formData.append("data", JSON.stringify(data));
       try {
-        await this.$axios.$put(
-          `${this.$store.state.Backend_URL}/booking/owner/update`,
-          formData,
-          {
-            withCredentials: true,
-          }
-        );
+        if (this.$store.state.userAccount.role == "Owner") {
+          await this.$axios.$put(
+            `${this.$store.state.Backend_URL}/booking/owner/update`,
+            formData,
+            {
+              withCredentials: true,
+            }
+          );
+        } else if (this.$store.state.userAccount.role == "Customer") {
+          await this.$axios.$put(
+            `${this.$store.state.Backend_URL}/booking/update`,
+            formData,
+            {
+              withCredentials: true,
+            }
+          );
+        }
         const noti = this.$vs.notification({
           progress: "auto",
           icon: `<i class='bx bx-folder-open' ></i>`,
