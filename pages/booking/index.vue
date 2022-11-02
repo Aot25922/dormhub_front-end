@@ -50,10 +50,10 @@
             />
           </vs-td>
           <vs-td>
-            {{ tr.startDate }}
+            {{ new Date(tr.startDate).toDateString()}}
           </vs-td>
           <vs-td>
-            {{ tr.endDate }}
+            {{ new Date(tr.endDate).toDateString() }}
           </vs-td>
           <vs-td v-if="$store.state.userAccount.role == 'Owner'">
             <p>E-mail : {{ tr.userAccount.email }}</p>
@@ -61,7 +61,8 @@
             <p>ชื่อ : {{ tr.userAccount.fname }} {{ tr.userAccount.lname }}</p>
           </vs-td>
           <vs-td v-if="$store.state.userAccount.role == 'Customer'">
-            <div v-if="tr.status == 'รอการโอน'">
+            <div v-if="tr.status == 'รอการโอน' || tr.status == 'ยืนยันการโอน'">
+              <p>{{tr.status}}</p>
               <p>เเนบหลักฐานการโอนเงิน</p>
               <input type="file" @change="onFileChange($event, tr)" />
             </div>

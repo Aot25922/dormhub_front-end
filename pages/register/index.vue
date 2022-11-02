@@ -160,7 +160,7 @@ export default {
   methods: {
     nextFirstStep() {
       this.validateForm();
-      if (!this.validateEmail && !this.validatePassword) {
+      if (!this.validateEmail && !this.validatePassword && !this.passwordNotSame) {
         this.firstStep = false;
         this.secondStep = true;
       }
