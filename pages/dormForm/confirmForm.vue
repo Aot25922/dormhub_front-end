@@ -18,8 +18,8 @@
           ><span class="material-icons">chevron_right</span></template
         >
       </agile>
-      <div class="p-5 text-sm">
-        <h1 class="py-2 font-bold text-xl">{{ dorm.dorm.name }}</h1>
+      <div class="p-5 text-sm lg:text-base">
+        <h1 class="py-2 font-bold text-xl lg:text-2xl">{{ dorm.dorm.name }}</h1>
         <p>
           ที่อยู่ : {{ dorm.dorm.address}}
         </p>
@@ -50,7 +50,7 @@
       :key="index"
     >
       <div class="p-5">
-        <h1 class="pt-2 pb-5 font-bold text-xl">ข้อมูลประเภทห้องพัก</h1>
+        <h1 class="pt-2 pb-5 font-bold text-xl lg:text-2xl">ข้อมูลประเภทห้องพัก</h1>
         <div class="flex flex-wrap">
           <h1 class="w-full">
             ประเภทห้องพัก : <span class="font-bold">{{ roomType.type }}</span>
@@ -110,18 +110,18 @@
 
     <!--room Info-->
     <div class="p-5 bg-white rounded-lg mb-5 shadow-lg">
-      <h1 class="pt-2 pb-5 font-bold text-xl">ข้อมูลห้องพัก</h1>
+      <h1 class="pt-2 pb-5 font-bold text-xl lg:text-2xl">ข้อมูลห้องพัก</h1>
       <div>
         <div v-for="(floor, key) in roomList" :key="key" class="flex flex-wrap">
           <div class="w-full font-bold">ชั้น : {{ key }}</div>
           <div v-for="(room, index) in floor" :key="index" class="w-1/2 md:w-1/3 lg:w-1/4">
             <div class="p-5 m-1 rounded bg-ghostWhite flex flex-wrap shadow">
-              <p class="font-bold w-full md:text-center"><span class="md:hidden">เลขห้อง: </span><b>{{ room.roomNum }}</b></p>
-              <div class="w-full text-success md:text-left md:w-1/2">
-                <div v-if="room.status == 'ว่าง'"><span class="md:hidden">สถานะ: </span><b>{{ room.status }}</b></div>
-                <div v-else class="text-imperialRed">{{ room.status }}</div>
+              <p class="w-full">เลขห้อง: <b>{{ room.roomNum }}</b></p>
+              <div class="w-full">
+                <div v-if="room.status == 'ว่าง'">สถานะ: <b class="text-success">{{ room.status }}</b></div>
+                <div v-else>สถานะ: <b class="text-imperialRed">{{ room.status }}</b></div>
               </div>
-              <div class="w-full md:w-1/2 md:text-right"><span class="md:hidden">ประเภทห้อง: </span><b>{{ room.roomType }}</b></div>
+              <div class="w-full">ประเภทห้อง: <b>{{ room.roomType }}</b></div>
               <div>
                 <div v-if="room.description != ''" class="w-full px-2 py-3 bg-white mt-3 rounded">{{ room.description }}</div>
                 <div v-else class="bg-inherit hidden"></div>
@@ -135,7 +135,7 @@
     <!--bankAccount -->
     <div class="p-5 bg-white rounded-lg mb-5 shadow-lg">
       <h1 class="pt-2 pb-5 font-bold text-xl">ช่องทางการชำระเงิน</h1>
-      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <div class="grid grid-cols-1 md:grid-cols-2">
         <div v-for="(bank, index) in dorm.bankAccount" :key="index" class="p-3 bg-ghostWhite rounded m-1 shadow">
           <p>เลขบัญชี : <b>{{ bank.accountNum }}</b></p>
           <p>ชื่อบัญชี : <b>{{ bank.accountName }}</b></p>

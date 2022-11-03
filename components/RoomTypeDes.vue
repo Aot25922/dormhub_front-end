@@ -39,82 +39,22 @@
         </agile>
       </client-only>
       <div class="p-5">
-        <div class="">
-          <div class="font-bold text-lg md:text-xl lg:text-2xl 2xl:text-3xl">
-            {{ roomType.type }}
+        <div class="text-sm lg:text-base 2xl:text-lg">
+          <div class="font-bold text-xl lg:text-2xl">{{ roomType.type }}</div>
+          <div class="px-3">
+            <p><b>ราคา:</b> {{ roomType.dormHasRoomType.price }} บาท</p>
+            <p><b>มัดจำ:</b> {{ roomType.dormHasRoomType.deposit }} บาท</p>
+            <p><b>ค่าน้ำ:</b> {{ waterPerUnit }} บาทต่อหน่วย</p>
+            <p><b>ค่าไฟ:</b> {{ elecPerUnit }} บาทต่อหน่วย</p>
+            <p><b>ขนาดพื้นที่:</b> {{ roomType.dormHasRoomType.area }} ตารางเมตร</p>
           </div>
 
-          <div
-            class="ml-3 font-bold text-sm md:text-base lg:text-lg xl:text-xl"
-          >
-            ราคา :
-            <span class="font-normal"
-              >{{ roomType.dormHasRoomType.price }} บาท</span
-            >
-          </div>
-
-          <div
-            class="ml-3 font-bold text-sm md:text-base lg:text-lg xl:text-xl"
-          >
-            มัดจำ :
-            <span class="font-normal"
-              >{{ roomType.dormHasRoomType.deposit }} บาท</span
-            >
-          </div>
-
-          <div
-            class="ml-3 font-bold text-sm md:text-base lg:text-lg xl:text-xl"
-          >
-            ค่าน้ำ :
-            <span class="font-normal">{{ waterPerUnit }} บาทต่อหน่วย</span>
-          </div>
-
-          <div
-            class="ml-3 font-bold text-sm md:text-base lg:text-lg xl:text-xl"
-          >
-            ค่าไฟ :
-            <span class="font-normal">{{ elecPerUnit }} บาทต่อหน่วย</span>
-          </div>
-
-          <div
-            class="ml-3 font-bold text-sm md:text-base lg:text-lg xl:text-xl"
-          >
-            ขนาดพื้นที่ :
-            <span class="font-normal"
-              >{{ roomType.dormHasRoomType.area }} ตารางเมตร</span
-            >
-          </div>
-
-          <div class="pt-5 font-bold md:text-lg lg:text-xl xl:text-2xl">
+          <div class="pt-5 font-bold text-lg lg:text-xl">
             รายละเอียดเพิ่มเติม
           </div>
-          <div
-            class="
-              w-full
-              text-gray-600
-              px-2
-              py-3
-              bg-ghostWhite
-              mt-3
-              rounded
-              text-sm
-              md:text-base
-              lg:text-lg
-              xl:text-xl
-            "
-          >
-            <div
-              class="text-sm md:text-base lg:text-lg xl:text-xl"
-              v-if="roomType.description"
-            >
-              {{ roomType.description }}
-            </div>
-            <div
-              v-else
-              class="text-gray-400 text-sm md:text-base lg:text-lg xl:text-xl"
-            >
-              &emsp;ไม่มีข้อมูล
-            </div>
+          <div class="w-full text-gray-400 px-2 py-3 bg-ghostWhite mt-3 rounded-lg text-sm lg:text-base 2xl:text-lg">
+            <div v-if="roomType.description">{{ roomType.description }}</div>
+            <div v-else>&emsp;ไม่มีข้อมูล</div>
           </div>
         </div>
       </div>
@@ -186,7 +126,7 @@
       </div>
 
       <!--All room-->
-      <h1 class="font-bold text-lg md:text-xl lg:text-2xl 2xl:text-3xl">
+      <h1 class="font-bold text-xl lg:text-2xl">
         ห้องพักทั้งหมด
       </h1>
       <!--      <div v-for="(room, index) in rooms" :key="index">-->
@@ -205,25 +145,22 @@
       <!--        </div>-->
       <!--      </div>-->
       <div v-for="(floor, key) in roomList" :key="key" class="flex flex-wrap">
-        <div class="w-full font-bold">ชั้น : {{ floor.floor }}</div>
+        <div class="w-full font-bold text-lg lg:text-xl">ชั้น : {{ floor.floor }}</div>
         <div
           v-for="(room, index) in floor.rooms.filter(x => x.roomType == roomType.type)"
           :key="index"
           class="w-1/2 md:w-1/3 lg:w-1/4"
         >
           <div class="p-5 m-1 rounded bg-ghostWhite flex flex-wrap shadow">
-            <p class="font-bold w-full md:text-center">
-              <span class="md:hidden">เลขห้อง: </span><b>{{ room.roomNum }}</b>
+            <p class="w-full">
+              เลขห้อง: <b>{{ room.roomNum }}</b>
             </p>
-            <div class="w-full text-success md:text-left md:w-1/2">
-              <div v-if="room.status == 'ว่าง'">
-                <span class="md:hidden">สถานะ: </span><b>{{ room.status }}</b>
-              </div>
-              <div v-else class="text-imperialRed">{{ room.status }}</div>
+            <div class="w-full">
+              <div v-if="room.status == 'ว่าง'">สถานะ: <b class="text-success">{{ room.status }}</b></div>
+              <div v-else>สถานะ: <b class="text-imperialRed">{{ room.status }}</b></div>
             </div>
-            <div class="w-full md:w-1/2 md:text-right">
-              <span class="md:hidden">ประเภทห้อง: </span
-              ><b>{{ room.roomType }}</b>
+            <div class="w-full">
+              <p>ประเภทห้อง: <b>{{ room.roomType }}</b></p>
             </div>
             <div>
               <div

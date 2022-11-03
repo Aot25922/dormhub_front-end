@@ -84,16 +84,7 @@
         >
         <textarea
           v-model="dorm.description"
-          class="
-            h-[80px]
-            md:h-24
-            p-2
-            w-full
-            border-0
-            input input-sm
-            md:input-md
-            rounded
-          "
+          class="textarea w-full"
           placeholder="คำอธิบายเพิ่มเติม"
         />
       </div>

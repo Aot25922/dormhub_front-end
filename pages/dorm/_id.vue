@@ -28,31 +28,29 @@
           </client-only>
         <div class="p-5">
         <div class="flex flex-1">
-          <h1 class="py-1 font-bold text-lg md:text-xl lg:text-2xl 2xl:text-3xl">{{ dorm.name }}</h1>
+          <h1 class="py-1 font-bold text-lg md:text-xl lg:text-2xl">{{ dorm.name }}</h1>
         </div>
-            <div class="pt-2 rounded-md text-sm md:text-base lg:text-lg xl:text-xl">
-          <p class="ml-3">
-          <span class="font-bold">ที่อยู่ :</span> {{ dorm.address }}
-          </p>
-          <p class="pt-2 ml-3 text-sm md:text-base lg:text-lg xl:text-xl"><span class="font-bold">ราคา :</span> {{ lowPrice }} - {{ highPrice }} บาท</p>
-          <p class="flex pt-2 ml-3 text-sm md:text-base lg:text-lg xl:text-xl">
-            <span class="font-bold">เวลา :</span>
-            <span v-if="dorm.openTime != null">&nbsp;{{ dorm.openTime }} -</span>
-            <span v-if="dorm.closeTime != null">&nbsp;{{ dorm.closeTime }} น.</span>
-            <span v-if="dorm.openTime != null && dorm.closeTime == null">เปิด {{ dorm.openTime }} น.</span>
-            <span v-if="dorm.openTime == null && dorm.closeTime != null">ปิด {{ dorm.closeTime }} น.</span>
-            <span v-if="dorm.openTime == null && dorm.closeTime == null">ไม่มีข้อมูล</span>
-          </p>
-          <p class="pt-2 font-bold">ช่องทางการติดต่อ:</p>
-          <ul class="list-none">
-            <li class="pl-3">อีเมล : <span class="text-light-blue">{{ dorm.userAccount.email }}</span></li>
-            <li class="pl-3">เบอร์โทรศัพท์ : <span class="text-light-blue">{{ dorm.userAccount.phone }}</span></li>
-          </ul>
+          <div class="pt-2 rounded-md text-sm lg:text-base 2xl:text-lg">
+            <p class="ml-3"><b>ที่อยู่ :</b> {{ dorm.address }}</p>
+            <p class="pt-2 ml-3"><b>ราคา :</b> {{ lowPrice }} - {{ highPrice }} บาท</p>
+            <p class="flex pt-2 ml-3">
+              <b>เวลา :</b>
+              <span v-if="dorm.openTime != null">&nbsp;{{ dorm.openTime }} -</span>
+              <span v-if="dorm.closeTime != null">&nbsp;{{ dorm.closeTime }} น.</span>
+              <span v-if="dorm.openTime != null && dorm.closeTime == null">เปิด {{ dorm.openTime }} น.</span>
+              <span v-if="dorm.openTime == null && dorm.closeTime != null">ปิด {{ dorm.closeTime }} น.</span>
+              <span v-if="dorm.openTime == null && dorm.closeTime == null">ไม่มีข้อมูล</span>
+            </p>
+            <p class="pt-2 font-bold lg:text-lg 2xl:text-xl">ช่องทางการติดต่อ:</p>
+            <ul class="list-none">
+              <li class="pl-3"><b>อีเมล :</b> {{ dorm.userAccount.email }}</li>
+              <li class="pl-3"><b>เบอร์โทรศัพท์ :</b> {{ dorm.userAccount.phone }}</li>
+            </ul>
         </div>
           </div>
         </div>
           <div class="my-5 dropdown">
-            <label tabindex="0" class="btn btn-neutral m-1 md:text-lg lg:text-xl xl:text-2xl">ประเภทห้องพัก<span class="material-icons">expand_more</span></label>
+            <label tabindex="0" class="btn btn-neutral m-1 text-lg md:text-xl lg:text-2xl">ประเภทห้องพัก<span class="material-icons">expand_more</span></label>
             <ul
               tabindex="0"
               class="dropdown-content menu p-2 shadow rounded-box w-52 bg-white border border-black"

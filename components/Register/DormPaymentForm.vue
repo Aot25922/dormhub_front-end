@@ -10,17 +10,21 @@
         >
           <div class="w-1/2 px-1 md:w-1/4">
             <label class="label-text tracking-wide font-bold my-2"
-              >เลขบัญชี <span class="text-accent">*</span> (<span v-text="10 - bankAccount.accountNum.length"></span> หลัก)</label
+              >เลขบัญชี <span class="text-accent">*</span></label
             >
             <input
               type="text"
-              class="py-4 mb-3 px-2 w-full input-md rounded border-0"
+              class="py-4 px-2 w-full input-md rounded border-0 disabled:text-gray-400 :disabled:bg-gray-800"
               placeholder="101100000"
               maxlength="10"
               v-model="bankAccount.accountNum"
               @blur="validate(bankAccount)"
               :disabled="disableForm"
             />
+            <div class="text-gray-300 pt-1 font-bold text-xs md:text-sm">
+              <span v-text="10 - bankAccount.accountNum.length"></span>
+              <span>หลัก</span>
+            </div>
           </div>
 
           <div class="w-1/2 px-1 md:w-1/4">
@@ -29,7 +33,7 @@
             >
             <input
               type="text"
-              class="py-4 mb-3 px-2 w-full input-md rounded border-0"
+              class="py-4 mb-3 px-2 w-full input-md rounded border-0 disabled:text-gray-400 :disabled:bg-gray-800"
               placeholder="เจ้าของบัญชี เท่มาก"
               v-model="bankAccount.accountName"
               @blur="validate(bankAccount)"
@@ -43,7 +47,7 @@
             >
             <select
               v-model="bankAccount.bankId"
-              class="select w-full border-0"
+              class="select w-full border-0 disabled:text-gray-400"
               @click="validate(bankAccount)"
               :disabled="disableForm"
             >
@@ -66,6 +70,7 @@
               @click="removeBankAccount(index)"
               class="btn btn-accent w-2/3"
               v-if="index > 0"
+              :disabled="disableForm"
             >
               <span class="material-icons">delete</span>
             </button>

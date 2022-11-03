@@ -125,16 +125,7 @@
         สิ่งอำนวยความสะดวก/บริการเสริม
       </h1>
       <textarea
-        class="
-          h-[80px]
-          md:h-24
-          p-2
-          mb-5
-          rounded
-          w-full
-          border-0
-          disabled:text-gray-400 disabled:bg-gray-900
-        "
+        class="textarea w-full disabled:text-gray-400"
         placeholder="สิ่งอำนวยความสะดวกต่าง ๆ"
         v-model="roomType.facility"
         @blur="validateForm"

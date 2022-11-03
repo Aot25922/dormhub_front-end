@@ -28,7 +28,7 @@
       <div class="">
         <span class="font-bold">ชั้น {{ floor.floor }}</span>
         <div v-for="(room, index) in floor.rooms" :key="index">
-          <div class="w-full rounded-md p-3 relative grid grid-cols-3">
+          <div class="w-full rounded-md p-3 relative grid grid-cols-3 md:grid-cols-4">
             <div class="col-span-1 px-1">
               <label class="label-text tracking-wide font-bold my-2"
                 >เลขห้อง
@@ -36,13 +36,13 @@
               >
               <input
                 type="text"
-                class="py-4 px-2 w-full input-md rounded border-0"
+                class="py-4 px-2 w-full input-md rounded border-0 disabled:text-gray-400 :disabled:bg-gray-800"
                 maxlength="6"
                 placeholder="A101"
                 v-model="room.roomNum"
                 :disabled="disableForm"
               />
-              <div class="text-gray-400 pt-1 font-bold text-xs md:text-sm lg:text-base">
+              <div class="text-gray-300 pt-1 font-bold text-xs md:text-sm">
                 <span v-text="6 - room.roomNum.length"></span>
                 <span>หลัก</span>
               </div>
@@ -53,20 +53,20 @@
                 >สถานะ</label
               >
               <div class="center con-switch py-2">
-                <vs-switch success class="w-full" v-model="room.status">
+                <vs-switch success class="w-full" v-model="room.status" :disabled="disableForm">
                   <template #off> ไม่ว่าง </template>
                   <template #on> ว่าง </template>
                 </vs-switch>
               </div>
             </div>
 
-            <div class="col-span-1 px-1">
+            <div class="col-span-1 px-1 md:col-span-2">
               <label class="label-text tracking-wide font-bold my-2"
                 >ประเภทห้อง</label
               >
               <select
                 v-if="editForm"
-                class="select mb-5 w-full"
+                class="select mb-5 w-full disabled:text-gray-400"
                 v-model="room.roomType"
                 :disabled="disableForm"
               >
@@ -83,7 +83,7 @@
 
               <select
                 v-else
-                class="select mb-5 w-full"
+                class="select mb-5 w-full disabled:text-gray-400"
                 v-model="room.roomType"
                 :disabled="disableForm"
               >
@@ -98,32 +98,20 @@
               </select>
             </div>
 
-            <div class="col-span-3 px-1">
+            <div class="col-span-3 px-1 md:col-span-4">
               <label class="label-text tracking-wide font-bold my-2"
-                >รายละเอียดเพิ่มเติม</label
+                >รายละเอียดเพิ่มเติม(ถ้ามี)</label
               >
               <textarea
                 type="text"
-                class="
-                  py-4
-                  mb-3
-                  px-2
-                  w-full
-                  input-sm
-                  md:input-md
-                  rounded
-                  border-0
-                  md:h-28
-                  h-20
-                  md:h-28
-                "
+                class="textarea w-full disabled:text-gray-400"
                 placeholder="โต๊ะ เตียง เก้าอี้"
                 v-model="room.description"
                 :disabled="disableForm"
               />
             </div>
 
-            <div class="col-span-3 ml-auto">
+            <div class="col-span-3 ml-auto md:col-span-4">
               <button
                 @click="
                   removeRoom(room);
