@@ -1,22 +1,22 @@
 <template>
   <div class="center pt-[6rem]">
-    <vs-table>
-      <template #thead>
+    <vs-table class="overflow-x-auto">
+      <template #thead class="flex justify-center">
         <vs-tr>
           <vs-th> ชื่อหอพัก </vs-th>
           <vs-th> ประเภทห้องพัก </vs-th>
           <vs-th> ราคา </vs-th>
           <vs-th> เลขห้องพัก </vs-th>
           <vs-th> ภาพสลิป </vs-th>
-          <vs-th> วันที่เริ่มเข้าพัก </vs-th>
-          <vs-th> วันที่สิ้นสุดการเข้าพัก </vs-th>
+          <vs-th> วันที่เริ่ม-สิ้นสุดเข้าพัก </vs-th>
+<!--          <vs-th> วันที่สิ้นสุดการเข้าพัก </vs-th>-->
           <vs-th v-if="$store.state.userAccount.role == 'Owner'">
             ผู้จอง
           </vs-th>
           <vs-th> สถานะ </vs-th>
         </vs-tr>
       </template>
-      <template #tbody v-if="bookingList">
+      <template #tbody v-if="bookingList" class="flex justify-center">
         <vs-tr
           :key="i"
           v-for="(tr, i) in $vs.getPage(bookingList, page, max)"
@@ -50,11 +50,12 @@
             </p>
           </vs-td>
           <vs-td>
-            {{ new Date(tr.startDate).toDateString() }}
+            <b>เริ่ม: </b> {{ new Date(tr.startDate).toDateString() }}
+            <br><b>สิ้นสุด: </b> {{ new Date(tr.endDate).toDateString() }}
           </vs-td>
-          <vs-td>
-            {{ new Date(tr.endDate).toDateString() }}
-          </vs-td>
+<!--          <vs-td>-->
+<!--            {{ new Date(tr.endDate).toDateString() }}-->
+<!--          </vs-td>-->
           <vs-td v-if="$store.state.userAccount.role == 'Owner'">
             <p>E-mail : {{ tr.userAccount.email }}</p>
             <p>เบอร์โทรศัพท์ : {{ tr.userAccount.phone }}</p>
@@ -69,7 +70,7 @@
             <div v-else-if="tr.status == 'รอการยืนยัน'">
               {{ tr.status }}
               <button
-                class="bg-imperialRed"
+                class="btn btn-accent btn-sm my-2"
                 @click="updateStatus(tr, 'ยกเลิก')"
               >
                 ยกเลิกการจอง
@@ -80,14 +81,14 @@
           <vs-td v-if="$store.state.userAccount.role == 'Owner'">
             <button
               v-if="tr.status == 'รอการยืนยัน'"
-              class="bg-emerald-600"
+              class="btn btn-success"
               @click="updateStatus(tr, 'รอการโอน')"
             >
               ยืนยัน
             </button>
             <button
               v-if="tr.status == 'รอการยืนยัน'"
-              class="bg-imperialRed"
+              class="btn btn-sm btn-accent"
               @click="updateStatus(tr, 'ยกเลิก')"
             >
               ยกเลิก
@@ -100,9 +101,8 @@
             <p v-else-if="tr.status == 'ยกเลิก'">ยกเลิกการจองเเล้ว</p>
             <button
               v-else
-              class="bg-imperialRed"
-              @click="updateStatus(tr, 'ยกเลิก')"
-            >
+              class="btn btn-accent"
+              @click="updateStatus(tr, 'ยกเลิก')">
               ยกเลิกการจอง
             </button>
           </vs-td>
