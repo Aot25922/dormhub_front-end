@@ -1,19 +1,6 @@
 <template>
   <!--  Search Bar with filer -->
   <div class="bg-white p-5 shadow rounded-xl md:flex md:flex-wrap md:p-8">
-<!--    <button-->
-<!--      @click="searchDorm(true)"-->
-<!--      v-if="-->
-<!--          search ||-->
-<!--          selectedRegion ||-->
-<!--          selectedProvince ||-->
-<!--          selectedDistrict ||-->
-<!--          selectedSubDistrict-->
-<!--        "-->
-<!--      class="btn btn-ghost w-full"-->
-<!--    >-->
-<!--      <span class="material-icons">clear</span>ล้างการกรอง-->
-<!--    </button>-->
     <div class="py-2 md:px-2 md:w-1/2">
       <h1 class="font-bold p-1">ค้นหาหอพักที่ต้องการ</h1>
       <input
@@ -130,7 +117,7 @@
         ">
       <div class="w-full md:w-1/2">
         <button @click="searchDorm(true)" class="btn btn-ghost w-full mb-5">
-          <span class="material-icons">clear</span>
+          <span class="material-icons">clear</span>ล้างการกรอง
         </button>
       </div>
       <div class="w-full md:w-1/2">
