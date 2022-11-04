@@ -194,7 +194,7 @@ export default {
       let newRoomList = [];
       for (let i in this.roomList) {
         this.roomList[i].rooms = this.roomList[i].rooms.filter(
-          (x) => !(x.roomNum == "" || x.roomType == "")
+          (x) => !(x.roomNum == "" && x.roomType == "")
         );
         for (let j in this.roomList[i].rooms) {
           newRoomList.push(this.roomList[i].rooms[j]);
