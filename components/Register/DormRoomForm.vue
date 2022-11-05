@@ -20,6 +20,22 @@
         </li>
       </ul>
     </div>
+    <div class="bg-indigo-800">
+      <h1>สร้างชั้นเเละห้องพัก :</h1>
+      <label class="label-text tracking-wide font-bold my-2">จำนวนชั้น </label>
+      <input type="number" v-model="floorCount" />
+      <label class="label-text tracking-wide font-bold my-2"
+        >จำนวนห้องในเเต่ละชั้น
+      </label>
+      <input type="number" v-model="roomPerFloor" />
+      <button v-if="editForm" class="bg-emerald-700" @click="confirmChange = true">
+        สร้างชั้นเเละห้องพักใหม่
+      </button>
+      <button v-else class="bg-emerald-700" @click="addFloorAndRoom">
+        สร้างชั้นเเละห้องพักใหม่
+      </button>
+    </div>
+    <h1>จำนวนชั้นในปัจจุบัน : {{ roomList.length }}</h1>
     <div
       v-for="(floor, index) in roomList"
       :key="index"
@@ -28,15 +44,32 @@
       <div class="">
         <span class="font-bold">ชั้น {{ floor.floor }}</span>
         <div v-for="(room, index) in floor.rooms" :key="index">
-          <div class="w-full rounded-md p-3 relative grid grid-cols-3 md:grid-cols-4">
+          <div
+            class="
+              w-full
+              rounded-md
+              p-3
+              relative
+              grid grid-cols-3
+              md:grid-cols-4
+            "
+          >
             <div class="col-span-1 px-1">
               <label class="label-text tracking-wide font-bold my-2"
                 >เลขห้อง
-                </label
-              >
+              </label>
               <input
                 type="text"
-                class="py-4 px-2 w-full input-md rounded border-0 disabled:text-gray-400 :disabled:bg-gray-800"
+                class="
+                  py-4
+                  px-2
+                  w-full
+                  input-md
+                  rounded
+                  border-0
+                  disabled:text-gray-400
+                  :disabled:bg-gray-800
+                "
                 maxlength="6"
                 placeholder="A101"
                 v-model="room.roomNum"
@@ -53,7 +86,12 @@
                 >สถานะ</label
               >
               <div class="center con-switch py-2">
-                <vs-switch success class="w-full" v-model="room.status" :disabled="disableForm">
+                <vs-switch
+                  success
+                  class="w-full"
+                  v-model="room.status"
+                  :disabled="disableForm"
+                >
                   <template #off> ไม่ว่าง </template>
                   <template #on> ว่าง </template>
                 </vs-switch>
@@ -113,20 +151,17 @@
 
             <div class="col-span-3 ml-auto md:col-span-4">
               <button
-                @click="
-                  removeRoom(room);
-                  $delete(floor.rooms, index);
-                "
+                @click="removeRoom(room, floor, index)"
                 class="btn btn-accent btn-sm"
-                v-if="floor.rooms.length > 1 && editForm"
+                v-if="floor.rooms.length > 0 && editForm"
               >
                 <span class="material-icons">delete</span>
                 ลบห้อง {{ room.roomNum }}
               </button>
               <button
-                @click="$delete(floor.rooms, index)"
+                @click="removeRoom(room, floor, index)"
                 class="btn btn-accent btn-sm"
-                v-else-if="floor.rooms.length > 1 && !disableForm"
+                v-else-if="floor.rooms.length > 0 && !disableForm"
               >
                 <span class="material-icons">delete</span>
                 ลบห้อง {{ room.roomNum }}
@@ -164,6 +199,23 @@
         ยืนยันการเเก้ไขข้อมูล
       </button>
     </div>
+    <vs-dialog width="550px" not-center v-model="confirmChange">
+              <template #header>
+                <h4 class="not-margin">
+                  การสร้างชั้นเเละห้องพักใหม่นี้จะลบข้อมูลเก่าของคุณทั้งหมดคุณเเน่ใจหรือไม่?</b>
+                </h4>
+              </template>
+              <template #footer>
+                <div class="con-footer">
+                  <vs-button @click="addFloorAndRoom" transparent>
+                    Ok
+                  </vs-button>
+                  <vs-button @click="confirmChange = false" dark transparent>
+                    Cancel
+                  </vs-button>
+                </div>
+              </template>
+            </vs-dialog>
   </div>
 </template>
 <script>
@@ -187,16 +239,31 @@ export default {
       ],
       deleteRoomList: [],
       disableForm: false,
+      floorCount: 0,
+      roomPerFloor: 0,
+      confirmChange:false
     };
   },
   methods: {
     async submit() {
       let newRoomList = [];
+      console.log(this.roomList);
       for (let i in this.roomList) {
-        this.roomList[i].rooms = this.roomList[i].rooms.filter(
-          (x) => !(x.roomNum == "" && x.roomType == "")
-        );
         for (let j in this.roomList[i].rooms) {
+          if (
+            this.roomList[i].rooms[j].roomNum == "" ||
+            this.roomList[i].rooms[j].roomType == ""
+          ) {
+            const noti = this.$vs.notification({
+              progress: "auto",
+              icon: `<i class='bx bx-folder-open' ></i>`,
+              color: "warn",
+              position: "top-right",
+              title: `เเจ้งเตือน`,
+              text: `มีบางห้องพักของคุณยังใส่ข้อมูลไม่เรียบร้อย`,
+            });
+            return;
+          }
           newRoomList.push(this.roomList[i].rooms[j]);
         }
       }
@@ -208,7 +275,6 @@ export default {
           newRoomList[i].status = "ไม่ว่าง";
         }
       }
-      console.log(newRoomList);
       if (this.editForm) {
         const loading = this.$vs.loading();
         for (let i in this.deleteRoomList) {
@@ -268,7 +334,13 @@ export default {
         this.$emit("validate", true);
       }
     },
-    removeRoom(room) {
+    removeRoom(room, floor, indexofRoom) {
+      if (floor) {
+        if (floor.rooms.length == 1) {
+          this.$delete(this.roomList, floor.floor - 1);
+        }
+        this.$delete(floor.rooms, indexofRoom);
+      }
       if (room.roomId != undefined) {
         room.delete = true;
         this.deleteRoomList.push(room);
@@ -286,19 +358,34 @@ export default {
         });
         return;
       }
-      let newFloor = this.roomList[this.roomList.length - 1].floor + 1;
-      this.roomList.push({
-        floor: newFloor,
-        rooms: [
-          {
-            roomNum: "",
-            status: true,
-            floors: newFloor,
-            description: "",
-            roomType: "",
-          },
-        ],
-      });
+      if (this.roomList.length == 0) {
+        this.roomList.push({
+          floor: 1,
+          rooms: [
+            {
+              roomNum: "",
+              status: true,
+              floors: 1,
+              description: "",
+              roomType: "",
+            },
+          ],
+        });
+      } else {
+        let newFloor = this.roomList[this.roomList.length - 1].floor + 1;
+        this.roomList.push({
+          floor: newFloor,
+          rooms: [
+            {
+              roomNum: "",
+              status: true,
+              floors: newFloor,
+              description: "",
+              roomType: "",
+            },
+          ],
+        });
+      }
     },
     addNewRoom(floor) {
       if (floor.rooms.length >= 15) {
@@ -319,6 +406,34 @@ export default {
         description: "",
         roomType: "",
       });
+    },
+    addFloorAndRoom() {
+      this.confirmChange = false
+      let newRoomList = [];
+      if (this.editForm) {
+        for (let i in this.roomList) {
+          for (let j in this.roomList[i].rooms) {
+            this.removeRoom(this.roomList[i].rooms[j]);
+          }
+        }
+      }
+      for (let i = 1; i <= this.floorCount; i++) {
+        let newFloor = {};
+        newFloor.floor = i;
+        let rooms = [];
+        for (let j = 0; j < this.roomPerFloor; j++) {
+          rooms.push({
+            roomNum: "",
+            status: true,
+            floors: i,
+            description: "",
+            roomType: "",
+          });
+          newFloor.rooms = rooms;
+        }
+        newRoomList.push(newFloor);
+      }
+      this.roomList = newRoomList;
     },
   },
   created() {
