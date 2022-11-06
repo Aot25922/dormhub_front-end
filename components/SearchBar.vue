@@ -107,30 +107,145 @@
       </select>
     </div>
 
-    <div class="py-3 w-full md:py-0 md:mt-10 md:w-1/2 md:px-2 md:flex md:flex-wrap">
-      <div class="w-full flex flex-wrap" v-if="
+    <div
+      class="py-3 w-full md:py-0 md:mt-10 md:w-1/2 md:px-2 md:flex md:flex-wrap"
+    >
+      <div
+        class="w-full flex flex-wrap"
+        v-if="
           search ||
           selectedRegion ||
           selectedProvince ||
           selectedDistrict ||
           selectedSubDistrict
-        ">
-      <div class="w-full md:w-1/2">
-        <button @click="searchDorm(true)" class="btn btn-ghost w-full mb-5">
-          <span class="material-icons">clear</span>ล้างการกรอง
-        </button>
-      </div>
-      <div class="w-full md:w-1/2">
-        <button @click="searchDorm(false)" class="btn btn-primary w-full">
-          ค้นหา
-        </button>
-      </div>
+        "
+      >
+        <div class="w-full md:w-1/2">
+          <button @click="searchDorm(true)" class="btn btn-ghost w-full mb-5">
+            <span class="material-icons">clear</span>ล้างการกรอง
+          </button>
+        </div>
+        <div class="w-full md:w-1/2">
+          <button @click="searchDorm(false)" class="btn btn-primary w-full">
+            ค้นหา
+          </button>
+        </div>
       </div>
       <div v-else class="w-full">
         <button @click="searchDorm(false)" class="btn btn-primary w-full">
           ค้นหา
         </button>
       </div>
+    </div>
+     <!--pricePerMonth Filter-->
+    <div class="py-2 md:px-2 md:w-1/2">
+      <h1 class="font-bold p-1">ราคาห้องพักต่อเดือน</h1>
+      <div class="flex">
+        <input
+          v-model="minPrice"
+          type=" number"
+          class="input w-full border-x-0 border-t-0 border-b-gray-400"
+          placeholder="0"
+        />
+        <h1>-</h1>
+        <input
+          v-model="maxPrice"
+          type=" number"
+          class="input w-full border-x-0 border-t-0 border-b-gray-400"
+          placeholder="0"
+        />
+      </div>
+    </div>
+
+    <!--Deposit Filter-->
+    <div class="py-2 md:px-2 md:w-1/2">
+      <h1 class="font-bold p-1">ราคาค่าจองห้องพัก</h1>
+      <div class="flex">
+        <input
+          v-model="minDeposit"
+          type=" number"
+          class="input w-full border-x-0 border-t-0 border-b-gray-400"
+          placeholder="0"
+        />
+        <h1>-</h1>
+        <input
+          v-model="maxDeposit"
+          type=" number"
+          class="input w-full border-x-0 border-t-0 border-b-gray-400"
+          placeholder="0"
+        />
+      </div>
+    </div>
+
+    <!--electricPermonth Filter-->
+    <div class="py-2 md:px-2 md:w-1/2">
+      <h1 class="font-bold p-1">ค่าไฟต่อหน่วย</h1>
+      <div class="flex">
+        <input
+          v-model="minElecPerUnit"
+          type=" number"
+          class="input w-full border-x-0 border-t-0 border-b-gray-400"
+          placeholder="0"
+        />
+        <h1>-</h1>
+        <input
+          v-model="maxElecPerUnit"
+          type=" number"
+          class="input w-full border-x-0 border-t-0 border-b-gray-400"
+          placeholder="0"
+        />
+      </div>
+    </div>
+
+    <!--waterPermonth Filter-->
+    <div class="py-2 md:px-2 md:w-1/2 flex">
+      <h1 class="font-bold p-1">ค่าน้ำต่อหน่วย</h1>
+      <div class="flex">
+        <input
+          v-model="minWaterPerUnit"
+          type=" number"
+          class="input w-full border-x-0 border-t-0 border-b-gray-400"
+          placeholder="0"
+        />
+        <h1>-</h1>
+        <input
+          v-model="maxWaterPerUnit"
+          type=" number"
+          class="input w-full border-x-0 border-t-0 border-b-gray-400"
+          placeholder="0"
+        />
+      </div>
+    </div>
+
+    <!--area Filter-->
+    <div class="py-2 md:px-2 md:w-1/2 flex">
+      <h1 class="font-bold p-1">ขนาดห้องพัก</h1>
+      <div class="flex">
+        <input
+          v-model="minArea"
+          type=" number"
+          class="input w-full border-x-0 border-t-0 border-b-gray-400"
+          placeholder="0"
+        />
+        <h1>-</h1>
+        <input
+          v-model="maxArea"
+          type=" number"
+          class="input w-full border-x-0 border-t-0 border-b-gray-400"
+          placeholder="0"
+        />
+      </div>
+    </div>
+
+    <!--roomTypeDes Filter-->
+    <div class="py-2 md:px-2 md:w-1/2 flex">
+      <h1 class="font-bold p-1">ข้อมูลห้องพักเพิ่มเติม</h1>
+      <input
+        v-model="roomTypeDes"
+        type=" text"
+        class="input w-full border-x-0 border-t-0 border-b-gray-400"
+        placeholder="พัดลม ทีวี เเอร์"
+      />
     </div>
   </div>
 </template>
@@ -146,12 +261,31 @@ export default {
       selectedProvince: "",
       selectedDistrict: "",
       selectedSubDistrict: "",
+      minPrice: 0,
+      maxPrice: 0,
+      minDeposit: 0,
+      maxDeposit: 0,
+      minElecPerUnit: 0,
+      maxElecPerUnit: 0,
+      minWaterPerUnit: 0,
+      maxWaterPerUnit: 0,
+      minArea: 0,
+      maxArea: 0,
+      roomTypeDes: "",
+      advanceFilter:false
     };
   },
   methods: {
     async searchDorm(clearFilter) {
       const loading = this.$vs.loading();
-      if (clearFilter || (this.search == "" && this.selectedRegion == "" && this.selectedProvince=="" && this.selectedDistrict == "" && this.selectedSubDistrict == "")) {
+      if (
+        clearFilter ||
+        (this.search == "" &&
+          this.selectedRegion == "" &&
+          this.selectedProvince == "" &&
+          this.selectedDistrict == "" &&
+          this.selectedSubDistrict == "" && this.advanceFilter)
+      ) {
         this.search = "";
         this.selectedRegion = "";
         this.selectedProvince = "";
@@ -197,6 +331,12 @@ export default {
           province: this.selectedProvince.name_th,
           district: this.selectedDistrict.name_th,
           subDistrict: this.selectedSubDistrict.name_th,
+          roomTypeDes:this.roomTypeDes,
+          elecPerUnit: this.maxElecPerUnit != 0 ? [this.minElecPerUnit,this.maxElecPerUnit] : null,
+          waterPerUnit: this.maxWaterPerUnit != 0 ? [this.minWaterPerUnit,this.maxWaterPerUnit] : null,
+          price: this.maxPrice != 0 ? [this.minPrice,this.maxPrice] : null,
+          deposit: this.maxDeposit != 0 ? [this.minDeposit,this.maxDeposit] : null,
+          area: this.maxArea != 0 ? [this.minArea,this.maxArea] : null
         };
         let formData = new FormData();
         formData.append("data", JSON.stringify(searchData));

@@ -260,6 +260,7 @@ export default {
         this.validateArea == false &&
         this.validateFacility == false
       ) {
+        this.roomType.description = this.roomType.facility
         let newRoomType = JSON.parse(JSON.stringify(this.roomType));
         newRoomType.oldRoomType = this.oldRoomType;
         let newRoomTypeImg = Object.assign({}, this.roomTypeInputImage);
@@ -277,6 +278,7 @@ export default {
               description: this.roomType.facility,
             },
           };
+          console.log(this.roomType.facility)
           formData.append("data", JSON.stringify(data));
           for (let i in this.roomTypeInputImage) {
             formData.append(
