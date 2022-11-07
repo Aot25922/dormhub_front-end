@@ -80,7 +80,7 @@
           w-full
           disabled:text-gray-400
         "
-        placeholder="200"
+        placeholder="2000"
         v-model="roomType.deposit"
         min="1"
         max="100000"

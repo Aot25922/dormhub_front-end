@@ -26,7 +26,11 @@
       </div>
 
       <!-- Error Img -->
-      <div @click="dormInfo()" v-else class="relative float-left w-1/3 cursor-pointer">
+      <div
+        @click="dormInfo()"
+        v-else
+        class="relative float-left w-1/3 cursor-pointer"
+      >
         <img
           src="@/assets/error/noData.png"
           class="h-full object-cover md:w-full md:max-h-40 lg:max-h-72"
@@ -35,11 +39,12 @@
       </div>
 
       <!-- Info -->
-      <div
-        class="p-2 pr-5 w-2/3 md:flex md:flex-col xl:py-5 xl:w-1/3"
-      >
+      <div class="p-2 pr-5 w-2/3 md:flex md:flex-col xl:py-5 xl:w-1/3">
         <!-- Dorm name -->
-        <h2 @click="dormInfo()" class="font-bold text-celadonBlue cursor-pointer hover:underline hover:underline-offset-auto hover:duration-300 md:pr-1 xl:p-0 xl:text-2xl">
+        <h2
+          @click="dormInfo()"
+          class="font-bold text-celadonBlue cursor-pointer hover:underline hover:underline-offset-auto hover:duration-300 md:pr-1 xl:p-0 xl:text-2xl"
+        >
           {{ dorm.name }}
         </h2>
         <!-- Address -->
@@ -79,13 +84,29 @@
         <!-- Description -->
         <div
           v-if="dorm.description != ''"
-          class="text-xs text-gray-500 p-5 pb-0 hidden lg:inline"
+          class="text-xs text-gray-500 p-5 pb-0 pr-20 hidden lg:inline"
         >
-          <p :class="{truncate: hideDetail}">"{{ dorm.description }}"</p>
-		  <div v-if="dorm.description.length > 52">
-		  	<p @click="hideDetail = false" v-if="hideDetail" class="text-xs text-info cursor-pointer">อ่านเพิ่มเติม</p>
-		  	<p @click="hideDetail = true" v-else class="text-xs text-info cursor-pointer">ย่อน้อยลง</p>
-		  </div>
+          <p :class="{ truncate: hideDetail }">"{{ dorm.description }}"</p>
+          <div v-if="dorm.description.length > 50">
+            <p
+              @click="hideDetail = false"
+              v-if="hideDetail"
+              class="text-xs text-info cursor-pointer flex items-center"
+            >
+              อ่านเพิ่มเติม<span class="material-symbols-outlined">
+                expand_more
+              </span>
+            </p>
+            <p
+              @click="hideDetail = true"
+              v-else
+              class="text-xs text-info cursor-pointer flex items-center"
+            >
+              ย่อน้อยลง<span class="material-symbols-outlined">
+                expand_less
+              </span>
+            </p>
+          </div>
         </div>
 
         <!-- Room remainning -->

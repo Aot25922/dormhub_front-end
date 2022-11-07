@@ -106,13 +106,17 @@
         </option>
       </select>
     </div>
-    <button
-      @click="advanceFilter = !advanceFilter"
-      class="btn btn-primary w-full"
-    >
-      ตัวเลือกเพิ่มเติม
-    </button>
-    <div v-if="advanceFilter">
+
+    <!-- Advance Filter Button -->
+    <div class="w-full flex items-end py-3 md:w-1/2">
+      <button
+        @click="advanceFilter = !advanceFilter"
+        class="btn btn-secondary w-full"
+      >
+        ตัวเลือกเพิ่มเติม<span class="material-symbols-outlined"> build </span>
+      </button>
+    </div>
+    <div v-if="advanceFilter" class="md:flex md:flex-wrap">
       <!--pricePerMonth Filter-->
       <div class="py-2 md:px-2 md:w-1/2">
         <h1 class="font-bold p-1">ราคาห้องพักต่อเดือน</h1>
@@ -121,14 +125,18 @@
             v-model="minPrice"
             type=" number"
             class="input w-full border-x-0 border-t-0 border-b-gray-400"
-            placeholder="0"
+            min="1"
+            max="100000"
+            placeholder="3000"
           />
-          <h1>-</h1>
+          <h1 class="px-1 flex items-center">-</h1>
           <input
             v-model="maxPrice"
             type=" number"
             class="input w-full border-x-0 border-t-0 border-b-gray-400"
-            placeholder="0"
+            min="1"
+            max="100000"
+            placeholder="100000"
           />
         </div>
       </div>
@@ -141,14 +149,18 @@
             v-model="minDeposit"
             type=" number"
             class="input w-full border-x-0 border-t-0 border-b-gray-400"
-            placeholder="0"
+            min="1"
+            max="100000"
+            placeholder="3000"
           />
-          <h1>-</h1>
+          <h1 class="px-1 flex items-center">-</h1>
           <input
             v-model="maxDeposit"
             type=" number"
             class="input w-full border-x-0 border-t-0 border-b-gray-400"
-            placeholder="0"
+            min="1"
+            max="100000"
+            placeholder="100000"
           />
         </div>
       </div>
@@ -161,72 +173,82 @@
             v-model="minElecPerUnit"
             type=" number"
             class="input w-full border-x-0 border-t-0 border-b-gray-400"
-            placeholder="0"
+            min="0.01"
+            max="50"
+            placeholder="0.01"
           />
-          <h1>-</h1>
+          <h1 class="px-1 flex items-center">-</h1>
           <input
             v-model="maxElecPerUnit"
             type=" number"
             class="input w-full border-x-0 border-t-0 border-b-gray-400"
-            placeholder="0"
+            min="0.01"
+            max="50"
+            placeholder="50.00"
           />
         </div>
       </div>
 
       <!--waterPermonth Filter-->
-      <div class="py-2 md:px-2 md:w-1/2 flex">
+      <div class="py-2 md:px-2 md:w-1/2">
         <h1 class="font-bold p-1">ค่าน้ำต่อหน่วย</h1>
         <div class="flex">
           <input
             v-model="minWaterPerUnit"
             type=" number"
             class="input w-full border-x-0 border-t-0 border-b-gray-400"
-            placeholder="0"
+            min="0.01"
+            max="50"
+            placeholder="0.01"
           />
-          <h1>-</h1>
+          <h1 class="px-1 flex items-center">-</h1>
           <input
             v-model="maxWaterPerUnit"
             type=" number"
             class="input w-full border-x-0 border-t-0 border-b-gray-400"
-            placeholder="0"
+            min="0.01"
+            max="50"
+            placeholder="50.00"
           />
         </div>
       </div>
 
       <!--area Filter-->
-      <div class="py-2 md:px-2 md:w-1/2 flex">
+      <div class="py-2 md:px-2 md:w-1/2">
         <h1 class="font-bold p-1">ขนาดห้องพัก</h1>
         <div class="flex">
           <input
             v-model="minArea"
             type=" number"
             class="input w-full border-x-0 border-t-0 border-b-gray-400"
-            placeholder="0"
+            min="1"
+            max="999.99"
+            placeholder="20"
           />
-          <h1>-</h1>
+          <h1 class="px-1 flex items-center">-</h1>
           <input
             v-model="maxArea"
             type=" number"
             class="input w-full border-x-0 border-t-0 border-b-gray-400"
-            placeholder="0"
+            min="1"
+            max="999.99"
+            placeholder="999.99"
           />
         </div>
       </div>
 
       <!--roomTypeDes Filter-->
-      <div class="py-2 md:px-2 md:w-1/2 flex">
+      <div class="py-2 md:px-2 md:w-1/2">
         <h1 class="font-bold p-1">ข้อมูลห้องพักเพิ่มเติม</h1>
         <input
           v-model="roomTypeDes"
           type=" text"
           class="input w-full border-x-0 border-t-0 border-b-gray-400"
-          placeholder="พัดลม ทีวี เเอร์"
+          placeholder="เล็ก ใหญ่ ทั่วไป รวม"
         />
       </div>
     </div>
-    <div
-      class="py-3 w-full md:py-0 md:mt-10 md:w-1/2 md:px-2 md:flex md:flex-wrap"
-    >
+    <div class="py-3 w-full flex flex-wrap md:py-0 md:mt-10">
       <div
         class="w-full flex flex-wrap"
         v-if="
@@ -237,12 +259,12 @@
           selectedSubDistrict
         "
       >
-        <div class="w-full md:w-1/2">
+        <div class="w-1/2">
           <button @click="searchDorm(true)" class="btn btn-ghost w-full mb-5">
             <span class="material-icons">clear</span>ล้างการกรอง
           </button>
         </div>
-        <div class="w-full md:w-1/2">
+        <div class="w-1/2">
           <button @click="searchDorm(false)" class="btn btn-primary w-full">
             ค้นหา
           </button>
@@ -250,7 +272,7 @@
       </div>
       <div v-else class="w-full">
         <button @click="searchDorm(false)" class="btn btn-primary w-full">
-          ค้นหา
+          <span class="material-symbols-outlined"> search </span>ค้นหา
         </button>
       </div>
     </div>
@@ -268,16 +290,16 @@ export default {
       selectedProvince: "",
       selectedDistrict: "",
       selectedSubDistrict: "",
-      minPrice: 0,
-      maxPrice: 0,
-      minDeposit: 0,
-      maxDeposit: 0,
-      minElecPerUnit: 0,
-      maxElecPerUnit: 0,
-      minWaterPerUnit: 0,
-      maxWaterPerUnit: 0,
-      minArea: 0,
-      maxArea: 0,
+      minPrice: null,
+      maxPrice: null,
+      minDeposit: null,
+      maxDeposit: null,
+      minElecPerUnit: null,
+      maxElecPerUnit: null,
+      minWaterPerUnit: null,
+      maxWaterPerUnit: null,
+      minArea: null,
+      maxArea: null,
       roomTypeDes: "",
       advanceFilter: false,
     };
@@ -292,16 +314,16 @@ export default {
           this.selectedProvince == "" &&
           this.selectedDistrict == "" &&
           this.selectedSubDistrict == "" &&
-          this.minPrice == 0 &&
-          this.maxPrice == 0 &&
-          this.minDeposit == 0 &&
-          this.maxDeposit == 0 &&
-          this.minElecPerUnit == 0 &&
-          this.maxElecPerUnit == 0 &&
-          this.minWaterPerUnit == 0 &&
-          this.maxWaterPerUnit == 0 &&
-          this.minArea == 0 &&
-          this.maxArea == 0 &&
+          this.minPrice == null &&
+          this.maxPrice == null &&
+          this.minDeposit == null &&
+          this.maxDeposit == null &&
+          this.minElecPerUnit == null &&
+          this.maxElecPerUnit == null &&
+          this.minWaterPerUnit == null &&
+          this.maxWaterPerUnit == null &&
+          this.minArea == null &&
+          this.maxArea == null &&
           this.roomTypeDes == "" &&
           !this.advanceFilter)
       ) {
@@ -318,16 +340,16 @@ export default {
         this.selectedProvince = "";
         this.selectedDistrict = "";
         this.selectedSubDistrict = "";
-        this.minPrice = 0;
-        this.maxPrice = 0;
-        this.minDeposit = 0;
-        this.maxDeposit = 0;
-        this.minElecPerUnit = 0;
-        this.maxElecPerUnit = 0;
-        this.minWaterPerUnit = 0;
-        this.maxWaterPerUnit = 0;
-        this.minArea = 0;
-        this.maxArea = 0;
+        this.minPrice = null;
+        this.maxPrice = null;
+        this.minDeposit = null;
+        this.maxDeposit = null;
+        this.minElecPerUnit = null;
+        this.maxElecPerUnit = null;
+        this.minWaterPerUnit = null;
+        this.maxWaterPerUnit = null;
+        this.minArea = null;
+        this.maxArea = null;
         this.roomTypeDes = "";
         this.advanceFilter = false;
       } else {
