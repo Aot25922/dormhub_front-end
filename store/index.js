@@ -1,16 +1,20 @@
 var _ = require('lodash');
 
 export const state = () => ({
-  Backend_URL: process.env.Backend_URL ||'http://localhost:3001',
+  Backend_URL: process.env.Backend_URL || 'http://localhost:3001',
   userAccount: { role: "Guest" },
   dormList: [],
   provinceList: [],
   selectedDorm: null,
   addressOption: [],
+  searchData: null,
   newDorm: { dorm: {}, address: {}, roomType: [], room: [], dormImg: [], roomTypeImg: {}, bankAccount: [] }
 });
 
 export const mutations = {
+  SET_SEARCH(state, data) {
+    state.searchData = data
+  },
   RESET_NEWDORM(state) {
     state.newDorm = { dorm: {}, address: {}, roomType: [], room: [], dormImg: [], roomTypeImg: {}, bankAccount: [] }
   },
@@ -101,16 +105,55 @@ export const actions = {
     }
   },
   async fetchDormList({ commit }, page) {
-    await this.$axios.get(`${this.state.Backend_URL}/dorm?page=${page}`,)
-      .then(response => {
-        commit('SET_DORMLIST', response.data)
-      }).catch(function (error) {
-        console.log(error);
-        commit('SET_DORMLIST', [])
-      })
+    const request = {
+      params: {
+        page: page,
+        limit: 5
+      },
+      withCredentials: true
+    }
+    if (this.state.searchData) {
+      let formData = new FormData();
+      let searchData = {
+        search: this.state.searchData.search,
+        region: this.state.searchData.selectedRegion.name,
+        province: this.state.searchData.selectedProvince.name_th,
+        district: this.state.searchData.selectedDistrict.name_th,
+        subDistrict: this.state.searchData.selectedSubDistrict.name_th,
+        roomTypeDes: this.state.searchData.roomTypeDes,
+        elecPerUnit:
+          this.state.searchData.maxElecPerUnit 
+            ? [this.state.searchData.minElecPerUnit, this.state.searchData.maxElecPerUnit]
+            : null,
+        waterPerUnit:
+          this.state.searchData.maxWaterPerUnit 
+            ? [this.state.searchData.minWaterPerUnit, this.state.searchData.maxWaterPerUnit]
+            : null,
+        price: this.state.searchData.maxPrice  ? [this.state.searchData.minPrice, this.state.searchData.maxPrice] : null,
+        deposit:
+          this.state.searchData.maxDeposit  ? [this.state.searchData.minDeposit, this.state.searchData.maxDeposit] : null,
+        area: this.state.searchData.maxArea  ? [this.state.searchData.minArea, this.state.searchData.maxArea] : null,
+      };
+      formData.append("data", JSON.stringify(searchData));
+      await this.$axios.post(`${this.state.Backend_URL}/dorm/search?page=${page}`, formData,request)
+        .then(response => {
+          commit('SET_DORMLIST', response.data)
+        }).catch(function (error) {
+          console.log(error);
+          commit('SET_DORMLIST', [])
+        })
+    } else {
+      await this.$axios.get(`${this.state.Backend_URL}/dorm?page=${page}`, request)
+        .then(response => {
+          commit('SET_DORMLIST', response.data)
+        }).catch(function (error) {
+          console.log(error);
+          commit('SET_DORMLIST', [])
+        })
+    }
   },
   async fetchDormOwnerList({ commit }, { page, dormIdList }) {
-    if(!dormIdList){
+    if (!dormIdList) {
       return
     }
     const request = {
@@ -164,7 +207,7 @@ export const actions = {
   },
   async addDorm({ state }) {
     let dorm = state.newDorm
-    if (!(_.isEmpty(dorm.dorm))  && !(_.isEmpty(dorm.roomType)) && !(_.isEmpty(dorm.room)) && !(_.isEmpty(dorm.dormImg)) && !(_.isEmpty(dorm.roomTypeImg))) {
+    if (!(_.isEmpty(dorm.dorm)) && !(_.isEmpty(dorm.roomType)) && !(_.isEmpty(dorm.room)) && !(_.isEmpty(dorm.dormImg)) && !(_.isEmpty(dorm.roomTypeImg))) {
       let formData = new FormData()
       let data = {}
       let newbankAccount = _.cloneDeep(dorm.bankAccount)
