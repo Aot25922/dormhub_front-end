@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="border p-3 rounded-lg my-3 shadow-lg">
+    <div class="border bg-neutral p-5 rounded-lg my-3 shadow-lg">
       <h1 class="text-lg ml-2 mb-2 font-bold">เพิ่มช่องทางการชำระเงิน</h1>
       <div>
         <div
@@ -9,12 +9,12 @@
           class="relative flex flex-wrap"
         >
           <div class="w-1/2 px-1 md:w-1/4">
-            <label class="label-text tracking-wide font-bold my-2"
+            <label class="label-text tracking-wide font-bold my-2 text-gray-500"
               >เลขบัญชี <span class="text-accent">*</span></label
             >
             <input
               type="text"
-              class="py-4 px-2 w-full input-md rounded border-0 disabled:text-gray-400 :disabled:bg-gray-800"
+              class="py-4 px-2 w-full input-md rounded border-gray-200 disabled:text-gray-400 disabled:bg-gray-800"
               placeholder="101100000"
               maxlength="10"
               v-model="bankAccount.accountNum"
@@ -23,17 +23,17 @@
             />
             <div class="text-gray-300 pt-1 font-bold text-xs md:text-sm">
               <span v-text="10 - bankAccount.accountNum.length"></span>
-              <span>หลัก</span>
+              <span>/10</span>
             </div>
           </div>
 
           <div class="w-1/2 px-1 md:w-1/4">
-            <label class="label-text tracking-wide font-bold my-2"
+            <label class="label-text tracking-wide font-bold my-2 text-gray-500"
               >ชื่อบัญชี <span class="text-accent">*</span></label
             >
             <input
               type="text"
-              class="py-4 mb-3 px-2 w-full input-md rounded border-0 disabled:text-gray-400 :disabled:bg-gray-800"
+              class="py-4 mb-3 px-2 w-full input-md rounded border-gray-200 disabled:text-gray-400 disabled:bg-gray-800"
               placeholder="เจ้าของบัญชี เท่มาก"
               v-model="bankAccount.accountName"
               @blur="validate(bankAccount)"
@@ -42,12 +42,12 @@
           </div>
 
           <div class="w-1/2 px-1 md:w-1/4">
-            <label class="label-text tracking-wide font-bold my-2"
+            <label class="label-text tracking-wide font-bold my-2 text-gray-500"
               >ธนาคาร <span class="text-accent">*</span></label
             >
             <select
               v-model="bankAccount.bankId"
-              class="select w-full border-0 disabled:text-gray-400"
+              class="select w-full border-gray-200 disabled:text-gray-400"
               @click="validate(bankAccount)"
               :disabled="disableForm"
             >

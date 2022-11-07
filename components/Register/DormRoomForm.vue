@@ -1,5 +1,6 @@
 <template>
   <div>
+	<!-- Condition -->
     <div>
       <h1 class="font-bold text-lg md:text-xl xl:text-2xl 2xl:text-3xl">
         ข้อกำหนด
@@ -20,28 +21,56 @@
         </li>
       </ul>
     </div>
-    <div class="bg-indigo-800">
-      <h1>สร้างชั้นเเละห้องพัก :</h1>
-      <label class="label-text tracking-wide font-bold my-2">จำนวนชั้น </label>
-      <input type="number" v-model="floorCount" />
-      <label class="label-text tracking-wide font-bold my-2"
-        >จำนวนห้องในเเต่ละชั้น
-      </label>
-      <input type="number" v-model="roomPerFloor" />
-      <button v-if="editForm" class="bg-emerald-700" @click="confirmChange = true">
-        สร้างชั้นเเละห้องพักใหม่
-      </button>
-      <button v-else class="bg-emerald-700" @click="addFloorAndRoom">
-        สร้างชั้นเเละห้องพักใหม่
-      </button>
+
+	<!-- Add Floor&Room Template -->
+    <div class="bg-neutral p-5 rounded-lg shadow-lg">
+      <h1 class="font-bold text-lg">สร้างชั้นเเละห้องพัก</h1>
+		<div class="flex wrap">
+			<div class="w-1/2 md:w-2/5">จำนวนชั้น : {{ roomList.length }}/10</div>
+			<div class="w-1/2 md:w-2/5">จำนวนห้องต่อชั้น : 
+				<span v-if="roomList.roomPerFloor != 0">{{ roomList.roomPerFloor }}</span>
+				<span>-</span>
+				/15</div>
+		</div>
+      <div class="flex flex-wrap">
+		<div class="p-1 w-1/2 md:w-2/5">
+			<label class="label-text tracking-wide font-bold my-2 text-gray-500">จำนวนชั้น </label>
+			<input type="number" min="1" max="10" v-model="floorCount" class="py-4
+						px-2
+						w-full
+						input-md
+						border-gray-200
+						rounded" />
+			</div>
+			<div class="p-1 w-1/2 md:w-2/5">
+				<label class="label-text tracking-wide font-bold my-2 text-gray-500"
+					>จำนวนห้องในเเต่ละชั้น
+				</label>
+				<input type="number" min="1" max="15" v-model="roomPerFloor" class="py-4
+						px-2
+						w-full
+						input-md
+						border-gray-200
+						rounded" />
+			</div>
+			<div class="w-full p-1 md:w-1/5 md:flex md:items-end">
+				<button v-if="editForm" class="btn btn-secondary w-full" @click="confirmChange = true">
+					สร้างชั้นเเละห้องพักใหม่
+				</button>
+				<button v-else class="btn btn-secondary w-full" @click="addFloorAndRoom">
+					สร้างชั้นเเละห้องพักใหม่
+				</button>
+			</div>
+		</div>
     </div>
-    <h1>จำนวนชั้นในปัจจุบัน : {{ roomList.length }}</h1>
-    <div
+    
+	<!-- Floor List -->
+	<div
       v-for="(floor, index) in roomList"
       :key="index"
-      class="rounded border shadow-lg p-5 mt-5"
+      class="rounded border shadow-lg p-5 mt-5 bg-neutral"
     >
-      <div class="">
+      <div>
         <span class="font-bold">ชั้น {{ floor.floor }}</span>
         <div v-for="(room, index) in floor.rooms" :key="index">
           <div
@@ -51,11 +80,11 @@
               p-3
               relative
               grid grid-cols-3
-              md:grid-cols-4
+              md:grid-cols-5
             "
           >
-            <div class="col-span-1 px-1">
-              <label class="label-text tracking-wide font-bold my-2"
+            <div class="col-span-1 px-1 md:col-span-1">
+              <label class="label-text tracking-wide font-bold my-2 text-gray-500"
                 >เลขห้อง
               </label>
               <input
@@ -65,8 +94,8 @@
                   px-2
                   w-full
                   input-md
+				  border-gray-200
                   rounded
-                  border-0
                   disabled:text-gray-400
                   :disabled:bg-gray-800
                 "
@@ -77,12 +106,12 @@
               />
               <div class="text-gray-300 pt-1 font-bold text-xs md:text-sm">
                 <span v-text="6 - room.roomNum.length"></span>
-                <span>หลัก</span>
+                <span>/6</span>
               </div>
             </div>
 
-            <div class="col-span-1 px-1">
-              <label class="label-text tracking-wide font-bold my-2"
+            <div class="col-span-1 px-1 md:col-span-1">
+              <label class="label-text tracking-wide font-bold my-2 text-gray-500"
                 >สถานะ</label
               >
               <div class="center con-switch py-2">
@@ -99,12 +128,12 @@
             </div>
 
             <div class="col-span-1 px-1 md:col-span-2">
-              <label class="label-text tracking-wide font-bold my-2"
+              <label class="label-text tracking-wide font-bold my-2 text-gray-500"
                 >ประเภทห้อง</label
               >
               <select
                 v-if="editForm"
-                class="select mb-5 w-full disabled:text-gray-400"
+                class="select mb-5 w-full border-gray-200 disabled:text-gray-400"
                 v-model="room.roomType"
                 :disabled="disableForm"
               >
@@ -136,27 +165,14 @@
               </select>
             </div>
 
-            <div class="col-span-3 px-1 md:col-span-4">
-              <label class="label-text tracking-wide font-bold my-2"
-                >รายละเอียดเพิ่มเติม(ถ้ามี)</label
-              >
-              <textarea
-                type="text"
-                class="textarea w-full disabled:text-gray-400"
-                placeholder="โต๊ะ เตียง เก้าอี้"
-                v-model="room.description"
-                :disabled="disableForm"
-              />
-            </div>
-
-            <div class="col-span-3 ml-auto md:col-span-4">
+			<div class="col-span-3 ml-auto md:col-span-1 py-10">
               <button
                 @click="removeRoom(room, floor, index)"
                 class="btn btn-accent btn-sm"
                 v-if="floor.rooms.length > 0 && editForm"
               >
                 <span class="material-icons">delete</span>
-                ลบห้อง {{ room.roomNum }}
+                ห้อง {{ room.roomNum }}
               </button>
               <button
                 @click="removeRoom(room, floor, index)"
@@ -164,7 +180,39 @@
                 v-else-if="floor.rooms.length > 0 && !disableForm"
               >
                 <span class="material-icons">delete</span>
-                ลบห้อง {{ room.roomNum }}
+                ห้อง {{ room.roomNum }}
+              </button>
+            </div>
+
+            <div class="col-span-3 px-1 md:col-span-5">
+              <label class="label-text tracking-wide font-bold my-2 text-gray-500"
+                >รายละเอียดเพิ่มเติม(ถ้ามี)</label
+              >
+              <textarea
+                type="text"
+                class="textarea w-full border-gray-200 disabled:text-gray-400"
+                placeholder="โต๊ะ เตียง เก้าอี้"
+                v-model="room.description"
+                :disabled="disableForm"
+              />
+            </div>
+
+            <div class="col-span-3 ml-auto md:hidden">
+              <button
+                @click="removeRoom(room, floor, index)"
+                class="btn btn-accent btn-sm"
+                v-if="floor.rooms.length > 0 && editForm"
+              >
+                <span class="material-icons">delete</span>
+                ห้อง {{ room.roomNum }}
+              </button>
+              <button
+                @click="removeRoom(room, floor, index)"
+                class="btn btn-accent btn-sm"
+                v-else-if="floor.rooms.length > 0 && !disableForm"
+              >
+                <span class="material-icons">delete</span>
+                ห้อง {{ room.roomNum }}
               </button>
             </div>
             <div class="col-span-3 divider"></div>

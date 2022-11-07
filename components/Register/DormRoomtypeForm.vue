@@ -1,6 +1,6 @@
 <template>
   <div
-    class="p-3 rounded-lg mb-3 relative border shadow-lg lg:flex lg:flex-wrap"
+    class="p-5 bg-neutral rounded-lg mb-3 relative border shadow-lg lg:flex lg:flex-wrap"
   >
     <button
       @click="removeRoomType"
@@ -20,9 +20,9 @@
           p-2
           mb-5
           rounded
-          border-none
           input input-sm
           md:input-md
+		  border-gray-200
           w-full
           disabled:text-gray-400
         "
@@ -46,7 +46,7 @@
           p-2
           mb-5
           rounded
-          border-none
+		border-gray-200
           input input-sm
           md:input-md
           w-full
@@ -74,7 +74,7 @@
           p-2
           mb-5
           rounded
-          border-none
+          border-gray-200
           input input-sm
           md:input-md
           w-full
@@ -102,7 +102,7 @@
           p-2
           mb-5
           rounded
-          border-none
+          border-gray-200
           input input-sm
           md:input-md
           w-full
@@ -125,7 +125,7 @@
         สิ่งอำนวยความสะดวก/บริการเสริม
       </h1>
       <textarea
-        class="textarea w-full disabled:text-gray-400"
+        class="textarea w-full border-gray-200 disabled:text-gray-400"
         placeholder="สิ่งอำนวยความสะดวกต่าง ๆ"
         v-model="roomType.facility"
         @blur="validateForm"

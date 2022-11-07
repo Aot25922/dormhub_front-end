@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="p-3 rounded-lg my-3 md:p-5 md:flex md:flex-wrap">
+    <div class="p-5 rounded-lg bg-neutral my-3 md:p-5 md:flex md:flex-wrap">
       <h1 class="text-lg ml-2 mb-2 font-bold md:w-full">เกี่ยวกับหอพัก</h1>
       <div class="mb-2 md:px-1 md:w-full">
         <label class="label-text text-gray-500 tracking-wide font-bold my-2"
@@ -9,7 +9,7 @@
         <input
           type="text"
           autofocus
-          class="py-4 px-2 w-full input input-sm md:input-md rounded"
+          class="py-4 px-2 w-full input input-sm md:input-md border-gray-200 rounded"
           placeholder="แฮปปี้ดอร์ม"
           @blur="checkForm"
           v-model="dorm.name"
@@ -24,7 +24,7 @@
         >
         <input
           type="time"
-          class="py-4 px-2 w-full input input-sm md:input-md rounded"
+          class="py-4 px-2 w-full input input-sm md:input-md border-gray-200 rounded"
           placeholder="06.00"
           @blur="checkForm"
           v-model="dorm.openTime"
@@ -36,7 +36,7 @@
         >
         <input
           type="time"
-          class="py-4 px-2 w-full input input-sm md:input-md rounded"
+          class="py-4 px-2 w-full input input-sm md:input-md border-gray-200 rounded"
           placeholder="22.00"
           @blur="checkForm"
           v-model="dorm.closeTime"
@@ -51,7 +51,7 @@
           step="0.01"
           @blur="checkForm"
           v-model="dorm.waterPerUnit"
-          class="py-4 px-2 w-full input input-sm md:input-md rounded"
+          class="py-4 px-2 w-full input input-sm md:input-md border-gray-200 rounded"
           placeholder="0.01 - 50.00"
         />
         <p v-if="!validateWater" class="text-imperialRed text-right mt-2">
@@ -67,7 +67,7 @@
           step="0.01"
           @blur="checkForm"
           v-model="dorm.elecPerUnit"
-          class="py-4 px-2 w-full input input-sm md:input-md rounded"
+          class="py-4 px-2 w-full input input-sm md:input-md border-gray-200 rounded"
           placeholder="0.01 - 50.00"
         />
         <p
@@ -84,7 +84,7 @@
         >
         <textarea
           v-model="dorm.description"
-          class="textarea w-full"
+          class="textarea border-gray-200 w-full"
           placeholder="คำอธิบายเพิ่มเติม"
         />
       </div>

@@ -1,5 +1,5 @@
 <template>
-  <div class="p-3 rounded-lg my-3 md:p-5 md:flex md:flex-wrap">
+  <div class="p-5 bg-neutral rounded-lg my-3 md:p-5 md:flex md:flex-wrap">
     <h1 class="text-lg ml-2 mb-2 font-bold md:w-full">สถานที่ตั้งหอพัก</h1>
     <div class="mb-5 md:px-1 md:w-1/2 lg:w-1/3">
       <label class="label-text text-gray-500 tracking-wide font-bold my-2"
@@ -7,7 +7,7 @@
       >
       <input
         v-model="address.number"
-        class="py-4 px-2 w-full input input-sm md:input-md rounded"
+        class="py-4 px-2 w-full input input-sm md:input-md rounded border-gray-200"
         placeholder="999/999"
         @blur="checkForm"
       />
@@ -22,7 +22,7 @@
       >
       <input
         v-model="address.street"
-        class="py-4 px-2 w-full input input-sm md:input-md rounded"
+        class="py-4 px-2 w-full input input-sm md:input-md rounded border-gray-200"
         placeholder="ถนนของเรา"
         @blur="checkForm"
       />
@@ -37,7 +37,7 @@
       >
       <input
         v-model="address.alley"
-        class="py-4 px-2 w-full input input-sm md:input-md rounded"
+        class="py-4 px-2 w-full input input-sm md:input-md rounded border-gray-200"
         placeholder="69"
       />
     </div>
@@ -49,7 +49,7 @@
       >
       <select
         v-model="selectedRegion"
-        class="select w-full text-gray-500 border-0"
+        class="select w-full text-gray-500 border-gray-200"
         @change="
           selectedProvince = null;
           selectedDistrict = null;
@@ -79,7 +79,7 @@
       >
       <select
         v-model="selectedProvince"
-        class="select w-full text-gray-500 border-0"
+        class="select w-full text-gray-500 border-gray-200"
         @change="
           selectedDistrict = null;
           selectedSubDistrict = null;
@@ -108,7 +108,7 @@
       >
       <select
         v-model="selectedDistrict"
-        class="select w-full text-gray-500 border-0"
+        class="select w-full text-gray-500 border-gray-200"
         @change="
           selectedSubDistrict = null;
           selectedZipCode = null;
@@ -136,7 +136,7 @@
       >
       <select
         v-model="selectedSubDistrict"
-        class="select w-full text-gray-500 border-0"
+        class="select w-full text-gray-500 border-gray-200"
         @change="
           selectedZipCode = null;
           checkForm();
@@ -163,7 +163,7 @@
       >
       <select
         v-model="selectedZipCode"
-        class="select w-full text-gray-500 border-0"
+        class="select w-full text-gray-500 border-gray-200"
         @change="checkForm()"
       >
         <option option disabled selected>กรุณาเลือกเลขไปรณีย์</option>

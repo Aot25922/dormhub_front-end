@@ -22,7 +22,7 @@
           ข้อมูลหอพัก
         </button>
         <button
-          class="btn btn-primary w-full w-1/4 mx-1 md:w-1/6"
+          class="btn btn-primary w-1/4 mx-1 md:w-1/6"
           @click="
             editDormInfo = false;
             editAddressInfo = true;
@@ -34,7 +34,7 @@
           ที่อยู่หอพัก
         </button>
         <button
-          class="btn btn-primary w-full w-1/4 mx-1 md:w-1/6"
+          class="btn btn-primary w-1/4 mx-1 md:w-1/6"
           @click="
             editDormInfo = false;
             editAddressInfo = false;
@@ -46,7 +46,7 @@
           ประเภทห้องพัก
         </button>
         <button
-          class="btn btn-primary w-full w-1/4 mx-1 md:w-1/6"
+          class="btn btn-primary w-1/4 mx-1 md:w-1/6"
           @click="
             editDormInfo = false;
             editAddressInfo = false;
@@ -58,7 +58,7 @@
           ข้อมูลของห้องพัก
         </button>
         <button
-          class="btn btn-primary w-full w-1/4 mx-1 md:w-1/6"
+          class="btn btn-primary w-1/4 mx-1 md:w-1/6"
           @click="
             editDormInfo = false;
             editAddressInfo = false;
