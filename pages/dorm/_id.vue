@@ -17,12 +17,12 @@
             <div class="slide text-white block relative h-60 md:h-[480px] lg:h-[550px]" v-for="i in dorm.media.filter(x => x.roomTypeId == null)" :key="i.mediaId">
               <img :src="$store.state.Backend_URL+'/dorm/image/'+dorm.dormId+'/'+i.mediaId" class="object-cover object-center w-full h-full" @error="checkDormImg = false"/>
             </div>
-            <template slot="prevButton"><span class="material-icons">chevron_left</span></template>
-            <template slot="nextButton"><span class="material-icons">chevron_right</span></template>
+            <template slot="prevButton" class="hover:bg-gray-700"><span class="material-icons">chevron_left</span></template>
+            <template slot="nextButton" class="hover:bg-gray-700"><span class="material-icons">chevron_right</span></template>
           </agile>
           <div v-else>
             <div class="relative">
-              <img src="@/assets/error/404.png" class="w-full mx-auto md:w-1/2 " />
+              <img src="@/assets/error/404.png" class="w-full mx-auto md:w-1/2" />
             </div>
           </div>
           </client-only>
@@ -41,6 +41,13 @@
               <span v-if="dorm.openTime == null && dorm.closeTime != null">ปิด {{ dorm.closeTime }} น.</span>
               <span v-if="dorm.openTime == null && dorm.closeTime == null">ไม่มีข้อมูล</span>
             </p>
+			<div class="pt-5 font-bold text-lg lg:text-xl">
+            รายละเอียดเพิ่มเติม
+			</div>
+			<div class="w-full text-gray-400 px-2 py-3 bg-ghostWhite mt-3 rounded-lg text-sm lg:text-base 2xl:text-lg">
+				<div v-if="dorm.description">{{ dorm.description }}</div>
+				<div v-else>&emsp;ไม่มีข้อมูล</div>
+          	</div>
             <p class="pt-2 font-bold lg:text-lg 2xl:text-xl">ช่องทางการติดต่อ:</p>
             <ul class="list-none">
               <li class="pl-3"><b>อีเมล :</b> {{ dorm.userAccount.email }}</li>

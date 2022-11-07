@@ -2,11 +2,14 @@
   <!-- Using in dormList page -->
   <div>
     <div
-      @click="dormInfo()"
-      class="flex flex-row w-full rounded-lg shadow border my-2 hover:shadow-xl hover:duration-300"
+      class="flex flex-wrap w-full rounded-lg shadow border my-2 hover:shadow-xl hover:duration-300"
     >
       <!-- Img -->
-      <div v-if="checkDormImg" class="relative float-left w-2/5 xl:w-1/3">
+      <div
+        @click="dormInfo()"
+        v-if="checkDormImg"
+        class="relative float-left w-1/3 cursor-pointer"
+      >
         <img
           :src="
             $store.state.Backend_URL +
@@ -23,7 +26,7 @@
       </div>
 
       <!-- Error Img -->
-      <div v-else class="relative float-left w-2/5 xl:w-1/3">
+      <div @click="dormInfo()" v-else class="relative float-left w-1/3 cursor-pointer">
         <img
           src="@/assets/error/noData.png"
           class="h-full object-cover md:w-full md:max-h-40 lg:max-h-72"
@@ -32,50 +35,105 @@
       </div>
 
       <!-- Info -->
-      <div class="p-2 w-3/5 md:flex md:flex-col xl:py-5 xl:1/3">
-        <h2 class="font-bold text-celadonBlue xl:text-2xl">
+      <div
+        class="p-2 pr-5 w-2/3 md:flex md:flex-col xl:py-5 xl:w-1/3"
+      >
+        <!-- Dorm name -->
+        <h2 @click="dormInfo()" class="font-bold text-celadonBlue cursor-pointer hover:underline hover:underline-offset-auto hover:duration-300 md:pr-1 xl:p-0 xl:text-2xl">
           {{ dorm.name }}
         </h2>
+        <!-- Address -->
         <div class="flex py-2 text-gray-500 md:py-5 xl:text-sm">
           <span class="material-symbols-outlined">location_on</span>
-          <p class="text-xs px-1 md:pr-44 xl:flex xl:items-center">
+          <p class="text-xs px-1 md:pr-44 xl:flex xl:items-center xl:p-0">
             {{ dorm.address }}
           </p>
         </div>
-        <div class="flex xl:hidden">
-          <div class="text-2xl ml-auto text-imperialRed font-medium lg:ml-0">
-            <span class="text-gray-400 text-xs">฿</span> {{ minPrice }}
+
+        <!-- Water&Electric -->
+        <div class="flex flex-wrap text-xs text-gray-500">
+          <!-- Water Per Unit -->
+          <div class="w-1/2 flex flex-row items-center">
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/3119/3119421.png"
+              class="w-5"
+            />
+            <span class="pl-1 w-full"
+              >฿ {{ dorm.waterPerUnit }}
+              <span class="hidden md:inline">ต่อหน่วย</span></span
+            >
+          </div>
+          <!-- Electric Per Unit-->
+          <div class="w-1/2 flex flex-row items-center">
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/616/616660.png"
+              class="w-5"
+            />
+            <span class="pl-1 w-full"
+              >฿ {{ dorm.elecPerUnit }}
+              <span class="hidden md:inline">ต่อหน่วย</span></span
+            >
           </div>
         </div>
-        <!-- Permission Button -->
+
+        <!-- Description -->
         <div
-          class="flex flex-wrap md:flex-row"
+          v-if="dorm.description != ''"
+          class="text-xs text-gray-500 p-5 pb-0 hidden lg:inline"
+        >
+          <p :class="{truncate: hideDetail}">"{{ dorm.description }}"</p>
+		  <div v-if="dorm.description.length > 52">
+		  	<p @click="hideDetail = false" v-if="hideDetail" class="text-xs text-info cursor-pointer">อ่านเพิ่มเติม</p>
+		  	<p @click="hideDetail = true" v-else class="text-xs text-info cursor-pointer">ย่อน้อยลง</p>
+		  </div>
+        </div>
+
+        <!-- Room remainning -->
+        <div class="pt-5 pr-5 flex justify-end xl:hidden">
+          <div
+            v-if="(dorm.rooms.status = 'ว่าง' && dorm.rooms.length <= 5)"
+            class="badge badge-accent"
+          >
+            เหลือ {{ dorm.rooms.length }} ห้อง
+          </div>
+        </div>
+
+        <!-- Beginning Price Mobile to Ipad -->
+        <div class="flex xl:hidden">
+          <div class="text-2xl ml-auto text-imperialRed font-medium md:pr-1">
+            <span class="text-gray-400 text-xs">เริ่มต้นที่ ฿&nbsp;</span>
+            {{ minPrice }}
+          </div>
+        </div>
+
+        <!-- Permission Button: 1024px or more than -->
+        <div
+          class="hidden h-full items-end lg:flex"
           v-if="
             $store.state.userAccount.role == 'Owner' &&
             $route.path.includes('dormList/owner')
           "
         >
-          <div class="w-full lg:w-1/2">
-            <button
-              v-if="
-                $store.state.userAccount.role == 'Owner' &&
-                $route.path.includes('dormList/owner')
-              "
-              @click="dormInfo('edit')"
-              class="btn btn-accent w-full duration-300 ease-in-out"
-            >
-              เเก้ไขข้อมูลหอพัก
-            </button>
-            <button
-              v-if="
-                $store.state.userAccount.role == 'Owner' &&
-                $route.path.includes('dormList/owner')
-              "
-              @click="confirmDelete = true"
-              class="btn btn-accent w-full duration-300 ease-in-out"
-            >
-              ลบหอพักนี้
-            </button>
+          <div class="flex flex-row w-full">
+            <!-- Edit Dorm -->
+            <div class="pl-3 pr-1 py-3 w-4/5 xl:pb-0">
+              <button
+                @click="dormInfo('edit')"
+                class="btn btn-warning w-full duration-300 ease-in-out"
+              >
+                <span class="material-symbols-outlined"> border_color </span>
+              </button>
+            </div>
+
+            <!-- Delete Dorm -->
+            <div class="pl-1 pr-3 py-3 w-1/5 xl:pb-0">
+              <button
+                @click="confirmDelete = true"
+                class="btn btn-accent w-full duration-300 ease-in-out"
+              >
+                <span class="material-symbols-outlined"> delete </span>
+              </button>
+            </div>
             <vs-dialog width="550px" not-center v-model="confirmDelete">
               <template #header>
                 <h4 class="not-margin">
@@ -105,37 +163,117 @@
               </template>
             </vs-dialog>
           </div>
-          <!-- <div class="w-full lg:w-1/2">
-            <button
-              @click="dormInfo()"
-              class="hidden lg:block btn btn-primary w-full duration-300 ease-in-out"
-            >
-              รายละเอียดทั้งหมด
-            </button>
-          </div> -->
         </div>
       </div>
+
       <!-- Mobile to Ipad -->
-      <div class="flex items-center xl:hidden">
+      <div
+        @click="dormInfo()"
+        class="flex items-center justify-end w-0 xl:hidden"
+      >
         <span class="material-symbols-outlined"> arrow_forward_ios </span>
+      </div>
+
+      <!-- Permission Button: mobile to Ipad -->
+      <div
+        class="w-full lg:hidden"
+        v-if="
+          $store.state.userAccount.role == 'Owner' &&
+          $route.path.includes('dormList/owner')
+        "
+      >
+        <div class="flex flex-row w-full">
+          <!-- Edit Dorm -->
+          <div class="w-3/4 pl-3 pr-1 py-3">
+            <button
+              v-if="
+                $store.state.userAccount.role == 'Owner' &&
+                $route.path.includes('dormList/owner')
+              "
+              @click="dormInfo('edit')"
+              class="btn btn-warning w-full duration-300 ease-in-out"
+            >
+              <span class="material-symbols-outlined"> border_color </span>
+            </button>
+          </div>
+
+          <!-- Delete Dorm -->
+          <div class="w-1/4 pl-1 pr-3 py-3">
+            <button
+              v-if="
+                $store.state.userAccount.role == 'Owner' &&
+                $route.path.includes('dormList/owner')
+              "
+              @click="confirmDelete = true"
+              class="btn btn-accent w-full duration-300 ease-in-out"
+            >
+              <span class="material-symbols-outlined"> delete </span>
+            </button>
+          </div>
+          <vs-dialog width="550px" not-center v-model="confirmDelete">
+            <template #header>
+              <h4 class="not-margin">
+                คุณกำลังจะลบหอพัก : <b>{{ dorm.name }}</b>
+              </h4>
+            </template>
+
+            <div class="con-content">
+              <ul>
+                <li>ข้อกำหนดในการลบหอพัก :</li>
+                <li>
+                  1. สถานะการจองห้องพักทั้งหมดต้องเป็น "ยืนยันการโอน" หรือ
+                  "ยกเลิก" เท่านั้น
+                </li>
+                <li>2. ข้อมูลที่ถูกลบไปเเล้วจะไม่สามารถกู้คืนได้</li>
+                <li>คุณยืนยันในการลบหรือไม่?</li>
+              </ul>
+            </div>
+
+            <template #footer>
+              <div class="con-footer">
+                <vs-button @click="deleteDorm" transparent> Ok </vs-button>
+                <vs-button @click="confirmDelete = false" dark transparent>
+                  Cancel
+                </vs-button>
+              </div>
+            </template>
+          </vs-dialog>
+        </div>
       </div>
 
       <!-- 1440px to 4k -->
       <div class="hidden xl:flex xl:w-1/3 xl:items-end border-l">
         <div class="w-full flex flex-col p-5">
-			<div class="text-2xl text-imperialRed font-medium flex justify-end py-5">
-			<span class="text-gray-400">฿&nbsp;</span> {{ minPrice }}
-			</div>
-			<div>
-				<button
-				@click="dormInfo()"
-				class="btn btn-primary w-full duration-300 ease-in-out hover:shadow-xl"
-				>
-				เลือกห้องพัก
-				<span class="material-symbols-outlined"> arrow_forward_ios </span>
-				</button>
-			</div>
-		</div>
+          <div class="grid grid-cols-2">
+            <!-- Room remainning -->
+            <div class="flex justify-start items-center py-5">
+              <div
+                v-if="(dorm.rooms.status = 'ว่าง' && dorm.rooms.length <= 5)"
+                class="badge badge-accent"
+              >
+                เหลือ {{ dorm.rooms.length }} ห้อง
+              </div>
+            </div>
+            <!-- Minimun Price -->
+            <div
+              class="text-2xl text-imperialRed font-medium flex flex-row justify-end py-5"
+            >
+              <span class="text-gray-400"
+                ><span class="text-xs">เริ่มต้นที่</span> ฿&nbsp;</span
+              >
+              {{ minPrice }}
+            </div>
+          </div>
+          <div>
+            <button
+              @click="dormInfo()"
+              class="btn btn-primary w-full duration-300 ease-in-out hover:shadow-xl"
+            >
+              รายละเอียดเพิ่มเติม
+              <span class="material-symbols-outlined"> arrow_forward_ios </span>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -146,6 +284,7 @@ export default {
   props: ["dorm"],
   data() {
     return {
+      hideDetail: true,
       checkDormImg: this.$props.dorm != null,
       rand: Math.random(),
       confirmDelete: false,
@@ -202,13 +341,13 @@ export default {
       }
       return Math.min(...minvalue);
     },
-    maxPrice() {
-      let maxvalue = [];
-      for (let i in this.dorm.roomTypes) {
-        maxvalue.push(this.dorm.roomTypes[i].dormHasRoomType.price);
-      }
-      return Math.max(...maxvalue);
-    },
+    // maxPrice() {
+    //   let maxvalue = [];
+    //   for (let i in this.dorm.roomTypes) {
+    //     maxvalue.push(this.dorm.roomTypes[i].dormHasRoomType.price);
+    //   }
+    //   return Math.max(...maxvalue);
+    // },
   },
 };
 </script>

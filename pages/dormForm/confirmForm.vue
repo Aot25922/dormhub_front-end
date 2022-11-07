@@ -33,7 +33,7 @@
             <div
               class="bg-ghostWhite p-5 text-gray-500 rounded-lg mt-2 text-xs"
             >
-              <div v-if="dorm.description != null">
+              <div v-if="dorm.dorm.description != null">
                 <p>{{ dorm.dorm.description }}</p>
               </div>
               <div v-else>ไม่มีข้อมูล</div>
