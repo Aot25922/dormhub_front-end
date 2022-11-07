@@ -19,7 +19,8 @@ export default {
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       { rel: "stylesheet", href: 'https://fonts.googleapis.com/css2?family=Kanit:wght@100;200;300;400;500;600;700;800;900&display=swap' },
-      { rel: "stylesheet", href: 'https://fonts.googleapis.com/css2?family=Itim&display=swap'}
+      { rel: "stylesheet", href: 'https://fonts.googleapis.com/css2?family=Itim&display=swap'},
+	  { rel: "stylesheet", href: 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0' }
     ]
   },
 

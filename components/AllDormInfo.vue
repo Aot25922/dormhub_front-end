@@ -1,8 +1,12 @@
 <template>
   <!-- Using in dormList page -->
   <div>
-    <div class="card w-full shadow-xl my-5 md:card-side">
-      <figure v-if="checkDormImg" class="relative md:w-1/2 lg:w-1/3">
+    <div
+      @click="dormInfo()"
+      class="flex flex-row w-full rounded-lg shadow border my-2 hover:shadow-xl hover:duration-300"
+    >
+      <!-- Img -->
+      <div v-if="checkDormImg" class="relative float-left w-2/5 xl:w-1/3">
         <img
           :src="
             $store.state.Backend_URL +
@@ -14,60 +18,44 @@
             $route.params.rand
           "
           @error="checkDormImg = false"
-          class="w-full h-full object-cover"
+          class="h-full object-cover md:w-full md:max-h-40 lg:max-h-72"
         />
-      </figure>
-      <figure v-else class="relative md:w-1/2 lg:w-1/3">
+      </div>
+
+      <!-- Error Img -->
+      <div v-else class="relative float-left w-2/5 xl:w-1/3">
         <img
-          src="https://placeimg.com/400/225/arch"
-          class="h-full w-full object-cover"
+          src="@/assets/error/noData.png"
+          class="h-full object-cover md:w-full md:max-h-40 lg:max-h-72"
+          alt="No Image"
         />
-      </figure>
-      <div class="card-body">
-        <h2 class="card-title">
+      </div>
+
+      <!-- Info -->
+      <div class="p-2 w-3/5 md:flex md:flex-col xl:py-5 xl:1/3">
+        <h2 class="font-bold text-celadonBlue xl:text-2xl">
           {{ dorm.name }}
         </h2>
-        <div class="flex space-x-0 text-gray-500">
-          <span class="material-icons">location_on</span>
-          <p class="text-xs mt-1 px-1 lg:text-base">
+        <div class="flex py-2 text-gray-500 md:py-5 xl:text-sm">
+          <span class="material-symbols-outlined">location_on</span>
+          <p class="text-xs px-1 md:pr-44 xl:flex xl:items-center">
             {{ dorm.address }}
           </p>
         </div>
-        <div class="flex py-1 text-gray-500">
-          <span class="material-icons">schedule</span>
-          <div class="text-xs flex px-1 mt-1 lg:text-base">
-            <h1 v-if="dorm.openTime != null">{{ dorm.openTime }}-</h1>
-            <h1 v-if="dorm.closeTime != null">&nbsp;{{ dorm.closeTime }} น.</h1>
-            <h1 v-if="dorm.openTime != null && dorm.closeTime == null">
-              เปิด {{ dorm.openTime }} น.
-            </h1>
-            <h1 v-if="dorm.openTime == null && dorm.closeTime != null">
-              ปิด {{ dorm.closeTime }} น.
-            </h1>
-            <span v-if="dorm.openTime == null && dorm.closeTime == null"
-              >ไม่มีข้อมูล</span
-            >
+        <div class="flex xl:hidden">
+          <div class="text-2xl ml-auto text-imperialRed font-medium lg:ml-0">
+            <span class="text-gray-400 text-xs">฿</span> {{ minPrice }}
           </div>
         </div>
-        <div class="flex py-1 text-gray-500">
-          <span class="material-icons">local_offer</span>
-          <div
-            class="text-xs px-1 mt-1 lg:text-base"
-            v-if="minPrice != maxPrice"
-          >
-            {{ minPrice }} ถึง {{ maxPrice }} บาท<span
-              class="text-gray-400 font-normal"
-              >/ เดือน</span
-            >
-          </div>
-          <div class="text-xs px-1 mt-1 lg:text-base" v-else>
-            {{ minPrice }} บาท<span class="text-gray-400 font-normal"
-              >/ เดือน</span
-            >
-          </div>
-        </div>
-        <div class="flex flex-wrap md:flex-row">
-          <div class="w-full p-1 lg:w-1/2">
+        <!-- Permission Button -->
+        <div
+          class="flex flex-wrap md:flex-row"
+          v-if="
+            $store.state.userAccount.role == 'Owner' &&
+            $route.path.includes('dormList/owner')
+          "
+        >
+          <div class="w-full lg:w-1/2">
             <button
               v-if="
                 $store.state.userAccount.role == 'Owner' &&
@@ -109,9 +97,7 @@
 
               <template #footer>
                 <div class="con-footer">
-                  <vs-button @click="deleteDorm" transparent>
-                    Ok
-                  </vs-button>
+                  <vs-button @click="deleteDorm" transparent> Ok </vs-button>
                   <vs-button @click="confirmDelete = false" dark transparent>
                     Cancel
                   </vs-button>
@@ -119,15 +105,37 @@
               </template>
             </vs-dialog>
           </div>
-          <div class="w-full p-1 lg:w-1/2">
+          <!-- <div class="w-full lg:w-1/2">
             <button
               @click="dormInfo()"
-              class="btn btn-primary w-full duration-300 ease-in-out"
+              class="hidden lg:block btn btn-primary w-full duration-300 ease-in-out"
             >
               รายละเอียดทั้งหมด
             </button>
-          </div>
+          </div> -->
         </div>
+      </div>
+      <!-- Mobile to Ipad -->
+      <div class="flex items-center xl:hidden">
+        <span class="material-symbols-outlined"> arrow_forward_ios </span>
+      </div>
+
+      <!-- 1440px to 4k -->
+      <div class="hidden xl:flex xl:w-1/3 xl:items-end border-l">
+        <div class="w-full flex flex-col p-5">
+			<div class="text-2xl text-imperialRed font-medium flex justify-end py-5">
+			<span class="text-gray-400">฿&nbsp;</span> {{ minPrice }}
+			</div>
+			<div>
+				<button
+				@click="dormInfo()"
+				class="btn btn-primary w-full duration-300 ease-in-out hover:shadow-xl"
+				>
+				เลือกห้องพัก
+				<span class="material-symbols-outlined"> arrow_forward_ios </span>
+				</button>
+			</div>
+		</div>
       </div>
     </div>
   </div>
@@ -157,14 +165,14 @@ export default {
     },
     async deleteDorm() {
       const loading = this.$vs.loading();
-      try{
-      await this.$axios.$delete(
-        `${this.$store.state.Backend_URL}/dorm/${this.dorm.dormId}`,
-        {
-          withCredentials: true,
-        }
-      );
-      const noti = this.$vs.notification({
+      try {
+        await this.$axios.$delete(
+          `${this.$store.state.Backend_URL}/dorm/${this.dorm.dormId}`,
+          {
+            withCredentials: true,
+          }
+        );
+        const noti = this.$vs.notification({
           progress: "auto",
           icon: `<i class='bx bx-folder-open' ></i>`,
           color: "success",
@@ -173,7 +181,7 @@ export default {
           text: `หอพัก ${this.dorm.name} ได้ถูกลบเเล้ว`,
         });
         loading.close();
-      }catch(error){
+      } catch (error) {
         loading.close();
         const noti = this.$vs.notification({
           progress: "auto",
