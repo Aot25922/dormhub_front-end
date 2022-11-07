@@ -256,7 +256,8 @@
           selectedRegion ||
           selectedProvince ||
           selectedDistrict ||
-          selectedSubDistrict
+          selectedSubDistrict ||
+          advanceFilter
         "
       >
         <div class="w-1/2">
