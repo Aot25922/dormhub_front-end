@@ -8,8 +8,13 @@
           <vs-th> ราคา </vs-th>
           <vs-th> เลขห้อง </vs-th>
           <vs-th> ภาพสลิป </vs-th>
+<<<<<<< HEAD
           <vs-th> วันที่เริ่มการเข้าพัก </vs-th>
           <vs-th> วันที่สิ้นสุดการเข้าพัก </vs-th>
+=======
+          <vs-th> วันที่เริ่ม-สิ้นสุดเข้าพัก </vs-th>
+          <!--          <vs-th> วันที่สิ้นสุดการเข้าพัก </vs-th>-->
+>>>>>>> e4bc9f2792451705971caaa0adf2f0babdb64ac7
           <vs-th v-if="$store.state.userAccount.role == 'Owner'">
             ผู้จอง
           </vs-th>
@@ -35,7 +40,7 @@
             {{ tr.room.roomNum }}
           </vs-td>
           <vs-td>
-            <img
+            <div
               v-if="tr.status == 'รอการโอน' && tr.bookingId == chosenBookingId"
               :src="slipImgUrl"
               class="object-cover object-center w-full h-full"

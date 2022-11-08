@@ -94,9 +94,10 @@
         เเก้ไขข้อมูล
       </button>
     </div>
-    <div v-if="!disableForm" class="flex items-center justify-center">
+    <div v-if="!disableForm && bankAccounts.length<5" class="flex items-center justify-center">
       <!-- Mobile Button -->
       <button
+
         @click="
           bankAccounts.push({
             accountNum: '',
@@ -146,6 +147,17 @@ export default {
   },
   methods: {
     async submit() {
+      if(bankAccounts.length>5){
+        const noti = this.$vs.notification({
+          progress: "auto",
+          icon: `<i class='bx bx-error' ></i>`,
+          color: "warn",
+          position: "top-right",
+          title: "บัญชีของคุณเกิน 5 บัญชี",
+          text: "กรุณาเเก้ไขให้ถูกต้อง",
+        });
+        return
+      }
       for (let i in this.bankAccounts) {
         this.validate(this.bankAccounts[i]);
       }
