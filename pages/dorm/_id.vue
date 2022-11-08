@@ -140,7 +140,7 @@
 
                 <!-- Area -->
                 <div
-                  class="flex flex-row items-end ml-3 mt-3 text-xs font-medium md:m-0 md:p-3 md:w-1/2 xl:text-sm"
+                  class="flex flex-row items-end ml-3 mt-3  text-xs font-medium md:m-0 md:p-3 md:w-1/2 xl:text-sm"
                 >
                   <span
                     ><img

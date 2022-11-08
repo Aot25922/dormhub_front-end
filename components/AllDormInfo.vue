@@ -119,11 +119,19 @@
           </div>
         </div>
 
-        <!-- Beginning Price Mobile to Ipad -->
-        <div class="flex xl:hidden">
-          <div class="text-2xl ml-auto text-imperialRed font-medium md:pr-1">
-            <span class="text-gray-400 text-xs">เริ่มต้นที่ ฿&nbsp;</span>
-            {{ minPrice }}
+        <!-- Beginning Price&Deposit Mobile to Ipad -->
+        <div class="flex flex-col xl:hidden">
+          <div class="text-xl ml-auto text-imperialRed font-medium md:pr-1">
+            <span class="text-black text-xs">ค่าเช่าเริ่มต้นที่ ฿&nbsp;</span>
+            {{ minPrice }} - {{ maxPrice }}
+          </div>
+          <div class="flex justify-end">
+            <span class="text-black text-xs"
+              >ค่าจองเริ่มต้นที่ ฿
+              <span class="text-error"
+                >{{ minDeposit }} - {{ maxDeposit }}</span
+              >
+            </span>
           </div>
         </div>
 
@@ -265,9 +273,9 @@
       <!-- 1440px to 4k -->
       <div class="hidden xl:flex xl:w-1/3 xl:items-end border-l">
         <div class="w-full flex flex-col p-5">
-          <div class="grid grid-cols-2">
+          <div class="grid grid-cols-3">
             <!-- Room remainning -->
-            <div class="flex justify-start items-center py-5">
+            <div class="col-span-1 flex justify-start items-center py-5">
               <div
                 v-if="(dorm.rooms.status = 'ว่าง' && dorm.rooms.length <= 5)"
                 class="badge badge-accent"
@@ -275,14 +283,24 @@
                 เหลือ {{ dorm.rooms.length }} ห้อง
               </div>
             </div>
-            <!-- Minimun Price -->
+            <!-- Beginning Price&Deposit -->
             <div
-              class="text-2xl text-imperialRed font-medium flex flex-row justify-end py-5"
+              class="col-span-2 text-xl text-imperialRed font-medium flex flex-col justify-end py-5"
             >
-              <span class="text-gray-400"
-                ><span class="text-xs">เริ่มต้นที่</span> ฿&nbsp;</span
-              >
-              {{ minPrice }}
+              <div class="flex justify-end">
+                <span class="text-gray-400"
+                  ><span class="text-xs">เริ่มต้นที่</span> ฿&nbsp;</span
+                >
+                {{ minPrice }} - {{ maxPrice }}
+              </div>
+              <div class="flex justify-end">
+                <span class="text-black text-xs"
+                  >ค่าจองเริ่มต้นที่ ฿
+                  <span class="text-error"
+                    >{{ minDeposit }} - {{ maxDeposit }}</span
+                  >
+                </span>
+              </div>
             </div>
           </div>
           <div>
@@ -362,13 +380,27 @@ export default {
       }
       return Math.min(...minvalue);
     },
-    // maxPrice() {
-    //   let maxvalue = [];
-    //   for (let i in this.dorm.roomTypes) {
-    //     maxvalue.push(this.dorm.roomTypes[i].dormHasRoomType.price);
-    //   }
-    //   return Math.max(...maxvalue);
-    // },
+    maxPrice() {
+      let maxvalue = [];
+      for (let i in this.dorm.roomTypes) {
+        maxvalue.push(this.dorm.roomTypes[i].dormHasRoomType.price);
+      }
+      return Math.max(...maxvalue);
+    },
+    minDeposit() {
+      let minvalue = [];
+      for (let i in this.dorm.roomTypes) {
+        minvalue.push(this.dorm.roomTypes[i].dormHasRoomType.deposit);
+      }
+      return Math.min(...minvalue);
+    },
+    maxDeposit() {
+      let maxvalue = [];
+      for (let i in this.dorm.roomTypes) {
+        maxvalue.push(this.dorm.roomTypes[i].dormHasRoomType.deposit);
+      }
+      return Math.max(...maxvalue);
+    },
   },
 };
 </script>

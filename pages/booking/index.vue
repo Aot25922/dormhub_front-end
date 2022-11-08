@@ -4,19 +4,19 @@
       <template #thead class="flex justify-center">
         <vs-tr>
           <vs-th> ชื่อหอพัก </vs-th>
-          <vs-th> ประเภทห้องพัก </vs-th>
+          <vs-th> ประเภทห้อง </vs-th>
           <vs-th> ราคา </vs-th>
-          <vs-th> เลขห้องพัก </vs-th>
+          <vs-th> เลขห้อง </vs-th>
           <vs-th> ภาพสลิป </vs-th>
-          <vs-th> วันที่เริ่ม-สิ้นสุดเข้าพัก </vs-th>
-<!--          <vs-th> วันที่สิ้นสุดการเข้าพัก </vs-th>-->
+          <vs-th> วันที่การเข้าพัก </vs-th>
+          <!--          <vs-th> วันที่สิ้นสุดการเข้าพัก </vs-th>-->
           <vs-th v-if="$store.state.userAccount.role == 'Owner'">
             ผู้จอง
           </vs-th>
           <vs-th> สถานะ </vs-th>
         </vs-tr>
       </template>
-      <template #tbody v-if="bookingList" class="flex justify-center">
+      <template #tbody v-if="bookingList" class="text-xs flex justify-center">
         <vs-tr
           :key="i"
           v-for="(tr, i) in $vs.getPage(bookingList, page, max)"
@@ -50,17 +50,21 @@
             </p>
           </vs-td>
           <vs-td>
-            <b>เริ่ม: </b> {{ new Date(tr.startDate).toDateString() }}
-            <br><b>สิ้นสุด: </b> {{ new Date(tr.endDate).toDateString() }}
+            <b>เริ่ม: </b> {{ new Date(tr.startDate).toDateString() }} <br /><b
+              >สิ้นสุด:
+            </b>
+            {{ new Date(tr.endDate).toDateString() }}
           </vs-td>
-<!--          <vs-td>-->
-<!--            {{ new Date(tr.endDate).toDateString() }}-->
-<!--          </vs-td>-->
+          <!--          <vs-td>-->
+          <!--            {{ new Date(tr.endDate).toDateString() }}-->
+          <!--          </vs-td>-->
           <vs-td v-if="$store.state.userAccount.role == 'Owner'">
             <p>E-mail : {{ tr.userAccount.email }}</p>
             <p>เบอร์โทรศัพท์ : {{ tr.userAccount.phone }}</p>
             <p>ชื่อ : {{ tr.userAccount.fname }} {{ tr.userAccount.lname }}</p>
           </vs-td>
+
+          <!-- Status&Slip Customer -->
           <vs-td v-if="$store.state.userAccount.role == 'Customer'">
             <div v-if="tr.status == 'รอการโอน' || tr.status == 'ยืนยันการโอน'">
               <p>{{ tr.status }}</p>
@@ -78,21 +82,51 @@
             </div>
             <p v-else>{{ tr.status }}</p>
           </vs-td>
+
+          <!-- Status Owner -->
           <vs-td v-if="$store.state.userAccount.role == 'Owner'">
-            <button
-              v-if="tr.status == 'รอการยืนยัน'"
-              class="btn btn-success"
-              @click="updateStatus(tr, 'รอการโอน')"
-            >
-              ยืนยัน
-            </button>
-            <button
-              v-if="tr.status == 'รอการยืนยัน'"
-              class="btn btn-sm btn-accent"
-              @click="updateStatus(tr, 'ยกเลิก')"
-            >
-              ยกเลิก
-            </button>
+            <!-- Pop-up Button  -->
+            <div v-if="tr.status == 'รอการยืนยัน'">
+              <vs-button @click="active = !active" color="warn" type="border"
+                ><span class="material-symbols-outlined">
+                  priority_high
+                </span></vs-button
+              >
+              <vs-dialog class="font-Kanit" not-center v-model="active">
+                <template #header>
+                  <h4 class="font-bold">เลือกสถานะการจอง</h4>
+                </template>
+                <div class="con-content">
+                  <div class="flex flex-wrap">
+                    <div class="w-full">
+                      เปลี่ยนสถานะ <span class="font-medium">"รอการยืนยัน"</span> ของ
+                      <b
+                        >{{ tr.userAccount.fname }}
+                        {{ tr.userAccount.lname }}</b
+                      >
+                      เป็นยืนยันเพื่อ <span class="font-medium">"รอการโอน"</span> ใช่หรือไม่?
+                    </div>
+                    <div class="p-1 pt-3 w-2/3">
+                      <button
+                        class="btn btn-success w-full"
+                        @click="updateStatus(tr, 'รอการโอน')"
+                      >
+                        ยืนยัน
+                      </button>
+                    </div>
+                    <div class="p-1 pt-3 w-1/3">
+                      <button
+                        class="btn btn-accent w-full"
+                        @click="updateStatus(tr, 'ยกเลิก')"
+                      >
+                        ยกเลิก
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </vs-dialog>
+            </div>
+
             <p
               v-else-if="tr.status == 'ยืนยันการโอน' || tr.status == 'รอการโอน'"
             >
@@ -102,7 +136,8 @@
             <button
               v-else
               class="btn btn-accent"
-              @click="updateStatus(tr, 'ยกเลิก')">
+              @click="updateStatus(tr, 'ยกเลิก')"
+            >
               ยกเลิกการจอง
             </button>
           </vs-td>
@@ -127,7 +162,8 @@ export default {
       max: 5,
       bookingList: null,
       slipImgUrl: null,
-      chosenBookingId:null
+      chosenBookingId: null,
+      active: false,
     };
   },
   methods: {
@@ -253,5 +289,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>
