@@ -44,8 +44,8 @@
           <div class="px-3">
             <p><b>ราคา:</b> {{ roomType.dormHasRoomType.price }} บาท</p>
             <p><b>มัดจำ:</b> {{ roomType.dormHasRoomType.deposit }} บาท</p>
-            <p><b>ค่าน้ำ:</b> {{ waterPerUnit }} บาทต่อหน่วย</p>
-            <p><b>ค่าไฟ:</b> {{ elecPerUnit }} บาทต่อหน่วย</p>
+            <!-- <p><b>ค่าน้ำ:</b> {{ waterPerUnit }} บาทต่อหน่วย</p>
+            <p><b>ค่าไฟ:</b> {{ elecPerUnit }} บาทต่อหน่วย</p> -->
             <p><b>ขนาดพื้นที่:</b> {{ roomType.dormHasRoomType.area }} ตารางเมตร</p>
           </div>
 
