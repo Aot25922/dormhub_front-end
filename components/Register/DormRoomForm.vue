@@ -293,7 +293,6 @@ export default {
   methods: {
     async submit() {
       let newRoomList = [];
-      console.log(this.roomList);
       for (let i in this.roomList) {
         for (let j in this.roomList[i].rooms) {
           if (

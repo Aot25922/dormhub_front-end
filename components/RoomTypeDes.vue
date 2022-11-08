@@ -250,8 +250,6 @@ export default {
 
       newStartDate = startDay + "/" + startMonth + "/" + startYear;
       newEndDate = endDay + "/" + endMonth + "/" + endYear;
-      console.log(newStartDate)
-      console.log(newEndDate)
       let bookingInfo = {
         bankAccId: this.selectedBankAccount.bankAccId,
         startDate: newStartDate,
@@ -345,7 +343,6 @@ export default {
       return a.floor - b.floor;
     });
     this.roomList = roomList;
-    console.log(roomList);
   },
 };
 </script>

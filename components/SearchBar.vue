@@ -329,7 +329,6 @@ export default {
           this.roomTypeDes == null &&
           !this.advanceFilter)
       ) {
-        console.log("IF")
         loading.close();
         this.$store.commit("SET_SEARCH", null);
         await this.$store.dispatch("fetchDormList", 0);
@@ -356,7 +355,6 @@ export default {
         this.roomTypeDes = null
         this.advanceFilter = false;
       } else {
-        console.log("ELSE")
         if (this.$route.path == "/") {
           this.$router.push({
             name: "dormList",
