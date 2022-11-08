@@ -9,7 +9,7 @@
           <vs-th> เลขห้องพัก </vs-th>
           <vs-th> ภาพสลิป </vs-th>
           <vs-th> วันที่เริ่ม-สิ้นสุดเข้าพัก </vs-th>
-<!--          <vs-th> วันที่สิ้นสุดการเข้าพัก </vs-th>-->
+          <!--          <vs-th> วันที่สิ้นสุดการเข้าพัก </vs-th>-->
           <vs-th v-if="$store.state.userAccount.role == 'Owner'">
             ผู้จอง
           </vs-th>
@@ -35,27 +35,49 @@
             {{ tr.room.roomNum }}
           </vs-td>
           <vs-td>
-            <img
+            <div
               v-if="tr.status == 'รอการโอน' && tr.bookingId == chosenBookingId"
-              :src="slipImgUrl"
-              class="object-cover object-center w-full h-full"
-            />
-            <img
-              v-else-if="tr.moneySlip"
-              :src="$store.state.Backend_URL + '/booking/image/' + tr.bookingId"
-              class="object-cover object-center w-full h-full"
-            />
+            >
+              <img
+                :src="slipImgUrl"
+                class="object-cover object-center w-full h-full cursor-pointer"
+                @click="active = !active"
+              />
+              <vs-dialog not-close auto-width not-padding v-model="active">
+                <div class="con-image">
+                  <img :src="slipImgUrl" alt="" />
+                </div>
+              </vs-dialog>
+            </div>
+            <div v-else-if="tr.moneySlip">
+              <img
+                :src="
+                  $store.state.Backend_URL + '/booking/image/' + tr.bookingId
+                "
+                class="object-cover object-center w-full h-full cursor-pointer"
+                @click="active = !active"
+              />
+              <vs-dialog not-close auto-width not-padding v-model="active">
+                <div class="con-image">
+                  <img
+                    :src="
+                      $store.state.Backend_URL +
+                      '/booking/image/' +
+                      tr.bookingId
+                    "
+                    alt=""
+                  />
+                </div>
+              </vs-dialog>
+            </div>
             <p v-else>
               {{ tr.status }}
             </p>
           </vs-td>
           <vs-td>
-            <b>เริ่ม: </b> {{ tr.startDate }}
-            <br><b>สิ้นสุด: </b> {{ tr.endDate }}
+            <b>เริ่ม: </b> {{ tr.startDate }} <br /><b>สิ้นสุด: </b>
+            {{ tr.endDate }}
           </vs-td>
-<!--          <vs-td>-->
-<!--            {{ new Date(tr.endDate).toDateString() }}-->
-<!--          </vs-td>-->
           <vs-td v-if="$store.state.userAccount.role == 'Owner'">
             <p>E-mail : {{ tr.userAccount.email }}</p>
             <p>เบอร์โทรศัพท์ : {{ tr.userAccount.phone }}</p>
@@ -102,7 +124,8 @@
             <button
               v-else
               class="btn btn-accent"
-              @click="updateStatus(tr, 'ยกเลิก')">
+              @click="updateStatus(tr, 'ยกเลิก')"
+            >
               ยกเลิกการจอง
             </button>
           </vs-td>
@@ -127,7 +150,8 @@ export default {
       max: 5,
       bookingList: null,
       slipImgUrl: null,
-      chosenBookingId:null
+      chosenBookingId: null,
+      active: false,
     };
   },
   methods: {
