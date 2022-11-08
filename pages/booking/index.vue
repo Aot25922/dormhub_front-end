@@ -8,8 +8,8 @@
           <vs-th> ราคา </vs-th>
           <vs-th> เลขห้อง </vs-th>
           <vs-th> ภาพสลิป </vs-th>
-          <vs-th> วันที่การเข้าพัก </vs-th>
-          <!--          <vs-th> วันที่สิ้นสุดการเข้าพัก </vs-th>-->
+          <vs-th> วันที่เริ่มการเข้าพัก </vs-th>
+          <vs-th> วันที่สิ้นสุดการเข้าพัก </vs-th>
           <vs-th v-if="$store.state.userAccount.role == 'Owner'">
             ผู้จอง
           </vs-th>
@@ -45,42 +45,112 @@
               :src="$store.state.Backend_URL + '/booking/image/' + tr.bookingId"
               class="object-cover object-center w-full h-full"
             />
-            <p v-else>
-              {{ tr.status }}
-            </p>
+            <div v-else>
+              <div
+                v-if="tr.status == 'รอการยืนยัน'"
+                class="font-medium text-warning"
+              >
+                {{ tr.status }}
+              </div>
+              <div v-if="tr.status == 'รอการโอน'" class="font-medium text-info">
+                {{ tr.status }}
+              </div>
+              <div v-if="tr.status == 'ยกเลิก'" class="font-medium text-error">
+                {{ tr.status }}
+              </div>
+            </div>
           </vs-td>
           <vs-td>
-            <b>เริ่ม: </b> {{ new Date(tr.startDate).toDateString() }} <br /><b
-              >สิ้นสุด:
-            </b>
-            {{ new Date(tr.endDate).toDateString() }}
+            {{ tr.startDate }}
           </vs-td>
-          <!--          <vs-td>-->
-          <!--            {{ new Date(tr.endDate).toDateString() }}-->
-          <!--          </vs-td>-->
-          <vs-td v-if="$store.state.userAccount.role == 'Owner'">
-            <p>E-mail : {{ tr.userAccount.email }}</p>
-            <p>เบอร์โทรศัพท์ : {{ tr.userAccount.phone }}</p>
-            <p>ชื่อ : {{ tr.userAccount.fname }} {{ tr.userAccount.lname }}</p>
+          <vs-td>
+            {{ tr.endDate }}
+          </vs-td>
+          <vs-td v-if="$store.state.userAccount.role == 'Owner'" class="flex flex-col">
+            <div class="flex justify-start items-center">
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/3934/3934228.png"
+                class="w-5 mr-1 md:w-6 lg:w-7"
+              />
+              {{ tr.userAccount.fname }} {{ tr.userAccount.lname }}
+            </div>
+            <div class="flex justify-start items-center py-3">
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/726/726623.png"
+                class="w-5 mr-1 md:w-6 lg:w-7"
+              />{{ tr.userAccount.email }}
+            </div>
+            <div class="flex justify-start items-center">
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/3014/3014736.png"
+                class="w-5 mr-1 md:w-6 lg:w-7"
+              />{{ tr.userAccount.phone }}
+            </div>
           </vs-td>
 
           <!-- Status&Slip Customer -->
           <vs-td v-if="$store.state.userAccount.role == 'Customer'">
             <div v-if="tr.status == 'รอการโอน' || tr.status == 'ยืนยันการโอน'">
-              <p>{{ tr.status }}</p>
-              <p>เเนบหลักฐานการโอนเงิน</p>
-              <input type="file" @change="onFileChange($event, tr)" />
-            </div>
-            <div v-else-if="tr.status == 'รอการยืนยัน'">
-              {{ tr.status }}
-              <button
-                class="btn btn-accent btn-sm my-2"
-                @click="updateStatus(tr, 'ยกเลิก')"
+              <p v-if="tr.status == 'รอการโอน'" class="font-medium text-info">
+                {{ tr.status }}
+              </p>
+              <p
+                v-if="tr.status == 'ยืนยันการโอน'"
+                class="font-medium text-success"
               >
-                ยกเลิกการจอง
-              </button>
+                {{ tr.status }}
+              </p>
+              <div class="pt-5">
+                <p>เเนบหลักฐานการโอนเงิน</p>
+                <input type="file" @change="onFileChange($event, tr)" />
+              </div>
             </div>
-            <p v-else>{{ tr.status }}</p>
+            <div
+              class="flex items-center"
+              v-else-if="tr.status == 'รอการยืนยัน'"
+            >
+              <div class="font-medium text-warning">{{ tr.status }}</div>
+              <!-- Cancel Button Modal -->
+              <div class="px-10">
+                <button
+                  @click="active = !active"
+                  class="btn btn-accent btn-sm btn-circle"
+                >
+                  <span class="material-symbols-outlined"> close </span>
+                </button>
+                <vs-dialog class="font-Kanit" width="550px" v-model="active">
+                  <div class="con-content">
+                    <div>
+                      คูณแน่ใจว่าต้องการที่จะ<b class="underline-offset-auto"
+                        >ยกเลิกการจองห้อง?</b
+                      >
+                    </div>
+                    <div class="pt-5 flex flex-wrap">
+                      <div class="w-1/2 p-1">
+                        <button
+                          @click="
+                            updateStatus(tr, 'ยกเลิก');
+                            active = false;
+                          "
+                          class="btn btn-success w-full"
+                        >
+                          ยืนยัน
+                        </button>
+                      </div>
+                      <div class="w-1/2 p-1">
+                        <button
+                          @click="active = false"
+                          class="btn btn-accent w-full"
+                        >
+                          ยกเลิก
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </vs-dialog>
+              </div>
+            </div>
+            <p v-else class="text-imperialRed font-medium">{{ tr.status }}</p>
           </vs-td>
 
           <!-- Status Owner -->
@@ -99,17 +169,23 @@
                 <div class="con-content">
                   <div class="flex flex-wrap">
                     <div class="w-full">
-                      เปลี่ยนสถานะ <span class="font-medium">"รอการยืนยัน"</span> ของ
+                      เปลี่ยนสถานะ
+                      <span class="font-medium">"รอการยืนยัน"</span> ของ
                       <b
                         >{{ tr.userAccount.fname }}
                         {{ tr.userAccount.lname }}</b
                       >
-                      เป็นยืนยันเพื่อ <span class="font-medium">"รอการโอน"</span> ใช่หรือไม่?
+                      เป็นยืนยันเพื่อ
+                      <span class="font-medium">"รอการโอน"</span> ใช่หรือไม่?
+                      <p>หากกดยกเลิกจะเป็นการยกเลิกการจอง</p>
                     </div>
                     <div class="p-1 pt-3 w-2/3">
                       <button
                         class="btn btn-success w-full"
-                        @click="updateStatus(tr, 'รอการโอน')"
+                        @click="
+                          updateStatus(tr, 'รอการโอน');
+                          active = false;
+                        "
                       >
                         ยืนยัน
                       </button>
@@ -117,7 +193,10 @@
                     <div class="p-1 pt-3 w-1/3">
                       <button
                         class="btn btn-accent w-full"
-                        @click="updateStatus(tr, 'ยกเลิก')"
+                        @click="
+                          updateStatus(tr, 'ยกเลิก');
+                          active = false;
+                        "
                       >
                         ยกเลิก
                       </button>
@@ -127,12 +206,25 @@
               </vs-dialog>
             </div>
 
-            <p
+            <div
               v-else-if="tr.status == 'ยืนยันการโอน' || tr.status == 'รอการโอน'"
             >
-              {{ tr.status }}
-            </p>
-            <p v-else-if="tr.status == 'ยกเลิก'">ยกเลิกการจองเเล้ว</p>
+              <div v-if="tr.status == 'รอการโอน'" class="font-medium text-info">
+                {{ tr.status }}
+              </div>
+              <div
+                v-if="tr.status == 'ยืนยันการโอน'"
+                class="font-medium text-success"
+              >
+                {{ tr.status }}
+              </div>
+            </div>
+            <div
+              v-else-if="tr.status == 'ยกเลิก'"
+              class="font-medium text-imperialRed"
+            >
+              ยกเลิกการจองเเล้ว
+            </div>
             <button
               v-else
               class="btn btn-accent"

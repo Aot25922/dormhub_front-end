@@ -53,21 +53,10 @@
           </client-only>
           <!-- Body -->
           <div class="p-5">
-            <div class="flex flex-wrap">
-              <h1 class="w-2/3 py-1 font-bold text-xl xl:text-3xl">
-                {{ dorm.name }}
-              </h1>
-              <!-- Room Remainning -->
-              <div class="w-1/3 flex justify-end items-center">
-                <div
-                  class="badge badge-accent"
-                  v-if="(dorm.rooms.status = 'ว่าง' && dorm.rooms.length <= 5)"
-                >
-                  เหลือ {{ dorm.rooms.length }} ห้อง
-                </div>
-              </div>
-              <hr class="w-full my-5" />
-            </div>
+            <h1 class="w-2/3 py-1 font-bold text-xl xl:text-3xl">
+              {{ dorm.name }}
+            </h1>
+            <hr class="w-full my-5" />
 
             <!-- Info -->
             <div class="pt-2 rounded-md">
@@ -134,13 +123,15 @@
                     src="https://cdn-icons-png.flaticon.com/512/2664/2664669.png"
                     class="w-5 mr-2 md:w-6 lg:w-7 xl:w-8"
                   />
-                  ค่าจองห้องอยู่ระหว่าง ฿
-                  {{ lowDeposit }} - {{ highDeposit }}
+                  ค่าจองห้องอยู่ระหว่าง ฿&nbsp;
+                  <span class="text-error"
+                    >{{ lowDeposit }} - {{ highDeposit }}</span
+                  >
                 </div>
 
                 <!-- Area -->
                 <div
-                  class="flex flex-row items-end ml-3 mt-3  text-xs font-medium md:m-0 md:p-3 md:w-1/2 xl:text-sm"
+                  class="flex flex-row items-end ml-3 mt-3 text-xs font-medium md:m-0 md:p-3 md:w-1/2 xl:text-sm"
                 >
                   <span
                     ><img
@@ -180,12 +171,18 @@
                   <div></div>
                   <!-- Idle Rooms/Rooms -->
                   <div class="flex flex-row items-center pl-1 w-full">
-					<img src="https://cdn-icons-png.flaticon.com/512/2534/2534800.png" class="w-5 mr-2 md:w-6 lg:w-7 xl:w-8"/>
-                    ห้องพัก&nbsp;
-                    <div class="text-success" v-if="dorm.rooms.status = 'ว่าง'">
-                      {{ dorm.rooms.length }}
-                    </div>
-                    /{{ dorm.rooms.length }}
+                    <img
+                      src="https://cdn-icons-png.flaticon.com/512/2534/2534800.png"
+                      class="w-5 mr-2 md:w-6 lg:w-7 xl:w-8"
+                    />
+                    จำนวนห้องพัก&nbsp;
+                    <!-- <div
+                      class="text-success"
+                      v-if="(dorm.rooms.status = 'ว่าง')"
+                    >
+                      {{ dorm.rooms.length }}/
+                    </div> -->
+                    {{ dorm.rooms.length }}
                   </div>
                 </div>
                 <hr class="w-full my-5" />
@@ -247,7 +244,7 @@
         <div class="my-5 dropdown">
           <label
             tabindex="0"
-            class="btn btn-neutral m-1 text-lg md:text-xl lg:text-2xl"
+            class="btn btn-neutral m-1 text-sm xl:text-base"
             >ประเภทห้องพัก<span class="material-icons">expand_more</span></label
           >
           <ul
@@ -256,7 +253,7 @@
           >
             <li v-for="type in dorm.roomTypes" :key="type.roomTypeId">
               <p
-                class="text-black text-sm md:text-base lg:text-lg xl:text-xl"
+                class="text-black text-sm xl:text-base"
                 @click="selectRoomtype(type)"
               >
                 {{ type.type }}
@@ -312,6 +309,8 @@ export default {
       await this.$store.dispatch("dormSelected", dormInfo);
       this.dorm = this.$store.state.selectedDorm;
       let price = [];
+      let deposit = [];
+      let area = [];
       for (let i in this.dorm.roomTypes) {
         price.push(this.dorm.roomTypes[i].dormHasRoomType.price);
         deposit.push(this.dorm.roomTypes[i].dormHasRoomType.deposit);

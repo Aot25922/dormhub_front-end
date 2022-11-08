@@ -285,7 +285,7 @@ export default {
   name: "SearchBar",
   data() {
     return {
-      search: "",
+      search: null,
       addressOption: this.$store.state.addressOption,
       selectedRegion: "",
       selectedProvince: "",
@@ -301,16 +301,17 @@ export default {
       maxWaterPerUnit: null,
       minArea: null,
       maxArea: null,
-      roomTypeDes: "",
+      roomTypeDes: null,
       advanceFilter: false,
     };
   },
   methods: {
     async searchDorm(clearFilter) {
+      this.$emit("resetPage")
       const loading = this.$vs.loading();
       if (
         clearFilter ||
-        (this.search == "" &&
+        (this.search == null &&
           this.selectedRegion == "" &&
           this.selectedProvince == "" &&
           this.selectedDistrict == "" &&
@@ -325,7 +326,7 @@ export default {
           this.maxWaterPerUnit == null &&
           this.minArea == null &&
           this.maxArea == null &&
-          this.roomTypeDes == "" &&
+          this.roomTypeDes == null &&
           !this.advanceFilter)
       ) {
         loading.close();
@@ -336,7 +337,7 @@ export default {
             name: "dormList",
           });
         }
-        this.search = "";
+        this.search = null
         this.selectedRegion = "";
         this.selectedProvince = "";
         this.selectedDistrict = "";
@@ -351,7 +352,7 @@ export default {
         this.maxWaterPerUnit = null;
         this.minArea = null;
         this.maxArea = null;
-        this.roomTypeDes = "";
+        this.roomTypeDes = null
         this.advanceFilter = false;
       } else {
         if (this.$route.path == "/") {

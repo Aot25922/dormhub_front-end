@@ -18,7 +18,7 @@
         <p class="text-gray-500 py-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tortor turpis, consequat non aliquet maximus, finibus id nisl. Mauris volutpat commodo felis eu euismod.</p>
       </div>
 
-      <div class="stats shadow w-full stats-vertical md:stats-horizontal">
+      <!-- <div class="stats shadow w-full stats-vertical md:stats-horizontal">
         <div class="stat place-items-center">
           <div class="stat-title text-PrussianBlue">Downloads</div>
           <div class="stat-value text-PrussianBlue">31K</div>
@@ -34,7 +34,7 @@
           <div class="stat-value text-gray-500">1,200</div>
           <div class="stat-desc text-gray-500">↘︎ 90 (14%)</div>
         </div>
-      </div>
+      </div> -->
     </div>
 
     <div class="p-5 md:flex md:flex-row md:pb-0 xl:px-52 2xl:px-96">

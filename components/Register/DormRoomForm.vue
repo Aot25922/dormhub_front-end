@@ -27,10 +27,6 @@
       <h1 class="font-bold text-lg">สร้างชั้นเเละห้องพัก</h1>
 		<div class="flex wrap">
 			<div class="w-1/2 md:w-2/5">จำนวนชั้น : {{ roomList.length }}/10</div>
-			<div class="w-1/2 md:w-2/5">จำนวนห้องต่อชั้น : 
-				<span v-if="roomList.roomPerFloor != 0">{{ roomList.roomPerFloor }}</span>
-				<span>-</span>
-				/15</div>
 		</div>
       <div class="flex flex-wrap">
 		<div class="p-1 w-1/2 md:w-2/5">
@@ -40,7 +36,8 @@
 						w-full
 						input-md
 						border-gray-200
-						rounded" />
+						rounded"
+             />
 			</div>
 			<div class="p-1 w-1/2 md:w-2/5">
 				<label class="label-text tracking-wide font-bold my-2 text-gray-500"
@@ -65,6 +62,7 @@
     </div>
     
 	<!-- Floor List -->
+  
 	<div
       v-for="(floor, index) in roomList"
       :key="index"
@@ -220,7 +218,7 @@
         </div>
       </div>
 
-      <div v-if="!disableForm" class="py-3 w-full">
+      <div v-if="!disableForm && floor.rooms.length<15" class="py-3 w-full">
         <button class="btn btn-neutral w-full" @click="addNewRoom(floor)">
           เพิ่มห้อง
         </button>
@@ -228,7 +226,7 @@
     </div>
     <div class="py-5 w-full">
       <button
-        v-if="!disableForm"
+        v-if="!disableForm && this.roomList.length < 10"
         class="btn btn-secondary w-full my-5"
         @click="addNewFloor"
       >
@@ -289,13 +287,12 @@ export default {
       disableForm: false,
       floorCount: 0,
       roomPerFloor: 0,
-      confirmChange:false
+      confirmChange: false,
     };
   },
   methods: {
     async submit() {
       let newRoomList = [];
-      console.log(this.roomList);
       for (let i in this.roomList) {
         for (let j in this.roomList[i].rooms) {
           if (
@@ -443,7 +440,7 @@ export default {
           color: "warn",
           position: "top-right",
           title: `ไม่สามารถเพิ่มห้องได้`,
-          text: "ไม่สามารถเพิ่มห้องเกิน 15 ห้อง",
+          text: "ไม่สามารถเพิ่มห้องเกิน 15 ห้องต่อชั้น",
         });
         return;
       }
@@ -456,7 +453,29 @@ export default {
       });
     },
     addFloorAndRoom() {
-      this.confirmChange = false
+      if (this.floorCount > 10) {
+        const noti = this.$vs.notification({
+          progress: "auto",
+          icon: `<i class='bx bx-folder-open' ></i>`,
+          color: "warn",
+          position: "top-right",
+          title: `ไม่สามารถเพิ่มชั้นได้`,
+          text: `ไม่สามารถเพิ่มชั้นเกิน 10 ชั้น`,
+        });
+        return;
+      }
+      if (this.roomPerFloor > 15) {
+        const noti = this.$vs.notification({
+          progress: "auto",
+          icon: `<i class='bx bx-folder-open' ></i>`,
+          color: "warn",
+          position: "top-right",
+          title: `ไม่สามารถเพิ่มห้องได้`,
+          text: "ไม่สามารถเพิ่มห้องเกิน 15 ห้องต่อชั้น",
+        });
+        return;
+      }
+      this.confirmChange = false;
       let newRoomList = [];
       if (this.editForm) {
         for (let i in this.roomList) {

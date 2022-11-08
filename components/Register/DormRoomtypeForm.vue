@@ -278,7 +278,6 @@ export default {
               description: this.roomType.facility,
             },
           };
-          console.log(this.roomType.facility)
           formData.append("data", JSON.stringify(data));
           for (let i in this.roomTypeInputImage) {
             formData.append(
