@@ -50,8 +50,8 @@
             </p>
           </vs-td>
           <vs-td>
-            <b>เริ่ม: </b> {{ new Date(tr.startDate).toDateString() }}
-            <br><b>สิ้นสุด: </b> {{ new Date(tr.endDate).toDateString() }}
+            <b>เริ่ม: </b> {{ tr.startDate }}
+            <br><b>สิ้นสุด: </b> {{ tr.endDate }}
           </vs-td>
 <!--          <vs-td>-->
 <!--            {{ new Date(tr.endDate).toDateString() }}-->

@@ -80,6 +80,7 @@
           <RegisterDormAddressForm editForm="true"/>
         </div>
         <div v-if="editRoomTypeInfo">
+          <h1 class="font-bold text-lg md:text-xl xl:text-2xl 2xl:text-3xl">จำนวนประเภทในตอนนี้ : {{roomType.length}}</h1>
           <RegisterDormRoomtypeForm editForm="true" :roomTypeProp="i" v-for="i in roomType" :key="i.roomTypeId"/>
         </div>
         <div v-if="editRoomInfo">

@@ -40,21 +40,35 @@
       </client-only>
       <div class="p-5">
         <div class="text-sm lg:text-base 2xl:text-lg">
-          <div class="font-bold text-xl lg:text-2xl">{{ roomType.type }}</div>
+          <div class="font-bold text-xl lg:text-2xl">
+            ห้องพักประเภท : {{ roomType.type }}
+          </div>
           <div class="px-3">
-            <p><b>ราคา:</b> {{ roomType.dormHasRoomType.price }} บาท</p>
-            <p><b>มัดจำ:</b> {{ roomType.dormHasRoomType.deposit }} บาท</p>
-            <p><b>ค่าน้ำ:</b> {{ waterPerUnit }} บาทต่อหน่วย</p>
-            <p><b>ค่าไฟ:</b> {{ elecPerUnit }} บาทต่อหน่วย</p>
-            <p><b>ขนาดพื้นที่:</b> {{ roomType.dormHasRoomType.area }} ตารางเมตร</p>
-          </div>
-
-          <div class="pt-5 font-bold text-lg lg:text-xl">
-            รายละเอียดเพิ่มเติม
-          </div>
-          <div class="w-full text-gray-400 px-2 py-3 bg-ghostWhite mt-3 rounded-lg text-sm lg:text-base 2xl:text-lg">
-            <div v-if="roomType.description">{{ roomType.description }}</div>
-            <div v-else>&emsp;ไม่มีข้อมูล</div>
+            <vs-table>
+              <template #tbody>
+                <vs-tr>
+                  <vs-td> ค่าเช่าต่อเดือน </vs-td>
+                  <vs-td> {{ roomType.dormHasRoomType.price }} บาท </vs-td>
+                </vs-tr>
+                <vs-tr>
+                  <vs-td> ค่าจองห้องพัก </vs-td>
+                  <vs-td> {{ roomType.dormHasRoomType.deposit }} บาท </vs-td>
+                </vs-tr>
+                <vs-tr>
+                  <vs-td> ขนาดพื้นที่ </vs-td>
+                  <vs-td> {{ roomType.dormHasRoomType.area }} ตารางเมตร </vs-td>
+                </vs-tr>
+                <vs-tr>
+                  <vs-td> รายละเอียดหรือสิ่งอำนวยความสะดวกเพิ่มเติม </vs-td>
+                  <vs-td>
+                    <span v-if="roomType.description">{{
+                      roomType.dormHasRoomType.description
+                    }}</span>
+                    <span v-else>ไม่มีข้อมูล</span>
+                  </vs-td>
+                </vs-tr>
+              </template>
+            </vs-table>
           </div>
         </div>
       </div>
@@ -103,21 +117,20 @@
               ></label
             >
             <input
-              type="Date"
+              min="1"
+              max="12"
+              type="number"
               class="py-4 px-2 w-full input input-sm md:input-md rounded"
-              placeholder=""
+              placeholder="3"
               v-model="endDate"
             />
-            <!--            <label class="label-text text-gray-500 tracking-wide font-bold my-2">เลือกภาพสลิป<span class="text-imperialRed">*</span></label>-->
-            <!--            <input type="file" class="focus:outline-none form-control block w-full rounded transition ease-in-out border-none" @change="onFileChange($event)" />-->
-            <!--            <img :src="slipImgUrl" class="py-2 md:p-2 md:max-h-80 md:max-w-full md:object-cover"/>-->
           </div>
           <div class="modal-action">
             <label for="my-modal-6" class="btn">ยกเลิกการจอง</label>
             <label
               for="my-modal-6"
               class="btn"
-              v-if="selectedBankAccount && startDate < endDate"
+              v-if="selectedBankAccount && startDate && endDate"
               @click="booking"
               >ยืนยันการจอง</label
             >
@@ -126,28 +139,15 @@
       </div>
 
       <!--All room-->
-      <h1 class="font-bold text-xl lg:text-2xl">
-        ห้องพักทั้งหมด
-      </h1>
-      <!--      <div v-for="(room, index) in rooms" :key="index">-->
-      <!--        <div class="font-bold md:text-lg lg:text-xl xl:text-2xl">ชั้น : {{ room.floors }}</div>-->
-      <!--        <div class="bg-ghostWhite p-3 rounded-lg text-sm md:text-base lg:text-lg xl:text-xl">-->
-      <!--          <p>เลขห้องพัก : {{ room.roomNum }}</p>-->
-      <!--          <p>สถานะห้องพัก : {{ room.status }}</p>-->
-      <!--          <p v-if="room.description != ''">รายละเอียดเพิ่มเติม : {{ room.description }}</p>-->
-      <!--          <p v-else class="hidden"></p>-->
-      <!--          <label-->
-      <!--            for="my-modal-6"-->
-      <!--            class="btn modal-button"-->
-      <!--            v-if="room.status != false && $store.state.userAccount.role == 'Customer'"-->
-      <!--            @click="selectedRoom = room"-->
-      <!--            >จองห้องพัก</label>-->
-      <!--        </div>-->
-      <!--      </div>-->
+      <h1 class="font-bold text-xl lg:text-2xl">ห้องพักทั้งหมด</h1>
       <div v-for="(floor, key) in roomList" :key="key" class="flex flex-wrap">
-        <div class="w-full font-bold text-lg lg:text-xl">ชั้น : {{ floor.floor }}</div>
+        <div class="w-full font-bold text-lg lg:text-xl">
+          ชั้น : {{ floor.floor }}
+        </div>
         <div
-          v-for="(room, index) in floor.rooms.filter(x => x.roomType == roomType.type)"
+          v-for="(room, index) in floor.rooms.filter(
+            (x) => x.roomType == roomType.type
+          )"
           :key="index"
           class="w-1/2 md:w-1/3 lg:w-1/4"
         >
@@ -156,11 +156,17 @@
               เลขห้อง: <b>{{ room.roomNum }}</b>
             </p>
             <div class="w-full">
-              <div v-if="room.status == 'ว่าง'">สถานะ: <b class="text-success">{{ room.status }}</b></div>
-              <div v-else>สถานะ: <b class="text-imperialRed">{{ room.status }}</b></div>
+              <div v-if="room.status == 'ว่าง'">
+                สถานะ: <b class="text-success">{{ room.status }}</b>
+              </div>
+              <div v-else>
+                สถานะ: <b class="text-imperialRed">{{ room.status }}</b>
+              </div>
             </div>
             <div class="w-full">
-              <p>ประเภทห้อง: <b>{{ room.roomType }}</b></p>
+              <p>
+                ประเภทห้อง: <b>{{ room.roomType }}</b>
+              </p>
             </div>
             <div>
               <div
@@ -185,32 +191,12 @@
         </div>
       </div>
     </div>
-
-    <!--    <div>-->
-    <!--      <div v-for="(floor, key) in rooms" :key="key" class="flex flex-wrap">-->
-    <!--        <p>ชั้น : {{ key }}</p>-->
-    <!--        <div v-for="(room, index) in floor" :key="index">-->
-    <!--          <div class="p-5 w-1/2 rounded bg-ghostWhite flex flex-wrap">-->
-    <!--            <p class="font-bold w-full text-center">{{ room.roomNum }}</p>-->
-    <!--            <div class="w-1/2 text-success text-left">-->
-    <!--              <div v-if="room.status == 'ว่าง'">{{ room.status }}</div>-->
-    <!--              <div v-else class="text-imperialRed">{{ room.status }}</div>-->
-    <!--            </div>-->
-    <!--            <div class="w-1/2 text-right">{{ room.roomType }}</div>-->
-    <!--            <div class="w-full px-2 py-3 bg-white mt-3 rounded">-->
-    <!--              <div v-if="room.description != ''">{{ room.description }}</div>-->
-    <!--              <div v-else class="text-gray-400">ไม่มีข้อมูล</div>-->
-    <!--            </div>-->
-    <!--          </div>-->
-    <!--        </div>-->
-    <!--      </div>-->
-    <!--    </div>-->
   </div>
 </template>
 <script>
 export default {
   name: "RoomTypeDes",
-  props: ["roomType", "elecPerUnit", "waterPerUnit", "media", "rooms"],
+  props: ["roomType", "media", "rooms"],
   data() {
     return {
       roomList: [],
@@ -236,17 +222,43 @@ export default {
         });
         return;
       }
-      this.selectedRoom.status = "จองเเล้ว"
+      if (this.endDate > 12 || this.endDate < 1) {
+        const noti = this.$vs.notification({
+          progress: "auto",
+          icon: `<i class='bx bx-folder-open' ></i>`,
+          color: "warn",
+          position: "top-right",
+          title: `ข้อมูลผิดพลาด`,
+          text: "คุณไม่สามารถจองได้เกิน 12 เดือน หรือ น้อยกว่า 1 เดือน",
+        });
+        return;
+      }
+      this.selectedRoom.status = "จองเเล้ว";
       const loading = this.$vs.loading();
       let formData = new FormData();
+      var newStartDate = new Date(this.startDate);
+      var newEndDate = new Date(this.startDate);
+      newEndDate.setMonth(newEndDate.getMonth() + parseInt(this.endDate));
+      let startDay = newStartDate.getDate();
+      let endDay = newEndDate.getDate();
+
+      let endMonth = newEndDate.getMonth() + 1;
+      let startMonth = newStartDate.getMonth() + 1;
+
+      let endYear = newEndDate.getFullYear();
+      let startYear = newStartDate.getFullYear();
+
+      newStartDate = startDay + "/" + startMonth + "/" + startYear;
+      newEndDate = endDay + "/" + endMonth + "/" + endYear;
+      console.log(newStartDate)
+      console.log(newEndDate)
       let bookingInfo = {
         bankAccId: this.selectedBankAccount.bankAccId,
-        startDate: this.startDate,
-        endDate: this.endDate,
+        startDate: newStartDate,
+        endDate: newEndDate,
         dormId: this.$store.state.selectedDorm.dormId,
         roomId: this.selectedRoom.roomId,
       };
-      formData.append("moneySlip", this.slipImg);
       formData.append("data", JSON.stringify(bookingInfo));
       try {
         await this.$axios.$post(
@@ -287,11 +299,6 @@ export default {
           text: error,
         });
       }
-    },
-    onFileChange(e) {
-      let files = e.target.files || e.dataTransfer.files;
-      this.slipImgUrl = URL.createObjectURL(files[0]);
-      this.slipImg = files[0];
     },
   },
   computed: {

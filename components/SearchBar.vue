@@ -285,7 +285,7 @@ export default {
   name: "SearchBar",
   data() {
     return {
-      search: "",
+      search: null,
       addressOption: this.$store.state.addressOption,
       selectedRegion: "",
       selectedProvince: "",
@@ -301,16 +301,17 @@ export default {
       maxWaterPerUnit: null,
       minArea: null,
       maxArea: null,
-      roomTypeDes: "",
+      roomTypeDes: null,
       advanceFilter: false,
     };
   },
   methods: {
     async searchDorm(clearFilter) {
+      this.$emit("resetPage")
       const loading = this.$vs.loading();
       if (
         clearFilter ||
-        (this.search == "" &&
+        (this.search == null &&
           this.selectedRegion == "" &&
           this.selectedProvince == "" &&
           this.selectedDistrict == "" &&
@@ -325,9 +326,10 @@ export default {
           this.maxWaterPerUnit == null &&
           this.minArea == null &&
           this.maxArea == null &&
-          this.roomTypeDes == "" &&
+          this.roomTypeDes == null &&
           !this.advanceFilter)
       ) {
+        console.log("IF")
         loading.close();
         this.$store.commit("SET_SEARCH", null);
         await this.$store.dispatch("fetchDormList", 0);
@@ -336,7 +338,7 @@ export default {
             name: "dormList",
           });
         }
-        this.search = "";
+        this.search = null
         this.selectedRegion = "";
         this.selectedProvince = "";
         this.selectedDistrict = "";
@@ -351,9 +353,10 @@ export default {
         this.maxWaterPerUnit = null;
         this.minArea = null;
         this.maxArea = null;
-        this.roomTypeDes = "";
+        this.roomTypeDes = null
         this.advanceFilter = false;
       } else {
+        console.log("ELSE")
         if (this.$route.path == "/") {
           this.$router.push({
             name: "dormList",

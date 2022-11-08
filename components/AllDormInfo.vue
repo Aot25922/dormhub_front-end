@@ -112,10 +112,9 @@
         <!-- Room remainning -->
         <div class="pt-5 pr-5 flex justify-end xl:hidden">
           <div
-            v-if="(dorm.rooms.status = 'ว่าง' && dorm.rooms.length <= 5)"
             class="badge badge-accent"
           >
-            เหลือ {{ dorm.rooms.length }} ห้อง
+            เหลือห้องว่าง {{ dorm.rooms.length }} ห้อง
           </div>
         </div>
 
@@ -269,10 +268,9 @@
             <!-- Room remainning -->
             <div class="flex justify-start items-center py-5">
               <div
-                v-if="(dorm.rooms.status = 'ว่าง' && dorm.rooms.length <= 5)"
                 class="badge badge-accent"
               >
-                เหลือ {{ dorm.rooms.length }} ห้อง
+                เหลือห้องว่าง {{ dorm.rooms.filter(x => x.status == "ว่าง").length }} ห้อง
               </div>
             </div>
             <!-- Minimun Price -->

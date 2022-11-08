@@ -12,9 +12,9 @@
       </h1>
     </div>
     <div class="p-5 xl:pb-20 xl:px-52 2xl:px-96">
-        <SearchBar />
+      <SearchBar @resetPage="page = 1" />
       <AllDormInfo
-	  	class="my-5"
+        class="my-5"
         v-for="dorm in dormList.results"
         :dorm="dorm"
         :key="dorm.dormId"
@@ -52,18 +52,13 @@ export default {
     },
   },
   mounted() {
-    if (
-      this.lastPage.name == "dorm-id" || this.lastPage.name == "index"
-    ) {
+    if (this.lastPage.name == "dorm-id" || this.lastPage.name == "index") {
       return;
     }
     this.changePage();
   },
   computed: {
     dormList() {
-      if(this.$store.state.searchData && this.page != 1){
-        this.page = 1
-      }
       return this.$store.state.dormList;
     },
   },
