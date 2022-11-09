@@ -176,12 +176,10 @@
                       class="w-5 mr-2 md:w-6 lg:w-7 xl:w-8"
                     />
                     จำนวนห้องพัก&nbsp;
-                    <!-- <div
-                      class="text-success"
-                      v-if="(dorm.rooms.status = 'ว่าง')"
-                    >
-                      {{ dorm.rooms.length }}/
-                    </div> -->
+                    <div>
+                      <!-- class="text-success" -->
+                      {{ dorm.rooms.filter((x) => x.status == "ว่าง").length }}/
+                    </div>
                     {{ dorm.rooms.length }}
                   </div>
                 </div>
@@ -217,49 +215,51 @@
 
         <!-- Banking -->
         <div class="my-5 bg-white rounded shadow">
+          <h1 class="p-5 font-bold text-xl">ช่องทางการชำระเงิน</h1>
           <vs-table>
             <template #thead>
               <vs-tr>
-                <vs-th> ลำดับ </vs-th>
-                <vs-th> ชื่อบัญชี </vs-th>
-                <vs-th> เลขบัญชี </vs-th>
+                <vs-th> <p class="mx-auto">ลำดับ</p> </vs-th>
+                <vs-th> <p class="mx-auto">ชื่อบัญชี</p> </vs-th>
+                <vs-th> <p class="mx-auto">เลขบัญชี</p> </vs-th>
+                <vs-th> <p class="mx-auto">ธนาคาร</p> </vs-th>
               </vs-tr>
             </template>
             <template #tbody>
-              <vs-tr v-for="(user, id) in dorm.bankAccounts" :key="id">
-                <vs-td>
-                  {{ id + 1 }}
+              <vs-tr v-for="(bank, id) in dorm.bankAccounts" :key="id">
+                <vs-td class="w-1/6">
+                  <p class="text-center">{{ id + 1 }}</p>
                 </vs-td>
-                <vs-td>
-                  {{ user.accountName }}
+                <vs-td class="w-2/6">
+                  <p class="text-center">{{ bank.accountName }}</p>
                 </vs-td>
-                <vs-td>
-                  {{ user.accountNum }}
+                <vs-td class="w-1/6">
+                  <p class="text-center">{{ bank.accountNum }}</p>
+                </vs-td>
+                <vs-td class="w-2/6">
+                  <p class="text-center">{{ bank.bankId.name }}</p>
                 </vs-td>
               </vs-tr>
             </template>
           </vs-table>
         </div>
-
-        <div class="my-5 dropdown">
-          <label
-            tabindex="0"
-            class="btn btn-neutral m-1 text-sm xl:text-base"
-            >ประเภทห้องพัก<span class="material-icons">expand_more</span></label
-          >
-          <ul
-            tabindex="0"
-            class="dropdown-content menu p-2 shadow rounded-box w-52 bg-white border border-black"
-          >
-            <li v-for="type in dorm.roomTypes" :key="type.roomTypeId">
-              <p
-                class="text-black text-sm xl:text-base"
+        <!-- Roomtype -->
+        <div class="my-5 bg-white rounded shadow">
+          <h1 class="p-5 font-bold text-xl">ประเภทห้องพัก</h1>
+          <div class="grid grid-cols-3 px-3 pb-5 xl:grid-cols-6">
+            <div
+              v-for="type in dorm.roomTypes"
+              :key="type.roomTypeId"
+              class="p-1 col-span-1"
+            >
+              <div
+                class="btn btn-primary w-full text-sm xl:text-base"
                 @click="selectRoomtype(type)"
               >
                 {{ type.type }}
-              </p>
-            </li>
-          </ul>
+              </div>
+            </div>
+          </div>
         </div>
         <div>
           <room-type

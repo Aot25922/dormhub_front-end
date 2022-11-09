@@ -163,7 +163,7 @@
               </select>
             </div>
 
-			<div class="col-span-3 ml-auto md:col-span-1 py-10">
+			<div class="hidden col-span-3 ml-auto md:col-span-1 md:inline py-10">
               <button
                 @click="removeRoom(room, floor, index)"
                 class="btn btn-accent btn-sm"
@@ -184,7 +184,7 @@
 
             <div class="col-span-3 px-1 md:col-span-5">
               <label class="label-text tracking-wide font-bold my-2 text-gray-500"
-                >รายละเอียดเพิ่มเติม(ถ้ามี)</label
+                >หมายเหตุห้อง {{ room.roomNum }}</label
               >
               <textarea
                 type="text"
@@ -254,10 +254,10 @@
               <template #footer>
                 <div class="con-footer">
                   <vs-button @click="addFloorAndRoom" transparent>
-                    Ok
+                    ยืนยัน
                   </vs-button>
                   <vs-button @click="confirmChange = false" dark transparent>
-                    Cancel
+                    ยกเลิก
                   </vs-button>
                 </div>
               </template>

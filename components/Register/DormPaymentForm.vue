@@ -80,10 +80,10 @@
       </div>
     </div>
     <span v-if="accountNumValidate" class="text-error"
-      >Some account number field not complete</span
+      >บางกล่องข้อความเลขบัญชียังไม่สมบูรณ์</span
     >
     <span v-if="accountNameValidate" class="text-error"
-      >Some account name field not complete</span
+      >บางกล่องของชื่อบัญชีไม่สมบูรณ์</span
     >
     <div class="py-5">
       <button
@@ -102,6 +102,7 @@
           bankAccounts.push({
             accountNum: '',
             accountName: '',
+			bankId: ''
           })
         "
         class="btn btn-secondary p-5 w-full"
@@ -147,14 +148,14 @@ export default {
   },
   methods: {
     async submit() {
-      if(bankAccounts.length>5){
+      if(this.bankAccounts.length > 5){
         const noti = this.$vs.notification({
           progress: "auto",
           icon: `<i class='bx bx-error' ></i>`,
           color: "warn",
           position: "top-right",
           title: "บัญชีของคุณเกิน 5 บัญชี",
-          text: "กรุณาเเก้ไขให้ถูกต้อง",
+          text: "จำกัดไม่เกิน 5 บัญชี",
         });
         return
       }
@@ -214,7 +215,7 @@ export default {
           color: "warn",
           position: "top-right",
           title: "ข้อมูลของคุญยังไม่สมบูรณ์",
-          text: "กรุณาเติมข้อมูลให้ครบ",
+          text: "กรุณากรอกข้อมูลให้ครบ",
         });
         this.$emit("validate", false);
       }

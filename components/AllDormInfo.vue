@@ -112,7 +112,8 @@
         <!-- Room remainning -->
         <div  @click="dormInfo()" class="pt-5 cursor-pointer flex justify-start md:justify-end xl:hidden">
           <div class="badge badge-accent">
-            มีทั้งหมด {{ dorm.rooms.length }} ห้อง
+            <div >มีห้องว่าง {{ dorm.rooms.filter((x) => x.status == "ว่าง").length }} ห้อง</div>
+			<!-- <div v-else>ไม่มีห้องว่างเหลือแล้ว!</div> -->
           </div>
         </div>
 
@@ -273,7 +274,7 @@
           <!-- Room remainning -->
           <div class="flex justify-end items-center">
             <div class="badge badge-accent">
-             มีทั้งหมด {{ dorm.rooms.filter((x) => x.status == "ว่าง").length }} ห้อง
+             มีห้องว่าง {{ dorm.rooms.filter((x) => x.status == "ว่าง").length }} ห้อง
             </div>
           </div>
           <!-- Beginning Price&Deposit -->

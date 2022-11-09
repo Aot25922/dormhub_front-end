@@ -79,11 +79,14 @@
                     />จำนวนห้องพัก
                   </vs-td>
                   <vs-td>
-                    <span>{{
-                      $store.state.selectedDorm.rooms.filter(
-                        (x) => x.roomTypeId == roomType.roomTypeId
-                      ).length
-                    }}  ห้อง </span>
+                    <span
+                      >{{
+                        $store.state.selectedDorm.rooms.filter(
+                          (x) => x.roomTypeId == roomType.roomTypeId
+                        ).length
+                      }}
+                      ห้อง
+                    </span>
                   </vs-td>
                 </vs-tr>
               </template>
@@ -93,56 +96,68 @@
       </div>
     </div>
 
-    <div class="my-5 p-5 bg-white drop-shadow-lg rounded-lg">
+    <div class="my-5 bg-white drop-shadow-lg rounded-lg">
       <!--Modal Zone-->
       <input type="checkbox" id="my-modal-6" class="modal-toggle" />
-      <div class="modal modal-bottom sm:modal-middle">
-        <div class="modal-box h-64">
+      <div class="modal modal-bottom md:modal-middle">
+        <div class="modal-box h-2/3">
           <div>
-            <h3 class="font-bold text-lg">เลือกช่องทางการชำระเงิน</h3>
-            <label class="label-text text-gray-500 tracking-wide font-bold my-2"
-              >ช่องทางการชำระเงิน <span class="text-imperialRed">*</span></label
-            >
-            <select
-              v-model="selectedBankAccount"
-              class="select w-full text-gray-500 border-0"
-            >
-              <option option disabled selected>
-                กรุณาเลือกช่องทางการชำระเงิน
-              </option>
-              <option
-                v-for="option in this.bankAccount"
-                :value="option"
-                :key="option.bankAccId"
+            <!-- Choose Payment Banking -->
+            <div>
+              <h3 class="font-bold text-lg">เลือกช่องทางการชำระเงิน</h3>
+              <label
+                class="label-text text-gray-500 tracking-wide font-bold my-2"
+                >ช่องทางการชำระเงิน
+                <span class="text-imperialRed">*</span></label
               >
-                เลขที่บัญชี: {{ option.accountName }} ชื่อบัญชี:
-                {{ option.accountNum }} ธนาคาร{{ option.bank.name }}
-              </option>
-            </select>
-            <label class="label-text text-gray-500 tracking-wide font-bold my-2"
-              >วันที่จะเริ่มเข้าพัก<span class="text-imperialRed"
-                >*</span
-              ></label
-            >
-            <input
-              type="Date"
-              class="py-4 px-2 w-full input input-sm md:input-md rounded"
-              placeholder=""
-              v-model="startDate"
-            />
-            <label class="label-text text-gray-500 tracking-wide font-bold my-2"
-              >วันที่จะสิ้นสุดการเข้าพัก<span class="text-imperialRed"
-                >*</span
-              ></label
-            >
-            <input
-              min="1"
-              max="12"
-              type="number"
-              class="py-4 px-2 w-full input input-sm md:input-md rounded"
-              placeholder="3"
-              v-model="endDate"
-            />
+              <select
+                v-model="selectedBankAccount"
+                class="select w-full text-gray-500 border-gray-200"
+              >
+                <option option disabled selected>
+                  กรุณาเลือกช่องทางการชำระเงิน
+                </option>
+                <option
+                  v-for="option in this.bankAccount"
+                  :value="option"
+                  :key="option.bankAccId"
+                >
+                  เลขที่บัญชี: {{ option.accountName }} ชื่อบัญชี:
+                  {{ option.accountNum }} ธนาคาร{{ option.bank.name }}
+                </option>
+              </select>
+            </div>
+
+            <div class="py-3">
+              <label
+                class="label-text text-gray-500 tracking-wide font-bold my-2"
+                >วันที่จะเริ่มเข้าพัก<span class="text-imperialRed"
+                  >*</span
+                ></label
+              >
+              <input
+                type="Date"
+                class="py-4 px-2 w-full input input-sm md:input-md rounded border-gray-200"
+                placeholder=""
+                v-model="startDate"
+              />
+            </div>
+            <div>
+              <label
+                class="label-text text-gray-500 tracking-wide font-bold my-2"
+                >จำนวนเดือนของการเข้าพัก<span class="text-imperialRed"
+                  >*</span
+                ></label
+              >
+              <input
+                min="1"
+                max="12"
+                type="number"
+                class="py-4 px-2 w-full input input-sm md:input-md rounded border-gray-200"
+                placeholder="3"
+                v-model="endDate"
+              />
+            </div>
           </div>
           <div class="modal-action">
             <label for="my-modal-6" class="btn">ยกเลิกการจอง</label>
@@ -158,7 +173,10 @@
       </div>
 
       <!-- Floor&Room List -->
-      <h1 class="font-bold text-lg xl:text-xl">ห้องพักทั้งหมด</h1>
+      <h1 class="font-bold text-lg xl:text-xl p-5">
+        ข้อมูลห้องพัก
+        <span class="text-gray-400 text-xs md:hidden">(เลื่อนไปทางขวาเพื่อจอง)</span>
+      </h1>
       <vs-table>
         <template #thead>
           <vs-tr>
@@ -166,44 +184,49 @@
             <vs-th> <p class="mx-auto">เลขห้อง</p> </vs-th>
             <vs-th> <p class="mx-auto">สถานะ</p> </vs-th>
             <vs-th> <p class="mx-auto">หมายเหตุ</p> </vs-th>
-			<vs-th></vs-th>
+            <vs-th></vs-th>
           </vs-tr>
         </template>
         <template #tbody>
           <vs-tr v-for="(room, key) in roomList" :key="key" class="">
-              <vs-td class="w-1/6">
-                <p class="text-center">{{ room.floors }}</p>
-              </vs-td>
-              <vs-td class="w-1/6">
-                <p class="text-center">{{ room.roomNum }}</p>
-              </vs-td>
-              <vs-td class="w-1/6">
-                <div v-if="room.status == 'ว่าง'" class="text-success">
-                  <p class="text-center">{{ room.status }}</p>
-                </div>
-                <div v-else class="text-imperialRed">
-                  <p class="text-center">{{ room.status }}</p>
-                </div>
-              </vs-td>
-              <vs-td class="w-1/6">
-                <div v-if="room.description">
-				<p class="text-center">{{ room.description }}</p>
-				</div> 
-				<div v-else><p class="text-center">-</p></div>
-              </vs-td>
-			  <vs-td class="w-2/6">
-				<label
-              for="my-modal-6"
-              class="btn btn-success w-full modal-button"
-              v-if="
-                room.status == 'ว่าง' &&
-                $store.state.userAccount.role == 'Customer'
-              "
-              @click="selectedRoom = room"
-              >จองห้องพัก</label
-            >
-			  </vs-td>
-            </vs-tr>
+            <vs-td class="w-1/6">
+              <p class="text-center">{{ room.floors }}</p>
+            </vs-td>
+            <vs-td class="w-1/6">
+              <p class="text-center">{{ room.roomNum }}</p>
+            </vs-td>
+            <vs-td class="w-1/6">
+              <div v-if="room.status == 'ว่าง'" class="text-success">
+                <p class="text-center">{{ room.status }}</p>
+              </div>
+              <div v-else class="text-imperialRed">
+                <p class="text-center">{{ room.status }}</p>
+              </div>
+            </vs-td>
+            <vs-td class="w-1/6">
+              <div v-if="room.description">
+                <p class="text-center">{{ room.description }}</p>
+              </div>
+              <div v-else><p class="text-center">-</p></div>
+            </vs-td>
+            <vs-td class="w-2/6">
+              <label
+                for="my-modal-6"
+                class="btn btn-success w-full modal-button"
+                v-if="
+                  room.status == 'ว่าง' &&
+                  $store.state.userAccount.role == 'Customer'
+                "
+                @click="selectedRoom = room"
+                >จองห้องพัก</label
+              >
+			  <label
+                class="btn btn-accent w-full"
+                v-if="room.status == 'จองแล้ว'"
+                >ไม่สามารถจองได้</label
+              >
+            </vs-td>
+          </vs-tr>
         </template>
         <!-- <template #footer>
           <vs-pagination v-model="page" :length="$vs.getLength(users, max)" />
@@ -325,13 +348,13 @@ export default {
   },
   created() {
     let roomList = [];
-	for(let i in this.$store.state.selectedDorm.rooms) {
-		roomList.push(this.$store.state.selectedDorm.rooms[i])
-	}
-	roomList = roomList.filter(x => x.roomTypeId == this.roomType.roomTypeId)
-	roomList = roomList.sort((a, b) => a.floors - b.floors)
-	this.roomList = roomList
-	console.log(roomList)
+    for (let i in this.$store.state.selectedDorm.rooms) {
+      roomList.push(this.$store.state.selectedDorm.rooms[i]);
+    }
+    roomList = roomList.filter((x) => x.roomTypeId == this.roomType.roomTypeId);
+    roomList = roomList.sort((a, b) => a.floors - b.floors);
+    this.roomList = roomList;
+    console.log(roomList);
   },
 };
 </script>
