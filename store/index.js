@@ -108,7 +108,7 @@ export const actions = {
     const request = {
       params: {
         page: page,
-        limit: 5
+        limit: 10
       },
       withCredentials: true
     }
@@ -133,9 +133,10 @@ export const actions = {
         deposit:
           this.state.searchData.maxDeposit  ? [this.state.searchData.minDeposit, this.state.searchData.maxDeposit] : null,
         area: this.state.searchData.maxArea  ? [this.state.searchData.minArea, this.state.searchData.maxArea] : null,
+        orderBy: this.state.searchData.orderBy
       };
       formData.append("data", JSON.stringify(searchData));
-      await this.$axios.post(`${this.state.Backend_URL}/dorm/search?page=${page}`, formData,request)
+      await this.$axios.post(`${this.state.Backend_URL}/dorm/search`, formData,request)
         .then(response => {
           commit('SET_DORMLIST', response.data)
         }).catch(function (error) {
@@ -143,7 +144,7 @@ export const actions = {
           commit('SET_DORMLIST', [])
         })
     } else {
-      await this.$axios.get(`${this.state.Backend_URL}/dorm?page=${page}`, request)
+      await this.$axios.get(`${this.state.Backend_URL}/dorm`, request)
         .then(response => {
           commit('SET_DORMLIST', response.data)
         }).catch(function (error) {
@@ -160,7 +161,7 @@ export const actions = {
       params: {
         page: page,
         dormIdList: dormIdList,
-        limit: 5
+        limit: 10
       },
       withCredentials: true
     }
