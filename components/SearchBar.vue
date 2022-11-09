@@ -236,7 +236,106 @@
           />
         </div>
       </div>
-
+      <div class="mb-5 md:px-1 md:w-1/2 lg:w-1/4">
+        <vs-select
+          label="เรียงโดย"
+          filter
+          multiple
+          placeholder="Group Multiple Filter"
+          v-model="orderBy"
+        >
+          <vs-option-group>
+            <div slot="title">จำนวนห้องพักที่ว่าง</div>
+            <vs-option
+              label="จำนวนห้องพักที่ว่าง(น้อย-มาก)"
+              value='{"freeRoom":"ASC"}'
+            >
+              น้อย-มาก
+            </vs-option>
+            <vs-option
+              label="จำนวนห้องพักที่ว่าง(มาก-น้อย)"
+              value='{"freeRoom":"DESC"}'
+            >
+              มาก-น้อย
+            </vs-option>
+          </vs-option-group>
+          <vs-option-group>
+            <div slot="title">ชื่อ</div>
+            <vs-option label="ชื่อ(หน้า-หลัง)" value='{"name":"ASC"}'>
+              หน้า-หลัง
+            </vs-option>
+            <vs-option label="ชื่อ(หลัง-หน้า)" value='{"name":"DESC"}'>
+              หลัง-หน้า
+            </vs-option>
+          </vs-option-group>
+          <vs-option-group>
+            <div slot="title">ที่อยู่</div>
+            <vs-option label="ที่อยู่(หน้า-หลัง)" value='{"address":"ASC"}'>
+              หน้า-หลัง
+            </vs-option>
+            <vs-option label="ที่อยู่(หลัง-หน้า)" value='{"address":"DESC"}'>
+              หลัง-หน้า
+            </vs-option>
+          </vs-option-group>
+          <vs-option-group>
+            <div slot="title">ค่าไฟต่อหน่วย</div>
+            <vs-option
+              label="ค่าไฟต่อหน่วย(น้อย-มาก)"
+              value='{"elecPerUnit":"ASC"}'
+            >
+              น้อย-มาก
+            </vs-option>
+            <vs-option
+              label="ค่าไฟต่อหน่วย(มาก-น้อย)"
+              value='{"elecPerUnit":"DESC"}'
+            >
+              มาก-น้อย
+            </vs-option>
+          </vs-option-group>
+          <vs-option-group>
+            <div slot="title">ค่าน้ำต่อหน่วย</div>
+            <vs-option
+              label="ค่าน้ำต่อหน่วย(น้อย-มาก)"
+              value='{"waterPerUnit":"ASC"}'
+            >
+              น้อย-มาก
+            </vs-option>
+            <vs-option
+              label="ค่าน้ำต่อหน่วย(มาก-น้อย)"
+              value='{"waterPerUnit":"DESC"}'
+            >
+              มาก-น้อย
+            </vs-option>
+          </vs-option-group>
+          <vs-option-group>
+            <div slot="title">ค่าเช่าต่อเดือน</div>
+            <vs-option label="ค่าเช่าต่อเดือน(น้อย-มาก)" value='{"price":"ASC"}'>
+              น้อย-มาก
+            </vs-option>
+            <vs-option label="ค่าเช่าต่อเดือน(มาก-น้อย)" value='{"price":"DESC"}'>
+              มาก-น้อย
+            </vs-option>
+          </vs-option-group>
+          <vs-option-group>
+            <div slot="title">ค่าจอง</div>
+            <vs-option label="ค่าจอง(น้อย-มาก)" value='{"deposit":"ASC"}'>
+              น้อย-มาก
+            </vs-option>
+            <vs-option label="ค่าจอง(มาก-น้อย)" value='{"deposit":"DESC"}'>
+              มาก-น้อย
+            </vs-option>
+          </vs-option-group>
+          <vs-option-group>
+            <div slot="title">พื้นที่</div>
+            <vs-option label="พื้นที่(น้อย-มาก)" value='{"area":"ASC"}'>
+              น้อย-มาก
+            </vs-option>
+            <vs-option label="พื้นที่(มาก-น้อย)" value='{"area":"DESC"}'>
+              มาก-น้อย
+            </vs-option>
+          </vs-option-group>
+        </vs-select>
+      </div>
       <!--roomTypeDes Filter-->
       <div class="py-2 md:px-2 md:w-1/2">
         <h1 class="font-bold p-1">ข้อมูลห้องพักเพิ่มเติม</h1>
@@ -302,12 +401,13 @@ export default {
       minArea: null,
       maxArea: null,
       roomTypeDes: null,
+      orderBy: [],
       advanceFilter: false,
     };
   },
   methods: {
     async searchDorm(clearFilter) {
-      this.$emit("resetPage")
+      this.$emit("resetPage");
       const loading = this.$vs.loading();
       if (
         clearFilter ||
@@ -327,6 +427,7 @@ export default {
           this.minArea == null &&
           this.maxArea == null &&
           this.roomTypeDes == null &&
+          this.orderBy.length == 0 &&
           !this.advanceFilter)
       ) {
         loading.close();
@@ -337,7 +438,7 @@ export default {
             name: "dormList",
           });
         }
-        this.search = null
+        this.search = null;
         this.selectedRegion = "";
         this.selectedProvince = "";
         this.selectedDistrict = "";
@@ -352,13 +453,18 @@ export default {
         this.maxWaterPerUnit = null;
         this.minArea = null;
         this.maxArea = null;
-        this.roomTypeDes = null
+        this.roomTypeDes = null;
         this.advanceFilter = false;
+        this.orderBy = [];
       } else {
         if (this.$route.path == "/") {
           this.$router.push({
             name: "dormList",
           });
+        }
+        let newOrderBy = {};
+        for(let i in this.orderBy){
+          Object.assign(newOrderBy,JSON.parse(this.orderBy[i]))
         }
         let existedSearchData = {
           search: this.search,
@@ -379,7 +485,9 @@ export default {
           maxArea: this.maxArea,
           roomTypeDes: this.roomTypeDes,
           advanceFilter: this.advanceFilter,
+          orderBy: newOrderBy
         };
+        console.log(newOrderBy)
         this.$store.commit("SET_SEARCH", existedSearchData);
         this.$store.dispatch("fetchDormList", 0);
         loading.close();
