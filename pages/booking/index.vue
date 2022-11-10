@@ -1,5 +1,5 @@
 <template>
-  <div class="center pt-[6rem]">
+  <div class="center md:min-h-screen pt-[6rem]">
     <vs-table class="overflow-x-auto">
       <template #thead class="flex justify-center">
         <vs-tr>
