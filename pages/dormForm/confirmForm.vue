@@ -192,7 +192,7 @@
       <div class="p-5 bg-white rounded-lg mb-5 shadow-lg">
         <h1 class="pt-2 pb-5 font-bold text-lg xl:text-xl">ห้องพักทั้งหมด</h1>
         <div>
-          <!-- <vs-table>
+          <vs-table>
             <template #thead>
               <vs-tr>
                 <vs-th> <p class="mx-auto">ชั้น</p> </vs-th>
@@ -203,14 +203,14 @@
               </vs-tr>
             </template>
             <template #tbody>
-              <vs-tr v-for="(floor, key) in roomList" :key="key">
-                <vs-td class="w-1/6">
+              <vs-tr v-for="(room, key) in roomList" :key="key">
+                <vs-td class="w-1/4">
                   <p class="text-center">{{ room.floors }}</p>
                 </vs-td>
-                <vs-td class="w-1/6">
+                <vs-td class="w-1/4">
                   <p class="text-center">{{ room.roomNum }}</p>
                 </vs-td>
-                <vs-td class="w-1/6">
+                <vs-td class="w-1/4">
                   <div v-if="room.status == 'ว่าง'" class="text-success">
                     <p class="text-center">{{ room.status }}</p>
                   </div>
@@ -218,73 +218,18 @@
                     <p class="text-center">{{ room.status }}</p>
                   </div>
                 </vs-td>
-                <vs-td class="w-1/6">
+                <vs-td class="w-1/4">
                   <div v-if="room.description">
                     <p class="text-center">{{ room.description }}</p>
                   </div>
                   <div v-else><p class="text-center">-</p></div>
                 </vs-td>
-                <vs-td class="w-2/6">
-                  <label
-                    for="my-modal-6"
-                    class="btn btn-success w-full modal-button"
-                    v-if="
-                      room.status == 'ว่าง' &&
-                      $store.state.userAccount.role == 'Customer'
-                    "
-                    @click="selectedRoom = room"
-                    >จองห้องพัก</label
-                  >
-                  <label
-                    class="btn btn-accent w-full"
-                    v-if="room.status == 'จองแล้ว'"
-                    >ไม่สามารถจองได้</label
-                  >
-                </vs-td>
               </vs-tr>
             </template>
-            <template #footer>
+            <!-- <template #footer>
           <vs-pagination v-model="page" :length="$vs.getLength(users, max)" />
-        </template>
- </vs-table> -->
-          <div
-            v-for="(floor, key) in roomList"
-            :key="key"
-            class="flex flex-wrap"
-          >
-            <div class="w-full font-bold">ชั้น : {{ key }}</div>
-            <div
-              v-for="(room, index) in floor"
-              :key="index"
-              class="w-1/2 md:w-1/3 lg:w-1/4"
-            >
-              <div class="p-5 m-1 rounded bg-ghostWhite flex flex-wrap shadow">
-                <p class="w-full">
-                  เลขห้อง: <b>{{ room.roomNum }}</b>
-                </p>
-                <div class="w-full">
-                  <div v-if="room.status == 'ว่าง'">
-                    สถานะ: <b class="text-success">{{ room.status }}</b>
-                  </div>
-                  <div v-else>
-                    สถานะ: <b class="text-imperialRed">{{ room.status }}</b>
-                  </div>
-                </div>
-                <div class="w-full">
-                  ประเภทห้อง: <b>{{ room.roomType }}</b>
-                </div>
-                <div>
-                  <div
-                    v-if="room.description != ''"
-                    class="w-full px-2 py-3 bg-white mt-3 rounded"
-                  >
-                    {{ room.description }}
-                  </div>
-                  <div v-else class="bg-inherit hidden"></div>
-                </div>
-              </div>
-            </div>
-          </div>
+        </template> -->
+          </vs-table>
         </div>
       </div>
 
@@ -365,15 +310,7 @@ export default {
       return IMGLIST;
     },
     roomList() {
-      let rooms = {};
-      let myRooms = [...this.$store.state.newDorm.room];
-      for (let i in myRooms) {
-        if (!rooms.hasOwnProperty(myRooms[i].floors)) {
-          this.$set(rooms, myRooms[i].floors, []);
-        }
-        rooms[myRooms[i].floors].push(myRooms[i]);
-      }
-      return rooms;
+      return this.$store.state.newDorm.room;
     },
   },
 };

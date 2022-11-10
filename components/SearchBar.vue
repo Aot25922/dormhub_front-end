@@ -1,14 +1,31 @@
 <template>
-  <!--  Search Bar with filer -->
+  <!--  Search Bar with filter -->
   <div class="bg-white p-5 shadow rounded-xl md:flex md:flex-wrap md:p-8">
-    <div class="py-2 md:px-2 md:w-1/2">
+    <div class="w-full py-2 md:px-2">
       <h1 class="font-bold p-1">ค้นหาหอพักที่ต้องการ</h1>
-      <input
-        v-model="search"
-        type="text"
-        class="input w-full border-x-0 border-t-0 border-b-gray-400"
-        placeholder="ค้นหาหอพัก..."
-      />
+      <div class="flex w-full rounded-lg overflow-hidden">
+        <div
+          class="flex w-full border-b border-b-gray-400 shadow-md input px-0 border-x-0 border-t-0"
+        >
+          <input
+            v-model="search"
+            type="text"
+            class="w-full border-0"
+            placeholder="ค้นหาหอพัก..."
+          />
+          <button v-if="search" @click="searchDorm(true)" class="w-1/6 md:w-10">
+            <span class="material-icons bg-transparent xl:w-10">clear</span>
+          </button>
+        </div>
+        <button
+          @click="searchDorm(false)"
+          class="w-2/6 md:w-20 xl:w-24 bg-primary duration-300 delay-300"
+        >
+          <span class="material-symbols-outlined bg-transparent text-white">
+            search
+          </span>
+        </button>
+      </div>
     </div>
 
     <!--เลือกภูมิภาค-->
@@ -107,275 +124,292 @@
       </select>
     </div>
 
-    <!-- Advance Filter Button -->
-    <div class="w-full flex items-end py-3 md:w-1/2">
-      <button
-        @click="advanceFilter = !advanceFilter"
-        class="btn btn-secondary w-full"
-      >
-        ตัวเลือกเพิ่มเติม<span class="material-symbols-outlined"> build </span>
-      </button>
-    </div>
-    <div v-if="advanceFilter" class="md:flex md:flex-wrap">
-      <!--pricePerMonth Filter-->
-      <div class="py-2 md:px-2 md:w-1/2">
-        <h1 class="font-bold p-1">ราคาห้องพักต่อเดือน</h1>
-        <div class="flex">
-          <input
-            v-model="minPrice"
-            type=" number"
-            class="input w-full border-x-0 border-t-0 border-b-gray-400"
-            min="1"
-            max="100000"
-            placeholder="3000"
-          />
-          <h1 class="px-1 flex items-center">-</h1>
-          <input
-            v-model="maxPrice"
-            type=" number"
-            class="input w-full border-x-0 border-t-0 border-b-gray-400"
-            min="1"
-            max="100000"
-            placeholder="100000"
-          />
-        </div>
-      </div>
-
-      <!--Deposit Filter-->
-      <div class="py-2 md:px-2 md:w-1/2">
-        <h1 class="font-bold p-1">ราคาค่าจองห้องพัก</h1>
-        <div class="flex">
-          <input
-            v-model="minDeposit"
-            type=" number"
-            class="input w-full border-x-0 border-t-0 border-b-gray-400"
-            min="1"
-            max="100000"
-            placeholder="3000"
-          />
-          <h1 class="px-1 flex items-center">-</h1>
-          <input
-            v-model="maxDeposit"
-            type=" number"
-            class="input w-full border-x-0 border-t-0 border-b-gray-400"
-            min="1"
-            max="100000"
-            placeholder="100000"
-          />
-        </div>
-      </div>
-
-      <!--electricPermonth Filter-->
-      <div class="py-2 md:px-2 md:w-1/2">
-        <h1 class="font-bold p-1">ค่าไฟต่อหน่วย</h1>
-        <div class="flex">
-          <input
-            v-model="minElecPerUnit"
-            type=" number"
-            class="input w-full border-x-0 border-t-0 border-b-gray-400"
-            min="0.01"
-            max="50"
-            placeholder="0.01"
-          />
-          <h1 class="px-1 flex items-center">-</h1>
-          <input
-            v-model="maxElecPerUnit"
-            type=" number"
-            class="input w-full border-x-0 border-t-0 border-b-gray-400"
-            min="0.01"
-            max="50"
-            placeholder="50.00"
-          />
-        </div>
-      </div>
-
-      <!--waterPermonth Filter-->
-      <div class="py-2 md:px-2 md:w-1/2">
-        <h1 class="font-bold p-1">ค่าน้ำต่อหน่วย</h1>
-        <div class="flex">
-          <input
-            v-model="minWaterPerUnit"
-            type=" number"
-            class="input w-full border-x-0 border-t-0 border-b-gray-400"
-            min="0.01"
-            max="50"
-            placeholder="0.01"
-          />
-          <h1 class="px-1 flex items-center">-</h1>
-          <input
-            v-model="maxWaterPerUnit"
-            type=" number"
-            class="input w-full border-x-0 border-t-0 border-b-gray-400"
-            min="0.01"
-            max="50"
-            placeholder="50.00"
-          />
-        </div>
-      </div>
-
-      <!--area Filter-->
-      <div class="py-2 md:px-2 md:w-1/2">
-        <h1 class="font-bold p-1">ขนาดห้องพัก</h1>
-        <div class="flex">
-          <input
-            v-model="minArea"
-            type=" number"
-            class="input w-full border-x-0 border-t-0 border-b-gray-400"
-            min="1"
-            max="999.99"
-            placeholder="20"
-          />
-          <h1 class="px-1 flex items-center">-</h1>
-          <input
-            v-model="maxArea"
-            type=" number"
-            class="input w-full border-x-0 border-t-0 border-b-gray-400"
-            min="1"
-            max="999.99"
-            placeholder="999.99"
-          />
-        </div>
-      </div>
-      <div class="mb-5 md:px-1 md:w-1/2 lg:w-1/4">
-        <vs-select
-          label="เรียงโดย"
-          filter
-          multiple
-          placeholder="Group Multiple Filter"
-          v-model="orderBy"
+    <div class="w-full py-3 grid grid-cols-3 md:grid-cols-4 xl:grid-cols-6">
+      <!-- Clear Filter -->
+	  <div class="px-1 col-span-1">
+        <button
+          v-if="
+            selectedRegion ||
+            selectedProvince ||
+            selectedDistrict ||
+            selectedSubDistrict
+          "
+          @click="searchDorm(true)"
+          class="w-full btn btn-secondary"
         >
-          <vs-option-group>
-            <div slot="title">จำนวนห้องพักที่ว่าง</div>
-            <vs-option
-              label="จำนวนห้องพักที่ว่าง(น้อย-มาก)"
-              value='{"freeRoom":"ASC"}'
-            >
-              น้อย-มาก
-            </vs-option>
-            <vs-option
-              label="จำนวนห้องพักที่ว่าง(มาก-น้อย)"
-              value='{"freeRoom":"DESC"}'
-            >
-              มาก-น้อย
-            </vs-option>
-          </vs-option-group>
-          <vs-option-group>
-            <div slot="title">ชื่อ</div>
-            <vs-option label="ชื่อ(หน้า-หลัง)" value='{"name":"ASC"}'>
-              หน้า-หลัง
-            </vs-option>
-            <vs-option label="ชื่อ(หลัง-หน้า)" value='{"name":"DESC"}'>
-              หลัง-หน้า
-            </vs-option>
-          </vs-option-group>
-          <vs-option-group>
-            <div slot="title">ที่อยู่</div>
-            <vs-option label="ที่อยู่(หน้า-หลัง)" value='{"address":"ASC"}'>
-              หน้า-หลัง
-            </vs-option>
-            <vs-option label="ที่อยู่(หลัง-หน้า)" value='{"address":"DESC"}'>
-              หลัง-หน้า
-            </vs-option>
-          </vs-option-group>
-          <vs-option-group>
-            <div slot="title">ค่าไฟต่อหน่วย</div>
-            <vs-option
-              label="ค่าไฟต่อหน่วย(น้อย-มาก)"
-              value='{"elecPerUnit":"ASC"}'
-            >
-              น้อย-มาก
-            </vs-option>
-            <vs-option
-              label="ค่าไฟต่อหน่วย(มาก-น้อย)"
-              value='{"elecPerUnit":"DESC"}'
-            >
-              มาก-น้อย
-            </vs-option>
-          </vs-option-group>
-          <vs-option-group>
-            <div slot="title">ค่าน้ำต่อหน่วย</div>
-            <vs-option
-              label="ค่าน้ำต่อหน่วย(น้อย-มาก)"
-              value='{"waterPerUnit":"ASC"}'
-            >
-              น้อย-มาก
-            </vs-option>
-            <vs-option
-              label="ค่าน้ำต่อหน่วย(มาก-น้อย)"
-              value='{"waterPerUnit":"DESC"}'
-            >
-              มาก-น้อย
-            </vs-option>
-          </vs-option-group>
-          <vs-option-group>
-            <div slot="title">ค่าเช่าต่อเดือน</div>
-            <vs-option label="ค่าเช่าต่อเดือน(น้อย-มาก)" value='{"price":"ASC"}'>
-              น้อย-มาก
-            </vs-option>
-            <vs-option label="ค่าเช่าต่อเดือน(มาก-น้อย)" value='{"price":"DESC"}'>
-              มาก-น้อย
-            </vs-option>
-          </vs-option-group>
-          <vs-option-group>
-            <div slot="title">ค่าจอง</div>
-            <vs-option label="ค่าจอง(น้อย-มาก)" value='{"deposit":"ASC"}'>
-              น้อย-มาก
-            </vs-option>
-            <vs-option label="ค่าจอง(มาก-น้อย)" value='{"deposit":"DESC"}'>
-              มาก-น้อย
-            </vs-option>
-          </vs-option-group>
-          <vs-option-group>
-            <div slot="title">พื้นที่</div>
-            <vs-option label="พื้นที่(น้อย-มาก)" value='{"area":"ASC"}'>
-              น้อย-มาก
-            </vs-option>
-            <vs-option label="พื้นที่(มาก-น้อย)" value='{"area":"DESC"}'>
-              มาก-น้อย
-            </vs-option>
-          </vs-option-group>
-        </vs-select>
+          <span class="material-symbols-outlined"> mop </span>
+        </button>
       </div>
-      <!--roomTypeDes Filter-->
-      <div class="py-2 md:px-2 md:w-1/2">
-        <h1 class="font-bold p-1">ข้อมูลห้องพักเพิ่มเติม</h1>
-        <input
-          v-model="roomTypeDes"
-          type=" text"
-          class="input w-full border-x-0 border-t-0 border-b-gray-400"
-          placeholder="เล็ก ใหญ่ ทั่วไป รวม"
-        />
-      </div>
-    </div>
-    <div class="py-3 w-full flex flex-wrap md:py-0 md:mt-10">
+	  <!-- Advance Filter Button -->
       <div
-        class="w-full flex flex-wrap"
-        v-if="
-          search ||
-          selectedRegion ||
-          selectedProvince ||
-          selectedDistrict ||
-          selectedSubDistrict ||
-          advanceFilter
-        "
+        class="px-1 col-span-2 col-start-2 md:col-start-3 xl:col-span-3 xl:col-start-4"
       >
-        <div class="w-1/2">
-          <button @click="searchDorm(true)" class="btn btn-ghost w-full mb-5">
-            <span class="material-icons">clear</span>ล้างการกรอง
-          </button>
-        </div>
-        <div class="w-1/2">
-          <button @click="searchDorm(false)" class="btn btn-primary w-full">
-            ค้นหา
-          </button>
-        </div>
-      </div>
-      <div v-else class="w-full">
-        <button @click="searchDorm(false)" class="btn btn-primary w-full">
-          <span class="material-symbols-outlined"> search </span>ค้นหา
+        <button
+          @click="
+            advanceFilter = !advanceFilter;
+          "
+          class="w-full btn btn-ghost"
+        >
+          ขั้นสูง<span class="material-symbols-outlined"> build </span>
         </button>
       </div>
     </div>
+
+	<!-- Modal Advanced Filter -->
+    <vs-dialog scroll overflow-hidden not-close auto-width v-model="advanceFilter" class="font-Kanit">
+      <template #header>
+        <h3 class="font-bold py-3 text-lg flex items-center">การกรองขั้นสูง<span class="material-symbols-outlined"> build </span></h3>
+      </template>
+      <div class="con-content">
+        <!--pricePerMonth Filter-->
+        <div class="py-2 md:px-2 md:w-1/2">
+          <h1 class="font-bold p-1">ราคาห้องพักต่อเดือน</h1>
+          <div class="flex">
+            <input
+              v-model="minPrice"
+              type=" number"
+              class="input w-full border-x-0 border-t-0 border-b-gray-400"
+              min="1"
+              max="100000"
+              placeholder="3000"
+            />
+            <h1 class="px-1 flex items-center">-</h1>
+            <input
+              v-model="maxPrice"
+              type=" number"
+              class="input w-full border-x-0 border-t-0 border-b-gray-400"
+              min="1"
+              max="100000"
+              placeholder="100000"
+            />
+          </div>
+        </div>
+
+        <!--Deposit Filter-->
+        <div class="py-2 md:px-2 md:w-1/2">
+          <h1 class="font-bold p-1">ราคาค่าจองห้องพัก</h1>
+          <div class="flex">
+            <input
+              v-model="minDeposit"
+              type=" number"
+              class="input w-full border-x-0 border-t-0 border-b-gray-400"
+              min="1"
+              max="100000"
+              placeholder="3000"
+            />
+            <h1 class="px-1 flex items-center">-</h1>
+            <input
+              v-model="maxDeposit"
+              type=" number"
+              class="input w-full border-x-0 border-t-0 border-b-gray-400"
+              min="1"
+              max="100000"
+              placeholder="100000"
+            />
+          </div>
+        </div>
+
+        <!--electricPermonth Filter-->
+        <div class="py-2 md:px-2 md:w-1/2">
+          <h1 class="font-bold p-1">ค่าไฟต่อหน่วย</h1>
+          <div class="flex">
+            <input
+              v-model="minElecPerUnit"
+              type=" number"
+              class="input w-full border-x-0 border-t-0 border-b-gray-400"
+              min="0.01"
+              max="50"
+              placeholder="0.01"
+            />
+            <h1 class="px-1 flex items-center">-</h1>
+            <input
+              v-model="maxElecPerUnit"
+              type=" number"
+              class="input w-full border-x-0 border-t-0 border-b-gray-400"
+              min="0.01"
+              max="50"
+              placeholder="50.00"
+            />
+          </div>
+        </div>
+
+        <!--waterPermonth Filter-->
+        <div class="py-2 md:px-2 md:w-1/2">
+          <h1 class="font-bold p-1">ค่าน้ำต่อหน่วย</h1>
+          <div class="flex">
+            <input
+              v-model="minWaterPerUnit"
+              type=" number"
+              class="input w-full border-x-0 border-t-0 border-b-gray-400"
+              min="0.01"
+              max="50"
+              placeholder="0.01"
+            />
+            <h1 class="px-1 flex items-center">-</h1>
+            <input
+              v-model="maxWaterPerUnit"
+              type=" number"
+              class="input w-full border-x-0 border-t-0 border-b-gray-400"
+              min="0.01"
+              max="50"
+              placeholder="50.00"
+            />
+          </div>
+        </div>
+
+        <!--area Filter-->
+        <div class="py-2 md:px-2 md:w-1/2">
+          <h1 class="font-bold p-1">ขนาดห้องพัก</h1>
+          <div class="flex">
+            <input
+              v-model="minArea"
+              type=" number"
+              class="input w-full border-x-0 border-t-0 border-b-gray-400"
+              min="1"
+              max="999.99"
+              placeholder="20"
+            />
+            <h1 class="px-1 flex items-center">-</h1>
+            <input
+              v-model="maxArea"
+              type=" number"
+              class="input w-full border-x-0 border-t-0 border-b-gray-400"
+              min="1"
+              max="999.99"
+              placeholder="999.99"
+            />
+          </div>
+        </div>
+        <!-- Multiple Filter -->
+        <div class="w-full mt-5 md:px-1 md:w-1/2 lg:w-1/4">
+		<h1 class="font-bold p-1">จัดลำดับโดย</h1>
+          <vs-select
+		  	class="w-full"
+            filter
+            multiple
+            placeholder="กรองหลายทางเลือก"
+            v-model="orderBy"
+          >
+            <vs-option-group>
+              <div slot="title">จำนวนห้องพักที่ว่าง</div>
+              <vs-option
+                label="จำนวนห้องพักที่ว่าง(น้อย-มาก)"
+                value='{"freeRoom":"ASC"}'
+              >
+                น้อย-มาก
+              </vs-option>
+              <vs-option
+                label="จำนวนห้องพักที่ว่าง(มาก-น้อย)"
+                value='{"freeRoom":"DESC"}'
+              >
+                มาก-น้อย
+              </vs-option>
+            </vs-option-group>
+            <vs-option-group>
+              <div slot="title">ชื่อ</div>
+              <vs-option label="ชื่อ(หน้า-หลัง)" value='{"name":"ASC"}'>
+                หน้า-หลัง
+              </vs-option>
+              <vs-option label="ชื่อ(หลัง-หน้า)" value='{"name":"DESC"}'>
+                หลัง-หน้า
+              </vs-option>
+            </vs-option-group>
+            <vs-option-group>
+              <div slot="title">ที่อยู่</div>
+              <vs-option label="ที่อยู่(หน้า-หลัง)" value='{"address":"ASC"}'>
+                หน้า-หลัง
+              </vs-option>
+              <vs-option label="ที่อยู่(หลัง-หน้า)" value='{"address":"DESC"}'>
+                หลัง-หน้า
+              </vs-option>
+            </vs-option-group>
+            <vs-option-group>
+              <div slot="title">ค่าไฟต่อหน่วย</div>
+              <vs-option
+                label="ค่าไฟต่อหน่วย(น้อย-มาก)"
+                value='{"elecPerUnit":"ASC"}'
+              >
+                น้อย-มาก
+              </vs-option>
+              <vs-option
+                label="ค่าไฟต่อหน่วย(มาก-น้อย)"
+                value='{"elecPerUnit":"DESC"}'
+              >
+                มาก-น้อย
+              </vs-option>
+            </vs-option-group>
+            <vs-option-group>
+              <div slot="title">ค่าน้ำต่อหน่วย</div>
+              <vs-option
+                label="ค่าน้ำต่อหน่วย(น้อย-มาก)"
+                value='{"waterPerUnit":"ASC"}'
+              >
+                น้อย-มาก
+              </vs-option>
+              <vs-option
+                label="ค่าน้ำต่อหน่วย(มาก-น้อย)"
+                value='{"waterPerUnit":"DESC"}'
+              >
+                มาก-น้อย
+              </vs-option>
+            </vs-option-group>
+            <vs-option-group>
+              <div slot="title">ค่าเช่าต่อเดือน</div>
+              <vs-option
+                label="ค่าเช่าต่อเดือน(น้อย-มาก)"
+                value='{"price":"ASC"}'
+              >
+                น้อย-มาก
+              </vs-option>
+              <vs-option
+                label="ค่าเช่าต่อเดือน(มาก-น้อย)"
+                value='{"price":"DESC"}'
+              >
+                มาก-น้อย
+              </vs-option>
+            </vs-option-group>
+            <vs-option-group>
+              <div slot="title">ค่าจอง</div>
+              <vs-option label="ค่าจอง(น้อย-มาก)" value='{"deposit":"ASC"}'>
+                น้อย-มาก
+              </vs-option>
+              <vs-option label="ค่าจอง(มาก-น้อย)" value='{"deposit":"DESC"}'>
+                มาก-น้อย
+              </vs-option>
+            </vs-option-group>
+            <vs-option-group>
+              <div slot="title">พื้นที่</div>
+              <vs-option label="พื้นที่(น้อย-มาก)" value='{"area":"ASC"}'>
+                น้อย-มาก
+              </vs-option>
+              <vs-option label="พื้นที่(มาก-น้อย)" value='{"area":"DESC"}'>
+                มาก-น้อย
+              </vs-option>
+            </vs-option-group>
+          </vs-select>
+        </div>
+        <!--roomTypeDes Filter-->
+        <div class="py-2 md:px-2 md:w-1/2">
+          <h1 class="font-bold p-1">ข้อมูลห้องพักเพิ่มเติม</h1>
+          <input
+            v-model="roomTypeDes"
+            type=" text"
+            class="input w-full border-x-0 border-t-0 border-b-gray-400"
+            placeholder="เล็ก ใหญ่ ทั่วไป รวม"
+          />
+        </div>
+      </div>
+	  <template #footer>
+          <div class="con-footer flex justify-end">
+            <vs-button @click="searchDorm(false); advanceFilter=false" transparent cla>
+              ยืนยัน
+            </vs-button>
+            <vs-button @click="advanceFilter=false" dark transparent>
+              ยกเลิก
+            </vs-button>
+          </div>
+        </template>
+    </vs-dialog>
   </div>
 </template>
 
@@ -463,8 +497,8 @@ export default {
           });
         }
         let newOrderBy = {};
-        for(let i in this.orderBy){
-          Object.assign(newOrderBy,JSON.parse(this.orderBy[i]))
+        for (let i in this.orderBy) {
+          Object.assign(newOrderBy, JSON.parse(this.orderBy[i]));
         }
         let existedSearchData = {
           search: this.search,
@@ -485,9 +519,9 @@ export default {
           maxArea: this.maxArea,
           roomTypeDes: this.roomTypeDes,
           advanceFilter: this.advanceFilter,
-          orderBy: newOrderBy
+          orderBy: newOrderBy,
         };
-        console.log(newOrderBy)
+        console.log(newOrderBy);
         this.$store.commit("SET_SEARCH", existedSearchData);
         this.$store.dispatch("fetchDormList", 0);
         loading.close();
