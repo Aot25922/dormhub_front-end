@@ -1,7 +1,7 @@
 <template>
   <!-- Using in Home page -->
   <div class="md:px-2">
-    <div class="card w-full shadow-xl my-5 md:max-h-40 md:h-[30rem] lg:h-[38rem] 2xl:h-[35rem]">
+    <div class="card w-full shadow-xl my-5 md:h-[30rem] lg:h-[38rem] 2xl:h-[35rem]">
       <figure v-if="checkDormImg" class="relative">
         <img
           :src="
@@ -14,7 +14,7 @@
             $route.params.rand
           "
           @error="checkDormImg = false"
-          class="w-full object-cover"
+          class="w-full object-cover md:w-full md:max-h-40 lg:max-h-72"
         />
       </figure>
       <figure v-else class="relative">
