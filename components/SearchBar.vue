@@ -160,7 +160,7 @@
       <template #header>
         <h3 class="font-bold py-3 text-lg flex items-center">การกรองขั้นสูง<span class="material-symbols-outlined"> build </span></h3>
       </template>
-      <div class="con-content">
+      <div class="con-content flex flex-wrap">
         <!--pricePerMonth Filter-->
         <div class="py-2 md:px-2 md:w-1/2">
           <h1 class="font-bold p-1">ราคาห้องพักต่อเดือน</h1>
