@@ -237,7 +237,7 @@
                   <p class="text-center">{{ bank.accountNum }}</p>
                 </vs-td>
                 <vs-td class="w-2/6">
-                  <p class="text-center">{{ bank.bankId.name }}</p>
+                  <p class="text-center">{{ bank.bank.name }}</p>
                 </vs-td>
               </vs-tr>
             </template>

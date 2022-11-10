@@ -17,6 +17,9 @@
         <p v-if="!validateName" class="text-imperialRed text-right mt-2">
           กรุณากรอกชื่อหอพัก
         </p>
+        <p v-if="!validateNameLength" class="text-imperialRed text-right mt-2">
+          กรุณากรอกชื่อหอพักไม่เกิน 50 ตัว
+        </p>
       </div>
       <div class="mb-5 md:px-1 md:w-1/2">
         <label class="label-text text-gray-500 tracking-wide font-bold"
@@ -184,10 +187,12 @@ export default {
       validateElec: false,
       validateWater: false,
       validateDormImg: false,
+      validateNameLength: false
     };
   },
   methods: {
     checkForm() {
+      this.validateNameLength = this.dorm.name.length <=50 ? true : false;
       this.validateName = this.dorm.name != "" ? true : false;
       this.validateOpenTime = this.dorm.openTime != "" ? true : false;
       this.validateCloseTime = this.dorm.closeTime != "" ? true : false;
@@ -222,7 +227,8 @@ export default {
         this.validateCloseTime &&
         this.validateWater &&
         this.validateElec &&
-        this.validateDormImg
+        this.validateDormImg &&
+        this.validateNameLength
       ) {
         let dormCopy = { ...this.dorm };
         const dormImgCopy = { ...this.dormInputImage };
