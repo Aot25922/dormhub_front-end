@@ -7,14 +7,14 @@
     </div>
 
     <!-- DormList -->
-      <div class="p-5 md:grid md:grid-cols-2 md:pb-0 md:pt-0 lg:grid-cols-3 lg:px-20 lg:pb-20 xl:px-52 2xl:px-[22rem]">
+      <div class="p-5 md:grid md:grid-cols-2 md:pb-0 md:pt-0 xl:grid-cols-3 lg:px-20 lg:pb-20 xl:px-52 2xl:px-[22rem]">
           <DormInfo class="my-10 md:my-0"
             v-for="dorm in dormList.slice(0, 2)"
-            :Dorm="dorm"
+            :dorm="dorm"
             :key="dorm.dormId" />
         <!-- Ads for Laptop -->
         <div class="hidden lg:block lg:pt-5">
-          <div class="card w-full bg-primary text-white lg:h-[30rem] 2xl:h-[32rem]">
+          <div class="card w-full bg-primary text-white md:h-[30rem] lg:h-[38rem] 2xl:h-[35rem]">
             <div class="card-body items-center text-center md:py-10">
               <h2 class="card-title">ท่องไปกับหอพักได้อีกมาก</h2>
               <p class="text-left md:py-5">ก่อนการตัดสินใจบางอย่าง ท่านควรวางแผนความคุ้มค่า การเดินทาง กำลังทรัพย์ที่ไหว</p>

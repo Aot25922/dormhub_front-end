@@ -15,7 +15,7 @@
     <div class="py-20 px-5 xl:px-52 2xl:px-96">
       <div class="md:grid md:grid-cols-2">
         <h1 class="text-black font-bold text-3xl md:text-4xl">
-          สาเหตุที่ควรเลือกใช้ Drom Hub ของเรา
+          สาเหตุที่ควรเลือกใช้ Dorm Hub ของเรา
         </h1>
         <p class="text-gray-500 py-3">
           การย้ายเข้าหอพักแห่งใหม่นั้นนอกจากคุณจะต้องอ่านรายละเอียดภายในสัญญาเช่าให้ชัดเจนแล้ว
@@ -59,7 +59,7 @@
       <DormInfo
         class="my-10 md:my-0"
         v-for="dorm in dormList.slice(0, 3)"
-        :Dorm="dorm"
+        :dorm="dorm"
         :key="dorm.dormId"
       />
     </div>
