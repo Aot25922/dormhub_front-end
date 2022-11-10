@@ -1,6 +1,15 @@
 <template>
   <div
-    class="p-5 bg-neutral rounded-lg mb-3 relative border shadow-lg lg:flex lg:flex-wrap"
+    class="
+      p-5
+      bg-neutral
+      rounded-lg
+      mb-3
+      relative
+      border
+      shadow-lg
+      lg:flex lg:flex-wrap
+    "
   >
     <button
       @click="removeRoomType"
@@ -22,7 +31,7 @@
           rounded
           input input-sm
           md:input-md
-		  border-gray-200
+          border-gray-200
           w-full
           disabled:text-gray-400
         "
@@ -46,7 +55,7 @@
           p-2
           mb-5
           rounded
-		border-gray-200
+          border-gray-200
           input input-sm
           md:input-md
           w-full
@@ -216,7 +225,11 @@
     </div>
     <div class="py-5 w-full md:flex md:justify-end">
       <div class="md:w-1/2">
-        <button v-if="editForm" @click="addRoomTypes()" class="btn btn-success w-full">
+        <button
+          v-if="editForm"
+          @click="addRoomTypes()"
+          class="btn btn-success w-full"
+        >
           ยืนยันการเเก้ไขข้อมูล
         </button>
       </div>
@@ -260,7 +273,7 @@ export default {
         this.validateArea == false &&
         this.validateFacility == false
       ) {
-        this.roomType.description = this.roomType.facility
+        this.roomType.description = this.roomType.facility;
         let newRoomType = JSON.parse(JSON.stringify(this.roomType));
         newRoomType.oldRoomType = this.oldRoomType;
         let newRoomTypeImg = Object.assign({}, this.roomTypeInputImage);
@@ -320,6 +333,18 @@ export default {
             });
           }
         } else {
+          if (this.roomTypeInputImage.length == 0) {
+            this.$emit("validate", false);
+            const noti = this.$vs.notification({
+              progress: "auto",
+              icon: `<i class='bx bx-error' ></i>`,
+              color: "warn",
+              position: "top-right",
+              title: "ข้อมูลของคุญยังได้สมบูรณ์",
+              text: "กรุณาเติมข้อมูลให้ครบ",
+            });
+            return
+          }
           this.$store.commit("SET_ROOMTYPE", newRoomType);
           this.$store.dispatch("setNewRoomTypeImg", {
             image: newRoomTypeImg,
@@ -337,7 +362,7 @@ export default {
           icon: `<i class='bx bx-error' ></i>`,
           color: "warn",
           position: "top-right",
-          title: "ข้อมูลของคุญยังได้สมบูรณ์",
+          title: "ข้อมูลของคุญยังไม่สมบูรณ์",
           text: "กรุณาเติมข้อมูลให้ครบ",
         });
       }

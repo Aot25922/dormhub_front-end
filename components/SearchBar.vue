@@ -518,7 +518,6 @@ export default {
           minArea: this.minArea,
           maxArea: this.maxArea,
           roomTypeDes: this.roomTypeDes,
-          advanceFilter: this.advanceFilter,
           orderBy: newOrderBy,
         };
         console.log(newOrderBy);
@@ -548,7 +547,7 @@ export default {
       this.minArea = searchData.minArea;
       this.maxArea = searchData.maxArea;
       this.roomTypeDes = searchData.roomTypeDes;
-      this.advanceFilter = searchData.advanceFilter;
+      this.advanceFilter = false;
     }
   },
 };
