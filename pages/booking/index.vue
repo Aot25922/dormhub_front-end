@@ -1,5 +1,5 @@
 <template>
-  <div class="center md:min-h-screen pt-[6rem]">
+  <div class="center pt-[6rem]">
     <vs-table class="overflow-x-auto">
       <template #thead class="flex justify-center">
         <vs-tr>
@@ -16,8 +16,9 @@
           <vs-th> สถานะ </vs-th>
         </vs-tr>
       </template>
-      <template #tbody v-if="bookingList" class="text-xs flex justify-center">
+      <template #tbody v-if="bookingList" class="text-xs flex justify-center ">
         <vs-tr
+          class=""
           :key="i"
           v-for="(tr, i) in $vs.getPage(bookingList, page, max)"
           :data="tr"
@@ -262,6 +263,11 @@
             </button>
           </vs-td>
         </vs-tr>
+      </template>
+      <template #notFound>
+        <tr class="md:max-h-screen py-5 flex items-center justify-center">
+          <ContentEmptyItem msg="ยังไม่มีการจอง" imgSize="xl:w-1/2" />
+        </tr>
       </template>
       <template #footer>
         <vs-pagination

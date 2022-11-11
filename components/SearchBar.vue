@@ -2,18 +2,21 @@
   <!--  Search Bar with filter -->
   <div class="bg-white p-5 shadow rounded-xl md:flex md:flex-wrap md:p-8">
     <div class="w-full py-2 md:px-2">
-      <h1 class="font-bold p-1">ค้นหาหอพักที่ต้องการ</h1>
+      <div class="pt-1 py-5 flex items-center">
+        <span class="font-bold w-2/3 md:w-4/5">ค้นหาหอพักที่ต้องการ</span>
+        <!-- Advance Filter Button -->
+        <div class="w-1/3 md:w-1/5">
+          <button
+            @click="advanceFilter = !advanceFilter"
+            class="w-full btn btn-ghost"
+          >
+            ขั้นสูง<span class="material-symbols-outlined"> build </span>
+          </button>
+        </div>
+      </div>
       <div class="flex w-full rounded-lg overflow-hidden">
         <div
-          class="
-            flex
-            w-full
-            border-b border-b-gray-400
-            shadow-md
-            input
-            px-0
-            border-x-0 border-t-0
-          "
+          class="flex w-full border-b border-b-gray-400 shadow-md input px-0 border-x-0 border-t-0"
         >
           <input
             v-model="search"
@@ -132,9 +135,9 @@
       </select>
     </div>
 
-    <div class="w-full py-3 grid grid-cols-3 md:grid-cols-4 xl:grid-cols-6">
+    <div class="w-full py-3 flex justify-end">
       <!-- Clear Filter -->
-      <div class="px-1 col-span-1">
+      <div class="w-1/3 md:w-1/6">
         <button
           v-if="
             orderBy.length != 0 ||
@@ -149,22 +152,6 @@
           class="w-full btn btn-secondary"
         >
           <span class="material-symbols-outlined"> mop </span>
-        </button>
-      </div>
-      <!-- Advance Filter Button -->
-      <div
-        class="
-          px-1
-          col-span-2 col-start-2
-          md:col-start-3
-          xl:col-span-3 xl:col-start-4
-        "
-      >
-        <button
-          @click="advanceFilter = !advanceFilter"
-          class="w-full btn btn-ghost"
-        >
-          ขั้นสูง<span class="material-symbols-outlined"> build </span>
         </button>
       </div>
     </div>
@@ -467,7 +454,7 @@ export default {
       roomTypeDes: null,
       orderBy: [],
       advanceFilter: false,
-      haveFilter:false
+      haveFilter: false,
     };
   },
   methods: {
@@ -503,7 +490,7 @@ export default {
             name: "dormList",
           });
         }
-        this.haveFilter = false
+        this.haveFilter = false;
         this.search = null;
         this.selectedRegion = "";
         this.selectedProvince = "";
@@ -552,9 +539,9 @@ export default {
           roomTypeDes: this.roomTypeDes,
           orderBy: newOrderBy,
           oldOrderBy: this.orderBy,
-          haveFilter: true
+          haveFilter: true,
         };
-        this.haveFilter = true
+        this.haveFilter = true;
         this.$store.commit("SET_SEARCH", existedSearchData);
         this.$store.dispatch("fetchDormList", 0);
         loading.close();
@@ -581,9 +568,9 @@ export default {
       this.minArea = searchData.minArea;
       this.maxArea = searchData.maxArea;
       this.roomTypeDes = searchData.roomTypeDes;
-      this.orderBy = searchData.oldOrderBy
+      this.orderBy = searchData.oldOrderBy;
       this.advanceFilter = false;
-      this.haveFilter = searchData.haveFilter
+      this.haveFilter = searchData.haveFilter;
     }
   },
 };

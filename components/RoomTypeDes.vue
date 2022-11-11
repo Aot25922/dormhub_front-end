@@ -188,7 +188,8 @@
           </vs-tr>
         </template>
         <template #tbody>
-          <vs-tr v-for="(room, key) in roomList" :key="key" class="">
+          <vs-tr v-for="(room, key) in $vs.getPage(roomList, page, max)" :key="key"
+          :data="room">
             <vs-td class="w-1/6">
               <p class="text-center">{{ room.floors }}</p>
             </vs-td>
@@ -228,9 +229,9 @@
             </vs-td>
           </vs-tr>
         </template>
-        <!-- <template #footer>
-          <vs-pagination v-model="page" :length="$vs.getLength(users, max)" />
-        </template> -->
+        <template #footer>
+          <vs-pagination v-model="page" :length="$vs.getLength(roomList, max)" />
+        </template>
       </vs-table>
     </div>
   </div>
@@ -249,6 +250,8 @@ export default {
       endDate: null,
       slipImg: null,
       slipImgUrl: null,
+	  page: 1,
+	  max: 10
     };
   },
   methods: {

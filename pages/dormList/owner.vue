@@ -12,10 +12,9 @@
       </h1>
     </div>
     <div class="p-5 xl:pb-20 xl:px-52 2xl:px-96">
-      <div v-if="!dormList.results" class="text-center py-10">
-        <img src="@/assets/error/dummy.png" class="mx-auto w-full" />
-        <h1 class="font-bold py-2 md:text-lg lg:text-xl">คุณยังไม่มีหอพัก</h1>
-        <div class="pt-10">
+	  <div v-if="!dormList.results" class="py-10">
+		<ContentEmptyItem msg="คุณยังไม่มีหอพัก"/>
+        <div class="pt-10 flex justify-center">
           <nuxt-link class="btn btn-accent w-full md:w-1/2 lg:w-1/3" to="/dormForm">เพิ่มหอพัก</nuxt-link>
         </div>
       </div>
