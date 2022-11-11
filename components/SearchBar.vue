@@ -5,7 +5,15 @@
       <h1 class="font-bold p-1">ค้นหาหอพักที่ต้องการ</h1>
       <div class="flex w-full rounded-lg overflow-hidden">
         <div
-          class="flex w-full border-b border-b-gray-400 shadow-md input px-0 border-x-0 border-t-0"
+          class="
+            flex
+            w-full
+            border-b border-b-gray-400
+            shadow-md
+            input
+            px-0
+            border-x-0 border-t-0
+          "
         >
           <input
             v-model="search"
@@ -126,9 +134,11 @@
 
     <div class="w-full py-3 grid grid-cols-3 md:grid-cols-4 xl:grid-cols-6">
       <!-- Clear Filter -->
-	  <div class="px-1 col-span-1">
+      <div class="px-1 col-span-1">
         <button
           v-if="
+            orderBy.length != 0 ||
+            search ||
             selectedRegion ||
             selectedProvince ||
             selectedDistrict ||
@@ -140,14 +150,17 @@
           <span class="material-symbols-outlined"> mop </span>
         </button>
       </div>
-	  <!-- Advance Filter Button -->
+      <!-- Advance Filter Button -->
       <div
-        class="px-1 col-span-2 col-start-2 md:col-start-3 xl:col-span-3 xl:col-start-4"
+        class="
+          px-1
+          col-span-2 col-start-2
+          md:col-start-3
+          xl:col-span-3 xl:col-start-4
+        "
       >
         <button
-          @click="
-            advanceFilter = !advanceFilter;
-          "
+          @click="advanceFilter = !advanceFilter"
           class="w-full btn btn-ghost"
         >
           ขั้นสูง<span class="material-symbols-outlined"> build </span>
@@ -155,10 +168,19 @@
       </div>
     </div>
 
-	<!-- Modal Advanced Filter -->
-    <vs-dialog scroll overflow-hidden not-close auto-width v-model="advanceFilter" class="font-Kanit">
+    <!-- Modal Advanced Filter -->
+    <vs-dialog
+      scroll
+      overflow-hidden
+      not-close
+      auto-width
+      v-model="advanceFilter"
+      class="font-Kanit"
+    >
       <template #header>
-        <h3 class="font-bold py-3 text-lg flex items-center">การกรองขั้นสูง<span class="material-symbols-outlined"> build </span></h3>
+        <h3 class="font-bold py-3 text-lg flex items-center">
+          การกรองขั้นสูง<span class="material-symbols-outlined"> build </span>
+        </h3>
       </template>
       <div class="con-content flex flex-wrap">
         <!--pricePerMonth Filter-->
@@ -282,9 +304,9 @@
         </div>
         <!-- Multiple Filter -->
         <div class="w-full mt-5 md:px-1 md:w-1/2 lg:w-1/4">
-		<h1 class="font-bold p-1">จัดลำดับโดย</h1>
+          <h1 class="font-bold p-1">จัดลำดับโดย</h1>
           <vs-select
-		  	class="w-full"
+            class="w-full"
             filter
             multiple
             placeholder="กรองหลายทางเลือก"
@@ -399,16 +421,23 @@
           />
         </div>
       </div>
-	  <template #footer>
-          <div class="con-footer flex justify-end">
-            <vs-button @click="searchDorm(false); advanceFilter=false" transparent cla>
-              ยืนยัน
-            </vs-button>
-            <vs-button @click="advanceFilter=false" dark transparent>
-              ยกเลิก
-            </vs-button>
-          </div>
-        </template>
+      <template #footer>
+        <div class="con-footer flex justify-end">
+          <vs-button
+            @click="
+              searchDorm(false);
+              advanceFilter = false;
+            "
+            transparent
+            cla
+          >
+            ยืนยัน
+          </vs-button>
+          <vs-button @click="advanceFilter = false" dark transparent>
+            ยกเลิก
+          </vs-button>
+        </div>
+      </template>
     </vs-dialog>
   </div>
 </template>
@@ -519,8 +548,8 @@ export default {
           maxArea: this.maxArea,
           roomTypeDes: this.roomTypeDes,
           orderBy: newOrderBy,
+          oldOrderBy: this.orderBy
         };
-        console.log(newOrderBy);
         this.$store.commit("SET_SEARCH", existedSearchData);
         this.$store.dispatch("fetchDormList", 0);
         loading.close();
@@ -547,6 +576,7 @@ export default {
       this.minArea = searchData.minArea;
       this.maxArea = searchData.maxArea;
       this.roomTypeDes = searchData.roomTypeDes;
+      this.orderBy = searchData.oldOrderBy
       this.advanceFilter = false;
     }
   },

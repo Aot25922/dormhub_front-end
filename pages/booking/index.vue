@@ -37,14 +37,39 @@
           <vs-td>
             <div
               v-if="tr.status == 'รอการโอน' && tr.bookingId == chosenBookingId"
-              :src="slipImgUrl"
-              class="object-cover object-center w-full h-full"
-            />
-            <img
-              v-else-if="tr.moneySlip"
-              :src="$store.state.Backend_URL + '/booking/image/' + tr.bookingId"
-              class="object-cover object-center w-full h-full"
-            />
+            >
+              <img
+                @click="watchImage = true"
+                :src="slipImgUrl"
+                class="object-cover object-center w-full h-full cursor-pointer"
+              />
+              <vs-dialog not-close auto-width not-padding v-model="watchImage">
+                <div class="con-image">
+                  <img :src="slipImgUrl" alt="" />
+                </div>
+              </vs-dialog>
+            </div>
+            <div v-else-if="tr.moneySlip">
+              <img
+                @click="watchImage = true"
+                :src="
+                  $store.state.Backend_URL + '/booking/image/' + tr.bookingId
+                "
+                class="object-cover object-center w-full h-full cursor-pointer"
+              />
+              <vs-dialog not-close auto-width not-padding v-model="watchImage">
+                <div class="con-image">
+                  <img
+                    :src="
+                      $store.state.Backend_URL +
+                      '/booking/image/' +
+                      tr.bookingId
+                    "
+                    alt=""
+                  />
+                </div>
+              </vs-dialog>
+            </div>
             <div v-else>
               <div
                 v-if="tr.status == 'รอการยืนยัน'"
@@ -66,7 +91,10 @@
           <vs-td>
             {{ tr.endDate }}
           </vs-td>
-          <vs-td v-if="$store.state.userAccount.role == 'Owner'" class="flex flex-col">
+          <vs-td
+            v-if="$store.state.userAccount.role == 'Owner'"
+            class="flex flex-col"
+          >
             <div class="flex justify-start items-center">
               <img
                 src="https://cdn-icons-png.flaticon.com/512/3934/3934228.png"
@@ -256,6 +284,7 @@ export default {
       slipImgUrl: null,
       chosenBookingId: null,
       active: false,
+      watchImage: false,
     };
   },
   methods: {
