@@ -142,7 +142,8 @@
             selectedRegion ||
             selectedProvince ||
             selectedDistrict ||
-            selectedSubDistrict
+            selectedSubDistrict ||
+            haveFilter
           "
           @click="searchDorm(true)"
           class="w-full btn btn-secondary"
@@ -466,6 +467,7 @@ export default {
       roomTypeDes: null,
       orderBy: [],
       advanceFilter: false,
+      haveFilter:false
     };
   },
   methods: {
@@ -501,6 +503,7 @@ export default {
             name: "dormList",
           });
         }
+        this.haveFilter = false
         this.search = null;
         this.selectedRegion = "";
         this.selectedProvince = "";
@@ -548,8 +551,10 @@ export default {
           maxArea: this.maxArea,
           roomTypeDes: this.roomTypeDes,
           orderBy: newOrderBy,
-          oldOrderBy: this.orderBy
+          oldOrderBy: this.orderBy,
+          haveFilter: true
         };
+        this.haveFilter = true
         this.$store.commit("SET_SEARCH", existedSearchData);
         this.$store.dispatch("fetchDormList", 0);
         loading.close();
@@ -578,6 +583,7 @@ export default {
       this.roomTypeDes = searchData.roomTypeDes;
       this.orderBy = searchData.oldOrderBy
       this.advanceFilter = false;
+      this.haveFilter = searchData.haveFilter
     }
   },
 };
