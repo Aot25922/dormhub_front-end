@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar z-10 bg-white flex flex-row xl:px-48 2xl:px-80" :class="{ 'navbar--hidden': !showNavbar }">
+  <div class="navbar h-20 z-10 bg-white flex flex-row xl:px-48 2xl:px-80" :class="{ 'navbar--hidden': !showNavbar }">
     <div class="font-bold text-PrussianBlue mr-auto cursor-pointer">
       <NuxtLink to="/" class="flex flex-row px-3">
         <span class="mt-[15px]">Dorm</span>

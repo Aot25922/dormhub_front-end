@@ -3,14 +3,14 @@
   <div class="bg-white p-5 shadow rounded-xl md:flex md:flex-wrap md:p-8">
     <div class="w-full py-2 md:px-2">
       <div class="pt-1 py-5 flex items-center">
-        <span class="font-bold w-2/3 md:w-4/5">ค้นหาหอพักที่ต้องการ</span>
+        <span class="flex justify-start font-bold w-2/3 md:w-4/5">ค้นหาหอพักที่ต้องการ</span>
         <!-- Advance Filter Button -->
-        <div class="w-1/3 md:w-1/5">
+        <div class="flex w-1/3 md:w-1/4 xl:w-1/5">
           <button
             @click="advanceFilter = !advanceFilter"
-            class="w-full btn btn-ghost"
+            class="w-full flex justify-end items-center cursor-pointer hover:text-info hover:delay-100 hover:duration-300"
           >
-            ขั้นสูง<span class="material-symbols-outlined"> build </span>
+            ตัวเลือกขั้นสูง<span class="material-symbols-outlined"> build </span>
           </button>
         </div>
       </div>

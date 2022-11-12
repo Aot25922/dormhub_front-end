@@ -1,5 +1,5 @@
 <template>
-  <footer class="footer p-10 bg-PrussianBlue text-white">
+  <footer class="footer p-10 bg-PrussianBlue text-white md:h-52">
     <div>
       <svg
         width="50"

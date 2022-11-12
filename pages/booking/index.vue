@@ -1,6 +1,7 @@
 <template>
-  <div class="center pt-[6rem]">
-    <vs-table class="overflow-x-auto">
+  <div class="center pt-24 flex flex-col">
+    <div class="flex-grow md:h-[calc(100vh-5rem-13rem)]">
+	<vs-table class="overflow-x-auto flex flex-col h-full justify-between">
       <template #thead class="flex justify-center">
         <vs-tr>
           <vs-th> ชื่อหอพัก </vs-th>
@@ -16,9 +17,8 @@
           <vs-th> สถานะ </vs-th>
         </vs-tr>
       </template>
-      <template #tbody v-if="bookingList" class="text-xs flex justify-center ">
+      <template #tbody v-if="bookingList" class="text-xs flex justify-center">
         <vs-tr
-          class=""
           :key="i"
           v-for="(tr, i) in $vs.getPage(bookingList, page, max)"
           :data="tr"
@@ -86,7 +86,7 @@
               </div>
             </div>
           </vs-td>
-          <vs-td>
+          <vs-td class="lg:w-20">
             {{ tr.startDate }}
           </vs-td>
           <vs-td>
@@ -140,7 +140,7 @@
             >
               <div class="font-medium text-warning">{{ tr.status }}</div>
               <!-- Cancel Button Modal -->
-              <div class="px-10">
+              <div class="px-5">
                 <button
                   @click="active = !active"
                   class="btn btn-accent btn-sm btn-circle"
@@ -277,6 +277,7 @@
         />
       </template>
     </vs-table>
+	</div>
   </div>
 </template>
 
