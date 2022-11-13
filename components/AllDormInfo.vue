@@ -21,7 +21,7 @@
             $route.params.rand
           "
           @error="checkDormImg = false"
-          class="h-full object-cover md:w-full md:max-h-40 lg:max-h-72"
+          class="h-full object-cover md:w-full md:max-h-40 lg:h-72"
         />
       </div>
 
@@ -78,34 +78,6 @@
               >฿ {{ dorm.elecPerUnit }}
               <span class="hidden md:inline">ต่อหน่วย</span></span
             >
-          </div>
-        </div>
-
-        <!-- Description -->
-        <div
-          v-if="dorm.description != ''"
-          class="text-xs text-gray-500 p-5 pb-0 pr-20 hidden lg:inline"
-        >
-          <p :class="{ truncate: hideDetail }">"{{ dorm.description }}"</p>
-          <div v-if="dorm.description.length > 50">
-            <p
-              @click="hideDetail = false"
-              v-if="hideDetail"
-              class="text-xs text-info cursor-pointer flex items-center"
-            >
-              อ่านเพิ่มเติม<span class="material-symbols-outlined">
-                expand_more
-              </span>
-            </p>
-            <p
-              @click="hideDetail = true"
-              v-else
-              class="text-xs text-info cursor-pointer flex items-center"
-            >
-              ย่อน้อยลง<span class="material-symbols-outlined">
-                expand_less
-              </span>
-            </p>
           </div>
         </div>
 
@@ -317,7 +289,6 @@ export default {
   props: ["dorm"],
   data() {
     return {
-      hideDetail: true,
       checkDormImg: this.$props.dorm != null,
       rand: Math.random(),
       confirmDelete: false,

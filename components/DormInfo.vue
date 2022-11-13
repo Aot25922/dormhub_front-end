@@ -14,7 +14,7 @@
             $route.params.rand
           "
           @error="checkDormImg = false"
-          class="w-full object-cover md:w-full md:max-h-40 lg:max-h-72"
+          class="w-full object-cover md:w-full md:max-h-40 lg:h-72"
         />
       </figure>
       <figure v-else class="relative">
