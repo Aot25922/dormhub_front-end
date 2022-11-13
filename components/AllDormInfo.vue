@@ -21,7 +21,7 @@
             $route.params.rand
           "
           @error="checkDormImg = false"
-          class="h-full object-cover md:w-full md:max-h-40 lg:h-72"
+          class="h-full object-cover md:w-full md:max-h-40 lg:max-h-72"
         />
       </div>
 
