@@ -301,7 +301,7 @@
             v-model="orderBy"
           >
             <vs-option-group>
-              <div slot="title">จำนวนห้องพักที่ว่าง</div>
+              <div slot="title" class="text-sm text-black">จำนวนห้องพักที่ว่าง</div>
               <vs-option
                 label="จำนวนห้องพักที่ว่าง(น้อย-มาก)"
                 value='{"freeRoom":"ASC"}'
@@ -316,7 +316,7 @@
               </vs-option>
             </vs-option-group>
             <vs-option-group>
-              <div slot="title">ชื่อ</div>
+              <div slot="title" class="text-sm text-black">ชื่อ</div>
               <vs-option label="ชื่อ(หน้า-หลัง)" value='{"name":"ASC"}'>
                 หน้า-หลัง
               </vs-option>
@@ -325,7 +325,7 @@
               </vs-option>
             </vs-option-group>
             <vs-option-group>
-              <div slot="title">ที่อยู่</div>
+              <div slot="title" class="text-sm text-black">ที่อยู่</div>
               <vs-option label="ที่อยู่(หน้า-หลัง)" value='{"address":"ASC"}'>
                 หน้า-หลัง
               </vs-option>
@@ -334,7 +334,7 @@
               </vs-option>
             </vs-option-group>
             <vs-option-group>
-              <div slot="title">ค่าไฟต่อหน่วย</div>
+              <div slot="title" class="text-sm text-black">ค่าไฟต่อหน่วย</div>
               <vs-option
                 label="ค่าไฟต่อหน่วย(น้อย-มาก)"
                 value='{"elecPerUnit":"ASC"}'
@@ -349,7 +349,7 @@
               </vs-option>
             </vs-option-group>
             <vs-option-group>
-              <div slot="title">ค่าน้ำต่อหน่วย</div>
+              <div slot="title" class="text-sm text-black">ค่าน้ำต่อหน่วย</div>
               <vs-option
                 label="ค่าน้ำต่อหน่วย(น้อย-มาก)"
                 value='{"waterPerUnit":"ASC"}'
@@ -364,7 +364,7 @@
               </vs-option>
             </vs-option-group>
             <vs-option-group>
-              <div slot="title">ค่าเช่าต่อเดือน</div>
+              <div slot="title" class="text-sm text-black">ค่าเช่าต่อเดือน</div>
               <vs-option
                 label="ค่าเช่าต่อเดือน(น้อย-มาก)"
                 value='{"price":"ASC"}'
@@ -379,7 +379,7 @@
               </vs-option>
             </vs-option-group>
             <vs-option-group>
-              <div slot="title">ค่าจอง</div>
+              <div slot="title" class="text-sm text-black">ค่าจอง</div>
               <vs-option label="ค่าจอง(น้อย-มาก)" value='{"deposit":"ASC"}'>
                 น้อย-มาก
               </vs-option>
@@ -388,7 +388,7 @@
               </vs-option>
             </vs-option-group>
             <vs-option-group>
-              <div slot="title">พื้นที่</div>
+              <div slot="title" class="text-sm text-black">พื้นที่</div>
               <vs-option label="พื้นที่(น้อย-มาก)" value='{"area":"ASC"}'>
                 น้อย-มาก
               </vs-option>
