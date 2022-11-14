@@ -133,30 +133,30 @@
                 <span class="material-symbols-outlined"> delete </span>
               </button>
             </div>
-            <vs-dialog width="550px" not-center v-model="confirmDelete">
+			<!-- Dialog Pop Up -->
+            <vs-dialog class="font-Kanit" not-center v-model="confirmDelete">
               <template #header>
-                <h4 class="not-margin">
+                <h4>
                   คุณกำลังจะลบหอพัก : <b>{{ dorm.name }}</b>
                 </h4>
               </template>
 
               <div class="con-content">
-                <ul>
-                  <li>ข้อกำหนดในการลบหอพัก :</li>
-                  <li>
-                    1. สถานะการจองห้องพักทั้งหมดต้องเป็น "ยืนยันการโอน" หรือ
-                    "ยกเลิก" เท่านั้น
+				<b>ข้อกำหนดในการลบหอพัก :</b>
+                <ul class="list-inside list-decimal">
+                  <li>สถานะการจองห้องพักทั้งหมดต้องเป็น <span class="font-medium">"ยืนยันการโอน"</span> หรือ
+                    <span class="font-medium">"ยกเลิก"</span> เท่านั้น
                   </li>
-                  <li>2. ข้อมูลที่ถูกลบไปเเล้วจะไม่สามารถกู้คืนได้</li>
-                  <li>คุณยืนยันในการลบหรือไม่?</li>
+                  <li>ข้อมูลที่ถูกลบไปเเล้วจะ<b>ไม่สามารถกู้คืนได้</b></li>
                 </ul>
+				<p>คุณยืนยันในการลบหรือไม่?</p>
               </div>
 
               <template #footer>
-                <div class="con-footer">
-                  <vs-button @click="deleteDorm" transparent> Ok </vs-button>
+                <div class="con-footer flex justify-end">
+                  <vs-button @click="deleteDorm" transparent> ยืนยัน </vs-button>
                   <vs-button @click="confirmDelete = false" dark transparent>
-                    Cancel
+                    ยกเลิก
                   </vs-button>
                 </div>
               </template>
@@ -208,35 +208,8 @@
             >
               <span class="material-symbols-outlined"> delete </span>
             </button>
+			<!-- Dialog line at 136-163 -->
           </div>
-          <vs-dialog width="550px" not-center v-model="confirmDelete">
-            <template #header>
-              <h4 class="not-margin">
-                คุณกำลังจะลบหอพัก : <b>{{ dorm.name }}</b>
-              </h4>
-            </template>
-
-            <div class="con-content">
-              <ul>
-                <li>ข้อกำหนดในการลบหอพัก :</li>
-                <li>
-                  1. สถานะการจองห้องพักทั้งหมดต้องเป็น "ยืนยันการโอน" หรือ
-                  "ยกเลิก" เท่านั้น
-                </li>
-                <li>2. ข้อมูลที่ถูกลบไปเเล้วจะไม่สามารถกู้คืนได้</li>
-                <li>คุณยืนยันในการลบหรือไม่?</li>
-              </ul>
-            </div>
-
-            <template #footer>
-              <div class="con-footer">
-                <vs-button @click="deleteDorm" transparent> Ok </vs-button>
-                <vs-button @click="confirmDelete = false" dark transparent>
-                  Cancel
-                </vs-button>
-              </div>
-            </template>
-          </vs-dialog>
         </div>
       </div>
 

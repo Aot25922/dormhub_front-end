@@ -140,18 +140,7 @@
               <div
                 v-if="tr.status == 'รอการโอน' || tr.status == 'ยืนยันการโอน'"
               >
-                <!-- <p v-if="tr.status == 'รอการโอน'" class="font-medium text-info">
-                {{ tr.status }}
-              </p>
-              <p
-                v-if="tr.status == 'ยืนยันการโอน'"
-                class="font-medium text-success"
-              >
-                {{ tr.status }}
-              </p> -->
                 <div class="pt-5">
-                  <!-- <p>เเนบหลักฐานการโอนเงิน</p>
-                <input type="file" @change="onFileChange($event, tr)" /> -->
                   <label
                     for="dropzone-file"
                     class="flex flex-col justify-center items-center w-full rounded-lg border-2 border-gray-300 border-dashed cursor-pointer"
@@ -226,7 +215,7 @@
             <vs-td v-if="$store.state.userAccount.role == 'Owner'">
               <!-- Pop-up Button  -->
               <div v-if="tr.status == 'รอการยืนยัน'">
-                <button @click="active = !active" class="ml-2 btn btn-warning btn-circle"
+                <button @click="active = !active" class="ml-2 btn btn-warning btn-circle btn-sm"
                   ><span class="material-symbols-outlined">
                     priority_high
                   </span></button
