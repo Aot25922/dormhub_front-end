@@ -114,23 +114,23 @@
               v-if="$store.state.userAccount.role == 'Owner'"
               class="flex flex-col"
             >
-              <div class="flex justify-start items-center">
+              <div class="flex justify-start items-center break-words">
                 <img
                   src="https://cdn-icons-png.flaticon.com/512/3934/3934228.png"
-                  class="w-5 mr-1 md:w-6 lg:w-7"
+                  class="w-2 mr-1 md:w-3 lg:w-4"
                 />
                 {{ tr.userAccount.fname }} {{ tr.userAccount.lname }}
               </div>
-              <div class="flex justify-start items-center py-3">
+              <div class="flex justify-start items-center py-3 break-words">
                 <img
                   src="https://cdn-icons-png.flaticon.com/512/726/726623.png"
-                  class="w-5 mr-1 md:w-6 lg:w-7"
+                  class="w-2 mr-1 md:w-3 lg:w-4"
                 />{{ tr.userAccount.email }}
               </div>
-              <div class="flex justify-start items-center">
+              <div class="flex justify-start items-center break-words">
                 <img
                   src="https://cdn-icons-png.flaticon.com/512/3014/3014736.png"
-                  class="w-5 mr-1 md:w-6 lg:w-7"
+                  class="w-2 mr-1 md:w-3 lg:w-4"
                 />{{ tr.userAccount.phone }}
               </div>
             </vs-td>
@@ -226,10 +226,10 @@
             <vs-td v-if="$store.state.userAccount.role == 'Owner'">
               <!-- Pop-up Button  -->
               <div v-if="tr.status == 'รอการยืนยัน'">
-                <vs-button @click="active = !active" color="warn" type="border"
+                <button @click="active = !active" class="ml-2 btn btn-warning btn-circle"
                   ><span class="material-symbols-outlined">
                     priority_high
-                  </span></vs-button
+                  </span></button
                 >
                 <vs-dialog class="font-Kanit" not-center v-model="active">
                   <template #header>
