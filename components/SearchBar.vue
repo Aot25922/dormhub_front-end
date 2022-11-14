@@ -317,20 +317,20 @@
             </vs-option-group>
             <vs-option-group>
               <div slot="title" class="text-sm text-black">ชื่อ</div>
-              <vs-option label="ชื่อ(หน้า-หลัง)" value='{"name":"ASC"}'>
-                หน้า-หลัง
+              <vs-option label="ชื่อ(น้อย-มาก)" value='{"name":"ASC"}'>
+                น้อย-มาก
               </vs-option>
-              <vs-option label="ชื่อ(หลัง-หน้า)" value='{"name":"DESC"}'>
-                หลัง-หน้า
+              <vs-option label="ชื่อ(มาก-น้อย)" value='{"name":"DESC"}'>
+                มาก-น้อย
               </vs-option>
             </vs-option-group>
             <vs-option-group>
               <div slot="title" class="text-sm text-black">ที่อยู่</div>
-              <vs-option label="ที่อยู่(หน้า-หลัง)" value='{"address":"ASC"}'>
-                หน้า-หลัง
+              <vs-option label="ที่อยู่(น้อย-มาก)" value='{"address":"ASC"}'>
+                น้อย-มาก
               </vs-option>
-              <vs-option label="ที่อยู่(หลัง-หน้า)" value='{"address":"DESC"}'>
-                หลัง-หน้า
+              <vs-option label="ที่อยู่(มาก-น้อย)" value='{"address":"DESC"}'>
+                มาก-น้อย
               </vs-option>
             </vs-option-group>
             <vs-option-group>
