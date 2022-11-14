@@ -142,7 +142,7 @@
               >
                 <div class="pt-5">
                   <label
-                    for="dropzone-file"
+                    :for="tr.bookingId"
                     class="flex flex-col justify-center items-center w-full rounded-lg border-2 border-gray-300 border-dashed cursor-pointer"
                   >
                     <div
@@ -159,7 +159,7 @@
                         SVG, PNG, JPG หรือ GIF
                       </p>
                     </div>
-                    <input id="dropzone-file" type="file" class="hidden" @change="onFileChange($event, tr)" />
+                    <input :id="tr.bookingId" type="file" class="hidden" @change="onFileChange($event, tr)" />
                   </label>
                 </div>
               </div>
@@ -333,6 +333,31 @@ export default {
     };
   },
   methods: {
+	async getBooking () {
+		try {
+      if (this.$store.state.userAccount.role == "Customer") {
+        this.bookingList = await this.$axios.$get(
+          `${this.$store.state.Backend_URL}/booking`,
+          {
+            withCredentials: true,
+          }
+        );
+        for (let i in this.bookingList) {
+        }
+      } else if (this.$store.state.userAccount.role == "Owner") {
+        this.bookingList = await this.$axios.$get(
+          `${this.$store.state.Backend_URL}/booking/owner`,
+          {
+            withCredentials: true,
+          }
+        );
+      } else {
+        this.$router.push({ path: "/" });
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  },
     async updateStatus(booking, status) {
       booking.status = status;
       const loading = this.$vs.loading();
@@ -413,6 +438,7 @@ export default {
           title: `Data Update`,
           text: `Update status complete!`,
         });
+		await this.getBooking();
         loading.close();
       } catch (error) {
         loading.close();
@@ -427,32 +453,9 @@ export default {
       }
     },
   },
-  async created() {
-    try {
-      if (this.$store.state.userAccount.role == "Customer") {
-        this.bookingList = await this.$axios.$get(
-          `${this.$store.state.Backend_URL}/booking`,
-          {
-            withCredentials: true,
-          }
-        );
-        for (let i in this.bookingList) {
-        }
-      } else if (this.$store.state.userAccount.role == "Owner") {
-        this.bookingList = await this.$axios.$get(
-          `${this.$store.state.Backend_URL}/booking/owner`,
-          {
-            withCredentials: true,
-          }
-        );
-      } else {
-        this.$router.push({ path: "/" });
-      }
-    } catch (err) {
-      console.log(err);
-    }
+  created() {
+    this.getBooking()
   },
 };
 </script>
 
-<style></style>

@@ -278,7 +278,6 @@ export default {
         });
         return;
       }
-      this.selectedRoom.status = "จองเเล้ว";
       const loading = this.$vs.loading();
       let formData = new FormData();
       var newStartDate = new Date(this.startDate);
@@ -357,7 +356,6 @@ export default {
     roomList = roomList.filter((x) => x.roomTypeId == this.roomType.roomTypeId);
     roomList = roomList.sort((a, b) => a.floors - b.floors);
     this.roomList = roomList;
-    console.log(roomList);
   },
 };
 </script>
