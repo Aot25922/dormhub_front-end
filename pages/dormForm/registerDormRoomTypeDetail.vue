@@ -2,22 +2,12 @@
   <div class="py-3">
     <div class="xl:px-48 2xl:px-80">
       <h1 class="font-bold text-center text-xl mb-5 md:text-2xl lg:text-3xl xl:text-4xl">รายละเอียดห้องพัก</h1>
-      <div class="px-3 md:grid md:grid-cols-2 md:gap-4">
+      <h1 class="font-bold text-lg md:text-xl xl:text-2xl 2xl:text-3xl">จำนวนประเภทในตอนนี้ : {{roomTypeCount.length}}</h1>
+      <div class="px-3">
           <RegisterDormRoomtypeForm v-for="(i, index) in roomTypeCount" :key="index" class="md:h-full"
           ref="test" :index="index" @removeRoomType="removeRoomType(index, ...arguments)" @validate="checkForRoomType(index, ...arguments)" />
-        <!-- Mobile Button -->
-        <button @click="roomTypeCount.push({ id: roomTypeCount[roomTypeCount.length - 1].id + 1, validate: false, })" class="md:hidden btn btn-secondary mt-10 text-center p-5 w-full">
-          <p>เพิ่มประเภทห้องพัก</p>
-        </button>
-        <!-- Ipad or More than Button -->
-        <button class="hidden md:block rounded-lg mt-10 text-center p-5 w-full md:m-0 md:h-full border shadow-lg">
-          <span class="material-icons" style="font-size: 60px"
-                @click="
-              roomTypeCount.push({
-                id: roomTypeCount[roomTypeCount.length - 1].id + 1,
-                validate: false,
-              })">add_box</span>
-          <p>เพิ่มประเภทห้องพัก</p>
+        <button v-if="roomTypeCount.length < 6" @click="roomTypeCount.push({ id: roomTypeCount[roomTypeCount.length - 1].id + 1, validate: false, })" class="btn btn-secondary mt-10 text-center p-5 w-full">
+          <p >เพิ่มประเภทห้องพัก</p>
         </button>
       </div>
       <div class="flex flex-wrap mt-10">
@@ -45,6 +35,16 @@ export default {
       this.$delete(this.roomTypeCount, index);
     },
     next() {
+      if(this.roomTypeCount.length > 5){
+        const noti = this.$vs.notification({
+          progress: "auto",
+          icon: `<i class='bx bx-error' ></i>`,
+          color: "warn",
+          position: "top-right",
+          title: "ประเภทห้องไม่สามารถมีเกิน 6 ประเภทได้",
+          text: "กรุณาเเก้ไขข้อมูลให้ถูกต้อง",
+        });
+      }
       for(let i in this.$refs.test){
         this.$refs.test[i].addRoomTypes()
       }
@@ -53,14 +53,6 @@ export default {
           return;
         }
       }
-      const noti = this.$vs.notification({
-          progress: "auto",
-          icon: `<i class='bx bx-folder-open' ></i>`,
-          color: "success",
-          position: "top-right",
-          title: `ข้อมูลของคุณได้ถูกเพิ่มเเล้ว`,
-          text: `เพิ่มข้อมูลประเภทของห้องพักเรียบร้อย!`,
-        });
       this.$router.push({ path: "/dormForm/registerDormRoomDetail" });
     },
     checkForRoomType(index, validate) {

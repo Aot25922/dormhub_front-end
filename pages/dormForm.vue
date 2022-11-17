@@ -5,9 +5,9 @@
         <img src="@/assets/form1.png" class="hidden md:block md:py-24 lg:py-10">
         <div class="lg:py-10">
           <h1 class="font-bold text-lg md:text-xl xl:text-2xl 2xl:text-3xl">ขั้นตอนการสร้างหอพัก</h1>
-          <ul class="py-5 text-sm space-y-5 md:text-base lg:text-lg xl:text-xl 2xl:space-y-10">
+          <ul class="py-5 text-sm space-y-5 xl:text-base 2xl:space-y-10">
             <li class="indent-5">
-              1. ชื่อของหอพัก เวลาที่เปิดและปิด ข้อมูลเพิ่มเติมถ้าหากว่ามี เช่น สถานที่ใกล้เคียง ร้านอาหารใกล้หอพัก ค่าน้ำ ค่าไฟ ต่อหน่ววยที่จะคิดต่อผู้เช่าหอพัก
+              1. ชื่อของหอพัก เวลาที่เปิดและปิด ข้อมูลเพิ่มเติมถ้าหากว่ามี เช่น สถานที่ใกล้เคียง ร้านอาหารใกล้หอพัก ค่าน้ำ ค่าไฟ ต่อหน่วยที่จะคิดต่อผู้เช่าหอพัก
             </li>
             <li class="indent-5">
               2. สถานที่ตั้งหอพักไม่ว่าจะเป็น เลขที่/เลขห้อง ซอย ถนน เขต/อำเภอ แขวง/ตำบล จังหวัด
@@ -26,7 +26,7 @@
               <span>กรุณาตรวจสอบรายละเอียดต่าง ๆ ก่อนกดยืนยัน ทางเราจะมีหน้าสรุปผลให้ดูประกอบ ที่ขั้นตอนที่ 6</span>
             </li>
           </ul>
-          <div class="hidden xl:block xl:grid xl:grid-cols-4 xl:mt-5">
+          <div class="hidden xl:grid xl:grid-cols-4 xl:mt-5">
             <nuxt-link v-if="!this.$route.path.includes('dormForm/')" to="/dormForm/registerDormDetail" class="btn btn-accent w-full col-start-3 col-span-2">เริ่มสร้างหอพักของคุณ</nuxt-link>
           </div>
         </div>

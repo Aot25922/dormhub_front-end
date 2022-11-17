@@ -1,12 +1,12 @@
 <template>
   <div class="overflow-auto my-10 lg:my-20 flex justify-center">
     <ul class="steps">
-      <li class="step step-primary">เริ่มต้นเพิ่มหอพัก</li>
-      <li class="step" :class="{ 'step-primary': step1 }">ข้อมูลหอพัก</li>
-      <li class="step" :class="{ 'step-primary': step2 }">ประเภทห้อง</li>
-      <li class="step" :class="{ 'step-primary': step3 }">ข้อมูลห้อง</li>
-      <li class="step" :class="{ 'step-primary': step4 }">การจ่ายเงิน</li>
-      <li class="step" :class="{ 'step-primary': step5 }">สรุปผล</li>
+      <li class="step step-secondary">เริ่มต้นเพิ่มหอพัก</li>
+      <li class="step" :class="{ 'step-secondary': step1 }">ข้อมูลหอพัก</li>
+      <li class="step" :class="{ 'step-secondary': step2 }">ประเภทห้อง</li>
+      <li class="step" :class="{ 'step-secondary': step3 }">ข้อมูลห้อง</li>
+      <li class="step" :class="{ 'step-secondary': step4 }">การจ่ายเงิน</li>
+      <li class="step" :class="{ 'step-secondary': step5 }">สรุปผล</li>
     </ul>
   </div>
 </template>

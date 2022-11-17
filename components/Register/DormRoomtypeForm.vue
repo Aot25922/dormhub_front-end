@@ -1,6 +1,15 @@
 <template>
   <div
-    class="p-3 rounded-lg mb-3 relative border shadow-lg lg:flex lg:flex-wrap"
+    class="
+      p-5
+      bg-neutral
+      rounded-lg
+      mb-3
+      relative
+      border
+      shadow-lg
+      lg:flex lg:flex-wrap
+    "
   >
     <button
       @click="removeRoomType"
@@ -20,9 +29,9 @@
           p-2
           mb-5
           rounded
-          border-none
           input input-sm
           md:input-md
+          border-gray-200
           w-full
           disabled:text-gray-400
         "
@@ -46,7 +55,7 @@
           p-2
           mb-5
           rounded
-          border-none
+          border-gray-200
           input input-sm
           md:input-md
           w-full
@@ -74,13 +83,13 @@
           p-2
           mb-5
           rounded
-          border-none
+          border-gray-200
           input input-sm
           md:input-md
           w-full
           disabled:text-gray-400
         "
-        placeholder="200"
+        placeholder="2000"
         v-model="roomType.deposit"
         min="1"
         max="100000"
@@ -102,7 +111,7 @@
           p-2
           mb-5
           rounded
-          border-none
+          border-gray-200
           input input-sm
           md:input-md
           w-full
@@ -125,16 +134,7 @@
         สิ่งอำนวยความสะดวก/บริการเสริม
       </h1>
       <textarea
-        class="
-          h-[80px]
-          md:h-24
-          p-2
-          mb-5
-          rounded
-          w-full
-          border-0
-          disabled:text-gray-400 disabled:bg-gray-900
-        "
+        class="textarea w-full border-gray-200 disabled:text-gray-400"
         placeholder="สิ่งอำนวยความสะดวกต่าง ๆ"
         v-model="roomType.facility"
         @blur="validateForm"
@@ -225,7 +225,11 @@
     </div>
     <div class="py-5 w-full md:flex md:justify-end">
       <div class="md:w-1/2">
-        <button v-if="editForm" @click="addRoomTypes()" class="btn btn-success w-full">
+        <button
+          v-if="editForm"
+          @click="addRoomTypes()"
+          class="btn btn-success w-full"
+        >
           ยืนยันการเเก้ไขข้อมูล
         </button>
       </div>
@@ -240,9 +244,9 @@ export default {
     return {
       roomType: {
         type: "",
-        price: 0,
-        deposit: 0,
-        area: 0,
+        price: null,
+        deposit: null,
+        area: null,
         facility: "",
       },
       checkForImageChangeOnEdit: true,
@@ -269,6 +273,7 @@ export default {
         this.validateArea == false &&
         this.validateFacility == false
       ) {
+        this.roomType.description = this.roomType.facility;
         let newRoomType = JSON.parse(JSON.stringify(this.roomType));
         newRoomType.oldRoomType = this.oldRoomType;
         let newRoomTypeImg = Object.assign({}, this.roomTypeInputImage);
@@ -328,6 +333,18 @@ export default {
             });
           }
         } else {
+          if (this.roomTypeInputImage.length == 0) {
+            this.$emit("validate", false);
+            const noti = this.$vs.notification({
+              progress: "auto",
+              icon: `<i class='bx bx-error' ></i>`,
+              color: "warn",
+              position: "top-right",
+              title: "ข้อมูลของคุญยังได้สมบูรณ์",
+              text: "กรุณาเติมข้อมูลให้ครบ",
+            });
+            return
+          }
           this.$store.commit("SET_ROOMTYPE", newRoomType);
           this.$store.dispatch("setNewRoomTypeImg", {
             image: newRoomTypeImg,
@@ -345,7 +362,7 @@ export default {
           icon: `<i class='bx bx-error' ></i>`,
           color: "warn",
           position: "top-right",
-          title: "ข้อมูลของคุญยังได้สมบูรณ์",
+          title: "ข้อมูลของคุญยังไม่สมบูรณ์",
           text: "กรุณาเติมข้อมูลให้ครบ",
         });
       }
@@ -373,7 +390,7 @@ export default {
       this.validateArea =
         this.roomType.area <= 0 || this.roomType.area >= 1000 ? true : false;
       this.validateFacility == "" ? true : false;
-      this.validateFile = this.roomTypeInputImage.length == 0 ? true : false;
+      this.validateFile = this.roomTypeImageUrl.length == 0 ? true : false;
     },
   },
   created() {

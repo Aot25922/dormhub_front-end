@@ -44,18 +44,18 @@ module.exports = {
 					'secondary-focus': '#98D5D7',
 					'secondary-content': '#1D3557',
 
-          'accent': '#E63946',
-          'accent-focus': '#C81927',
-          'accent-content': '#FFFFFF',
+					'accent': '#E63946',
+					'accent-focus': '#C81927',
+					'accent-content': '#FFFFFF',
 
-          'neutral': '#FFFFFF',
-          'neutral-focus': '#F5F5F5',
-          'neutral-content': '#1D3557',
+					'neutral': '#FFFFFF',
+					'neutral-focus': '#F5F5F5',
+					'neutral-content': '#1D3557',
 
-          'info': '#2094f3',
-          'success': '#009485',
-          'warning': '#ff9900',
-          'error': '#ff5724',
+					'info': '#2094f3',
+					'success': '#009485',
+					'warning': '#ff9900',
+					'error': '#ff5724',
 				},
 			}
 		],

@@ -12,9 +12,9 @@
       </h1>
     </div>
     <div class="p-5 xl:pb-20 xl:px-52 2xl:px-96">
-      <SearchBar />
+      <SearchBar @resetPage="page = 1" />
       <AllDormInfo
-        class="my-10 md:my-0"
+        class="my-5"
         v-for="dorm in dormList.results"
         :dorm="dorm"
         :key="dorm.dormId"
@@ -30,9 +30,14 @@
 export default {
   data() {
     return {
-      color: "success",
       page: 1,
+      lastPage: null,
     };
+  },
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
+      vm.lastPage = from;
+    });
   },
   watch: {
     page(newPage, oldPage) {
@@ -46,9 +51,9 @@ export default {
       this.$store.dispatch("fetchDormList", this.page - 1);
     },
   },
-  created() {
-    if(this.$router.history.current.params.search ){
-      return
+  mounted() {
+    if (this.lastPage.name == "dorm-id" || this.lastPage.name == "index") {
+      return;
     }
     this.changePage();
   },

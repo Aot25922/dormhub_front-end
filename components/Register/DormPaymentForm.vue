@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="border p-3 rounded-lg my-3 shadow-lg">
+    <div class="border bg-neutral p-5 rounded-lg my-3 shadow-lg">
       <h1 class="text-lg ml-2 mb-2 font-bold">เพิ่มช่องทางการชำระเงิน</h1>
       <div>
         <div
@@ -9,26 +9,31 @@
           class="relative flex flex-wrap"
         >
           <div class="w-1/2 px-1 md:w-1/4">
-            <label class="label-text tracking-wide font-bold my-2"
+            <label class="label-text tracking-wide font-bold my-2 text-gray-500"
               >เลขบัญชี <span class="text-accent">*</span></label
             >
             <input
               type="text"
-              class="py-4 mb-3 px-2 w-full input-md rounded border-0"
+              class="py-4 px-2 w-full input-md rounded border-gray-200 disabled:text-gray-400 disabled:bg-gray-800"
               placeholder="101100000"
+              maxlength="10"
               v-model="bankAccount.accountNum"
               @blur="validate(bankAccount)"
               :disabled="disableForm"
             />
+            <div class="text-gray-300 pt-1 font-bold text-xs md:text-sm">
+              <span v-text="10 - bankAccount.accountNum.length"></span>
+              <span>/10</span>
+            </div>
           </div>
 
           <div class="w-1/2 px-1 md:w-1/4">
-            <label class="label-text tracking-wide font-bold my-2"
+            <label class="label-text tracking-wide font-bold my-2 text-gray-500"
               >ชื่อบัญชี <span class="text-accent">*</span></label
             >
             <input
               type="text"
-              class="py-4 mb-3 px-2 w-full input-md rounded border-0"
+              class="py-4 mb-3 px-2 w-full input-md rounded border-gray-200 disabled:text-gray-400 disabled:bg-gray-800"
               placeholder="เจ้าของบัญชี เท่มาก"
               v-model="bankAccount.accountName"
               @blur="validate(bankAccount)"
@@ -37,12 +42,12 @@
           </div>
 
           <div class="w-1/2 px-1 md:w-1/4">
-            <label class="label-text tracking-wide font-bold my-2"
+            <label class="label-text tracking-wide font-bold my-2 text-gray-500"
               >ธนาคาร <span class="text-accent">*</span></label
             >
             <select
               v-model="bankAccount.bankId"
-              class="select w-full border-0"
+              class="select w-full border-gray-200 disabled:text-gray-400"
               @click="validate(bankAccount)"
               :disabled="disableForm"
             >
@@ -65,6 +70,7 @@
               @click="removeBankAccount(index)"
               class="btn btn-accent w-2/3"
               v-if="index > 0"
+              :disabled="disableForm"
             >
               <span class="material-icons">delete</span>
             </button>
@@ -74,10 +80,10 @@
       </div>
     </div>
     <span v-if="accountNumValidate" class="text-error"
-      >Some account number field not complete</span
+      >บางกล่องข้อความเลขบัญชียังไม่สมบูรณ์</span
     >
     <span v-if="accountNameValidate" class="text-error"
-      >Some account name field not complete</span
+      >บางกล่องของชื่อบัญชีไม่สมบูรณ์</span
     >
     <div class="py-5">
       <button
@@ -88,13 +94,15 @@
         เเก้ไขข้อมูล
       </button>
     </div>
-    <div v-if="!disableForm" class="flex items-center justify-center">
+    <div v-if="!disableForm && bankAccounts.length<5" class="flex items-center justify-center">
       <!-- Mobile Button -->
       <button
+
         @click="
           bankAccounts.push({
             accountNum: '',
             accountName: '',
+			bankId: ''
           })
         "
         class="btn btn-secondary p-5 w-full"
@@ -140,6 +148,17 @@ export default {
   },
   methods: {
     async submit() {
+      if(this.bankAccounts.length > 5){
+        const noti = this.$vs.notification({
+          progress: "auto",
+          icon: `<i class='bx bx-error' ></i>`,
+          color: "warn",
+          position: "top-right",
+          title: "บัญชีของคุณเกิน 5 บัญชี",
+          text: "จำกัดไม่เกิน 5 บัญชี",
+        });
+        return
+      }
       for (let i in this.bankAccounts) {
         this.validate(this.bankAccounts[i]);
       }
@@ -196,7 +215,7 @@ export default {
           color: "warn",
           position: "top-right",
           title: "ข้อมูลของคุญยังไม่สมบูรณ์",
-          text: "กรุณาเติมข้อมูลให้ครบ",
+          text: "กรุณากรอกข้อมูลให้ครบ",
         });
         this.$emit("validate", false);
       }

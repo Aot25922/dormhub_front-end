@@ -1,7 +1,7 @@
 <template>
-  <div class="bg-white text-black min-h-screen font-Kanit">
+  <div class="bg-white text-black min-h-screen flex flex-col font-Kanit">
     <NavBar class="md:p-3 lg:p-5" />
-    <Nuxt />
+    <Nuxt class="pt-[4.25rem] flex-grow" />
     <ContentFooter />
   </div>
 </template>

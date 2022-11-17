@@ -1,5 +1,5 @@
 <template>
-  <div class="p-3 rounded-lg my-3 md:p-5 md:flex md:flex-wrap">
+  <div class="p-5 bg-neutral rounded-lg my-3 md:p-5 md:flex md:flex-wrap">
     <h1 class="text-lg ml-2 mb-2 font-bold md:w-full">สถานที่ตั้งหอพัก</h1>
     <div class="mb-5 md:px-1 md:w-1/2 lg:w-1/3">
       <label class="label-text text-gray-500 tracking-wide font-bold my-2"
@@ -7,7 +7,7 @@
       >
       <input
         v-model="address.number"
-        class="py-4 px-2 w-full input input-sm md:input-md rounded"
+        class="py-4 px-2 w-full input input-sm md:input-md rounded border-gray-200"
         placeholder="999/999"
         @blur="checkForm"
       />
@@ -22,7 +22,7 @@
       >
       <input
         v-model="address.street"
-        class="py-4 px-2 w-full input input-sm md:input-md rounded"
+        class="py-4 px-2 w-full input input-sm md:input-md rounded border-gray-200"
         placeholder="ถนนของเรา"
         @blur="checkForm"
       />
@@ -37,7 +37,7 @@
       >
       <input
         v-model="address.alley"
-        class="py-4 px-2 w-full input input-sm md:input-md rounded"
+        class="py-4 px-2 w-full input input-sm md:input-md rounded border-gray-200"
         placeholder="69"
       />
     </div>
@@ -49,7 +49,7 @@
       >
       <select
         v-model="selectedRegion"
-        class="select w-full text-gray-500 border-0"
+        class="select w-full text-gray-500 border-gray-200"
         @change="
           selectedProvince = null;
           selectedDistrict = null;
@@ -79,7 +79,7 @@
       >
       <select
         v-model="selectedProvince"
-        class="select w-full text-gray-500 border-0"
+        class="select w-full text-gray-500 border-gray-200"
         @change="
           selectedDistrict = null;
           selectedSubDistrict = null;
@@ -108,7 +108,7 @@
       >
       <select
         v-model="selectedDistrict"
-        class="select w-full text-gray-500 border-0"
+        class="select w-full text-gray-500 border-gray-200"
         @change="
           selectedSubDistrict = null;
           selectedZipCode = null;
@@ -136,7 +136,7 @@
       >
       <select
         v-model="selectedSubDistrict"
-        class="select w-full text-gray-500 border-0"
+        class="select w-full text-gray-500 border-gray-200"
         @change="
           selectedZipCode = null;
           checkForm();
@@ -163,7 +163,7 @@
       >
       <select
         v-model="selectedZipCode"
-        class="select w-full text-gray-500 border-0"
+        class="select w-full text-gray-500 border-gray-200"
         @change="checkForm()"
       >
         <option option disabled selected>กรุณาเลือกเลขไปรณีย์</option>
@@ -180,10 +180,14 @@
       <p class="text-imperialRed text-right" v-if="!validateZipcode">
         กรุณาเลือกเลขไปรณีย์
       </p>
-      </div>
+    </div>
     <div class="py-5 w-full md:flex md:justify-end">
       <div class="md:w-1/2">
-        <button v-if="editForm" @click="submit()" class="btn btn-success w-full">
+        <button
+          v-if="editForm"
+          @click="submit()"
+          class="btn btn-success w-full"
+        >
           ยืนยันการเเก้ไขข้อมูล
         </button>
       </div>
@@ -235,17 +239,29 @@ export default {
         this.address.region = this.selectedRegion.name;
         this.address.province = this.selectedProvince.name_th;
         this.address.subDistrict = this.selectedSubDistrict.name_th;
-        let newAddress = { ...this.address };
+        let newAddress =
+          this.address.number +
+          " " +
+          this.address.alley +
+          " " +
+          this.address.street +
+          " " +
+          this.selectedRegion.name +
+          " " +
+          this.selectedDistrict.name_th +
+          " " +
+          this.selectedSubDistrict.name_th +
+          " " +
+          this.selectedProvince.name_th +
+          " " +
+          this.selectedZipCode;
         if (this.editForm) {
           const loading = this.$vs.loading();
           let formData = new FormData();
           let data = {
-            address: {
-              number: this.address.number,
-              alley: this.address.alley,
-              street: this.address.street,
-              subDistrictsId: this.selectedSubDistrict.subDistrictsId,
-              addressId: this.$store.state.selectedDorm.addressId,
+            dormId: this.$store.state.selectedDorm.dormId,
+            dorm: {
+              address: newAddress,
             },
           };
           formData.append("data", JSON.stringify(data));
@@ -316,32 +332,27 @@ export default {
         this.$router.push({ path: "/dormList" });
         return;
       }
+      const address = this.$store.state.selectedDorm.address.split(" ")
+      this.address.number = address[0]
+      this.address.street = address[1]
+      this.address.alley = address[2]
       this.selectedRegion = this.addressOption.filter(
         (x) =>
-          x.name ==
-          this.$store.state.selectedDorm.address.subDistrict.district.province
-            .geography.name
+          this.$store.state.selectedDorm.address.includes(x.name)
       )[0];
       this.selectedProvince = this.selectedRegion.provinces.filter(
         (x) =>
-          x.name_th ==
-          this.$store.state.selectedDorm.address.subDistrict.district.province
-            .name_th
+          this.$store.state.selectedDorm.address.includes(x.name_th)
       )[0];
       this.selectedDistrict = this.selectedProvince.districts.filter(
         (x) =>
-          x.name_th ==
-          this.$store.state.selectedDorm.address.subDistrict.district.name_th
+          this.$store.state.selectedDorm.address.includes(x.name_th)
       )[0];
       this.selectedSubDistrict = this.selectedDistrict.subDistricts.filter(
         (x) =>
-          x.name_th ==
-          this.$store.state.selectedDorm.address.subDistrict.name_th
+          this.$store.state.selectedDorm.address.includes(x.name_th)
       )[0];
       this.selectedZipCode = this.selectedSubDistrict.zip_code;
-      this.address.number = this.$store.state.selectedDorm.address.number;
-      this.address.street = this.$store.state.selectedDorm.address.street;
-      this.address.alley = this.$store.state.selectedDorm.address.alley;
       this.checkForm();
     }
   },

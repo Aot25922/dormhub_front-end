@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="p-3 rounded-lg my-3 md:p-5 md:flex md:flex-wrap">
+    <div class="p-5 rounded-lg bg-neutral my-3 md:p-5 md:flex md:flex-wrap">
       <h1 class="text-lg ml-2 mb-2 font-bold md:w-full">เกี่ยวกับหอพัก</h1>
       <div class="mb-2 md:px-1 md:w-full">
         <label class="label-text text-gray-500 tracking-wide font-bold my-2"
@@ -9,13 +9,16 @@
         <input
           type="text"
           autofocus
-          class="py-4 px-2 w-full input input-sm md:input-md rounded"
+          class="py-4 px-2 w-full input input-sm md:input-md border-gray-200 rounded"
           placeholder="แฮปปี้ดอร์ม"
           @blur="checkForm"
           v-model="dorm.name"
         />
         <p v-if="!validateName" class="text-imperialRed text-right mt-2">
           กรุณากรอกชื่อหอพัก
+        </p>
+        <p v-if="!validateNameLength" class="text-imperialRed text-right mt-2">
+          กรุณากรอกชื่อหอพักไม่เกิน 50 ตัว
         </p>
       </div>
       <div class="mb-5 md:px-1 md:w-1/2">
@@ -24,14 +27,11 @@
         >
         <input
           type="time"
-          class="py-4 px-2 w-full input input-sm md:input-md rounded"
+          class="py-4 px-2 w-full input input-sm md:input-md border-gray-200 rounded"
           placeholder="06.00"
           @blur="checkForm"
           v-model="dorm.openTime"
         />
-        <!-- <p v-if="!validateOpenTime" class="text-imperialRed text-right mt-2">
-            ระบุเวลาเปิดหอพัก
-          </p> -->
       </div>
       <div class="mb-5 md:px-1 md:w-1/2">
         <label class="label-text text-gray-500 tracking-wide font-bold my-2"
@@ -39,14 +39,11 @@
         >
         <input
           type="time"
-          class="py-4 px-2 w-full input input-sm md:input-md rounded"
+          class="py-4 px-2 w-full input input-sm md:input-md border-gray-200 rounded"
           placeholder="22.00"
           @blur="checkForm"
           v-model="dorm.closeTime"
         />
-        <!-- <p v-if="!validateCloseTime" class="text-imperialRed text-right mt-2">
-            ระบุเวลาปิดหอพัก
-          </p> -->
       </div>
       <div class="mb-2 md:px-1 md:w-1/2">
         <label class="label-text text-gray-500 tracking-wide font-bold my-2"
@@ -57,11 +54,11 @@
           step="0.01"
           @blur="checkForm"
           v-model="dorm.waterPerUnit"
-          class="py-4 px-2 w-full input input-sm md:input-md rounded"
-          placeholder="0.01 - 9.99"
+          class="py-4 px-2 w-full input input-sm md:input-md border-gray-200 rounded"
+          placeholder="0.01 - 50.00"
         />
         <p v-if="!validateWater" class="text-imperialRed text-right mt-2">
-          ใส่ค่าได้ตั้งแต่ 0.01 - 9.99
+          ใส่ค่าได้ตั้งแต่ 0.01 - 50.00
         </p>
       </div>
       <div class="mb-2 md:px-1 md:w-1/2">
@@ -73,15 +70,15 @@
           step="0.01"
           @blur="checkForm"
           v-model="dorm.elecPerUnit"
-          class="py-4 px-2 w-full input input-sm md:input-md rounded"
-          placeholder="0.01 - 9.99"
+          class="py-4 px-2 w-full input input-sm md:input-md border-gray-200 rounded"
+          placeholder="0.01 - 50.00"
         />
         <p
           v-if="!validateElec"
           @blur="checkForm"
           class="text-imperialRed text-right mt-2"
         >
-          ใส่ค่าได้ตั้งแต่ 0.01 - 9.99
+          ใส่ค่าได้ตั้งแต่ 0.01 - 50.00
         </p>
       </div>
       <div class="mb-5 md:px-1 md:w-full">
@@ -90,16 +87,7 @@
         >
         <textarea
           v-model="dorm.description"
-          class="
-            h-[80px]
-            md:h-24
-            p-2
-            w-full
-            border-0
-            input input-sm
-            md:input-md
-            rounded
-          "
+          class="textarea border-gray-200 w-full"
           placeholder="คำอธิบายเพิ่มเติม"
         />
       </div>
@@ -188,10 +176,8 @@ export default {
         openTime: null,
         closeTime: null,
         description: "",
-        rating: 0,
-        acceptPercent: 0,
-        elecPerUnit: 0,
-        waterPerUnit: 0,
+        elecPerUnit: null,
+        waterPerUnit: null,
       },
       disableForm: false,
       dormInputImage: [],
@@ -201,17 +187,19 @@ export default {
       validateElec: false,
       validateWater: false,
       validateDormImg: false,
+      validateNameLength: false
     };
   },
   methods: {
     checkForm() {
+      this.validateNameLength = this.dorm.name.length <=50 ? true : false;
       this.validateName = this.dorm.name != "" ? true : false;
       this.validateOpenTime = this.dorm.openTime != "" ? true : false;
       this.validateCloseTime = this.dorm.closeTime != "" ? true : false;
       this.validateElec =
-        0 < this.dorm.elecPerUnit && this.dorm.elecPerUnit < 10 ? true : false;
+        0 < this.dorm.elecPerUnit && this.dorm.elecPerUnit < 50.01 ? true : false;
       this.validateWater =
-        0 < this.dorm.waterPerUnit && this.dorm.waterPerUnit < 10
+        0 < this.dorm.waterPerUnit && this.dorm.waterPerUnit < 50.01
           ? true
           : false;
       if (this.editForm) {
@@ -239,7 +227,8 @@ export default {
         this.validateCloseTime &&
         this.validateWater &&
         this.validateElec &&
-        this.validateDormImg
+        this.validateDormImg &&
+        this.validateNameLength
       ) {
         let dormCopy = { ...this.dorm };
         const dormImgCopy = { ...this.dormInputImage };
@@ -288,7 +277,7 @@ export default {
               icon: `<i class='bx bx-folder-open' ></i>`,
               color: "warn",
               position: "top-right",
-              title: `Data Update`,
+              title: `error`,
               text: error.response.data.error.message,
             });
           }
