@@ -5,7 +5,7 @@
     </div>
 
     <div class="md:py-10 lg:py-20 xl:px-10">
-      <h1 class=" pb-10 text-2xl md:text-3xl font-bold text-PrussianBlue text-center md:py-5 xl:py-10">สมัครสมาชิก</h1>
+      <h1 class=" pb-10 text-2xl md:text-3xl lg:text-4xl font-bold text-PrussianBlue text-center md:py-5 xl:py-10">สมัครสมาชิก</h1>
 
       <!--ขั้นตอนที่ 1-->
       <div v-if="firstStep">
@@ -43,7 +43,7 @@
       <div v-if="secondStep" class="md:flex md:flex-wrap">
         <h1 class="text-black text-lg mt-5 ml-2 mb-2 font-bold md:w-full">รายละเอียดส่วนบุคคล</h1>
         <div class="mb-2 md:px-1 md:w-1/2">
-          <label class="label-text tracking-wide font-bold my-2">ชื่อ</label>
+          <label class="label-text tracking-wide font-bold my-2 text-gray-500">ชื่อ</label>
           <input type="text" class="py-6 px-2 w-full input input-sm md:input-md rounded-lg border-x-0 border-t-0 border-b-gray-400 my-2 md:my-4"
             placeholder="สมบัติ"
             v-model="userAccount.fname"
@@ -52,7 +52,7 @@
           <span class="text-imperialRed" v-if="validateFname">กรุณากรอกชื่อ</span>
         </div>
         <div class="mb-2 md:px-1 md:w-1/2">
-          <label class="label-text tracking-wide font-bold my-2">นามสกุล</label>
+          <label class="label-text tracking-wide font-bold my-2 text-gray-500">นามสกุล</label>
           <input type="text" class=" py-6 px-2 w-full input input-sm md:input-md rounded-lg border-x-0 border-t-0 border-b-gray-400 my-2 md:my-4"
             placeholder="สั้นสุดฤทธิ์"
             v-model="userAccount.lname"
@@ -61,7 +61,7 @@
           <span class="text-imperialRed" v-if="validateLname">กรุณากรอกนามสกุล</span>
         </div>
         <div class="mb-2 md:px-1 md:w-1/2">
-          <label class="label-text tracking-wide font-bold my-2">เพศ</label>
+          <label class="label-text tracking-wide font-bold my-2 text-gray-500">เพศ</label>
           <input type="text" class="py-6 px-2 w-full input input-sm md:input-md rounded-lg border-x-0 border-t-0 border-b-gray-400 my-2 md:my-4"
             placeholder="จ๊าบ"
             v-model="userAccount.sex"
@@ -70,7 +70,7 @@
           <span class="text-imperialRed" v-if="validateSex">กรุณากรอกเพศ</span>
         </div>
         <div class="mb-2 md:px-1 md:w-1/2">
-          <label class="label-text tracking-wide font-bold my-2">เบอร์โทรศัพท์ (<span v-text="10 - userAccount.phone.length"></span> หลัก)</label>
+          <label class="label-text tracking-wide font-bold my-2 text-gray-500">เบอร์โทรศัพท์ (<span v-text="10 - userAccount.phone.length"></span> หลัก)</label>
           <input type="text" class=" py-6 px-2 w-full input input-sm md:input-md rounded-lg border-x-0 border-t-0 border-b-gray-400 my-2 md:my-4"
             placeholder="0942384569"
             maxlength="10"

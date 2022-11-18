@@ -31,67 +31,65 @@
         </agile>
       </client-only>
       <div class="p-5">
-        <div class="text-sm lg:text-base 2xl:text-lg">
-          <div class="font-bold text-lg xl:text-xl">
-            ห้องพักประเภท : {{ roomType.type }}
-          </div>
-          <div
-            v-if="roomType.description"
-            class="w-full p-3 bg-ghostWhite my-3 rounded-lg shadow text-xs xl:text-sm"
-          >
-            &emsp;"{{ roomType.description }}"
-          </div>
-          <div class="px-3">
-            <vs-table>
-              <template #tbody>
-                <vs-tr>
-                  <vs-td class="flex flex-row items-center">
-                    <img
-                      src="https://cdn-icons-png.flaticon.com/512/2603/2603710.png"
-                      class="w-5 mr-2 md:w-6 lg:w-7 xl:w-8"
-                    />ค่าเช่าต่อเดือน
-                  </vs-td>
-                  <vs-td>฿ {{ roomType.dormHasRoomType.price }} </vs-td>
-                </vs-tr>
-                <vs-tr>
-                  <vs-td class="flex flex-row items-center">
-                    <img
-                      src="https://cdn-icons-png.flaticon.com/512/2664/2664669.png"
-                      class="w-5 mr-2 md:w-6 lg:w-7 xl:w-8"
-                    />ค่าจองห้องพัก
-                  </vs-td>
-                  <vs-td>฿ {{ roomType.dormHasRoomType.deposit }} </vs-td>
-                </vs-tr>
-                <vs-tr>
-                  <vs-td class="flex flex-row items-center">
-                    <img
-                      src="https://cdn-icons-png.flaticon.com/512/8834/8834715.png"
-                      class="w-5 mr-2 md:w-6 lg:w-7 xl:w-8"
-                    />ขนาดพื้นที่
-                  </vs-td>
-                  <vs-td> {{ roomType.dormHasRoomType.area }} ตารางเมตร </vs-td>
-                </vs-tr>
-                <vs-tr>
-                  <vs-td class="flex flex-row items-center">
-                    <img
-                      src="https://cdn-icons-png.flaticon.com/512/2534/2534800.png"
-                      class="w-5 mr-2 md:w-6 lg:w-7 xl:w-8"
-                    />จำนวนห้องพัก
-                  </vs-td>
-                  <vs-td>
-                    <span
-                      >{{
-                        $store.state.selectedDorm.rooms.filter(
-                          (x) => x.roomTypeId == roomType.roomTypeId
-                        ).length
-                      }}
-                      ห้อง
-                    </span>
-                  </vs-td>
-                </vs-tr>
-              </template>
-            </vs-table>
-          </div>
+        <div class="font-bold text-md md:text-lg lg:text-xl">
+          ห้องพักประเภท : {{ roomType.type }}
+        </div>
+        <div
+          v-if="roomType.description"
+          class="w-full indent-2 p-3 bg-ghostWhite my-3 rounded-lg shadow text-xs md:text-sm lg:text-base"
+        >
+          "{{ roomType.description }}"
+        </div>
+        <div class="px-3">
+          <vs-table>
+            <template #tbody>
+              <vs-tr>
+                <vs-td class="flex flex-row items-center">
+                  <img
+                    src="https://cdn-icons-png.flaticon.com/512/2603/2603710.png"
+                    class="w-5 mr-2 md:w-6 lg:w-7"
+                  /><p class="text-sm md:text-base lg:text-md">ค่าเช่าต่อเดือน</p>
+                </vs-td>
+                <vs-td><p class="text-sm md:text-base lg:text-md">฿ {{ roomType.dormHasRoomType.price }}</p> </vs-td>
+              </vs-tr>
+              <vs-tr>
+                <vs-td class="flex flex-row items-center">
+                  <img
+                    src="https://cdn-icons-png.flaticon.com/512/2664/2664669.png"
+                    class="w-5 mr-2 md:w-6 lg:w-7"
+                  /><p class="text-sm md:text-base lg:text-md">ค่าจองห้องพัก</p>
+                </vs-td>
+                <vs-td><p class="text-sm md:text-base lg:text-md">฿ {{ roomType.dormHasRoomType.deposit }}</p> </vs-td>
+              </vs-tr>
+              <vs-tr>
+                <vs-td class="flex flex-row items-center">
+                  <img
+                    src="https://cdn-icons-png.flaticon.com/512/8834/8834715.png"
+                    class="w-5 mr-2 md:w-6 lg:w-7"
+                  /><p class="text-sm md:text-base lg:text-md">ขนาดพื้นที่</p>
+                </vs-td>
+                <vs-td><p class="text-sm md:text-base lg:text-md">{{ roomType.dormHasRoomType.area }} ตารางเมตร</p></vs-td>
+              </vs-tr>
+              <vs-tr>
+                <vs-td class="flex flex-row items-center">
+                  <img
+                    src="https://cdn-icons-png.flaticon.com/512/2534/2534800.png"
+                    class="w-5 mr-2 md:w-6 lg:w-7 xl:w-8"
+                  /><p class="text-sm md:text-base lg:text-md">จำนวนห้องพัก</p>
+                </vs-td>
+                <vs-td>
+                  <p class="text-sm md:text-base lg:text-md">
+                    {{
+                      $store.state.selectedDorm.rooms.filter(
+                        (x) => x.roomTypeId == roomType.roomTypeId
+                      ).length
+                    }}
+                    ห้อง
+                  </p>
+                </vs-td>
+              </vs-tr>
+            </template>
+          </vs-table>
         </div>
       </div>
     </div>
@@ -104,7 +102,7 @@
           <div>
             <!-- Choose Payment Banking -->
             <div>
-              <h3 class="font-bold text-lg">เลือกช่องทางการชำระเงิน</h3>
+              <h3 class="font-bold md:text-md lg:text-lg">เลือกช่องทางการชำระเงิน</h3>
               <label
                 class="label-text text-gray-500 tracking-wide font-bold my-2"
                 >ช่องทางการชำระเงิน
@@ -173,40 +171,45 @@
       </div>
 
       <!-- Floor&Room List -->
-      <h1 class="font-bold text-lg xl:text-xl p-5">
+      <h1 class="font-bold text-md md:text-lg lg:text-xl p-5">
         ข้อมูลห้องพัก
-        <span class="text-gray-400 text-xs md:hidden">(เลื่อนไปทางขวาเพื่อจอง)</span>
+        <span class="text-gray-400 text-xs md:hidden"
+          >(เลื่อนไปทางขวาเพื่อจอง)</span
+        >
       </h1>
       <vs-table>
         <template #thead>
           <vs-tr>
-            <vs-th> <p class="mx-auto">ชั้น</p> </vs-th>
-            <vs-th> <p class="mx-auto">เลขห้อง</p> </vs-th>
-            <vs-th> <p class="mx-auto">สถานะ</p> </vs-th>
-            <vs-th> <p class="mx-auto">หมายเหตุ</p> </vs-th>
+            <vs-th> <p class="mx-auto text-sm md:text-base lg:text-md">ชั้น</p> </vs-th>
+            <vs-th> <p class="mx-auto text-sm md:text-base lg:text-md">เลขห้อง</p> </vs-th>
+            <vs-th> <p class="mx-auto text-sm md:text-base lg:text-md">สถานะ</p> </vs-th>
+            <vs-th> <p class="mx-auto text-sm md:text-base lg:text-md">หมายเหตุ</p> </vs-th>
             <vs-th></vs-th>
           </vs-tr>
         </template>
         <template #tbody>
-          <vs-tr v-for="(room, key) in $vs.getPage(roomList, page, max)" :key="key"
-          :data="room">
+          <vs-tr
+            v-for="(room, key) in $vs.getPage(roomList, page, max)"
+            :key="key"
+            :data="room"
+          >
             <vs-td class="w-1/6">
-              <p class="text-center">{{ room.floors }}</p>
+              <p class="text-center text-sm md:text-base lg:text-md">{{ room.floors }}</p>
             </vs-td>
             <vs-td class="w-1/6">
-              <p class="text-center">{{ room.roomNum }}</p>
+              <p class="text-center text-sm md:text-base lg:text-md">{{ room.roomNum }}</p>
             </vs-td>
             <vs-td class="w-1/6">
               <div v-if="room.status == 'ว่าง'" class="text-success">
-                <p class="text-center">{{ room.status }}</p>
+                <p class="text-center text-sm md:text-base lg:text-md">{{ room.status }}</p>
               </div>
               <div v-else class="text-imperialRed">
-                <p class="text-center">{{ room.status }}</p>
+                <p class="text-center text-sm md:text-base lg:text-md">{{ room.status }}</p>
               </div>
             </vs-td>
             <vs-td class="w-1/6">
               <div v-if="room.description">
-                <p class="text-center">{{ room.description }}</p>
+                <p class="text-center text-sm md:text-base lg:text-md">{{ room.description }}</p>
               </div>
               <div v-else><p class="text-center">-</p></div>
             </vs-td>
@@ -221,16 +224,14 @@
                 @click="selectedRoom = room"
                 >จองห้องพัก</label
               >
-			  <label
-                class="btn btn-accent w-full"
-                v-if="room.status == 'จองแล้ว'"
-                >ไม่สามารถจองได้</label
-              >
             </vs-td>
           </vs-tr>
         </template>
         <template #footer>
-          <vs-pagination v-model="page" :length="$vs.getLength(roomList, max)" />
+          <vs-pagination
+            v-model="page"
+            :length="$vs.getLength(roomList, max)"
+          />
         </template>
       </vs-table>
     </div>
@@ -250,8 +251,8 @@ export default {
       endDate: null,
       slipImg: null,
       slipImgUrl: null,
-	  page: 1,
-	  max: 10
+      page: 1,
+      max: 10,
     };
   },
   methods: {

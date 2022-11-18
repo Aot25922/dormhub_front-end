@@ -5,10 +5,10 @@
     <p>Dorm Hub<br/>Developed since April, 2022</p>
   </div> 
   <div>
-    <span class="footer-title">เมนู</span> 
-    	<nuxt-link to="/" class="link link-hover">หน้าหลัก</nuxt-link> 
-		<nuxt-link to="/about" class="link link-hover">เกี่ยวกับเรา</nuxt-link> 
-		<nuxt-link to="/dormList" class="link link-hover">หอพัก</nuxt-link> 
+    <span class="footer-title md:text-md lg:text-lg">เมนู</span> 
+    	<nuxt-link to="/" class="link link-hover md:text-md">หน้าหลัก</nuxt-link> 
+		<nuxt-link to="/about" class="link link-hover md:text-md">เกี่ยวกับเรา</nuxt-link> 
+		<nuxt-link to="/dormList" class="link link-hover md:text-md">หอพัก</nuxt-link> 
   </div>
 </footer>
 </template>

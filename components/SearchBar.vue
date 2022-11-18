@@ -3,12 +3,12 @@
   <div class="bg-white p-5 shadow rounded-xl md:flex md:flex-wrap md:p-8">
     <div class="w-full py-2 md:px-2">
       <div class="pt-1 py-5 flex items-center">
-        <span class="flex justify-start font-bold w-2/3 md:w-4/5">ค้นหาหอพักที่ต้องการ</span>
+        <span class="flex justify-start font-bold w-2/3 md:w-4/5 md:text-md lg:text-lg">ค้นหาหอพักที่ต้องการ</span>
         <!-- Advance Filter Button -->
         <div class="flex w-1/3 md:w-1/4 xl:w-1/5">
           <button
             @click="advanceFilter = !advanceFilter"
-            class="w-full flex justify-end items-center cursor-pointer hover:text-info hover:delay-100 hover:duration-300"
+            class="w-full flex justify-end items-center cursor-pointer hover:text-info hover:delay-100 hover:duration-300 md:text-md lg:text-lg"
           >
             ตัวเลือกขั้นสูง<span class="material-symbols-outlined"> build </span>
           </button>
@@ -41,7 +41,7 @@
 
     <!--เลือกภูมิภาค-->
     <div class="py-2 md:px-2 md:w-1/4">
-      <p class="font-bold p-1">ภูมิภาค</p>
+      <p class="font-bold p-1 md:text-md lg:text-lg">ภูมิภาค</p>
       <select
         class="select border-x-0 border-t-0 border-b-gray-400 w-full"
         v-model="selectedRegion"
@@ -64,7 +64,7 @@
 
     <!--เลือกจังหวัด-->
     <div class="py-2 md:px-2 md:w-1/4">
-      <p class="font-bold p-1">จังหวัด</p>
+      <p class="font-bold p-1 md:text-md lg:text-lg">จังหวัด</p>
       <select
         class="select border-x-0 border-t-0 border-b-gray-400 w-full"
         v-model="selectedProvince"
@@ -91,7 +91,7 @@
 
     <!--เลือกเขต/อำเภอ-->
     <div class="py-2 md:px-2 md:w-1/4">
-      <p class="font-bold p-1">เขต/อำเภอ</p>
+      <p class="font-bold p-1 md:text-md lg:text-lg">เขต/อำเภอ</p>
       <select
         v-model="selectedDistrict"
         class="select border-x-0 border-t-0 border-b-gray-400 w-full"
@@ -114,7 +114,7 @@
     </div>
 
     <div class="py-2 md:px-2 md:w-1/4">
-      <p class="font-bold p-1">แขวง/ตำบล</p>
+      <p class="font-bold p-1 md:text-md lg:text-lg">แขวง/ตำบล</p>
       <select
         v-model="selectedSubDistrict"
         class="select border-x-0 border-t-0 border-b-gray-400 w-full"
@@ -166,14 +166,14 @@
       class="font-Kanit"
     >
       <template #header>
-        <h3 class="font-bold py-3 text-lg flex items-center">
+        <h3 class="font-bold py-3 text-lg flex items-center md:text-md lg:text-lg">
           การกรองขั้นสูง<span class="material-symbols-outlined"> build </span>
         </h3>
       </template>
       <div class="con-content flex flex-wrap">
         <!--pricePerMonth Filter-->
         <div class="py-2 md:px-2 md:w-1/2">
-          <h1 class="font-bold p-1">ราคาห้องพักต่อเดือน</h1>
+          <h1 class="font-bold p-1 md:text-md lg:text-lg">ราคาห้องพักต่อเดือน</h1>
           <div class="flex">
             <input
               v-model="minPrice"
@@ -197,7 +197,7 @@
 
         <!--Deposit Filter-->
         <div class="py-2 md:px-2 md:w-1/2">
-          <h1 class="font-bold p-1">ราคาค่าจองห้องพัก</h1>
+          <h1 class="font-bold p-1 md:text-md lg:text-lg">ราคาค่าจองห้องพัก</h1>
           <div class="flex">
             <input
               v-model="minDeposit"
@@ -221,7 +221,7 @@
 
         <!--electricPermonth Filter-->
         <div class="py-2 md:px-2 md:w-1/2">
-          <h1 class="font-bold p-1">ค่าไฟต่อหน่วย</h1>
+          <h1 class="font-bold p-1 md:text-md lg:text-lg">ค่าไฟต่อหน่วย</h1>
           <div class="flex">
             <input
               v-model="minElecPerUnit"
@@ -245,7 +245,7 @@
 
         <!--waterPermonth Filter-->
         <div class="py-2 md:px-2 md:w-1/2">
-          <h1 class="font-bold p-1">ค่าน้ำต่อหน่วย</h1>
+          <h1 class="font-bold p-1 md:text-md lg:text-lg">ค่าน้ำต่อหน่วย</h1>
           <div class="flex">
             <input
               v-model="minWaterPerUnit"
@@ -269,7 +269,7 @@
 
         <!--area Filter-->
         <div class="py-2 md:px-2 md:w-1/2">
-          <h1 class="font-bold p-1">ขนาดห้องพัก</h1>
+          <h1 class="font-bold p-1 md:text-md lg:text-lg">ขนาดห้องพัก</h1>
           <div class="flex">
             <input
               v-model="minArea"
@@ -292,7 +292,7 @@
         </div>
         <!-- Multiple Filter -->
         <div class="w-full mt-5 md:px-1 md:w-1/2 lg:w-1/4">
-          <h1 class="font-bold p-1">จัดลำดับโดย</h1>
+          <h1 class="font-bold p-1 md:text-md lg:text-lg">จัดลำดับโดย</h1>
           <vs-select
             class="w-full"
             filter
@@ -400,7 +400,7 @@
         </div>
         <!--roomTypeDes Filter-->
         <div class="py-2 md:px-2 md:w-1/2">
-          <h1 class="font-bold p-1">ข้อมูลห้องพักเพิ่มเติม</h1>
+          <h1 class="font-bold p-1 md:text-md lg:text-lg">ข้อมูลห้องพักเพิ่มเติม</h1>
           <input
             v-model="roomTypeDes"
             type=" text"

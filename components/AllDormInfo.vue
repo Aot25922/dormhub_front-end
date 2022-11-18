@@ -50,13 +50,13 @@
         <!-- Address -->
         <div @click="dormInfo()" class="flex py-2 cursor-pointer text-gray-500 md:py-5 xl:text-sm">
           <span class="material-symbols-outlined">location_on</span>
-          <p class="text-xs px-1 md:pr-44 xl:flex xl:items-center xl:p-0">
+          <p class="text-xs px-1 md:text-sm md:pr-44 xl:flex xl:items-center xl:p-0">
             {{ dorm.address }}
           </p>
         </div>
 
         <!-- Water&Electric -->
-        <div  @click="dormInfo()" class="flex flex-wrap text-xs cursor-pointer text-gray-500">
+        <div  @click="dormInfo()" class="flex flex-wrap text-xs cursor-pointer text-gray-500 md:text-sm lg:text-base">
           <!-- Water Per Unit -->
           <div class="w-1/2 flex flex-row items-center">
             <img
@@ -228,12 +228,12 @@
           >
             <div class="flex justify-end">
               <span class="text-gray-400"
-                ><span class="text-xs">เริ่มต้นที่</span> ฿&nbsp;</span
+                ><span class="text-xs md:text-sm">เริ่มต้นที่</span> ฿&nbsp;</span
               >
               {{ minPrice }} - {{ maxPrice }}
             </div>
             <div class="flex justify-end">
-              <span class="text-black text-xs"
+              <span class="text-black text-xs md:text-sm"
                 >ค่าจองเริ่มต้นที่ ฿
                 <span class="text-error"
                   >{{ minDeposit }} - {{ maxDeposit }}</span

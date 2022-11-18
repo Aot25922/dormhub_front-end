@@ -33,12 +33,12 @@
         <!-- Address -->
         <div class="flex space-x-0 text-gray-500">
           <span class="material-symbols-outlined">location_on</span>
-          <p class="text-xs mt-1 px-1">
+          <p class="text-xs mt-1 px-1 md:text-sm">
             {{ dorm.address }}
           </p>
         </div>
         <!-- Water&Electric -->
-        <div class="flex flex-wrap text-xs cursor-pointer text-gray-500">
+        <div class="flex flex-wrap text-xs cursor-pointer text-gray-500 md:text-sm lg:text-base">
           <!-- Water Per Unit -->
           <div class="w-1/2 flex flex-row items-center">
             <img
