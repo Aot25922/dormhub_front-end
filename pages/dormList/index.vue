@@ -1,17 +1,7 @@
 <template>
   <div>
-    <div class="bg-ghostWhite px-5 py-12 xl:py-20 xl:px-52 2xl:px-96">
-      <div class="breadcrumbs text-gray-500 md:text-lg lg:text-xl">
-        <ul>
-          <li>หน้าหลัก</li>
-          <li>หอพัก</li>
-        </ul>
-      </div>
-      <h1 class="text-PrussianBlue font-bold text-3xl md:text-4xl lg:text-5xl">
-        หอพัก
-      </h1>
-    </div>
-    <div class="p-5 xl:pb-20 xl:px-52 2xl:px-96">
+	<ContentHeading pageName="หอพัก" headingName="หอพัก"/>
+    <div class="p-5 xl:pb-20 xl:px-52 2xl:px-[21rem]">
       <SearchBar @resetPage="page = 1" />
       <AllDormInfo
         class="my-5"

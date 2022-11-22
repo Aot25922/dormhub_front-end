@@ -29,13 +29,15 @@
           placeholder="ยืนยันรหัสผ่าน" v-model="confirmPassword" @blur="validateForm" @keypress.enter="submit" />
         <span class="text-imperialRed" v-if="passwordNotSame ">รหัสไม่ตรงกัน</span>
 
-        <div class="w-full flex flex-wrap mt-5">
-          <div class="w-1/2 px-1">
-            <nuxt-link to="/login" class="btn btn-ghost w-full">เข้าสู่ระบบ</nuxt-link>
-          </div>
+        <div class="w-full flex flex-wrap justify-end pt-5">
           <div class="w-1/2 px-1">
             <button class="btn btn-primary w-full" @click="nextFirstStep">ต่อไป</button>
           </div>
+        </div>
+		<div class="divider"></div>
+		<div class="text-gray-500 text-sm text-center">
+            มีบัญชีแล้ว? 
+			<nuxt-link to="/login" class="hover:text-info hover:delay-100 hover:duration-300 cursor-pointer underline-offset-2"><u>เข้าสู่ระบบ</u></nuxt-link>
         </div>
       </div>
 

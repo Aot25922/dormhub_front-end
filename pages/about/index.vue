@@ -1,20 +1,10 @@
 <template>
   <div>
-    <div class="bg-ghostWhite px-5 py-12 xl:py-20 xl:px-52 2xl:px-96">
-      <div class="breadcrumbs text-gray-500 md:text-lg lg:text-xl">
-        <ul>
-          <li>หน้าหลัก</li>
-          <li>เกี่ยวกับเรา</li>
-        </ul>
-      </div>
-      <h1 class="text-PrussianBlue font-bold text-3xl md:text-4xl lg:text-5xl">
-        เกี่ยวกับเรา
-      </h1>
-    </div>
+	<ContentHeading pageName="เกี่ยวกับเรา" headingName="เกี่ยวกับเรา"/>
 
-    <div class="py-20 px-5 xl:px-52 2xl:px-96">
+    <div class="py-20 px-5 xl:px-52 2xl:px-[20.5rem]">
       <div class="md:grid md:grid-cols-2">
-        <h1 class="text-black font-bold text-3xl md:text-4xl lg:text-5xl">
+        <h1 class="text-black font-bold md:flex md:items-center text-3xl md:text-4xl lg:text-5xl 2xl:pr-3">
           สาเหตุที่ควรเลือกใช้ Dorm Hub ของเรา
         </h1>
         <p class="text-gray-500 py-3 lg:text-lg">
@@ -25,7 +15,7 @@
       </div>
     </div>
 
-    <div class="p-5 md:flex md:flex-row md:pb-0 xl:px-52 2xl:px-96">
+    <div class="p-5 md:flex md:flex-row md:pb-0 xl:px-52 2xl:px-[20.5rem]">
       <h1
         class="text-3xl font-bold text-center py-5 md:text-4xl md:text-left lg:text-5xl"
       >
@@ -38,7 +28,7 @@
       >
     </div>
     <div
-      class="p-5 md:grid md:grid-cols-2 md:pb-0 md:pt-0 lg:grid-cols-3 lg:pb-20 xl:px-52 2xl:px-96"
+      class="p-5 md:grid md:grid-cols-2 md:pb-0 md:pt-0 lg:grid-cols-3 lg:pb-20 xl:px-52 2xl:px-[21rem]"
     >
       <DormInfo
         class="my-10 md:my-0"
@@ -48,7 +38,7 @@
       />
     </div>
 
-    <div class="p-5 md:py-20 xl:flex xl:flex-wrap xl:px-52 2xl:px-96">
+    <div class="p-5 md:py-20 xl:flex xl:flex-wrap xl:px-52 2xl:px-[20.5rem]">
       <div class="xl:py-5 xl:w-1/2">
         <h1 class="font-bold text-xl md:text-2xl lg:text-3xl">
           ขั้นตอนในการจองห้องพัก
@@ -101,7 +91,7 @@
         >
             {{ member.id }} {{ member.name }}
             <div>
-              <div class="px-5 indent-2 flex items-center">
+              <div class="indent-2 flex items-center">
                 <img
                   src="https://cdn-icons-png.flaticon.com/512/726/726623.png"
                   class="w-5 md:w-6 lg:w-7"

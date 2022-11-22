@@ -1,18 +1,7 @@
 <template>
   <div class="bg-gray-50" v-if="dorm">
-    <div class="bg-ghostWhite px-5 py-12 xl:py-20 xl:px-52 2xl:px-96">
-      <div class="breadcrumbs text-gray-500 md:text-lg lg:text-xl">
-        <ul>
-          <li>หน้าหลัก</li>
-          <li>หอพัก</li>
-        </ul>
-      </div>
-      <!-- Dorm Name Heading -->
-      <h1 class="text-PrussianBlue font-bold text-3xl md:text-4xl lg:text-5xl">
-        {{ dorm.name }}
-      </h1>
-    </div>
-    <div class="px-5 py-12 xl:py-20 xl:px-52 2xl:px-96">
+	<ContentHeading pageName="หอพัก" :headingName="dorm.name" />
+    <div class="px-5 py-12 xl:py-20 xl:px-52 2xl:px-[21rem]">
       <div v-if="dorm != null">
         <div class="bg-white drop-shadow-lg rounded-lg">
           <!-- Dorm Img -->

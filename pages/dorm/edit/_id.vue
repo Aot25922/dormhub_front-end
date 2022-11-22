@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-ghostWhite xl:px-52 2xl:px-96">
+  <div class="bg-ghostWhite xl:px-52 2xl:px-[21.rem]">
     <div class="py-5">
       <h1
         class="p-5 font-bold text-center text-xl md:text-2xl lg:text-3xl xl:text-4xl"

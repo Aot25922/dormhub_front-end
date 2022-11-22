@@ -1,13 +1,13 @@
 <template>
   <div>
     <ContentIntroduction />
-    <div class="p-5 md:flex md:flex-row md:pb-0 lg:px-20 lg:pt-20 xl:px-52 2xl:px-[22rem]">
+    <div class="p-5 md:flex md:flex-row md:pb-0 lg:px-20 lg:pt-20 xl:px-52 2xl:px-[20.5rem]">
       <h1 class="text-3xl font-bold text-center py-5 md:text-4xl md:text-left lg:text-5xl">หอพัก</h1>
       <nuxt-link to="/dormList" class="btn btn-secondary w-full py-3 md:w-1/4 md:ml-auto md:mt-4">ดูหอพักทั้งหมด</nuxt-link>
     </div>
 
     <!-- DormList -->
-      <div class="p-5 md:grid md:grid-cols-2 md:pb-0 md:pt-0 xl:grid-cols-3 lg:px-20 lg:pb-20 xl:px-52 2xl:px-[22rem]">
+      <div class="p-5 md:grid md:grid-cols-2 md:pb-0 md:pt-0 xl:grid-cols-3 lg:px-20 lg:pb-20 xl:px-52 2xl:px-[21rem]">
           <DormInfo class="my-10 md:my-0"
             v-for="dorm in dormList.slice(0, 2)"
             :dorm="dorm"
