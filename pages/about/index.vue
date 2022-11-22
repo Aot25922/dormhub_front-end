@@ -1,50 +1,24 @@
 <template>
   <div>
-    <div class="bg-ghostWhite px-5 py-12 xl:py-20 xl:px-52 2xl:px-96">
-      <div class="breadcrumbs text-gray-500 md:text-lg lg:text-xl">
-        <ul>
-          <li>หน้าหลัก</li>
-          <li>เกี่ยวกับเรา</li>
-        </ul>
-      </div>
-      <h1 class="text-PrussianBlue font-bold text-3xl md:text-4xl lg:text-5xl">
-        เกี่ยวกับเรา
-      </h1>
-    </div>
+	<ContentHeading pageName="เกี่ยวกับเรา" headingName="เกี่ยวกับเรา"/>
 
-    <div class="py-20 px-5 xl:px-52 2xl:px-96">
+    <div class="py-20 px-5 xl:px-52 2xl:px-[20.5rem]">
       <div class="md:grid md:grid-cols-2">
-        <h1 class="text-black font-bold text-3xl md:text-4xl">
+        <h1 class="text-black font-bold md:flex md:items-center text-3xl md:text-4xl lg:text-5xl 2xl:pr-3">
           สาเหตุที่ควรเลือกใช้ Dorm Hub ของเรา
         </h1>
-        <p class="text-gray-500 py-3">
+        <p class="text-gray-500 py-3 lg:text-lg">
           การย้ายเข้าหอพักแห่งใหม่นั้นนอกจากคุณจะต้องอ่านรายละเอียดภายในสัญญาเช่าให้ชัดเจนแล้ว
           มันก็ยังมีอีก 9 จุด ที่คุณจะต้องตรวจเช็คให้ดี
           เพื่อไม่ให้ตัวคุณเองต้องโดนค่าปรับจากเจ้าของหอพักในตอนที่คุณย้ายออก
         </p>
       </div>
-
-      <!-- <div class="stats shadow w-full stats-vertical md:stats-horizontal">
-        <div class="stat place-items-center">
-          <div class="stat-title text-PrussianBlue">Downloads</div>
-          <div class="stat-value text-PrussianBlue">31K</div>
-          <div class="stat-desc text-gray-500">From January 1st to February 1st</div>
-        </div>
-        <div class="stat place-items-center">
-          <div class="stat-title text-PrussianBlue">Users</div>
-          <div class="stat-value text-celadonBlue">4,200</div>
-          <div class="stat-desc text-gray-500">↗︎ 40 (2%)</div>
-        </div>
-        <div class="stat place-items-center">
-          <div class="stat-title text-PrussianBlue">New Registers</div>
-          <div class="stat-value text-gray-500">1,200</div>
-          <div class="stat-desc text-gray-500">↘︎ 90 (14%)</div>
-        </div>
-      </div> -->
     </div>
 
-    <div class="p-5 md:flex md:flex-row md:pb-0 xl:px-52 2xl:px-96">
-      <h1 class="text-3xl font-bold text-center py-5 md:text-4xl md:text-left">
+    <div class="p-5 md:flex md:flex-row md:pb-0 xl:px-52 2xl:px-[20.5rem]">
+      <h1
+        class="text-3xl font-bold text-center py-5 md:text-4xl md:text-left lg:text-5xl"
+      >
         หอพัก
       </h1>
       <nuxt-link
@@ -54,7 +28,7 @@
       >
     </div>
     <div
-      class="p-5 md:grid md:grid-cols-2 md:pb-0 md:pt-0 lg:grid-cols-3 lg:pb-20 xl:px-52 2xl:px-96"
+      class="p-5 md:grid md:grid-cols-2 md:pb-0 md:pt-0 lg:grid-cols-3 lg:pb-20 xl:px-52 2xl:px-[21rem]"
     >
       <DormInfo
         class="my-10 md:my-0"
@@ -64,7 +38,7 @@
       />
     </div>
 
-    <div class="p-5 md:py-20 xl:flex xl:flex-wrap xl:px-52 2xl:px-96">
+    <div class="p-5 md:py-20 xl:flex xl:flex-wrap xl:px-52 2xl:px-[20.5rem]">
       <div class="xl:py-5 xl:w-1/2">
         <h1 class="font-bold text-xl md:text-2xl lg:text-3xl">
           ขั้นตอนในการจองห้องพัก
@@ -83,7 +57,7 @@
                 {{ booking.id }}. {{ booking.name }}
               </h2>
               <p
-                class="text-gray-500 text-xs md:text-sm md:pr-10 xl:px-3"
+                class="text-gray-500 text-xs md:text-sm md:pr-10 lg:text-base xl:px-3"
               >
                 {{ booking.desc }}
               </p>
@@ -109,17 +83,24 @@
     <div class="py-10 px-5 xl:py-32 xl:px-52 2xl:px-96">
       <div class="rounded shadow-lg p-5">
         <h1 class="text-black font-bold text-3xl md:text-4xl">การติดต่อ</h1>
-        <!-- <p class="text-gray-500 py-3">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tortor
-          turpis, consequat non aliquet maximus, finibus id nisl. Mauris
-          volutpat commodo felis eu euismod.
-        </p> -->
-        <div>
-          <span class="material-icons-outlined">สมาชิก</span>
-          <p class="text-gray-500">62130500031 ธนทรัพย์ลีลาพิสุทธิ์</p>
-          <p class="text-gray-500">62130500033 ธนภัทร กัลกุล</p>
-          <p class="text-gray-500">62130500043 นิทัศน์ วาสนาพงษ์</p>
+        <div class="md:grid md:grid-cols-2 lg:grid-cols-3">
+		<div
+          class="py-5 text-gray-500"
+          v-for="member in members"
+          :key="member.id"
+        >
+            {{ member.id }} {{ member.name }}
+            <div>
+              <div class="indent-2 flex items-center">
+                <img
+                  src="https://cdn-icons-png.flaticon.com/512/726/726623.png"
+                  class="w-5 md:w-6 lg:w-7"
+                />
+                {{ member.email }}
+              </div>
+            </div>
         </div>
+		</div>
       </div>
     </div>
   </div>
@@ -148,6 +129,23 @@ export default {
           name: "ตรวจสอบสถานะการจอง",
           desc: "จากที่สถานะที่แสดงออกมา มี รอการยืนยัน รอการโอน ยืนยันการโอน หรือ ยกเลิก",
           img: "https://cdn-icons-png.flaticon.com/512/4436/4436481.png",
+        },
+      ],
+      members: [
+        {
+          id: 62130500031,
+          name: "ธนทรัพย์ ลีลาพิสุทธิ์",
+          email: "thanasap.lee@outlook.com",
+        },
+        {
+          id: 62130500033,
+          name: "ธนภัทร กัลกุล",
+          email: "Thanapat.Kal@outlook.co.th",
+        },
+        {
+          id: 62130500043,
+          name: "นิทัศน์ วาสนาพงษ์",
+          email: "Nithach.Vas@outlook.com",
         },
       ],
     };

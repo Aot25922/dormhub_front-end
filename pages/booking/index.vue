@@ -4,36 +4,36 @@
       <vs-table class="overflow-x-auto flex flex-col h-full justify-between">
         <template #thead class="flex justify-center">
           <vs-tr>
-            <vs-th> ชื่อหอพัก </vs-th>
-            <vs-th> ประเภทห้อง </vs-th>
-            <vs-th> ราคา </vs-th>
-            <vs-th> เลขห้อง </vs-th>
-            <vs-th> ภาพสลิป </vs-th>
-            <vs-th> วันที่เริ่มการเข้าพัก </vs-th>
-            <vs-th> วันที่สิ้นสุดการเข้าพัก </vs-th>
+            <vs-th> <p class="text-sm md:text-base lg:text-md">ชื่อหอพัก</p> </vs-th>
+            <vs-th> <p class="text-sm md:text-base lg:text-md">ประเภทห้อง</p> </vs-th>
+            <vs-th> <p class="text-sm md:text-base lg:text-md">ราคา</p> </vs-th>
+            <vs-th> <p class="text-sm md:text-base lg:text-md">เลขห้อง</p> </vs-th>
+            <vs-th> <p class="text-sm md:text-base lg:text-md">ภาพสลิป</p> </vs-th>
+            <vs-th> <p class="text-sm md:text-base lg:text-md">วันที่เริ่มการเข้าพัก</p> </vs-th>
+            <vs-th> <p class="text-sm md:text-base lg:text-md">วันที่สิ้นสุดการเข้าพัก</p> </vs-th>
             <vs-th v-if="$store.state.userAccount.role == 'Owner'">
-              ผู้จอง
+              <p class="text-sm md:text-base lg:text-md">ผู้จอง</p>
             </vs-th>
-            <vs-th> สถานะ </vs-th>
+            <vs-th> <p class="text-sm md:text-base lg:text-md">สถานะ</p> </vs-th>
           </vs-tr>
         </template>
-        <template #tbody v-if="bookingList" class="text-xs flex justify-center">
+        <template #tbody v-if="bookingList">
           <vs-tr
             :key="i"
             v-for="(tr, i) in $vs.getPage(bookingList, page, max)"
             :data="tr"
           >
             <vs-td>
-              {{ tr.room.roomType.dorms[0].name }}
+              <p class="text-sm md:text-base lg:text-md">{{ tr.room.roomType.dorms[0].name }}</p>
             </vs-td>
             <vs-td>
-              {{ tr.room.roomType.type }}
+              <p class="text-sm md:text-base lg:text-md">{{ tr.room.roomType.type }}</p>
             </vs-td>
             <vs-td>
-              {{ tr.room.roomType.dorms[0].dormHasRoomType.price }}
+              <p class="text-sm md:text-base lg:text-md">{{ tr.room.roomType.dorms[0].dormHasRoomType.price }}</p>
             </vs-td>
             <vs-td>
-              {{ tr.room.roomNum }}
+              <p class="text-sm md:text-base lg:text-md">{{ tr.room.roomNum }}</p>
             </vs-td>
             <vs-td>
               <div
@@ -86,29 +86,29 @@
               <div v-else>
                 <div
                   v-if="tr.status == 'รอการยืนยัน'"
-                  class="font-medium text-warning"
+                  class="font-medium text-warning text-sm md:text-base lg:text-md"
                 >
                   {{ tr.status }}
                 </div>
                 <div
                   v-if="tr.status == 'รอการโอน'"
-                  class="font-medium text-info"
+                  class="font-medium text-info text-sm md:text-base lg:text-md"
                 >
                   {{ tr.status }}
                 </div>
                 <div
                   v-if="tr.status == 'ยกเลิก'"
-                  class="font-medium text-error"
+                  class="font-medium text-error text-sm md:text-base lg:text-md"
                 >
                   {{ tr.status }}
                 </div>
               </div>
             </vs-td>
-            <vs-td class="lg:w-20">
-              {{ tr.startDate }}
+            <vs-td>
+              <p class="text-sm md:text-base lg:text-md">{{ tr.startDate }}</p>
             </vs-td>
             <vs-td>
-              {{ tr.endDate }}
+              <p class="text-sm md:text-base lg:text-md">{{ tr.endDate }}</p>
             </vs-td>
             <vs-td
               v-if="$store.state.userAccount.role == 'Owner'"
@@ -119,19 +119,19 @@
                   src="https://cdn-icons-png.flaticon.com/512/3934/3934228.png"
                   class="w-2 mr-1 md:w-3 lg:w-4"
                 />
-                {{ tr.userAccount.fname }} {{ tr.userAccount.lname }}
+                <p class="text-sm md:text-base lg:text-md">{{ tr.userAccount.fname }} {{ tr.userAccount.lname }}</p>
               </div>
               <div class="flex justify-start items-center py-3 break-words">
                 <img
                   src="https://cdn-icons-png.flaticon.com/512/726/726623.png"
                   class="w-2 mr-1 md:w-3 lg:w-4"
-                />{{ tr.userAccount.email }}
+                /><p class="text-sm md:text-base lg:text-md">{{ tr.userAccount.email }}</p>
               </div>
               <div class="flex justify-start items-center break-words">
                 <img
                   src="https://cdn-icons-png.flaticon.com/512/3014/3014736.png"
                   class="w-2 mr-1 md:w-3 lg:w-4"
-                />{{ tr.userAccount.phone }}
+                /><p class="text-sm md:text-base lg:text-md">{{ tr.userAccount.phone }}</p>
               </div>
             </vs-td>
 
@@ -167,7 +167,7 @@
                 class="flex items-center"
                 v-else-if="tr.status == 'รอการยืนยัน'"
               >
-                <div class="font-medium text-warning">{{ tr.status }}</div>
+                <div class="font-medium text-warning text-sm md:text-base lg:text-md">{{ tr.status }}</div>
                 <!-- Cancel Button Modal -->
                 <div class="px-5">
                   <button
@@ -208,7 +208,7 @@
                   </vs-dialog>
                 </div>
               </div>
-              <p v-else class="text-imperialRed font-medium">{{ tr.status }}</p>
+              <p v-else class="text-imperialRed font-medium text-sm md:text-base lg:text-md">{{ tr.status }}</p>
             </vs-td>
 
             <!-- Status Owner -->
@@ -275,20 +275,20 @@
               >
                 <div
                   v-if="tr.status == 'รอการโอน'"
-                  class="font-medium text-info"
+                  class="font-medium text-info text-sm md:text-base lg:text-md"
                 >
                   {{ tr.status }}
                 </div>
                 <div
                   v-if="tr.status == 'ยืนยันการโอน'"
-                  class="font-medium text-success"
+                  class="font-medium text-success text-sm md:text-base lg:text-md"
                 >
                   {{ tr.status }}
                 </div>
               </div>
               <div
                 v-else-if="tr.status == 'ยกเลิก'"
-                class="font-medium text-imperialRed"
+                class="font-medium text-imperialRed text-sm md:text-base lg:text-md"
               >
                 ยกเลิกการจองเเล้ว
               </div>

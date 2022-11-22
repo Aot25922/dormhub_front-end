@@ -1,18 +1,7 @@
 <template>
   <div class="bg-gray-50" v-if="dorm">
-    <div class="bg-ghostWhite px-5 py-12 xl:py-20 xl:px-52 2xl:px-96">
-      <div class="breadcrumbs text-gray-500 md:text-lg lg:text-xl">
-        <ul>
-          <li>หน้าหลัก</li>
-          <li>หอพัก</li>
-        </ul>
-      </div>
-      <!-- Dorm Name Heading -->
-      <h1 class="text-PrussianBlue font-bold text-3xl md:text-4xl lg:text-5xl">
-        {{ dorm.name }}
-      </h1>
-    </div>
-    <div class="px-5 py-12 xl:py-20 xl:px-52 2xl:px-96">
+	<ContentHeading pageName="หอพัก" :headingName="dorm.name" />
+    <div class="px-5 py-12 xl:py-20 xl:px-52 2xl:px-[21rem]">
       <div v-if="dorm != null">
         <div class="bg-white drop-shadow-lg rounded-lg">
           <!-- Dorm Img -->
@@ -53,7 +42,7 @@
           </client-only>
           <!-- Body -->
           <div class="p-5">
-            <h1 class="w-2/3 py-1 font-bold text-xl xl:text-3xl">
+            <h1 class="w-2/3 py-1 font-bold text-xl md:text-2xl lg:text-3xl">
               {{ dorm.name }}
             </h1>
             <hr class="w-full my-5" />
@@ -66,27 +55,31 @@
                   src="https://cdn-icons-png.flaticon.com/512/535/535137.png"
                   class="w-6 h-6 md:w-7 md:h-7 lg:w-8 xl:w-9 xl:h-9"
                 />
-                <span class="text-xs pl-2 xl:text-sm">{{ dorm.address }}</span>
+                <span class="text-xs pl-2 md:text-sm lg:text-base">{{
+                  dorm.address
+                }}</span>
               </div>
 
               <!-- Description -->
               <div
                 v-if="dorm.description"
-                class="w-full p-3 bg-ghostWhite my-3 rounded-lg shadow text-xs xl:text-sm"
+                class="w-full p-3 bg-ghostWhite my-3 rounded-lg shadow text-xs md:text-sm lg:text-base"
               >
-                <div>&emsp;"{{ dorm.description }}"</div>
+                <div class="indent-5">"{{ dorm.description }}"</div>
               </div>
 
               <hr class="w-full my-5" />
               <!-- This div covering WaterPerUnit to Time -->
-              <div class="flex flex-wrap text-xs text-gray-500 xl:text-sm">
+              <div
+                class="flex flex-wrap text-xs text-gray-500 md:text-sm lg:text-base"
+              >
                 <!-- Water Per Unit -->
                 <div class="p-3 w-1/2 flex flex-row items-center">
                   <img
                     src="https://cdn-icons-png.flaticon.com/512/3119/3119421.png"
-                    class="w-5 md:w-6 lg:w-7 xl:w-8"
+                    class="w-5 md:w-6 lg:w-7"
                   />
-                  <span class="pl-1 w-full font-medium"
+                  <span class="indent-1 w-full font-medium"
                     >฿ {{ dorm.waterPerUnit }} ต่อหน่วย</span
                   >
                 </div>
@@ -94,62 +87,70 @@
                 <div class="p-3 w-1/2 flex flex-row items-center">
                   <img
                     src="https://cdn-icons-png.flaticon.com/512/616/616660.png"
-                    class="w-5 md:w-6 lg:w-7 xl:w-8"
+                    class="w-5 md:w-6 lg:w-7"
                   />
-                  <span class="pl-1 w-full font-medium"
+                  <span class="indent-1 w-full font-medium"
                     >฿ {{ dorm.elecPerUnit }} ต่อหน่วย</span
                   >
                 </div>
 
                 <!-- Price -->
                 <div
-                  class="ml-3 flex flex-row items-center text-imperialRed font-medium text-lg md:m-0 md:p-3 md:w-1/2 xl:text-xl"
+                  class="ml-3 flex flex-row items-center text-imperialRed font-medium text-lg md:m-0 md:p-3 md:w-1/2 md:text-xl lg:text-2xl"
                 >
                   <span
-                    class="text-gray-400 text-xs flex items-center xl:text-sm"
+                    class="text-gray-500 indent-2 text-xs flex items-center md:text-sm lg:text-base"
                     ><img
                       src="https://cdn-icons-png.flaticon.com/512/2603/2603710.png"
-                      class="w-5 mr-2 md:w-6 lg:w-7 xl:w-8"
+                      class="w-5 md:w-6 lg:w-7"
                     />
                     ค่าเช่าต่อเดือน ฿&nbsp;</span
-                  >{{ lowPrice }} - {{ highPrice }}
+                  >
+                  <div v-if="lowPrice == highPrice">{{ highPrice }}</div>
+                  <div v-else>{{ lowPrice }} - {{ highPrice }}</div>
                 </div>
 
                 <!-- Deposit Room -->
                 <div
-                  class="ml-3 mt-3 flex flex-row items-center font-medium text-xs md:m-0 md:p-3 md:w-1/2 xl:text-sm"
+                  class="ml-3 mt-3 indent-2 flex flex-row items-center font-medium text-xs md:m-0 md:p-3 md:w-1/2 md:text-sm lg:text-base"
                 >
                   <img
                     src="https://cdn-icons-png.flaticon.com/512/2664/2664669.png"
-                    class="w-5 mr-2 md:w-6 lg:w-7 xl:w-8"
+                    class="w-5 md:w-6 lg:w-7"
                   />
                   ค่าจองห้องอยู่ระหว่าง ฿&nbsp;
-                  <span class="text-error"
-                    >{{ lowDeposit }} - {{ highDeposit }}</span
-                  >
+                  <span class="text-error text-lg md:text-xl lg:text-2xl"
+                    ><div v-if="lowDeposit == highDeposit">
+                      {{ highDeposit }}
+                    </div>
+                    <div v-else>{{ lowDeposit }} - {{ highDeposit }}</div>
+                  </span>
                 </div>
 
                 <!-- Area -->
                 <div
-                  class="flex flex-row items-end ml-3 mt-3 text-xs font-medium md:m-0 md:p-3 md:w-1/2 xl:text-sm"
+                  class="indent-2 flex flex-row items-end ml-3 mt-3 text-xs font-medium md:m-0 md:p-3 md:w-1/2 md:text-sm lg:text-base"
                 >
                   <span
                     ><img
                       src="https://cdn-icons-png.flaticon.com/512/8834/8834715.png"
-                      class="w-5 mr-2 md:w-6 lg:w-7 xl:w-8"
+                      class="w-5 md:w-6 lg:w-7"
                     />
                   </span>
-                  พื้นที่ห้อง {{ minArea }} - {{ maxArea }} ตารางเมตร
+                  พื้นที่ห้อง
+                  <div v-if="minArea == maxArea">{{ maxArea }}</div>
+                  <div v-else>{{ minArea }} - {{ maxArea }}</div>
+                  ตารางเมตร
                 </div>
 
                 <!-- Open/Close Time -->
                 <div
                   v-if="dorm.openTime != null || dorm.closeTime != null"
-                  class="flex items-center pt-2 ml-3 text-xs md:m-0 md:p-3 md:w-1/2 xl:text-sm"
+                  class="w-full indent-2 flex items-center pt-2 ml-3 text-xs md:m-0 md:p-3 md:w-1/2 md:text-sm lg:text-base"
                 >
                   <img
                     src="https://cdn-icons-png.flaticon.com/512/850/850960.png"
-                    class="w-5 mr-2 md:w-6 lg:w-7 xl:w-8"
+                    class="w-5 md:w-6 lg:w-7"
                   />
                   <span v-if="dorm.openTime != null"
                     >&nbsp;{{ dorm.openTime }} -</span
@@ -165,18 +166,16 @@
                   >
                 </div>
 
-                <!-- Floor&Rooms -->
-                <div class="p-3 w-full flex flex-wrap items-center font-medium">
-                  <!-- Floors -->
-                  <div></div>
+                <!-- Rooms -->
+                <div class="p-3 w-full flex flex-wrap items-center font-medium text-xs md:text-sm lg:text-base">
                   <!-- Idle Rooms/Rooms -->
                   <div class="flex flex-row items-center pl-1 w-full">
                     <img
                       src="https://cdn-icons-png.flaticon.com/512/2534/2534800.png"
-                      class="w-5 mr-2 md:w-6 lg:w-7 xl:w-8"
+                      class="w-5 mr-2 md:w-6 lg:w-7"
                     />
-                    จำนวนห้องพัก&nbsp;
-                    <div>
+                    จำนวนห้องพักที่ว่าง
+                    <div class="indent-2">
                       <!-- class="text-success" -->
                       {{ dorm.rooms.filter((x) => x.status == "ว่าง").length }}/
                     </div>
@@ -188,21 +187,21 @@
 
               <!-- Contact -->
               <h2
-                class="pt-2 font-bold flex flex-row items-center lg:text-lg 2xl:text-xl"
+                class="indent-1 pl-3 pt-2 font-bold flex flex-row items-center text-md md:text-lg lg:text-xl"
               >
                 <img
                   src="https://cdn-icons-png.flaticon.com/512/3188/3188217.png"
-                  class="w-7 md:w-8 xl:w-9"
+                  class="w-7 md:w-8 lg:w-9"
                 />&nbsp;การติดต่อเจ้าของหอพัก
               </h2>
-              <ul class="list-none text-xs xl:text-sm">
-                <li class="p-3 flex flex-row items-center">
+              <ul class="list-none text-xs md:text-sm lg:text-base pl-3">
+                <li class="p-3 flex flex-row items-center indent-2">
                   <img
                     src="https://cdn-icons-png.flaticon.com/512/726/726623.png"
                     class="w-5 md:w-6 lg:w-7"
                   />&nbsp;{{ dorm.userAccount.email }}
                 </li>
-                <li class="p-3 flex flex-row items-center">
+                <li class="p-3 flex flex-row items-center indent-2">
                   <img
                     src="https://cdn-icons-png.flaticon.com/512/3014/3014736.png"
                     class="w-5 md:w-6 lg:w-7"
@@ -215,29 +214,29 @@
 
         <!-- Banking -->
         <div class="my-5 bg-white rounded shadow">
-          <h1 class="p-5 font-bold text-xl">ช่องทางการชำระเงิน</h1>
+          <h1 class="p-5 font-bold text-lg md:text-xl lg:text-2xl">ช่องทางการชำระเงิน</h1>
           <vs-table>
             <template #thead>
               <vs-tr>
-                <vs-th> <p class="mx-auto">ลำดับ</p> </vs-th>
-                <vs-th> <p class="mx-auto">ชื่อบัญชี</p> </vs-th>
-                <vs-th> <p class="mx-auto">เลขบัญชี</p> </vs-th>
-                <vs-th> <p class="mx-auto">ธนาคาร</p> </vs-th>
+                <vs-th> <p class="mx-auto md:text-md lg:text-lg">ลำดับ</p> </vs-th>
+                <vs-th> <p class="mx-auto md:text-md lg:text-lg">ชื่อบัญชี</p> </vs-th>
+                <vs-th> <p class="mx-auto md:text-md lg:text-lg">เลขบัญชี</p> </vs-th>
+                <vs-th> <p class="mx-auto md:text-md lg:text-lg">ธนาคาร</p> </vs-th>
               </vs-tr>
             </template>
             <template #tbody>
               <vs-tr v-for="(bank, id) in dorm.bankAccounts" :key="id">
                 <vs-td class="w-1/6">
-                  <p class="text-center">{{ id + 1 }}</p>
+                  <p class="text-center md:text-md lg:text-lg">{{ id + 1 }}</p>
                 </vs-td>
                 <vs-td class="w-2/6">
-                  <p class="text-center">{{ bank.accountName }}</p>
+                  <p class="text-center md:text-md lg:text-lg">{{ bank.accountName }}</p>
                 </vs-td>
                 <vs-td class="w-1/6">
-                  <p class="text-center">{{ bank.accountNum }}</p>
+                  <p class="text-center md:text-md lg:text-lg">{{ bank.accountNum }}</p>
                 </vs-td>
                 <vs-td class="w-2/6">
-                  <p class="text-center">{{ bank.bank.name }}</p>
+                  <p class="text-center md:text-md lg:text-lg">{{ bank.bank.name }}</p>
                 </vs-td>
               </vs-tr>
             </template>
@@ -245,7 +244,7 @@
         </div>
         <!-- Roomtype -->
         <div class="my-5 bg-white rounded shadow">
-          <h1 class="p-5 font-bold text-xl">ประเภทห้องพัก</h1>
+          <h1 class="p-5 font-bold text-md md:text-lg lg:text-xl">ประเภทห้องพัก</h1>
           <div class="grid grid-cols-3 px-3 pb-5 xl:grid-cols-6">
             <div
               v-for="type in dorm.roomTypes"
