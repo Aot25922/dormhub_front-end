@@ -1,15 +1,9 @@
 <template>
   <!-- Using in dormList page -->
   <div>
-    <div
-      class="flex flex-wrap w-full rounded-lg shadow border my-2 hover:shadow-xl hover:duration-300"
-    >
+    <div class="allDorm-card">
       <!-- Img -->
-      <div
-        @click="dormInfo()"
-        v-if="checkDormImg"
-        class="relative float-left w-1/3 cursor-pointer"
-      >
+      <div @click="dormInfo()" v-if="checkDormImg" class="allDorm-clickImg">
         <img
           :src="
             $store.state.Backend_URL +
@@ -21,44 +15,37 @@
             $route.params.rand
           "
           @error="checkDormImg = false"
-          class="h-full object-cover md:w-full md:max-h-40 lg:max-h-72"
+          class="allDorm-imgSize"
         />
       </div>
 
       <!-- Error Img -->
-      <div
-        @click="dormInfo()"
-        v-else
-        class="relative float-left w-1/3 cursor-pointer"
-      >
+      <div @click="dormInfo()" v-else class="allDorm-clickImg">
         <img
           src="@/assets/error/noData.png"
-          class="h-full object-cover md:w-full md:max-h-40 lg:max-h-72"
+          class="allDorm-imgSize"
           alt="No Image"
         />
       </div>
 
       <!-- Info -->
-      <div class="p-2 pr-5 w-2/3 md:flex md:flex-col xl:py-5 xl:w-1/3">
+      <div class="allDorm-desDorm">
         <!-- Dorm name -->
-        <h2
-          @click="dormInfo()"
-          class="font-bold text-celadonBlue cursor-pointer hover:underline hover:underline-offset-auto hover:duration-300 md:pr-1 xl:p-0 xl:text-2xl"
-        >
+        <h2 @click="dormInfo()" class="allDorm-h2">
           {{ dorm.name }}
         </h2>
         <!-- Address -->
-        <div @click="dormInfo()" class="flex py-2 cursor-pointer text-gray-500 md:py-5 xl:text-sm">
+        <div @click="dormInfo()" class="allDorm-contAddr">
           <span class="material-symbols-outlined">location_on</span>
-          <p class="text-xs px-1 md:text-sm md:pr-44 xl:flex xl:items-center xl:p-0">
+          <p class="allDorm-Addr">
             {{ dorm.address }}
           </p>
         </div>
 
         <!-- Water&Electric -->
-        <div  @click="dormInfo()" class="flex flex-wrap text-xs cursor-pointer text-gray-500 md:text-sm lg:text-base">
+        <div @click="dormInfo()" class="allDorm-contParentWE">
           <!-- Water Per Unit -->
-          <div class="w-1/2 flex flex-row items-center">
+          <div class="allDorm-contWE">
             <img
               src="https://cdn-icons-png.flaticon.com/512/3119/3119421.png"
               class="w-5"
@@ -69,7 +56,7 @@
             >
           </div>
           <!-- Electric Per Unit-->
-          <div class="w-1/2 flex flex-row items-center">
+          <div class="allDorm-contWE">
             <img
               src="https://cdn-icons-png.flaticon.com/512/616/616660.png"
               class="w-5"
@@ -82,16 +69,19 @@
         </div>
 
         <!-- Room remainning -->
-        <div  @click="dormInfo()" class="pt-5 cursor-pointer flex justify-start md:justify-end xl:hidden">
+        <div @click="dormInfo()" class="allDorm-roomRem">
           <div class="badge badge-accent">
-            <div >มีห้องว่าง {{ dorm.rooms.filter((x) => x.status == "ว่าง").length }} ห้อง</div>
-			<!-- <div v-else>ไม่มีห้องว่างเหลือแล้ว!</div> -->
+            <div>
+              มีห้องว่าง
+              {{ dorm.rooms.filter((x) => x.status == "ว่าง").length }} ห้อง
+            </div>
+            <!-- <div v-else>ไม่มีห้องว่างเหลือแล้ว!</div> -->
           </div>
         </div>
 
         <!-- Beginning Price&Deposit Mobile to Ipad -->
         <div class="flex flex-col xl:hidden">
-          <div @click="dormInfo()" class="text-xl cursor-pointer ml-auto text-imperialRed font-medium md:pr-1">
+          <div @click="dormInfo()" class="allDorm-dep">
             <span class="text-black text-xs">ค่าเช่าเริ่มต้นที่ ฿&nbsp;</span>
             {{ minPrice }} - {{ maxPrice }}
           </div>
@@ -118,7 +108,7 @@
             <div class="pl-3 pr-1 py-3 w-4/5 xl:pb-0">
               <button
                 @click="dormInfo('edit')"
-                class="btn btn-warning w-full duration-300 ease-in-out"
+                class="allDorm-ownerbtn btn-warning"
               >
                 <span class="material-symbols-outlined"> border_color </span>
               </button>
@@ -128,12 +118,12 @@
             <div class="pl-1 pr-3 py-3 w-1/5 xl:pb-0">
               <button
                 @click="confirmDelete = true"
-                class="btn btn-accent w-full duration-300 ease-in-out"
+                class="allDorm-ownerbtn btn-accent"
               >
                 <span class="material-symbols-outlined"> delete </span>
               </button>
             </div>
-			<!-- Dialog Pop Up -->
+            <!-- Dialog Pop Up -->
             <vs-dialog class="font-Kanit" not-center v-model="confirmDelete">
               <template #header>
                 <h4>
@@ -142,19 +132,23 @@
               </template>
 
               <div class="con-content">
-				<b>ข้อกำหนดในการลบหอพัก :</b>
+                <b>ข้อกำหนดในการลบหอพัก :</b>
                 <ul class="list-inside list-decimal">
-                  <li>สถานะการจองห้องพักทั้งหมดต้องเป็น <span class="font-medium">"ยืนยันการโอน"</span> หรือ
+                  <li>
+                    สถานะการจองห้องพักทั้งหมดต้องเป็น
+                    <span class="font-medium">"ยืนยันการโอน"</span> หรือ
                     <span class="font-medium">"ยกเลิก"</span> เท่านั้น
                   </li>
                   <li>ข้อมูลที่ถูกลบไปเเล้วจะ<b>ไม่สามารถกู้คืนได้</b></li>
                 </ul>
-				<p>คุณยืนยันในการลบหรือไม่?</p>
+                <p>คุณยืนยันในการลบหรือไม่?</p>
               </div>
 
               <template #footer>
                 <div class="con-footer flex justify-end">
-                  <vs-button @click="deleteDorm" transparent> ยืนยัน </vs-button>
+                  <vs-button @click="deleteDorm" transparent>
+                    ยืนยัน
+                  </vs-button>
                   <vs-button @click="confirmDelete = false" dark transparent>
                     ยกเลิก
                   </vs-button>
@@ -166,10 +160,7 @@
       </div>
 
       <!-- Mobile to Ipad -->
-      <div
-        @click="dormInfo()"
-        class="flex items-center justify-end w-0 xl:hidden"
-      >
+      <div @click="dormInfo()" class="allDorm-arrrow">
         <span class="material-symbols-outlined"> arrow_forward_ios </span>
       </div>
 
@@ -190,7 +181,7 @@
                 $route.path.includes('dormList/owner')
               "
               @click="dormInfo('edit')"
-              class="btn btn-warning w-full duration-300 ease-in-out"
+              class="allDorm-ownerbtn btn-warning"
             >
               <span class="material-symbols-outlined"> border_color </span>
             </button>
@@ -204,31 +195,31 @@
                 $route.path.includes('dormList/owner')
               "
               @click="confirmDelete = true"
-              class="btn btn-accent w-full duration-300 ease-in-out"
+              class="allDorm-ownerbtn btn-accent"
             >
               <span class="material-symbols-outlined"> delete </span>
             </button>
-			<!-- Dialog line at 136-163 -->
+            <!-- Dialog line at 136-163 -->
           </div>
         </div>
       </div>
 
       <!-- 1440px to 4k -->
-      <div class="hidden xl:flex xl:w-1/3 xl:items-end border-l">
+      <div class="allDorm-cont">
         <div class="w-full flex flex-col p-5">
           <!-- Room remainning -->
           <div class="flex justify-end items-center">
             <div class="badge badge-accent">
-             มีห้องว่าง {{ dorm.rooms.filter((x) => x.status == "ว่าง").length }} ห้อง
+              มีห้องว่าง
+              {{ dorm.rooms.filter((x) => x.status == "ว่าง").length }} ห้อง
             </div>
           </div>
           <!-- Beginning Price&Deposit -->
-          <div
-            class="text-xl text-imperialRed font-medium flex flex-col justify-end py-5"
-          >
+          <div class="allDorm-priceDep">
             <div class="flex justify-end">
               <span class="text-gray-400"
-                ><span class="text-xs md:text-sm">เริ่มต้นที่</span> ฿&nbsp;</span
+                ><span class="text-xs md:text-sm">เริ่มต้นที่</span>
+                ฿&nbsp;</span
               >
               {{ minPrice }} - {{ maxPrice }}
             </div>
@@ -243,10 +234,7 @@
           </div>
 
           <div>
-            <button
-              @click="dormInfo()"
-              class="btn btn-primary w-full duration-300 ease-in-out hover:shadow-xl"
-            >
+            <button @click="dormInfo()" class="allDorm-info">
               รายละเอียดเพิ่มเติม
               <span class="material-symbols-outlined"> arrow_forward_ios </span>
             </button>

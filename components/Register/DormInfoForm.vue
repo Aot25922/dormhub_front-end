@@ -1,15 +1,15 @@
 <template>
   <div>
-    <div class="p-5 rounded-lg bg-neutral my-3 md:p-5 md:flex md:flex-wrap">
-      <h1 class="text-lg ml-2 mb-2 font-bold md:w-full">เกี่ยวกับหอพัก</h1>
+    <div class="infoForm-bg">
+      <h1 class="infoForm-h1">เกี่ยวกับหอพัก</h1>
       <div class="mb-2 md:px-1 md:w-full">
-        <label class="label-text text-gray-500 tracking-wide font-bold my-2"
+        <label class="form-label"
           >ชื่อหอพัก <span class="text-imperialRed">*</span></label
         >
         <input
           type="text"
           autofocus
-          class="py-4 px-2 w-full input input-sm md:input-md border-gray-200 rounded"
+          class="form-input"
           placeholder="แฮปปี้ดอร์ม"
           @blur="checkForm"
           v-model="dorm.name"
@@ -21,32 +21,30 @@
           กรุณากรอกชื่อหอพักไม่เกิน 50 ตัว
         </p>
       </div>
-      <div class="mb-5 md:px-1 md:w-1/2">
-        <label class="label-text text-gray-500 tracking-wide font-bold"
+      <div class="infoForm-cont">
+        <label class="form-label"
           >เวลาเปิด</label
         >
         <input
           type="time"
-          class="py-4 px-2 w-full input input-sm md:input-md border-gray-200 rounded"
+          class="form-input"
           placeholder="06.00"
           @blur="checkForm"
           v-model="dorm.openTime"
         />
       </div>
-      <div class="mb-5 md:px-1 md:w-1/2">
-        <label class="label-text text-gray-500 tracking-wide font-bold my-2"
-          >เวลาปิด</label
-        >
+      <div class="infoForm-cont">
+        <label class="form-label">เวลาปิด</label>
         <input
           type="time"
-          class="py-4 px-2 w-full input input-sm md:input-md border-gray-200 rounded"
+          class="form-input"
           placeholder="22.00"
           @blur="checkForm"
           v-model="dorm.closeTime"
         />
       </div>
-      <div class="mb-2 md:px-1 md:w-1/2">
-        <label class="label-text text-gray-500 tracking-wide font-bold my-2"
+      <div class="infoForm-cont">
+        <label class="form-label"
           >ค่าน้ำต่อหน่วย <span class="text-imperialRed">*</span></label
         >
         <input
@@ -54,15 +52,15 @@
           step="0.01"
           @blur="checkForm"
           v-model="dorm.waterPerUnit"
-          class="py-4 px-2 w-full input input-sm md:input-md border-gray-200 rounded"
+          class="form-input"
           placeholder="0.01 - 50.00"
         />
         <p v-if="!validateWater" class="text-imperialRed text-right mt-2">
           ใส่ค่าได้ตั้งแต่ 0.01 - 50.00
         </p>
       </div>
-      <div class="mb-2 md:px-1 md:w-1/2">
-        <label class="label-text text-gray-500 tracking-wide font-bold my-2"
+      <div class="infoForm-cont">
+        <label class="form-label"
           >ค่าไฟต่อหน่วย <span class="text-imperialRed">*</span></label
         >
         <input
@@ -70,7 +68,7 @@
           step="0.01"
           @blur="checkForm"
           v-model="dorm.elecPerUnit"
-          class="py-4 px-2 w-full input input-sm md:input-md border-gray-200 rounded"
+          class="form-input"
           placeholder="0.01 - 50.00"
         />
         <p
@@ -82,33 +80,21 @@
         </p>
       </div>
       <div class="mb-5 md:px-1 md:w-full">
-        <label class="label-text text-gray-500 tracking-wide font-bold my-2"
-          >ข้อมูลเพิ่มเติม</label
-        >
+        <label class="form-label">ข้อมูลเพิ่มเติม</label>
         <textarea
           v-model="dorm.description"
-          class="textarea border-gray-200 w-full"
           placeholder="คำอธิบายเพิ่มเติม"
         />
       </div>
       <div class="mb-5 md:px-1 md:w-full">
-        <label class="label-text text-gray-500 tracking-wide font-bold my-2"
+        <label class="form-label"
           >เลือกภาพปกที่ใช้แสดงบนหน้าเว็ป<span class="text-imperialRed"
             >*</span
           ></label
         >
         <input
           type="file"
-          class="
-            focus:outline-none
-            form-control
-            block
-            w-full
-            rounded
-            transition
-            ease-in-out
-            border-none
-          "
+          class="infoForm-upImg"
           @change="
             onFileChange($event);
             checkForm();
@@ -116,19 +102,16 @@
           multiple
         />
         <div>
-          <div
-            class="md:grid md:grid-cols-2 lg:grid lg:grid-cols-4"
-            v-if="dormImgUrl.length != 0"
-          >
+          <div class="infoForm-gridImg" v-if="dormImgUrl.length != 0">
             <img
               v-for="i in dormImgUrl"
               :key="i"
               :src="i"
-              class="py-2 md:p-2 md:max-h-80 md:max-w-full md:object-cover"
+              class="infoForm-img"
             />
           </div>
           <div
-            class="md:grid md:grid-cols-2 lg:grid lg:grid-cols-4"
+            class="infoForm-gridImg"
             v-else-if="
               dormImgUrl.length == 0 &&
               editForm &&
@@ -147,7 +130,7 @@
                 '/' +
                 i.mediaId
               "
-              class="py-2 md:p-2 md:max-h-80 md:max-w-full md:object-cover"
+              class="infoForm-img"
             />
           </div>
         </div>
@@ -157,7 +140,11 @@
       </div>
       <div class="py-5 w-full md:flex md:justify-end">
         <div class="md:w-1/2">
-          <button v-if="editForm" @click="submit()" class="btn btn-success w-full">
+          <button
+            v-if="editForm"
+            @click="submit()"
+            class="btn btn-success w-full"
+          >
             ยืนยันการเเก้ไขข้อมูล
           </button>
         </div>
@@ -187,17 +174,19 @@ export default {
       validateElec: false,
       validateWater: false,
       validateDormImg: false,
-      validateNameLength: false
+      validateNameLength: false,
     };
   },
   methods: {
     checkForm() {
-      this.validateNameLength = this.dorm.name.length <=50 ? true : false;
+      this.validateNameLength = this.dorm.name.length <= 50 ? true : false;
       this.validateName = this.dorm.name != "" ? true : false;
       this.validateOpenTime = this.dorm.openTime != "" ? true : false;
       this.validateCloseTime = this.dorm.closeTime != "" ? true : false;
       this.validateElec =
-        0 < this.dorm.elecPerUnit && this.dorm.elecPerUnit < 50.01 ? true : false;
+        0 < this.dorm.elecPerUnit && this.dorm.elecPerUnit < 50.01
+          ? true
+          : false;
       this.validateWater =
         0 < this.dorm.waterPerUnit && this.dorm.waterPerUnit < 50.01
           ? true

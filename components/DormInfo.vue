@@ -1,7 +1,7 @@
 <template>
   <!-- Using in Home page -->
   <div class="md:px-2">
-    <div class="card w-full shadow-xl my-5 md:h-[30rem] lg:h-[38rem] 2xl:h-[35rem]">
+    <div class="dorm-card">
       <figure v-if="checkDormImg" class="relative">
         <img
           :src="
@@ -14,13 +14,13 @@
             $route.params.rand
           "
           @error="checkDormImg = false"
-          class="w-full object-cover md:w-full md:max-h-40 lg:max-h-72"
+          class="dorm-imgSize"
         />
       </figure>
       <figure v-else class="relative">
         <img
           src="@/assets/error/noData.png"
-          class="h-full object-cover md:w-full md:max-h-40 lg:max-h-72"
+          class="h-full dorm-imgSize"
           alt="No Image"
         />
       </figure>
@@ -33,14 +33,14 @@
         <!-- Address -->
         <div class="flex space-x-0 text-gray-500">
           <span class="material-symbols-outlined">location_on</span>
-          <p class="text-xs mt-1 px-1 md:text-sm">
+          <p class="dorm-fontS mt-1 px-1">
             {{ dorm.address }}
           </p>
         </div>
         <!-- Water&Electric -->
-        <div class="flex flex-wrap text-xs cursor-pointer text-gray-500 md:text-sm lg:text-base">
+        <div class="dorm-contWE dorm-fontM">
           <!-- Water Per Unit -->
-          <div class="w-1/2 flex flex-row items-center">
+          <div class="dorm-flexWE">
             <img
               src="https://cdn-icons-png.flaticon.com/512/3119/3119421.png"
               class="w-5"
@@ -51,7 +51,7 @@
             >
           </div>
           <!-- Electric Per Unit-->
-          <div class="w-1/2 flex flex-row items-center">
+          <div class="dorm-flexWE">
             <img
               src="https://cdn-icons-png.flaticon.com/512/616/616660.png"
               class="w-5"
@@ -64,10 +64,7 @@
         </div>
         <!-- Beginning Price&Deposit Mobile to Ipad -->
         <div class="flex flex-col xl:hidden">
-          <div
-            @click="dormInfo()"
-            class="text-xl cursor-pointer ml-auto text-imperialRed font-medium md:pr-1"
-          >
+          <div @click="dormInfo()" class="dorm-dep">
             <span class="text-black text-xs">ค่าเช่าเริ่มต้นที่ ฿&nbsp;</span>
             {{ minPrice }} - {{ maxPrice }}
           </div>
@@ -81,12 +78,9 @@
           </div>
         </div>
         <div class="card-actions">
-          <button
-            @click="dormInfo()"
-            class="btn btn-ghost w-full duration-300 ease-in-out"
-          >
+          <button @click="dormInfo()" class="dorm-info">
             รายละเอียดเพิ่มเติม
-              <span class="material-symbols-outlined"> arrow_forward_ios </span>
+            <span class="material-symbols-outlined"> arrow_forward_ios </span>
           </button>
         </div>
       </div>
@@ -130,7 +124,7 @@ export default {
       }
       return Math.max(...maxvalue);
     },
-	minDeposit() {
+    minDeposit() {
       let minvalue = [];
       for (let i in this.dorm.roomTypes) {
         minvalue.push(this.dorm.roomTypes[i].dormHasRoomType.deposit);

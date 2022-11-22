@@ -1,62 +1,410 @@
-.agile--ssr .agile__slides > * {
-    overflow: hidden;
-    width: 0
-  }
-  
-  .agile--ssr .agile__slides > *:first-child {
-    display: block;
-    height: 500px;
-    -o-object-fit: cover;
-       object-fit: cover;
-    width: 100%;
-  }
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-  .agile__nav-button {
-    background: transparent;
-    border: none;
-    color: #fff;
-    cursor: pointer;
-    font-size: 24px;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    transition-duration: 0.3s;
-    width: 80px;
-  }
-  .agile__nav-button:hover {
-    background-color: rgba(0, 0, 0, 0.5);
-    opacity: 1;
-  }
-  .agile__nav-button--prev {
-    left: 0;
-  }
-  .agile__nav-button--next {
-    right: 0;
-  }
-  .agile__dots {
-    bottom: 10px;
-    left: 50%;
-    position: absolute;
-    transform: translateX(-50%);
-  }
-  .agile__dot {
-    margin: 0 10px;
-  }
-  .agile__dot button {
-    background-color: transparent;
-    border: 1px solid #fff;
-    border-radius: 50%;
-    cursor: pointer;
-    display: block;
-    height: 10px;
-    font-size: 0;
-    line-height: 0;
-    margin: 0;
-    padding: 0;
-    transition-duration: 0.3s;
-    width: 10px;
-  }
-  .agile__dot--current button, .agile__dot:hover button {
-    background-color: #fff;
-  }
-  
+body {
+	@apply bg-white text-black min-h-screen flex flex-col font-Kanit
+}
+
+textarea {
+	@apply textarea border-gray-200 w-full disabled:text-gray-400
+}
+
+.agile--ssr .agile__slides>* {
+	overflow: hidden;
+	width: 0
+}
+
+.agile--ssr .agile__slides>*:first-child {
+	display: block;
+	height: 500px;
+	-o-object-fit: cover;
+	object-fit: cover;
+	width: 100%;
+}
+
+.agile__nav-button {
+	background: transparent;
+	border: none;
+	color: #fff;
+	cursor: pointer;
+	font-size: 24px;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	transition-duration: 0.3s;
+	width: 80px;
+}
+
+.agile__nav-button:hover {
+	background-color: rgba(0, 0, 0, 0.5);
+	opacity: 1;
+}
+
+.agile__nav-button--prev {
+	left: 0;
+}
+
+.agile__nav-button--next {
+	right: 0;
+}
+
+.agile__dots {
+	bottom: 10px;
+	left: 50%;
+	position: absolute;
+	transform: translateX(-50%);
+}
+
+.agile__dot {
+	margin: 0 10px;
+}
+
+.agile__dot button {
+	background-color: transparent;
+	border: 1px solid #fff;
+	border-radius: 50%;
+	cursor: pointer;
+	display: block;
+	height: 10px;
+	font-size: 0;
+	line-height: 0;
+	margin: 0;
+	padding: 0;
+	transition-duration: 0.3s;
+	width: 10px;
+}
+
+.agile__dot--current button,
+.agile__dot:hover button {
+	background-color: #fff;
+}
+
+/* In DormForm, RoomTypeDes, RegisterAccount */
+.form-label {
+	@apply label-text text-gray-500 tracking-wide font-bold my-2
+}
+
+.form-input {
+	@apply py-4 px-2 w-full input input-sm md:input-md rounded border-gray-200 disabled:text-gray-400 disabled:bg-gray-800
+}
+
+/* Components */
+/* @/components/Content/Heading.vue */
+.heading-bg {
+	@apply bg-ghostWhite px-5 py-12 xl:py-20 xl:px-52 2xl:px-[21rem]
+}
+
+.heading-pathName {
+	@apply breadcrumbs text-gray-500 md:text-lg lg:text-xl
+}
+
+.heading-name {
+	@apply text-PrussianBlue font-bold text-3xl md:text-4xl lg:text-5xl
+}
+
+/* @/components/Content/Introduction.vue */
+.intro-bg {
+	@apply bg-ghostWhite py-20 px-5 lg:rounded-l-lg lg:pl-20
+}
+
+.intro-h1 {
+	@apply text-PrussianBlue font-bold text-3xl md:text-4xl lg:text-5xl md:pr-44
+}
+
+.intro-cross {
+	@apply divider divider-horizontal bg-PrussianBlue ml-0 my-5 text-PrussianBlue
+}
+
+.intro-des {
+	@apply py-5 md:pr-48 md:py-8 text-gray-500 lg:text-lg
+}
+
+.intro-img {
+	@apply hidden lg:block lg:w-1/3 lg:object-cover
+}
+
+/* @/components/Register */
+
+
+.selectWithDis {
+	@apply select w-full border-gray-200 disabled:text-gray-400
+}
+
+/* @/components/Register/DormAddressForm.vue */
+.addressForm-bg {
+	@apply p-5 bg-neutral rounded-lg my-3 md:p-5 md:flex md:flex-wrap
+}
+
+.addressForm-h1 {
+	@apply text-lg ml-2 mb-2 font-bold md:w-full
+}
+
+.addressForm-container {
+	@apply mb-5 md:px-1 md:w-1/2 lg:w-1/3
+}
+
+.addressForm-cont-sel {
+	@apply mb-5 md:px-1 md:w-1/2 lg:w-1/4
+}
+
+.addressForm-select {
+	@apply select w-full text-gray-500 border-gray-200
+}
+
+/* @/components/Register/DormInfoForm.vue */
+.infoForm-bg {
+	@apply p-5 rounded-lg bg-neutral my-3 md:p-5 md:flex md:flex-wrap
+}
+
+.infoForm-h1 {
+	@apply text-lg ml-2 mb-2 font-bold md:w-full
+}
+
+.infoForm-cont {
+	@apply mb-5 md:px-1 w-full md:w-1/2
+}
+
+.infoForm-upImg {
+	@apply form-control block w-full rounded transition ease-in-out border
+}
+
+.infoForm-gridImg {
+	@apply md:grid md:grid-cols-2 lg:grid lg:grid-cols-4
+}
+
+.infoForm-img {
+	@apply py-2 md:p-2 md:max-h-80 md:max-w-full md:object-cover
+}
+
+/* @/components/Register/DormPaymentForm.vue */
+.payForm-bg {
+	@apply border bg-neutral p-5 rounded-lg my-3 shadow-lg
+}
+
+.payForm-h1 {
+	@apply text-lg ml-2 mb-2 font-bold
+}
+
+.payForm-del {
+	@apply w-1/2 px-1 pt-6 md:w-1/4 md:flex md:justify-end
+}
+
+.payForm-numCount {
+	@apply text-gray-300 pt-1 font-bold text-xs md:text-sm
+}
+
+.payForm-cont {
+	@apply w-1/2 px-1 pt-6 md:w-1/4 md:flex md:justify-end
+}
+
+/* @/components/Register/DormRoomForm.vue */
+.roomForm-h1 {
+	@apply font-bold text-lg md:text-xl xl:text-2xl 2xl:text-3xl
+}
+
+.roomForm-ul {
+	@apply  py-5 text-sm space-y-5 md:text-base lg:text-lg xl:text-xl 2xl:space-y-10
+}
+
+.roomForm-bg {
+	@apply bg-neutral p-5 rounded-lg shadow-lg
+}
+
+.roomForm-floor {
+	@apply w-full p-1 md:w-1/5 md:flex md:items-end
+}
+
+.roomForm-floor-bg {
+	@apply rounded border shadow-lg p-5 mt-5 bg-neutral
+}
+
+.roomForm-floor-grid {
+	@apply w-full rounded-md p-3 relative grid grid-cols-3 md:grid-cols-5
+}
+
+.roomForm-countNum {
+	@apply text-gray-300 pt-1 font-bold text-xs md:text-sm
+}
+
+.roomForm-sel {
+	@apply select mb-5 w-full disabled:text-gray-400
+}
+
+.roomForm-del {
+	@apply hidden col-span-3 ml-auto md:col-span-1 md:inline py-10
+}
+
+/* @/components/Register/DormRoomtypeForm.vue */
+.typeForm-bg {
+	@apply p-5 bg-neutral rounded-lg mb-3 relative border shadow-lg lg:flex lg:flex-wrap
+}
+
+.typeForm-h1 {
+	@apply text-lg ml-2 mb-2 font-bold lg:w-full
+}
+
+.typeForm-upImg {
+	@apply  focus:outline-none form-control block w-full text-gray-500 rounded transition ease-in-out border-none
+}
+
+.typeForm-gridImg {
+	@apply md:grid md:grid-cols-2 lg:grid lg:grid-cols-4
+}
+
+.typeForm-imgSize {
+	@apply py-2 md:p-2 md:max-h-80 md:max-w-full md:object-cover
+}
+
+/* @/components/AllDormInfo.vue */
+.allDorm-card {
+	@apply flex flex-wrap w-full rounded-lg shadow border my-2 hover:shadow-xl hover:duration-300
+}
+
+.allDorm-imgSize {
+	@apply h-full object-cover md:w-full md:max-h-40 lg:max-h-72
+}
+
+.allDorm-clickImg {
+	@apply relative float-left w-1/3 cursor-pointer
+}
+
+.allDorm-contImg {
+	@apply relative float-left w-1/3 cursor-pointer
+}
+
+.allDorm-desDorm {
+	@apply p-2 pr-5 w-2/3 md:flex md:flex-col xl:py-5 xl:w-1/3
+}
+
+.allDorm-h2 {
+	@apply font-bold text-celadonBlue cursor-pointer hover:underline hover:underline-offset-auto hover:duration-300 md:pr-1 xl:p-0 xl:text-2xl
+}
+
+.allDorm-contAddr {
+	@apply flex py-2 cursor-pointer text-gray-500 md:py-5 xl:text-sm
+}
+
+.allDorm-Addr {
+	@apply text-xs px-1 md:text-sm md:pr-44 xl:flex xl:items-center xl:p-0
+}
+
+.allDorm-contParentWE {
+	@apply flex flex-wrap text-xs cursor-pointer text-gray-500 md:text-sm lg:text-base
+}
+
+.allDorm-contWE {
+	@apply w-1/2 flex flex-row items-center
+}
+
+.allDorm-roomRem {
+	@apply pt-5 cursor-pointer flex justify-start md:justify-end xl:hidden
+}
+
+.allDorm-dep {
+	@apply text-xl cursor-pointer ml-auto text-imperialRed font-medium md:pr-1
+}
+
+.allDorm-ownerbtn {
+	@apply btn btn-warning w-full duration-300 ease-in-out
+}
+
+.allDorm-arrrow {
+	@apply flex items-center justify-end w-0 xl:hidden
+}
+
+.allDorm-cont {
+	@apply hidden xl:flex xl:w-1/3 xl:items-end border-l
+}
+
+.allDorm-priceDep {
+	@apply text-xl text-imperialRed font-medium flex flex-col justify-end py-5
+}
+
+.allDorm-info {
+	@apply btn btn-primary w-full duration-300 ease-in-out hover:shadow-xl
+}
+
+/* @/components/DormInfo.vue */
+.dorm-card {
+	@apply card w-full shadow-xl my-5 md:h-[30rem] lg:h-[38rem] 2xl:h-[35rem]
+}
+
+.dorm-imgSize {
+	@apply w-full object-cover md:max-h-40 lg:max-h-72
+}
+
+.dorm-fontS {
+	@apply text-xs md:text-sm
+}
+
+.dorm-fontM {
+	@apply text-xs md:text-sm lg:text-base
+}
+
+.dorm-contWE {
+	@apply flex flex-wrap cursor-pointer text-gray-500
+}
+
+.dorm-flexWE {
+	@apply w-1/2 flex flex-row items-center
+}
+
+.dorm-dep {
+	@apply text-xl cursor-pointer ml-auto text-imperialRed font-medium md:pr-1
+}
+
+.dorm-info {
+	@apply btn btn-ghost w-full duration-300 ease-in-out
+}
+
+/* @/components/NavBar.vue */
+.nav-logo {
+	@apply font-bold text-PrussianBlue mr-auto cursor-pointer
+}
+
+.nav-hub {
+	@apply m-1 py-2 px-3 bg-PrussianBlue text-HoneyDew w-1/2 rounded-lg text-xl
+}
+
+/* @/components/RoomTypeDes.vue */
+.typeDes-bg {
+	@apply mt-2 bg-white drop-shadow-lg rounded-lg
+}
+
+.typeDes-slide {
+	@apply text-white block relative h-60 md:h-[480px] lg:h-[550px]
+}
+
+.typeDes-imgSize {
+	@apply object-cover object-center w-full h-full
+}
+
+.typeDes-des {
+	@apply w-full indent-2 p-3 bg-ghostWhite my-3 rounded-lg shadow text-xs md:text-sm lg:text-base
+}
+
+.typeDes-col {
+	@apply flex flex-row items-center
+}
+
+.typeDes-fontM {
+	@apply text-sm md:text-base
+}
+
+.typeDes-iconM {
+	@apply w-5 mr-2 md:w-6 lg:w-7
+}
+
+.typeDes-h1 {
+	@apply font-bold md:text-lg lg:text-xl p-5
+}
+
+/* @/components/SearchBar.vue */
+.search-bg {
+	@apply bg-white p-5 shadow rounded-xl md:flex md:flex-wrap md:p-8
+}
+
+.search-h1 {
+	@apply flex justify-start font-bold w-2/3 md:w-4/5 lg:text-lg
+}

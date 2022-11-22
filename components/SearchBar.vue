@@ -1,9 +1,9 @@
 <template>
   <!--  Search Bar with filter -->
-  <div class="bg-white p-5 shadow rounded-xl md:flex md:flex-wrap md:p-8">
+  <div class="search-bg">
     <div class="w-full py-2 md:px-2">
       <div class="pt-1 py-5 flex items-center">
-        <span class="flex justify-start font-bold w-2/3 md:w-4/5 md:text-md lg:text-lg">ค้นหาหอพักที่ต้องการ</span>
+        <span class="search-h1">ค้นหาหอพักที่ต้องการ</span>
         <!-- Advance Filter Button -->
         <div class="flex w-1/3 md:w-1/4 xl:w-1/5">
           <button
