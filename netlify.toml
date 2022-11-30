@@ -1,6 +1,6 @@
 [[headers]]
   for = "/*"
   [headers.values]
-    Access-Control-Allow-Origin = process.env.Server_URL
-    Access-Control-Allow-Credentials = true
+    Access-Control-Allow-Origin = "process.env.Server_URL"
+    Access-Control-Allow-Credentials = "true"
     X-Frame-Options = "DENY"
