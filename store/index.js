@@ -122,11 +122,11 @@ export const actions = {
         subDistrict: this.state.searchData.selectedSubDistrict.name_th,
         roomTypeDes: this.state.searchData.roomTypeDes,
         elecPerUnit:
-          this.state.searchData.maxElecPerUnit 
+          this.state.searchData.maxElecPerUnit
             ? [this.state.searchData.minElecPerUnit, this.state.searchData.maxElecPerUnit]
             : null,
         waterPerUnit:
-          this.state.searchData.maxWaterPerUnit 
+          this.state.searchData.maxWaterPerUnit
             ? [this.state.searchData.minWaterPerUnit, this.state.searchData.maxWaterPerUnit]
             : null,
         price: this.state.searchData.maxPrice  ? [this.state.searchData.minPrice, this.state.searchData.maxPrice] : null,
