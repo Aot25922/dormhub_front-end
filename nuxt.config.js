@@ -40,17 +40,14 @@ export default {
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
-    // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-    // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
 	  'nuxt-material-design-icons-iconfont',
     'cookie-universal-nuxt',
-    // 'nuxt-gmaps',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -61,7 +58,13 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    transpile: ['vue-agile']
+    transpile: ['vue-agile'],
+	postcss: {
+		plugins: {
+		  tailwindcss: {},
+		  autoprefixer: {},
+		},
+	  },
   },
   mounted: {
     routes() {

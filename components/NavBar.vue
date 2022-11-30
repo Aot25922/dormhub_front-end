@@ -1,9 +1,10 @@
 <template>
   <div class="navbar h-20 z-10 bg-white flex flex-row xl:px-48 2xl:px-80" :class="{ 'navbar--hidden': !showNavbar }">
-    <div class="font-bold text-PrussianBlue mr-auto cursor-pointer">
+    <div class="nav-logo">
       <NuxtLink to="/" class="flex flex-row px-3">
         <span class="mt-[15px]">Dorm</span>
-        <span class=" m-1 py-2 px-3 bg-PrussianBlue text-HoneyDew w-1/2 rounded-lg text-xl">hub</span></NuxtLink>
+        <span class="nav-hub">hub</span>
+	  </NuxtLink>
     </div>
 
   <!-- Navbar for Mobile to Ipad -->

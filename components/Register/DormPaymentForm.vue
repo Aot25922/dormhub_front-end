@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="border bg-neutral p-5 rounded-lg my-3 shadow-lg">
-      <h1 class="text-lg ml-2 mb-2 font-bold">เพิ่มช่องทางการชำระเงิน</h1>
+    <div class="payForm-bg">
+      <h1 class="payForm-h1">เพิ่มช่องทางการชำระเงิน</h1>
       <div>
         <div
           v-for="(bankAccount, index) in bankAccounts"
@@ -9,31 +9,31 @@
           class="relative flex flex-wrap"
         >
           <div class="w-1/2 px-1 md:w-1/4">
-            <label class="label-text tracking-wide font-bold my-2 text-gray-500"
+            <label class="form-label"
               >เลขบัญชี <span class="text-accent">*</span></label
             >
             <input
               type="text"
-              class="py-4 px-2 w-full input-md rounded border-gray-200 disabled:text-gray-400 disabled:bg-gray-800"
+              class="form-input"
               placeholder="101100000"
               maxlength="10"
               v-model="bankAccount.accountNum"
               @blur="validate(bankAccount)"
               :disabled="disableForm"
             />
-            <div class="text-gray-300 pt-1 font-bold text-xs md:text-sm">
+            <div class="payForm-numCount">
               <span v-text="10 - bankAccount.accountNum.length"></span>
               <span>/10</span>
             </div>
           </div>
 
           <div class="w-1/2 px-1 md:w-1/4">
-            <label class="label-text tracking-wide font-bold my-2 text-gray-500"
+            <label class="form-label"
               >ชื่อบัญชี <span class="text-accent">*</span></label
             >
             <input
               type="text"
-              class="py-4 mb-3 px-2 w-full input-md rounded border-gray-200 disabled:text-gray-400 disabled:bg-gray-800"
+              class="form-input mb-3"
               placeholder="เจ้าของบัญชี เท่มาก"
               v-model="bankAccount.accountName"
               @blur="validate(bankAccount)"
@@ -42,12 +42,12 @@
           </div>
 
           <div class="w-1/2 px-1 md:w-1/4">
-            <label class="label-text tracking-wide font-bold my-2 text-gray-500"
+            <label class="form-label"
               >ธนาคาร <span class="text-accent">*</span></label
             >
             <select
               v-model="bankAccount.bankId"
-              class="select w-full border-gray-200 disabled:text-gray-400"
+              class="selectWithDis"
               @click="validate(bankAccount)"
               :disabled="disableForm"
             >
@@ -65,7 +65,7 @@
             </p>
           </div>
 
-          <div class="w-1/2 px-1 pt-6 md:w-1/4 md:flex md:justify-end">
+          <div class="payForm-cont">
             <button
               @click="removeBankAccount(index)"
               class="btn btn-accent w-2/3"
@@ -94,15 +94,17 @@
         เเก้ไขข้อมูล
       </button>
     </div>
-    <div v-if="!disableForm && bankAccounts.length<5" class="flex items-center justify-center">
+    <div
+      v-if="!disableForm && bankAccounts.length < 5"
+      class="flex items-center justify-center"
+    >
       <!-- Mobile Button -->
       <button
-
         @click="
           bankAccounts.push({
             accountNum: '',
             accountName: '',
-			bankId: ''
+            bankId: '',
           })
         "
         class="btn btn-secondary p-5 w-full"
@@ -111,13 +113,9 @@
       </button>
     </div>
     <div class="py-5">
-    <button
-      v-if="editForm"
-      @click="submit()"
-      class="btn btn-success w-full"
-    >
-      ยืนยันการเเก้ไขข้อมูล
-    </button>
+      <button v-if="editForm" @click="submit()" class="btn btn-success w-full">
+        ยืนยันการเเก้ไขข้อมูล
+      </button>
     </div>
   </div>
 </template>
@@ -148,7 +146,7 @@ export default {
   },
   methods: {
     async submit() {
-      if(this.bankAccounts.length > 5){
+      if (this.bankAccounts.length > 5) {
         const noti = this.$vs.notification({
           progress: "auto",
           icon: `<i class='bx bx-error' ></i>`,
@@ -157,7 +155,7 @@ export default {
           title: "บัญชีของคุณเกิน 5 บัญชี",
           text: "จำกัดไม่เกิน 5 บัญชี",
         });
-        return
+        return;
       }
       for (let i in this.bankAccounts) {
         this.validate(this.bankAccounts[i]);

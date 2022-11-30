@@ -1,13 +1,9 @@
 <template>
   <div>
-    <div class="mt-2 bg-white drop-shadow-lg rounded-lg">
+    <div class="typeDes-bg">
       <client-only>
         <agile style="touch-action: none" v-if="checkRoomtypeImg">
-          <div
-            class="slide text-white block relative h-60 md:h-[480px] lg:h-[550px]"
-            v-for="i in media"
-            :key="i.mediaId"
-          >
+          <div class="slide typeDes-slide" v-for="i in media" :key="i.mediaId">
             <img
               :src="
                 $store.state.Backend_URL +
@@ -18,7 +14,7 @@
                 '/' +
                 roomType.roomTypeId
               "
-              class="object-cover object-center w-full h-full"
+              class="typeDes-imgSize"
               @error="checkRoomtypeImg = false"
             />
           </div>
@@ -34,51 +30,64 @@
         <div class="font-bold text-md md:text-lg lg:text-xl">
           ห้องพักประเภท : {{ roomType.type }}
         </div>
-        <div
-          v-if="roomType.description"
-          class="w-full indent-2 p-3 bg-ghostWhite my-3 rounded-lg shadow text-xs md:text-sm lg:text-base"
-        >
+        <div v-if="roomType.description" class="typeDes-des">
           "{{ roomType.description }}"
         </div>
         <div class="px-3">
           <vs-table>
             <template #tbody>
               <vs-tr>
-                <vs-td class="flex flex-row items-center">
+                <vs-td class="typeDes-col">
                   <img
                     src="https://cdn-icons-png.flaticon.com/512/2603/2603710.png"
-                    class="w-5 mr-2 md:w-6 lg:w-7"
-                  /><p class="text-sm md:text-base lg:text-md">ค่าเช่าต่อเดือน</p>
+                    class="typeDes-iconM"
+                  />
+                  <p class="typeDes-fontM">ค่าเช่าต่อเดือน</p>
                 </vs-td>
-                <vs-td><p class="text-sm md:text-base lg:text-md">฿ {{ roomType.dormHasRoomType.price }}</p> </vs-td>
+                <vs-td
+                  ><p class="typeDes-fontM">
+                    ฿ {{ roomType.dormHasRoomType.price }}
+                  </p>
+                </vs-td>
               </vs-tr>
               <vs-tr>
-                <vs-td class="flex flex-row items-center">
+                <vs-td class="typeDes-col">
                   <img
                     src="https://cdn-icons-png.flaticon.com/512/2664/2664669.png"
-                    class="w-5 mr-2 md:w-6 lg:w-7"
-                  /><p class="text-sm md:text-base lg:text-md">ค่าจองห้องพัก</p>
+                    class="typeDes-iconM"
+                  />
+                  <p class="typeDes-fontM">ค่าจองห้องพัก</p>
                 </vs-td>
-                <vs-td><p class="text-sm md:text-base lg:text-md">฿ {{ roomType.dormHasRoomType.deposit }}</p> </vs-td>
+                <vs-td
+                  ><p class="typeDes-fontM">
+                    ฿ {{ roomType.dormHasRoomType.deposit }}
+                  </p>
+                </vs-td>
               </vs-tr>
               <vs-tr>
-                <vs-td class="flex flex-row items-center">
+                <vs-td class="typeDes-col">
                   <img
                     src="https://cdn-icons-png.flaticon.com/512/8834/8834715.png"
-                    class="w-5 mr-2 md:w-6 lg:w-7"
-                  /><p class="text-sm md:text-base lg:text-md">ขนาดพื้นที่</p>
+                    class="typeDes-iconM"
+                  />
+                  <p class="typeDes-fontM">ขนาดพื้นที่</p>
                 </vs-td>
-                <vs-td><p class="text-sm md:text-base lg:text-md">{{ roomType.dormHasRoomType.area }} ตารางเมตร</p></vs-td>
+                <vs-td
+                  ><p class="typeDes-fontM">
+                    {{ roomType.dormHasRoomType.area }} ตารางเมตร
+                  </p></vs-td
+                >
               </vs-tr>
               <vs-tr>
-                <vs-td class="flex flex-row items-center">
+                <vs-td class="typeDes-col">
                   <img
                     src="https://cdn-icons-png.flaticon.com/512/2534/2534800.png"
-                    class="w-5 mr-2 md:w-6 lg:w-7 xl:w-8"
-                  /><p class="text-sm md:text-base lg:text-md">จำนวนห้องพัก</p>
+                    class="typeDes-iconM xl:w-8"
+                  />
+                  <p class="typeDes-fontM">จำนวนห้องพัก</p>
                 </vs-td>
                 <vs-td>
-                  <p class="text-sm md:text-base lg:text-md">
+                  <p class="typeDes-fontM">
                     {{
                       $store.state.selectedDorm.rooms.filter(
                         (x) => x.roomTypeId == roomType.roomTypeId
@@ -102,9 +111,10 @@
           <div>
             <!-- Choose Payment Banking -->
             <div>
-              <h3 class="font-bold md:text-md lg:text-lg">เลือกช่องทางการชำระเงิน</h3>
-              <label
-                class="label-text text-gray-500 tracking-wide font-bold my-2"
+              <h3 class="font-bold md:text-md lg:text-lg">
+                เลือกช่องทางการชำระเงิน
+              </h3>
+              <label class="form-label"
                 >ช่องทางการชำระเงิน
                 <span class="text-imperialRed">*</span></label
               >
@@ -127,22 +137,20 @@
             </div>
 
             <div class="py-3">
-              <label
-                class="label-text text-gray-500 tracking-wide font-bold my-2"
+              <label class="form-label"
                 >วันที่จะเริ่มเข้าพัก<span class="text-imperialRed"
                   >*</span
                 ></label
               >
               <input
                 type="Date"
-                class="py-4 px-2 w-full input input-sm md:input-md rounded border-gray-200"
+                class="form-input"
                 placeholder=""
                 v-model="startDate"
               />
             </div>
             <div>
-              <label
-                class="label-text text-gray-500 tracking-wide font-bold my-2"
+              <label class="form-label"
                 >จำนวนเดือนของการเข้าพัก<span class="text-imperialRed"
                   >*</span
                 ></label
@@ -151,7 +159,7 @@
                 min="1"
                 max="12"
                 type="number"
-                class="py-4 px-2 w-full input input-sm md:input-md rounded border-gray-200"
+                class="form-input"
                 placeholder="3"
                 v-model="endDate"
               />
@@ -171,7 +179,7 @@
       </div>
 
       <!-- Floor&Room List -->
-      <h1 class="font-bold text-md md:text-lg lg:text-xl p-5">
+      <h1 class="typeDes-h1">
         ข้อมูลห้องพัก
         <span class="text-gray-400 text-xs md:hidden"
           >(เลื่อนไปทางขวาเพื่อจอง)</span
@@ -180,10 +188,18 @@
       <vs-table>
         <template #thead>
           <vs-tr>
-            <vs-th> <p class="mx-auto text-sm md:text-base lg:text-md">ชั้น</p> </vs-th>
-            <vs-th> <p class="mx-auto text-sm md:text-base lg:text-md">เลขห้อง</p> </vs-th>
-            <vs-th> <p class="mx-auto text-sm md:text-base lg:text-md">สถานะ</p> </vs-th>
-            <vs-th> <p class="mx-auto text-sm md:text-base lg:text-md">หมายเหตุ</p> </vs-th>
+            <vs-th>
+              <p class="mx-auto typeDes-fontM">ชั้น</p>
+            </vs-th>
+            <vs-th>
+              <p class="mx-auto typeDes-fontM">เลขห้อง</p>
+            </vs-th>
+            <vs-th>
+              <p class="mx-auto typeDes-fontM">สถานะ</p>
+            </vs-th>
+            <vs-th>
+              <p class="mx-auto typeDes-fontM">หมายเหตุ</p>
+            </vs-th>
             <vs-th></vs-th>
           </vs-tr>
         </template>
@@ -194,22 +210,32 @@
             :data="room"
           >
             <vs-td class="w-1/6">
-              <p class="text-center text-sm md:text-base lg:text-md">{{ room.floors }}</p>
+              <p class="text-center typeDes-fontM">
+                {{ room.floors }}
+              </p>
             </vs-td>
             <vs-td class="w-1/6">
-              <p class="text-center text-sm md:text-base lg:text-md">{{ room.roomNum }}</p>
+              <p class="text-center typeDes-fontM">
+                {{ room.roomNum }}
+              </p>
             </vs-td>
             <vs-td class="w-1/6">
               <div v-if="room.status == 'ว่าง'" class="text-success">
-                <p class="text-center text-sm md:text-base lg:text-md">{{ room.status }}</p>
+                <p class="text-center typeDes-fontM">
+                  {{ room.status }}
+                </p>
               </div>
               <div v-else class="text-imperialRed">
-                <p class="text-center text-sm md:text-base lg:text-md">{{ room.status }}</p>
+                <p class="text-center typeDes-fontM">
+                  {{ room.status }}
+                </p>
               </div>
             </vs-td>
             <vs-td class="w-1/6">
               <div v-if="room.description">
-                <p class="text-center text-sm md:text-base lg:text-md">{{ room.description }}</p>
+                <p class="text-center typeDes-fontM">
+                  {{ room.description }}
+                </p>
               </div>
               <div v-else><p class="text-center">-</p></div>
             </vs-td>

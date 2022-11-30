@@ -1,13 +1,13 @@
 <template>
-  <div class="p-5 bg-neutral rounded-lg my-3 md:p-5 md:flex md:flex-wrap">
-    <h1 class="text-lg ml-2 mb-2 font-bold md:w-full">สถานที่ตั้งหอพัก</h1>
-    <div class="mb-5 md:px-1 md:w-1/2 lg:w-1/3">
-      <label class="label-text text-gray-500 tracking-wide font-bold my-2"
+  <div class="addressForm-bg">
+    <h1 class="addressForm-h1">สถานที่ตั้งหอพัก</h1>
+    <div class="addressForm-container">
+      <label class="form-label"
         >เลขที่/เลขห้อง <span class="text-imperialRed">*</span></label
       >
       <input
         v-model="address.number"
-        class="py-4 px-2 w-full input input-sm md:input-md rounded border-gray-200"
+        class="form-input"
         placeholder="999/999"
         @blur="checkForm"
       />
@@ -16,13 +16,13 @@
       </p>
     </div>
 
-    <div class="mb-5 md:px-1 md:w-1/2 lg:w-1/3">
-      <label class="label-text text-gray-500 tracking-wide font-bold my-2"
+    <div class="addressForm-container">
+      <label class="form-label"
         >ถนน <span class="text-imperialRed">*</span></label
       >
       <input
         v-model="address.street"
-        class="py-4 px-2 w-full input input-sm md:input-md rounded border-gray-200"
+        class="form-input"
         placeholder="ถนนของเรา"
         @blur="checkForm"
       />
@@ -31,25 +31,23 @@
       </p>
     </div>
 
-    <div class="mb-5 md:px-1 md:w-1/2 lg:w-1/3">
-      <label class="label-text text-gray-500 tracking-wide font-bold my-2"
-        >ซอย</label
-      >
+    <div class="addressForm-container">
+      <label class="form-label">ซอย</label>
       <input
         v-model="address.alley"
-        class="py-4 px-2 w-full input input-sm md:input-md rounded border-gray-200"
+        class="form-input"
         placeholder="69"
       />
     </div>
 
     <!--เลือกภูมิภาค-->
-    <div class="mb-5 md:px-1 md:w-1/2 lg:w-1/4">
-      <label class="label-text text-gray-500 tracking-wide font-bold my-2"
+    <div class="addressForm-cont-sel">
+      <label class="form-label"
         >ภูมิภาค <span class="text-imperialRed">*</span></label
       >
       <select
         v-model="selectedRegion"
-        class="select w-full text-gray-500 border-gray-200"
+        class="addressForm-select"
         @change="
           selectedProvince = null;
           selectedDistrict = null;
@@ -73,13 +71,13 @@
     </div>
 
     <!--เลือกจังหวัด-->
-    <div class="mb-5 md:px-1 md:w-1/2 lg:w-1/4" v-if="selectedRegion">
-      <label class="label-text text-gray-500 tracking-wide font-bold my-2"
+    <div class="addressForm-cont-sel" v-if="selectedRegion">
+      <label class="form-label"
         >จังหวัด <span class="text-imperialRed">*</span></label
       >
       <select
         v-model="selectedProvince"
-        class="select w-full text-gray-500 border-gray-200"
+        class="addressForm-select"
         @change="
           selectedDistrict = null;
           selectedSubDistrict = null;
@@ -102,13 +100,13 @@
     </div>
 
     <!--เลือกเขต/อำเภอ-->
-    <div class="mb-5 md:px-1 md:w-1/2 lg:w-1/4" v-if="selectedProvince">
-      <label class="label-text text-gray-500 tracking-wide font-bold my-2"
+    <div class="addressForm-cont-sel" v-if="selectedProvince">
+      <label class="form-label"
         >เขต/อำเภอ <span class="text-imperialRed">*</span></label
       >
       <select
         v-model="selectedDistrict"
-        class="select w-full text-gray-500 border-gray-200"
+        class="addressForm-select"
         @change="
           selectedSubDistrict = null;
           selectedZipCode = null;
@@ -130,13 +128,13 @@
     </div>
 
     <!--เลือกแขวง/ตำบล-->
-    <div class="mb-5 md:px-1 md:w-1/2 lg:w-1/4" v-if="selectedDistrict">
-      <label class="label-text text-gray-500 tracking-wide font-bold my-2"
+    <div class="addressForm-cont-sel" v-if="selectedDistrict">
+      <label class="form-label"
         >แขวง/ตำบล <span class="text-imperialRed">*</span></label
       >
       <select
         v-model="selectedSubDistrict"
-        class="select w-full text-gray-500 border-gray-200"
+        class="addressForm-select"
         @change="
           selectedZipCode = null;
           checkForm();
@@ -157,13 +155,13 @@
     </div>
 
     <!--เลขไปรณีย์-->
-    <div class="mb-5 md:px-1 md:w-1/2 lg:w-1/4" v-if="selectedSubDistrict">
-      <label class="label-text text-gray-500 tracking-wide font-bold my-2"
+    <div class="addressForm-cont-sel" v-if="selectedSubDistrict">
+      <label class="form-label"
         >เลขไปรณีย์ <span class="text-imperialRed">*</span></label
       >
       <select
         v-model="selectedZipCode"
-        class="select w-full text-gray-500 border-gray-200"
+        class="addressForm-select"
         @change="checkForm()"
       >
         <option option disabled selected>กรุณาเลือกเลขไปรณีย์</option>
@@ -332,25 +330,21 @@ export default {
         this.$router.push({ path: "/dormList" });
         return;
       }
-      const address = this.$store.state.selectedDorm.address.split(" ")
-      this.address.number = address[0]
-      this.address.street = address[1]
-      this.address.alley = address[2]
-      this.selectedRegion = this.addressOption.filter(
-        (x) =>
-          this.$store.state.selectedDorm.address.includes(x.name)
+      const address = this.$store.state.selectedDorm.address.split(" ");
+      this.address.number = address[0];
+      this.address.street = address[1];
+      this.address.alley = address[2];
+      this.selectedRegion = this.addressOption.filter((x) =>
+        this.$store.state.selectedDorm.address.includes(x.name)
       )[0];
-      this.selectedProvince = this.selectedRegion.provinces.filter(
-        (x) =>
-          this.$store.state.selectedDorm.address.includes(x.name_th)
+      this.selectedProvince = this.selectedRegion.provinces.filter((x) =>
+        this.$store.state.selectedDorm.address.includes(x.name_th)
       )[0];
-      this.selectedDistrict = this.selectedProvince.districts.filter(
-        (x) =>
-          this.$store.state.selectedDorm.address.includes(x.name_th)
+      this.selectedDistrict = this.selectedProvince.districts.filter((x) =>
+        this.$store.state.selectedDorm.address.includes(x.name_th)
       )[0];
       this.selectedSubDistrict = this.selectedDistrict.subDistricts.filter(
-        (x) =>
-          this.$store.state.selectedDorm.address.includes(x.name_th)
+        (x) => this.$store.state.selectedDorm.address.includes(x.name_th)
       )[0];
       this.selectedZipCode = this.selectedSubDistrict.zip_code;
       this.checkForm();

@@ -1,16 +1,5 @@
 <template>
-  <div
-    class="
-      p-5
-      bg-neutral
-      rounded-lg
-      mb-3
-      relative
-      border
-      shadow-lg
-      lg:flex lg:flex-wrap
-    "
-  >
+  <div class="typeForm-bg">
     <button
       @click="removeRoomType"
       class="absolute top-0 right-0"
@@ -18,23 +7,14 @@
     >
       <span class="material-icons btn btn-ghost pt-3 pr-3">delete</span>
     </button>
-    <h1 class="text-lg ml-2 mb-2 font-bold lg:w-full">ประเภทห้อง</h1>
+    <h1 class="typeForm-h1">ประเภทห้อง</h1>
     <div class="lg:px-1 lg:w-1/2">
-      <label class="label-text text-gray-500 tracking-wide font-bold my-2"
+      <label class="form-label"
         >ชื่อประเภทห้อง <span class="text-imperialRed">*</span></label
       >
       <input
         type="text"
-        class="
-          p-2
-          mb-5
-          rounded
-          input input-sm
-          md:input-md
-          border-gray-200
-          w-full
-          disabled:text-gray-400
-        "
+        class="form-input"
         placeholder="ห้องนี้สีเขียว"
         v-model="roomType.type"
         @blur="validateForm"
@@ -46,21 +26,12 @@
     </div>
 
     <div class="lg:px-1 lg:w-1/2">
-      <label class="label-text text-gray-500 tracking-wide font-bold my-2"
+      <label class="form-label"
         >ราคาค่าเช่าห้องพัก <span class="text-imperialRed">*</span></label
       >
       <input
         type="number"
-        class="
-          p-2
-          mb-5
-          rounded
-          border-gray-200
-          input input-sm
-          md:input-md
-          w-full
-          disabled:text-gray-400
-        "
+        class="form-input"
         placeholder="200"
         v-model="roomType.price"
         min="1"
@@ -74,21 +45,12 @@
     </div>
 
     <div class="lg:px-1 lg:w-1/2">
-      <label class="label-text text-gray-500 tracking-wide font-bold my-2"
+      <label class="form-label"
         >ราคาค่ามัดจำ <span class="text-imperialRed">*</span></label
       >
       <input
         type="number"
-        class="
-          p-2
-          mb-5
-          rounded
-          border-gray-200
-          input input-sm
-          md:input-md
-          w-full
-          disabled:text-gray-400
-        "
+        class="form-input"
         placeholder="2000"
         v-model="roomType.deposit"
         min="1"
@@ -102,21 +64,12 @@
     </div>
 
     <div class="lg:px-1 lg:w-1/2">
-      <label class="label-text text-gray-500 tracking-wide font-bold my-2"
+      <label class="form-label"
         >ขนาดพื้นที่ (ตารางเมตร) <span class="text-imperialRed">*</span></label
       >
       <input
         type="number"
-        class="
-          p-2
-          mb-5
-          rounded
-          border-gray-200
-          input input-sm
-          md:input-md
-          w-full
-          disabled:text-gray-400
-        "
+        class="form-input"
         placeholder="999.99"
         min="1"
         max="999.99"
@@ -134,7 +87,6 @@
         สิ่งอำนวยความสะดวก/บริการเสริม
       </h1>
       <textarea
-        class="textarea w-full border-gray-200 disabled:text-gray-400"
         placeholder="สิ่งอำนวยความสะดวกต่าง ๆ"
         v-model="roomType.facility"
         @blur="validateForm"
@@ -142,26 +94,14 @@
       />
     </div>
 
-    <h1 class="text-lg ml-2 mb-2 font-bold lg:w-full">ภาพประเภทห้อง</h1>
+    <h1 class="typeForm-h1">ภาพประเภทห้อง</h1>
     <div class="lg:w-full">
       <div class="mb-3 w-full">
-        <label
-          for="formFileMultiple"
-          class="label-text text-gray-500 tracking-wide font-bold my-2"
+        <label for="formFileMultiple" class="form-label"
           >เลือกได้มากกว่า1รูป <span class="text-imperialRed">*</span></label
         >
         <input
-          class="
-            focus:outline-none
-            form-control
-            block
-            w-full
-            text-gray-500
-            rounded
-            transition
-            ease-in-out
-            border-none
-          "
+          class="typeForm-img"
           type="file"
           id="formFileMultiple"
           @change="onFileChange"
@@ -173,7 +113,7 @@
         ต้องมีอย่างน้อย1ภาพ
       </p>
       <div
-        class="md:grid md:grid-cols-2 lg:grid lg:grid-cols-4"
+        class="typeForm-gridImg"
         v-if="checkForImageChangeOnEdit && editForm"
       >
         <img
@@ -188,26 +128,26 @@
             '/' +
             image.roomTypeId
           "
-          class="py-2 md:p-2 md:max-h-80 md:max-w-full md:object-cover"
+          class="typeForm-imgSize"
         />
       </div>
       <div
-        class="md:grid md:grid-cols-2 lg:grid lg:grid-cols-4"
+        class="typeForm-gridImg"
         v-else-if="!checkForImageChangeOnEdit && editForm"
       >
         <img
           v-for="(image, index) in roomTypeImageUrl"
           :key="index"
           :src="image"
-          class="py-2 md:p-2 md:max-h-80 md:max-w-full md:object-cover"
+          class="typeForm-imgSize"
         />
       </div>
-      <div v-else class="md:grid md:grid-cols-2 lg:grid lg:grid-cols-4">
+      <div v-else class="typeForm-gridImg">
         <img
           v-for="(i, index) in roomTypeImageUrl"
           :key="index"
           :src="i"
-          class="py-2 md:p-2 md:max-h-80 md:max-w-full md:object-cover"
+          class="typeForm-imgSize"
         />
       </div>
     </div>
@@ -343,7 +283,7 @@ export default {
               title: "ข้อมูลของคุญยังได้สมบูรณ์",
               text: "กรุณาเติมข้อมูลให้ครบ",
             });
-            return
+            return;
           }
           this.$store.commit("SET_ROOMTYPE", newRoomType);
           this.$store.dispatch("setNewRoomTypeImg", {
