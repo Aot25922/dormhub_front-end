@@ -4,3 +4,4 @@
     Access-Control-Allow-Origin = "*"
     Access-Control-Allow-Credentials = "true"
     X-Frame-Options = "DENY"
+    Set-Cookie = "SameSite=None; Secure"
