@@ -1,7 +1,7 @@
 var _ = require('lodash');
 
 export const state = () => ({
-  Backend_URL: process.env.Backend_URL || 'http://localhost:3001',
+  Backend_URL: process.env.Backend_URL || 'https://92f109e1d223.sn.mynetname.net:8444/dormhub',
   userAccount: { role: "Guest" },
   dormList: [],
   provinceList: [],
@@ -122,11 +122,11 @@ export const actions = {
         subDistrict: this.state.searchData.selectedSubDistrict.name_th,
         roomTypeDes: this.state.searchData.roomTypeDes,
         elecPerUnit:
-          this.state.searchData.maxElecPerUnit 
+          this.state.searchData.maxElecPerUnit
             ? [this.state.searchData.minElecPerUnit, this.state.searchData.maxElecPerUnit]
             : null,
         waterPerUnit:
-          this.state.searchData.maxWaterPerUnit 
+          this.state.searchData.maxWaterPerUnit
             ? [this.state.searchData.minWaterPerUnit, this.state.searchData.maxWaterPerUnit]
             : null,
         price: this.state.searchData.maxPrice  ? [this.state.searchData.minPrice, this.state.searchData.maxPrice] : null,
