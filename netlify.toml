@@ -1,0 +1,5 @@
+[[headers]]
+  for = "/path/to/directory/*"
+  [headers.values]
+    Access-Control-Allow-Origin: process.env.Server_URL
+    Access-Control-Allow-Credentials: true
