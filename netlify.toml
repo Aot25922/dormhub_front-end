@@ -1,7 +1,7 @@
 [[headers]]
   for = "/*"
   [headers.values]
-    Access-Control-Allow-Origin = "*"
-    Access-Control-Allow-Credentials = "true"
+    Referrer-Policy = "strict-origin-when-cross-origin"
     X-Frame-Options = "DENY"
-    Set-Cookie = "SameSite=None; Secure"
+    Cache-Control = "private, must-revalidate"
+    Content-Security-Policy = "frame-ancestors 'none'; form-action 'self';"
