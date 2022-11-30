@@ -1,7 +1,7 @@
 var _ = require('lodash');
 
 export const state = () => ({
-  Backend_URL: process.env.Backend_URL || 'https://92f109e1d223.sn.mynetname.net:8444/dormhub',
+  Backend_URL: process.env.Backend_URL || 'http://localhost:3001',
   userAccount: { role: "Guest" },
   dormList: [],
   provinceList: [],
