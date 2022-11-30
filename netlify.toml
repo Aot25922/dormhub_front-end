@@ -1,6 +1,6 @@
 [[headers]]
   for = "/*"
   [headers.values]
-    Access-Control-Allow-Origin: process.env.Server_URL
+    Access-Control-Allow-Origin: 'https://92f109e1d223.sn.mynetname.net', 'https://bom2321.thddns.net'
     Access-Control-Allow-Credentials: true
     X-Frame-Options = "DENY"
